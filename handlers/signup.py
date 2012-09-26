@@ -13,4 +13,4 @@ class SignUpHandler(BaseHandler):
 
     def get(self):
         """ Overload BaseHandler's HTTP GET. """
-        self.render("signup.html")
+        self.render("signup.html", xsrf_token=self.xsrf_token)
