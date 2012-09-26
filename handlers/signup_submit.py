@@ -3,7 +3,8 @@
 The signup form submission handler.
 
 """
-import re
+from model.user import User
+
 from base import BaseHandler
 
 
@@ -22,16 +23,8 @@ class SignUpSubmitHandler(BaseHandler):
         """ Overload BaseHandler's HTTP POST. """
         parameters = self._get_arguments()
 
-        # FIXME put this in model
-        first_name = parameters[FIRST_NAME]
-        last_name = parameters[LAST_NAME]
-        email = parameters[EMAIL]
-        credit_card_token = parameters[TOKEN]
-
-        print FIRST_NAME, first_name
-        print LAST_NAME, last_name
-        print EMAIL, email
-        print TOKEN, credit_card_token
+        new_user = User(parameters)
+        new_user.store()
 
         self.render("thankyou.html")
 

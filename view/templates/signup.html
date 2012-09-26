@@ -4,7 +4,7 @@
 {% block body %}
     <h2>Get the Jackalope</h2>
 
-    <form action="/signup/submit" method="POST" name="signup">
+    <form action="/signup/submit" method="POST" id="payment-form">
         <div class="form-row">
             <label>First Name</label>
             <input type="text" name="first-name" size="20" autocomplete="off" class="name"/>
@@ -18,15 +18,14 @@
             <input type="text" name="email" size="25" autocomplete="off"
                     class="email"/>
         </div>
+
         <input type="hidden" name="token" />
         <input type="hidden" name="_xsrf" value="{% raw xsrf_token %}" />
-    </form>
 
-    <form action="" method="POST" id="payment-form">
         <div class="form-row">
             <label>Card Number</label>
             <input type="text" size="20" autocomplete="off"
-            class="card-number" value="4117735002968066" />
+            class="card-number" value="4242424242424242" />
         </div>
         <div class="form-row">
             <label>CVC</label>
@@ -43,4 +42,6 @@
         </div>
         <button type="submit" class="submit-button">See Jack Run</button>
     </form>
+
+    <div class="payment-errors"></div>
 {% end %}
