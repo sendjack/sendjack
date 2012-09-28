@@ -1,0 +1,314 @@
+/***********************************************************
+*
+*   App: SendJack
+*   Version: 00.01
+*   
+************************************************************/
+
+/***********************************************************
+* COLOR DEFINITIONS
+************************************************************/
+@white: #ffffff;
+@beige: #fffdfd;
+@black: #000000;
+@grey: rgb(45, 105,150);
+@blue: rgb(0, 181, 255);
+
+@boxOpacity: 40%;
+
+
+/***********************************************************
+* SIZE DEFINITIONS
+************************************************************/
+@bodyFontSize: 19px;
+@big1FontSize: 1.9em;
+@big2FontSize: 1.4em;
+
+@normalLineHeight: 18px;
+@bigLineHeight: 27px;
+
+@pagePadding: 80px;
+@boxPadding: 80px;
+@linePadding: 4px;
+@buttonPadding: 30px;
+
+@normalRound: 4px;
+
+
+/***********************************************************
+* FONTS (with help from http://fontsquirrel.com)
+************************************************************/
+.headerFont(@fontSize: @big1FontSize) {
+    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-size: @fontSize;
+    font-weight: bold;
+}
+
+.normalFont(@fontSize: @bodyFontSize) {
+    font-family: 'Times New Roman', serif;
+    font-size: @fontSize;
+    font-weight: normal;
+}
+
+
+/***********************************************************
+* TEXT STYLE SETS
+************************************************************/
+.headerText() {
+    .headerFont;
+    color: @white;
+}
+
+.normalText() {
+    .normalFont;
+    color: @beige;
+    letter-spacing: 1px;
+}
+
+
+/***********************************************************
+* REUSABLE APP-SPECIFIC CLASSES
+************************************************************/
+/* Allows all objects that exist vertically on a page to create 
+the same border. */
+.page-border {
+    border-left: 2px solid @black;
+    border-right: 2px solid @black;
+}
+
+
+/* Add a light drop shadow below a box. */
+.drop-box-shadow(
+        @hShadow: 0px, 
+        @vShadow: 2px, 
+        @blur: 2px, 
+        @spread: -1px,
+        @alpha: .8) {
+    .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha);
+}
+
+/* Inner drop shadow. */
+.inner-box-shadow(
+        @hShadow: 0px,
+        @vShadow: 2px,
+        @blur: 1px,
+        @spread: 0px,
+        @alpha: 0.2) {
+    .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, inset);
+}
+    
+
+/* Emboss text slightly. */
+.emboss-text {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Header section needs to cut off long text. */
+.header-section {
+    overflow-y: hidden;
+}
+
+.form-element {
+    .border-radius(@normalRound);
+    .drop-box-shadow;
+    height: @bigLineHeight;
+    background-color: @white;
+    padding: @linePadding @linePadding;
+    border: 1px @beige solid;
+}
+
+
+/***********************************************************
+* REUSABLE GENERIC CLASSES
+************************************************************/
+/* Create columns with no spacing. */
+.columns (@number) {
+    column-count: @number;
+    -webkit-column-count: @number;
+    -moz-column-count: @number;
+    
+    column-rule: 0px;
+    -webkit-column-rule: 0px;
+    -moz-column-rule: 0px;
+
+    column-gap: 0px;
+    -webkit-column-gap: 0px;
+    -moz-column-gap: 0px;
+}
+
+/* Cross browser border-radius */
+.border-radius(@radius) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+/* Cross browser backgorund-size */
+.background-size(@width, @height) {
+    background-size: @width @height;
+    -moz-background-size: @width @height;
+    -webkit-background-size: @width @height;
+}
+
+/* Hide the content when using the background image for function. */
+.hidden-content {
+    line-height: 0px; 
+    font-size: 0px;
+    color: transparent; 
+}
+
+/* Add a box shadow. */
+.box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, @inset: ~"") {
+    -webkit-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
+        @inset;
+    -moz-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
+        @inset;
+    box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha) @inset;
+}
+
+/* Use a background-image in a consistent way. */
+.background-image-wrapper(
+        @width,
+        @height,
+        @imageSource,
+        @backgroundColor,
+        @repeat: no-repeat) {
+    width: @width;
+    height: @height;
+    background: url('/static/images/@{imageSource}') @backgroundColor @repeat;
+    // background size needs to be after the background it's sizing.
+    .background-size(@width, @height);
+}
+
+/* Center the background image in a consistent way. */
+.centered-image(@position, @width, @height) {
+    .horizontally-centered-image(@position, @width); 
+    .vertically-centered-image(@position, @height);
+}
+
+.vertically-centered-image(@position, @height) {
+    position: @position;
+    top: 50%;
+    margin-top: -(@height / 2);
+}
+
+.horizontally-centered-image(@position, @width) {
+    position: @position;
+    left: 50%;
+    margin-left: -(@width / 2);
+}
+
+.opacity(@value) {
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+    /* IE 5-7 */
+    @ieValue: @value * 100;
+    filter: alpha(opacity=@ieValue);
+
+    /* Netscape */
+    -moz-opacity: @value;
+
+    /* Safari 1.x */
+    -khtml-opacity: @value;
+
+    /* Good browsers */
+    opacity: @value;
+}
+
+
+/***********************************************************
+* IMPORTS
+************************************************************/
+@import "/static/css/reset.css";
+
+
+/***********************************************************
+* FRAMEWORK
+************************************************************/
+/* I like this box model better so deal with it. */
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html { 
+    background: url(/static/images/pageBackground.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    .normalText;
+    background-color: transparent;
+    .emboss-text;
+    line-height: @bigLineHeight;
+}
+
+header {
+    width: 100%;
+    height: 35px;
+    background-color: fade(@grey, @boxOpacity);
+
+}
+
+input, button {
+    .form-element;
+    text-align: center;
+    padding-left: @linePadding * 2;
+    padding-right: @linePadding * 2;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#main-logo {
+    .background-image-wrapper(
+        400px,
+        155px,
+        'logo.png',
+        transparent);
+}
+
+.logo-section {
+    float: left;
+    margin-left: @pagePadding;
+    margin-top: @pagePadding;
+}
+
+.signup-section {
+    float: right;
+    margin-right: @pagePadding;
+    margin-top: @pagePadding;
+    padding: @boxPadding;
+
+    background-color: fade(@grey, @boxOpacity);
+    line-height: @bigLineHeight;
+
+    form {
+        .form-row {
+            margin-bottom: 10px; 
+        }
+
+        .submit-button {
+            padding-left: @buttonPadding;
+            padding-right: @buttonPadding;
+            background-color: @blue;
+            border: 0px;
+            color: @beige;
+
+            &[disabled] {
+                color: fadeout(@beige, 20%);
+                background-color: darken(@blue, 20%);
+                cursor: default;
+            }
+        }
+
+    }
+
+}
+
