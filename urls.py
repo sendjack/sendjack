@@ -12,4 +12,5 @@ url_patterns = [
         (r"/", SignUpHandler),
         (r"/signup/submit", SignUpSubmitHandler),
         (r"/deck/", DeckHandler),
+        (r"/deck", DeckHandler),
         ]
