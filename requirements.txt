@@ -1,5 +1,10 @@
+# standard
 distribute==0.6.27
-requests==0.14.0
-stripe==1.7.4
-tornado==2.4
 wsgiref==0.1.2
+
+# standard
+tornado==2.4
+requests==0.14.2
+
+# sendjack
+stripe==1.7.5
