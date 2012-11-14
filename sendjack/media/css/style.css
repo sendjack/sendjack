@@ -1,16 +1,23 @@
 @import "/static/css/reset.css";
-.page-border{border-left:2px solid #000000;border-right:2px solid #000000;}
+@font-face{font-family:'GothamThin';src:url('fonts/gotham-thin-webfont.eot');src:url('fonts/gotham-thin-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/gotham-thin-webfont.woff') format('woff'), url('fonts/gotham-thin-webfont.ttf') format('truetype'), url('fonts/gotham-thin-webfont.svg#GothamThin') format('svg');font-weight:normal;font-style:normal;}@font-face{font-family:'GothamLight';src:url('fonts/gotham-light-webfont.eot');src:url('fonts/gotham-light-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/gotham-light-webfont.woff') format('woff'), url('fonts/gotham-light-webfont.ttf') format('truetype'), url('fonts/gotham-light-webfont.svg#GothamLight') format('svg');font-weight:normal;font-style:normal;}.hidden-content{line-height:0px;font-size:0px;color:transparent;}
 .emboss-text{text-shadow:0px -1px 0px rgba(0, 0, 0, 0.5);}
 .header-section{overflow-y:hidden;}
-.form-element{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;-webkit-box-shadow:0px 2px 2px -1px rgba(0, 0, 0, 0.8) ;-moz-box-shadow:0px 2px 2px -1px rgba(0, 0, 0, 0.8) ;box-shadow:0px 2px 2px -1px rgba(0, 0, 0, 0.8) ;height:27px;background-color:#ffffff;padding:4px 4px;border:1px #fffdfd solid;}
-.hidden-content{line-height:0px;font-size:0px;color:transparent;}
+.form-element{font-family:'GothamLight',sans-serif;font-size:35px;color:#231f20;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;height:60px;border:2px #a7a9ac solid;padding:4px 12px;background-color:#ffffff;}
 *{box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}
-html{background:url(/static/images/pageBackground.jpg) no-repeat center center fixed;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;}
-body{font-family:'Times New Roman',serif;font-size:19px;font-weight:normal;color:#fffdfd;letter-spacing:1px;background-color:transparent;text-shadow:0px -1px 0px rgba(0, 0, 0, 0.5);line-height:27px;}
-header{width:100%;height:35px;background-color:rgba(45, 105, 150, 0.4);}
-input,button{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;-webkit-box-shadow:0px 2px 2px -1px rgba(0, 0, 0, 0.8) ;-moz-box-shadow:0px 2px 2px -1px rgba(0, 0, 0, 0.8) ;box-shadow:0px 2px 2px -1px rgba(0, 0, 0, 0.8) ;height:27px;background-color:#ffffff;padding:4px 4px;border:1px #fffdfd solid;text-align:center;padding-left:8px;padding-right:8px;}
-button:hover{cursor:pointer;}
-#main-logo{width:400px;height:155px;background:url('/static/images/logo.png') transparent no-repeat;background-size:400px 155px;-moz-background-size:400px 155px;-webkit-background-size:400px 155px;}
-.logo-section{float:left;margin-left:80px;margin-top:80px;}
-.signup-section{float:right;margin-right:80px;margin-top:80px;padding:80px;background-color:rgba(45, 105, 150, 0.4);line-height:27px;}.signup-section form .form-row{margin-bottom:10px;}
-.signup-section form .submit-button{padding-left:30px;padding-right:30px;background-color:#00b5ff;border:0px;color:#fffdfd;}.signup-section form .submit-button[disabled]{color:rgba(255, 253, 253, 0.8);background-color:#006d99;cursor:default;}
+html{width:100%;height:100%;}
+body{font-family:'GothamLight',sans-serif;font-size:35px;color:#231f20;width:100%;height:100%;background-color:transparent;line-height:60px;}
+a{font-family:'GothamLight',sans-serif;font-size:30px;color:#a7a9ac;text-decoration:none;}a:active{color:#73767a;}
+header,section,footer{clear:both;width:100%;text-align:center;border-bottom:2px #a7a9ac solid;padding:60px 0px;}
+footer{float:left;padding:15px 250px;}footer .email-section{float:left;}
+footer .link-section{float:right;}
+input{font-family:'GothamLight',sans-serif;font-size:35px;color:#231f20;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;height:60px;border:2px #a7a9ac solid;padding:4px 12px;background-color:#ffffff;}
+button{border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;font-family:'GothamLight',sans-serif;font-size:50px;color:#ffffff;text-decoration:underline;text-transform:uppercase;width:100%;height:120px;border:0px;padding:30px;background-color:#1c75bc;}button:hover{cursor:pointer;}
+button:active{color:#cccccc;background-color:#0f3e63;}
+button[disabled]{color:#b3b3b3;background-color:rgba(28, 117, 188, 0.7);cursor:default;}
+#main-logo{width:236px;height:33px;background:url('/static/images/logo.png') transparent no-repeat;background-size:236px 33px;-moz-background-size:236px 33px;-webkit-background-size:236px 33px;-o-background-size:236px 33px;width:100%;background-position:center;}
+.focus-section{margin:0px;border:0px;padding:0px;margin-bottom:-21px;}.focus-section #focus{width:100%;height:auto;}
+.subheader-section{font-family:'GothamLight',sans-serif;font-size:30px;color:#231f20;text-transform:uppercase;}
+.signup-section{float:left;width:100%;padding:60px 250px;}.signup-section .payment-errors{display:none;background-color:#b1d6f3;margin-bottom:30px;}
+.signup-section form{float:left;width:100%;}.signup-section form .form-row{float:left;clear:both;width:100%;margin-bottom:15px;}.signup-section form .form-row label{float:left;}
+.signup-section form .form-row input{float:right;width:70%;text-align:left;}
+.signup-section form .submit-button{margin-top:60px;}

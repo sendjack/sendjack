@@ -2,53 +2,63 @@
 
 
 {% block body %}
-    <section class="logo-section">
-        <div id="main-logo"></div>
+    <section id="first_focus" class="focus-section">
+        <a href="#second-focus" class="scroll">
+            <img id="focus" src="/static/images/signUpFocus.jpg" width="3277px"
+                height="1746px" />
+        </a>
+    </section>
+    <section class="subheader-section" id="second-focus">
+        Let's get Jack on your team.
     </section>
     <section class="signup-section">
+        <div class="payment-errors"></div>
         <form action="/signup/submit" method="POST" id="payment-form">
             <div class="form-row">
-                <label>First Name</label>
-                <input type="text" name="first-name" size="20"
-                    autocomplete="off" class="first-name"/>
+                <label>First Name:</label>
+                <input type="text" name="first-name" maxlength="20"
+                    autocomplete="off" class="first-name" placeholder="Jack" />
             </div>
             <div class="form-row">
-                <label>Last Name</label>
-                <input type="text" name="last-name" size="20"
-                    autocomplete="off" class="last-name"/>
+                <label>Last Name:</label>
+                <input type="text" name="last-name" maxlength="20"
+                    autocomplete="off" class="last-name" placeholder="Lope" />
             </div>
             <div class="form-row">
-                <label>Email</label>
-                <input type="text" name="email" size="25" autocomplete="off"
-                    class="email"/>
+                <label>Email:</label>
+                <input type="text" name="email" maxlength="40" autocomplete="off"
+                    class="email" placeholder="jack@sendjack.com" />
             </div>
 
             <input type="hidden" name="token" />
             <input type="hidden" name="_xsrf" value="{% raw xsrf_token %}" />
 
             <div class="form-row">
-                <label>Credit Card #</label>
-                <input type="text" size="20" autocomplete="off"
-                class="card-number" value="4242424242424242" />
+                <label>Credit Card:</label>
+                <input type="text" maxlength="20" autocomplete="off"
+                    class="card-number" placeholder="5555555555555555" />
             </div>
             <div class="form-row">
-                <label>Exp. (MM/YYYY)</label>
-                <input type="text" size="2" class="card-expiry-month"
-                value="08" />
-                <span> / </span>
-                <input type="text" size="4" class="card-expiry-year"
-                value="2016" />
+                <label>Exp Month:</label>
+                <input type="text" maxlength="2" class="card-expiry-month"
+                    placeholder="MM" />
             </div>
             <div class="form-row">
-                <label>CVC</label>
-                <input type="text" size="4" autocomplete="off" class="card-cvc"
-                value="975" />
+                <label>Exp Year:</label>
+                <input type="text" maxlength="4" class="card-expiry-year"
+                    placeholder="YYYY" />
+            </div>
+            <div class="form-row">
+                <label>CVC:</label>
+                <input type="text" maxlength="3" autocomplete="off"
+                    class="card-cvc" placeholder="555" />
             </div>
             <button type="submit" class="submit-button" disabled="disabled">
-                Send Jack!
+                Send Jack
             </button>
         </form>
-        <div class="payment-errors"></div>
     </section>
-
+    <section class="subheader-section">
+        Send Jack tasks. See Jack run. Get work done.
+    </section>
 {% end %}

@@ -62,8 +62,11 @@ jackalope.payment = function ($, Stripe) {
         if (response.error) {
             // show the errors on the form
             console.log("errors");
-            $(".payment-errors").text(response.error.message);
+            $(".payment-errors").text(response.error.message).show();
             $(".submit-button").removeAttr("disabled");
+
+            var offset = $('#second-focus').offset().top;
+            $('html, body').animate({scrollTop:offset}, 1000);
         } else {
             var $form = $("#payment-form");
             // token contains id, last4, and card type
