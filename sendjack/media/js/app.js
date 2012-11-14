@@ -1,43 +1,24 @@
-
 /**
- * STRIPE
+ * Sign up application.
+ *
+ * @exports app
+ *
+ * @requires $
+ * @requires Stripe
  **/
 
-var PUBLISHABLE_DEV_KEY = "pk_gd3qjiAUdlUvLbjLqJsS5ApMRSQqO";
-var PUBLISHABLE_PROD_KEY = "";
+var jackalope = jackalope || {};
+jackalope.app = (function () {
 
-// this identifies your website in the createToken call below
-Stripe.setPublishableKey(PUBLISHABLE_DEV_KEY);
+    // remove imported libraries from global
+    jQuery.noConflict();
+    var stripeNoConflict = Stripe;
+    delete Stripe;
 
-$(document).ready(function() {
-  $("#payment-form").submit(function(event) {
-    // disable the submit button to prevent repeated clicks
-    $('.submit-button').attr("disabled", "disabled");
+    this.init = (function ($) {
+        $(document).ready(function() {
+            jackalope.payment($, stripeNoConflict);
+        });
+    }(jQuery));
 
-    Stripe.createToken({
-        number: $('.card-number').val(),
-        cvc: $('.card-cvc').val(),
-        exp_month: $('.card-expiry-month').val(),
-        exp_year: $('.card-expiry-year').val()
-    }, stripeResponseHandler);
-
-    // prevent the form from submitting with the default action
-    return false;
-  });
-});
-
-function stripeResponseHandler(status, response) {
-    if (response.error) {
-        // show the errors on the form
-        $(".payment-errors").text(response.error.message);
-        $(".submit-button").removeAttr("disabled");
-    } else {
-        var $form = $("#payment-form");
-        // token contains id, last4, and card type
-        var token = response['id'];
-        // insert the token into the form so it gets submitted to the server
-        $form.find('[name="token"]').val(token);
-        // and submit
-        $form.get(0).submit();
-    }
-}
+}());

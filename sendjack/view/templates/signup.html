@@ -9,16 +9,18 @@
         <form action="/signup/submit" method="POST" id="payment-form">
             <div class="form-row">
                 <label>First Name</label>
-                <input type="text" name="first-name" size="20" autocomplete="off" class="name"/>
+                <input type="text" name="first-name" size="20"
+                    autocomplete="off" class="first-name"/>
             </div>
             <div class="form-row">
                 <label>Last Name</label>
-                <input type="text" name="last-name" size="20" autocomplete="off" class="name"/>
+                <input type="text" name="last-name" size="20"
+                    autocomplete="off" class="last-name"/>
             </div>
             <div class="form-row">
                 <label>Email</label>
                 <input type="text" name="email" size="25" autocomplete="off"
-                        class="email"/>
+                    class="email"/>
             </div>
 
             <input type="hidden" name="token" />
@@ -42,7 +44,9 @@
                 <input type="text" size="4" autocomplete="off" class="card-cvc"
                 value="975" />
             </div>
-            <button type="submit" class="submit-button">Send Jack!</button>
+            <button type="submit" class="submit-button" disabled="disabled">
+                Send Jack!
+            </button>
         </form>
         <div class="payment-errors"></div>
     </section>

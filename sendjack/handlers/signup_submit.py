@@ -23,10 +23,14 @@ class SignUpSubmitHandler(BaseHandler):
         """ Overload BaseHandler's HTTP POST. """
         parameters = self._get_arguments()
 
-        new_user = User(parameters)
-        new_user.store()
+        try:
+            new_user = User(parameters)
+            new_user.store()
 
-        self.render("thankyou.html")
+            self.render("thankyou.html")
+        except KeyError as e:
+            print e
+            self.render("error.html")
 
 
     def _get_arguments(self):
