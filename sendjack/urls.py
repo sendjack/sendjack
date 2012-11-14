@@ -9,5 +9,5 @@ from handlers.signup_submit import SignUpSubmitHandler
 
 url_patterns = [
         (r"/", SignUpHandler),
-        (r"/signup/submit", SignUpSubmitHandler),
+        (r"/thankyou", SignUpSubmitHandler),
         ]

@@ -29,7 +29,9 @@ class SignUpSubmitHandler(BaseHandler):
 
             self.render("thankyou.html")
         except KeyError as e:
-            print e
+            self.render("error.html")
+        except Exception as e:
+            print type(e)
             self.render("error.html")
 
 
