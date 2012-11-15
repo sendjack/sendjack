@@ -1,23 +1,34 @@
-@import "/static/css/reset.css";
+html,body,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend{margin:0;padding:0;border:0;outline:0;font-weight:normal;font-style:normal;font-size:100%;vertical-align:baseline;}
+:focus{outline:0;}
+body{line-height:1.2;color:black;background:white;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+ol,ul{list-style:none;}
+table{border-collapse:separate;border-spacing:0;}
+caption,th,td{text-align:left;font-weight:normal;}
+blockquote:before,blockquote:after,q:before,q:after{content:"";}
+blockquote,q{quotes:"" "";}
+img{border:none;}
 @font-face{font-family:'GothamThin';src:url('fonts/gotham-thin-webfont.eot');src:url('fonts/gotham-thin-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/gotham-thin-webfont.woff') format('woff'), url('fonts/gotham-thin-webfont.ttf') format('truetype'), url('fonts/gotham-thin-webfont.svg#GothamThin') format('svg');font-weight:normal;font-style:normal;}@font-face{font-family:'GothamLight';src:url('fonts/gotham-light-webfont.eot');src:url('fonts/gotham-light-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/gotham-light-webfont.woff') format('woff'), url('fonts/gotham-light-webfont.ttf') format('truetype'), url('fonts/gotham-light-webfont.svg#GothamLight') format('svg');font-weight:normal;font-style:normal;}.hidden-content{line-height:0px;font-size:0px;color:transparent;}
 .emboss-text{text-shadow:0px -1px 0px rgba(0, 0, 0, 0.5);}
 .header-section{overflow-y:hidden;}
-.form-element{font-family:'GothamLight',sans-serif;font-size:35px;color:#231f20;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;height:60px;border:2px rgba(35, 31, 32, 0.6) solid;padding:4px 12px;background-color:#ffffff;}
+.form-element{font-family:'GothamLight',sans-serif;font-size:30px;color:#231f20;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;height:55px;border:2px rgba(35, 31, 32, 0.6) solid;padding:4px 12px;background-color:#ffffff;}
 *{box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}
 html{width:100%;height:100%;}
-body{font-family:'GothamLight',sans-serif;font-size:35px;color:#231f20;width:100%;height:100%;background-color:transparent;line-height:60px;}
-a{font-family:'GothamLight',sans-serif;font-size:30px;color:#a7a9ac;text-decoration:none;}a:active{color:#73767a;}
-header,section,footer{clear:both;width:100%;text-align:center;border-bottom:2px #a7a9ac solid;padding:60px 0px;}
-footer{float:left;padding:15px 250px;}footer .email-section{float:left;}
-footer .link-section{float:right;}
-input{font-family:'GothamLight',sans-serif;font-size:35px;color:#231f20;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;height:60px;border:2px rgba(35, 31, 32, 0.6) solid;padding:4px 12px;background-color:#ffffff;}
-button{border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;font-family:'GothamLight',sans-serif;font-size:50px;color:#ffffff;text-decoration:underline;text-transform:uppercase;width:100%;height:120px;border:0px;padding:30px;background-color:#1c75bc;}button:hover{cursor:pointer;}
+body{font-family:'GothamLight',sans-serif;font-size:30px;color:#231f20;width:100%;height:100%;background-color:transparent;}
+a{font-family:'GothamLight',sans-serif;font-size:25px;color:#a7a9ac;text-decoration:none;}a:active{color:#73767a;}
+header,section,footer{clear:both;width:100%;text-align:center;padding:50px 0px;}
+section{border-bottom:2px #a7a9ac solid;}
+footer{float:left;padding:15px 225px;}footer .email-section{float:left;}
+footer .link-section{float:right;}footer .link-section .facebook-icon{width:48px;height:48px;background:url('/static/images/iconFacebook.png') transparent no-repeat;background-size:48px 48px;-moz-background-size:48px 48px;-webkit-background-size:48px 48px;-o-background-size:48px 48px;float:right;}
+footer .link-section .twitter-icon{width:48px;height:48px;background:url('/static/images/iconTwitter.png') transparent no-repeat;background-size:48px 48px;-moz-background-size:48px 48px;-webkit-background-size:48px 48px;-o-background-size:48px 48px;float:right;}
+input{font-family:'GothamLight',sans-serif;font-size:30px;color:#231f20;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;height:55px;border:2px rgba(35, 31, 32, 0.6) solid;padding:4px 12px;background-color:#ffffff;}
+button{border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;font-family:'GothamLight',sans-serif;font-size:45px;color:#ffffff;text-decoration:underline;text-transform:uppercase;width:100%;height:110px;border:0px;padding:30px;background-color:#1c75bc;}button:hover{cursor:pointer;}
 button:active{color:#cccccc;background-color:#0f3e63;}
 button[disabled]{color:#b3b3b3;background-color:rgba(28, 117, 188, 0.7);cursor:default;}
 #main-logo{width:236px;height:33px;background:url('/static/images/logo.png') transparent no-repeat;background-size:236px 33px;-moz-background-size:236px 33px;-webkit-background-size:236px 33px;-o-background-size:236px 33px;width:100%;background-position:center;}
-.focus-section{margin:0px;border:0px;padding:0px;margin-bottom:-21px;}.focus-section #focus{width:100%;height:auto;}
-.subheader-section{font-family:'GothamLight',sans-serif;font-size:30px;color:#231f20;text-transform:uppercase;}
-.signup-section{float:left;width:100%;padding:60px 250px;}.signup-section .payment-errors{display:none;background-color:#b1d6f3;margin-bottom:30px;}
-.signup-section form{float:left;width:100%;}.signup-section form .form-row{float:left;clear:both;width:100%;margin-bottom:15px;}.signup-section form .form-row label{float:left;}
-.signup-section form .form-row input{float:right;width:70%;text-align:left;}
-.signup-section form .submit-button{margin-top:60px;}
+.focus-section{margin:0px;border:0px;padding:0px;}.focus-section #focus{width:100%;height:auto;}
+.subheader-section{font-family:'GothamLight',sans-serif;font-size:25px;color:#231f20;text-transform:uppercase;}
+.signup-section{float:left;width:100%;padding:50px 225px;}.signup-section .payment-errors{display:none;background-color:#b1d6f3;margin-bottom:30px;}
+.signup-section form{float:left;width:100%;}.signup-section form .form-row{float:left;clear:both;width:100%;margin-bottom:15px;line-height:55px;}.signup-section form .form-row label{float:left;}
+.signup-section form .form-row input{float:right;width:65%;text-align:left;}
+.signup-section form .submit-button{margin-top:50px;}

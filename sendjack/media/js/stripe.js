@@ -35,25 +35,18 @@ jackalope.payment = function ($, Stripe) {
             // disable the submit button to prevent repeated clicks
             $('.submit-button').attr("disabled", "disabled");
 
-            console.log($('.card-number').val());
-
-            Stripe.createToken({
-                number: $('.card-number').val(),
-                cvc: $('.card-cvc').val(),
-                exp_month: $('.card-expiry-month').val(),
-                exp_year: $('.card-expiry-year').val()
-            }, stripeResponseHandler);
+            // only submit a verified form
+            if (verifyForm()) {
+                Stripe.createToken({
+                    number: $('.card-number').val(),
+                    cvc: $('.card-cvc').val(),
+                    exp_month: $('.card-expiry-month').val(),
+                    exp_year: $('.card-expiry-year').val()
+                }, stripeResponseHandler);
+            }
 
             // prevent the form from submitting with the default action
             return false;
-        });
-
-        $('input').keyup(function () {
-            if (verifyForm()) {
-                $('.submit-button').removeAttr("disabled");
-            } else {
-                $('.submit-button').attr("disabled", "disabled");
-            }
         });
     })();
             

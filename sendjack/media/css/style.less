@@ -6,6 +6,12 @@
 ************************************************************/
 
 /***********************************************************
+* IMPORTS
+************************************************************/
+@import "reset";
+
+
+/***********************************************************
 * COLOR DEFINITIONS
 ************************************************************/
 @white: rgb(255, 255, 255);
@@ -19,17 +25,18 @@
 /***********************************************************
 * SIZE DEFINITIONS
 ************************************************************/
-@smallFontSize: 30px;
-@bodyFontSize: 35px;
-@bigFontSize: 50px;
+@smallFontSize: 25px;
+@bodyFontSize: 30px;
+@bigFontSize: 45px;
 
-@normalLineHeight: 60px;
+@smallLineHeight: @smallFontSize;
+@normalLineHeight: 55px;
 
 @textPadding: 4px;
 @linePadding: 15px;
 @buttonPadding: 30px;
-@boxPadding: 60px;
-@pagePadding: 250px;
+@boxPadding: 50px;
+@pagePadding: 225px;
 
 @normalBorder: 2px;
 @smallRound: 2px;
@@ -259,11 +266,13 @@
     background-color: @white;
 }
 
-
-/***********************************************************
-* IMPORTS
-************************************************************/
-@import "/static/css/reset.css";
+.icon(@picture_file) {
+    .background-image-wrapper(
+        48px,
+        48px,
+        @picture_file,
+        transparent);
+}
 
 
 /***********************************************************
@@ -286,7 +295,6 @@ body {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    line-height: @normalLineHeight;
 }
 
 a {
@@ -301,9 +309,11 @@ header, section, footer {
     clear: both;
     width: 100%;
     text-align: center;
-    border-bottom: @normalBorder @grey solid;
     padding: @boxPadding 0px;
-    
+}
+
+section {
+    border-bottom: @normalBorder @grey solid;
 }
 
 footer {
@@ -316,6 +326,16 @@ footer {
 
     .link-section {
         float: right;
+
+        .facebook-icon {
+            .icon('iconFacebook.png');
+            float: right;
+        }
+
+        .twitter-icon {
+            .icon('iconTwitter.png');
+            float: right;
+        }
     }
 }
 
@@ -350,6 +370,10 @@ button {
     }
 }
 
+/***********************************************************
+* COMPONENTS 
+************************************************************/
+
 #main-logo {
     .background-image-wrapper(
         236px,
@@ -364,9 +388,6 @@ button {
     margin: 0px;
     border: 0px;
     padding: 0px;
-
-    // remove extra space below picture
-    margin-bottom: -21px;
 
     #focus {
         width: 100%;
@@ -399,6 +420,7 @@ button {
             width: 100%;
 
             margin-bottom: @linePadding;
+            line-height: @normalLineHeight;
 
             label {
                 float: left;
@@ -406,7 +428,7 @@ button {
 
             input {
                 float: right;
-                width: 70%;
+                width: 65%;
                 text-align: left;
             }
         }
