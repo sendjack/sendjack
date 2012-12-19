@@ -31,7 +31,7 @@ class User(object):
 
     def store(self):
         """ Store a User's data. """
-        description = "{}{}".format(self.first_name, self.last_name)
+        description = "{} {}".format(self.first_name, self.last_name)
 
         # create a Customer
         customer = stripe.Customer.create(
