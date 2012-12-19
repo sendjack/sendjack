@@ -14,7 +14,7 @@ jackalope.payment = function ($, Stripe) {
     // TODO: Pull from a constants file
     var PUBLISHABLE_DEV_KEY = "pk_gd3qjiAUdlUvLbjLqJsS5ApMRSQqO";
     var PUBLISHABLE_PROD_KEY = "pk_W32hVKbXvAXcpskodZueIxA3QyGJ3";
-    var api_key = PUBLISHABLE_DEV_KEY;
+    var api_key = PUBLISHABLE_PROD_KEY;
 
     // Sign up form required fields
     var required_fields = [
