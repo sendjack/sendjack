@@ -91,6 +91,7 @@ class TaskTemplate(Base, APIBase):
 
     @property
     def price_range_str(self):
+        # TODO: convert to float.
         return "${} to ${} per hour".format(
                 self.min_price / 100,
                 self.max_price / 100)
