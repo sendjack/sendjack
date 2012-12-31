@@ -3,7 +3,7 @@
     task_template
     -------------
 
-    Define a CRUD interface for a TaskTemplate.
+    Define the TaskTemplate table and its CRUD interface.
 
 """
 from sqlalchemy import Column, Integer, String, DateTime
@@ -84,14 +84,6 @@ class TaskTemplate(Base, APIBase):
 
 
     @property
-    def id(self):
-        return self.id
-
-    @property
-    def name(self):
-        return self.name
-
-    @property
     def price_range(self):
         return (self.min_price, self.max_price)
 
@@ -130,42 +122,14 @@ class TaskTemplate(Base, APIBase):
         return "{} to {} rating".format(self.min_score, self.max_score)
 
     @property
-    def location(self):
-        return self.location
-
-    @property
-    def location_radius(self):
-        return self.location_radius
-
-    @property
     def location_range_str(self):
         return "within {} miles of {}".format(
                 self.location_radius,
                 self.location)
 
     @property
-    def output_type(self):
-        return self.output_type
-
-    @property
-    def output_method(self):
-        return self.output_method
-
-    @property
     def output_str(self):
         return "{} via {}".format(self.output_type, self.output_method)
-
-    @property
-    def steps(self):
-        return self.steps
-
-    @property
-    def rules(self):
-        return self.rules
-
-    @property
-    def custom_properties(self):
-        return self.custom_properties
 
     def has_custom_property(self, tag):
         return tag in self.custom_properties
@@ -174,32 +138,16 @@ class TaskTemplate(Base, APIBase):
         return self.custom_properties[tag]
 
     @property
-    def category_tags(self):
-        return self.category_tags
-
-    @property
     def category_str(self):
         return ", ".join(self.category_tags)
-
-    @property
-    def industry_tags(self):
-        return self.industry_tags
 
     @property
     def industry_str(self):
         return ", ".join(self.industry_tags)
 
     @property
-    def skill_tags(self):
-        return self.skill_tags
-
-    @property
     def skill_str(self):
         return ", ".join(self.skill_tags)
-
-    @property
-    def equipment_tags(self):
-        return self.equipment_tags
 
     @property
     def equipment_str(self):
