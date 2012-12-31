@@ -34,6 +34,10 @@ class TaskTemplate(Base, APIBase):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
 
+    # TODO: figure out editor_ids (many-to-many relationship).
+    # TODO: figure out foreign key.
+    creator_id = Column(Integer, nullable=False)
+
     # TODO: will it cause problems for timestamps to be null?
     created_ts = Column(DateTime, nullable=False)
     updated_ts = Column(DateTime, nullable=False)
@@ -67,16 +71,14 @@ class TaskTemplate(Base, APIBase):
     output_type = Column(String, nullable=False)
     output_method = Column(String, nullable=False)
 
-    # TODO: figure out what rules means.
-    # lists of free-form text
+    # list of free-form text
     steps = Column(String, nullable=False)
-    rules = Column(String)
 
-    # dict whose keys are tags and can be substitutions in steps and rules
+    # dict whose keys are tags and can be substitutions in steps
     custom_properties = Column(String)
 
     # TODO: define some default tags for each.
-    # lists whose split values can be substitutions in steps and rules
+    # lists whose split values can be substitutions in steps
     category_tags = Column(String)
     industry_tags = Column(String)
     skill_tags = Column(String)
