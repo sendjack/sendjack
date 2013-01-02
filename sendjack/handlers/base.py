@@ -1,4 +1,6 @@
-""" Module: base
+"""
+    base
+    ----
 
 Provide our base class for all Handlers in the Controller. In reality,
 this subclasses tornado.web.RequestHandler to get all of Tornado's
