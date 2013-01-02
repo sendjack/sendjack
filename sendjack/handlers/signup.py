@@ -1,6 +1,8 @@
-""" Module: signup
+"""
+    signup
+    ------
 
-The basic signup page.
+A handler for the signup page.
 
 """
 from base import BaseHandler
