@@ -1,31 +1,31 @@
 """
 
-    customer
-    --------
+    customers
+    ---------
 
-    Define the Customer table and its CRUD interface.
+    Define the customers table.
 
 """
 from sqlalchemy import Column, Integer, String, DateTime
-from data.sqlalchemy_db import Base
 
 from util.decorators import constant
 
-from base import APIBase
+from sqlalchemy_db import Table
+from cruds import CRUDS
 
 
-class _Customer(object):
+class _Customers(object):
 
     @constant
     def TABLE_NAME(self):
-        return "customer"
+        return "customers"
 
-CUSTOMER = _Customer()
+CUSTOMERS = _Customers()
 
 
-class Customer(Base, APIBase):
+class CustomersTable(Table, CRUDS):
 
-    __tablename__ = CUSTOMER.TABLE_NAME
+    __tablename__ = CUSTOMERS.TABLE_NAME
 
     # TODO: maybe but probably not since it could make the ORM confusing:
     # - abstract fields common to all db-backed objects into ORM subclass
@@ -47,11 +47,3 @@ class Customer(Base, APIBase):
     status = Column(String, nullable=False)
 
     # TODO: figure out foreign keys.
-
-    @property
-    def full_name(self):
-        return "{} {}".format(self.first_name, self.last_name)
-
-    @property
-    def short_name(self):
-        return "{} {}".format(self.first_name, self.last_name[0])

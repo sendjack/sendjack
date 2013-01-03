@@ -6,7 +6,7 @@
 
 """
 from base import BaseHandler
-from model.test import Test
+from model.data.test import TestTable
 
 
 class TestHandler(BaseHandler):
@@ -14,6 +14,6 @@ class TestHandler(BaseHandler):
 
     def get(self):
 
-        test = Test.read(6)
+        test = TestTable.read(6)
         self.write("ID: {}<br />".format(test.id))
         self.write("NAME: {}\n".format(test.stop))

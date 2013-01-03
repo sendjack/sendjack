@@ -14,7 +14,7 @@ from util import environment
 from base import Database
 
 # The SQLAlchemy classes that our api uses.
-Base = declarative_base()
+Table = declarative_base()
 Session = sessionmaker()
 
 
@@ -38,5 +38,5 @@ class SQLAlchemy(Database):
     def _set_up_db(self):
         engine = create_engine(self.DB_URL, echo=True)
         # create_all must be called after the api objects are imported.
-        Base.metadata.create_all(engine)
+        Table.metadata.create_all(engine)
         Session.configure(bind=engine)

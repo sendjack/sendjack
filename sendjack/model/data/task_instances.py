@@ -1,31 +1,31 @@
 """
 
-    task_instance
-    -------------
+    task_instances
+    --------------
 
-    Define a CRUD interface for a TaskInstance.
+    Define the task_instances table.
 
 """
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
-from data.sqlalchemy_db import Base
 
 from util.decorators import constant
 
-from base import APIBase
+from sqlalchemy_db import Table
+from cruds import CRUDS
 
 
-class _TaskInstance(object):
+class _TaskInstances(object):
 
     @constant
     def TABLE_NAME(self):
         return "task_instances"
 
-TASK_INSTANCE = _TaskInstance()
+TASK_INSTANCES = _TaskInstances()
 
 
-class TaskInstance(Base, APIBase):
+class TaskInstancesTable(Table, CRUDS):
 
-    __tablename__ = TASK_INSTANCE.TABLE_NAME
+    __tablename__ = TASK_INSTANCES.TABLE_NAME
 
     # TODO: maybe but probably not since it could make the ORM confusing:
     # - abstract fields common to all db-backed objects into ORM subclass
@@ -75,32 +75,3 @@ class TaskInstance(Base, APIBase):
 
     # dict whose keys are tags and values are annotations on the template
     annotated_custom_properties = Column(String)
-
-
-    @property
-    def deadline(self):
-        # TODO: convert DateTime to string.
-        pass
-
-    @property
-    def price_str(self):
-        # TODO: convert to float.
-        return "${}".format(self.price / 100)
-
-    @property
-    def overhead_str(self):
-        return "{} hours".format(self.overhead / 3600)
-
-    @property
-    def interactions_str(self):
-        return "{} messages".format(self.interactions)
-
-    @property
-    def score_str(self):
-        return "{} rating".format(self.score)
-
-    @property
-    def location_range_str(self):
-        return "within {} miles of {}".format(
-                self.location_radius,
-                self.location)

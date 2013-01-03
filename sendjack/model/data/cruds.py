@@ -8,10 +8,10 @@
 """
 from sqlalchemy.orm.exc import NoResultFound
 
-from data.sqlalchemy_db import Session
+from sqlalchemy_db import Session
 
 
-class APIBase(object):
+class CRUDS(object):
 
 
     @classmethod
@@ -29,9 +29,7 @@ class APIBase(object):
     def read(class_, id):
         """Return an instance of `class_`."""
         session = Session()
-        object_ = session\
-                .query(class_)\
-                .get(id)
+        object_ = session.query(class_).get(id)
 
         if object_ is None:
             msg = "{} {} not found.".format(class_, id)
@@ -56,5 +54,10 @@ class APIBase(object):
 
 
     @classmethod
-    def delete(class_):
-        pass
+    def delete(class_, id):
+        raise NotImplementedError()
+
+
+    @classmethod
+    def search(class_, query):
+        raise NotImplementedError()

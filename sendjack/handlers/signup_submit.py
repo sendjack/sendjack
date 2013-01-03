@@ -3,7 +3,7 @@
 The signup form submission handler.
 
 """
-from model.user import User
+from model.api.user import User
 
 from base import BaseHandler
 
