@@ -43,16 +43,20 @@ class TaskTemplatesTable(Table, CRUDS):
     updated_ts = Column(DateTime, nullable=False)
     deleted_ts = Column(DateTime)
 
+    # TODO: in the future this might not be stored as a range or at all. for
+    # now, we don't know how to split a template and rebalance its instances.
     # in US cents per hour
-    min_price = Column(Integer, nullable=False)
-    max_price = Column(Integer, nullable=False)
+    min_price = Column(Integer)
+    max_price = Column(Integer)
 
+    # TODO: in the future this might not be stored as a range or at all. for
+    # now, we don't know how to split a template and rebalance its instances.
     # in seconds
     min_overhead = Column(Integer)
     max_overhead = Column(Integer)
 
-    # TODO: eventually this should be nullable=False but it will be a while
-    # before we are equipped to populate that data from the workflow.
+    # TODO: in the future this might not be stored as a range or at all. for
+    # now, we don't know how to split a template and rebalance its instances.
     # in emails back and forth
     min_interactions = Column(Integer)
     max_interactions = Column(Integer)
