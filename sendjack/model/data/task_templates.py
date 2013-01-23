@@ -34,14 +34,14 @@ class TaskTemplatesTable(Table, CRUDS):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
 
-    # TODO: figure out editor_ids (many-to-many relationship).
-    # TODO: figure out foreign key.
-    creator_id = Column(Integer, nullable=False)
-
     # TODO: will it cause problems for timestamps to be null?
     created_ts = Column(DateTime, nullable=False)
     updated_ts = Column(DateTime, nullable=False)
     deleted_ts = Column(DateTime)
+
+    # TODO: figure out editor_ids (many-to-many relationship).
+    # TODO: figure out foreign key.
+    creator_id = Column(Integer, nullable=False)
 
     # TODO: in the future this might not be stored as a range or at all. for
     # now, we don't know how to split a template and rebalance its instances.
@@ -72,11 +72,11 @@ class TaskTemplatesTable(Table, CRUDS):
     location_radius = Column(String)
 
     # TODO: define some default tags for each.
-    output_type = Column(String, nullable=False)
-    output_method = Column(String, nullable=False)
+    output_type = Column(String)
+    output_method = Column(String)
 
     # list of free-form text
-    steps = Column(String, nullable=False)
+    steps = Column(String)
 
     # dict whose keys are tags and can be substitutions in steps
     custom_properties = Column(String)

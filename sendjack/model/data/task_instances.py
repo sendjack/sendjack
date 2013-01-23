@@ -32,19 +32,23 @@ class TaskInstancesTable(Table, CRUDS):
     # - abstract fields common to task template/instance into superclass
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    title = Column(String)
 
     # TODO: will it cause problems for timestamps to be null?
     created_ts = Column(DateTime, nullable=False)
     updated_ts = Column(DateTime, nullable=False)
     deleted_ts = Column(DateTime)
 
-    deadline_ts = Column(DateTime)
-    is_urgent = Column(Boolean, nullable=False)
-
     # TODO: figure out foreign keys.
     customer_id = Column(Integer, nullable=False)
     worker_id = Column(Integer)
+    template_id = Column(Integer)
+
+    customer_title = Column(String)
+    customer_description = Column(String)
+
+    deadline_ts = Column(DateTime)
+    is_urgent = Column(Boolean)
 
     # in US cents per hour
     price = Column(Integer)
@@ -68,10 +72,18 @@ class TaskInstancesTable(Table, CRUDS):
     location_radius = Column(String)
 
     # TODO: define some default tags.
-    output_method = Column(String, nullable=False)
+    output_method = Column(String)
+    output_type = Column(String)
 
     # list of free-form text
-    edited_steps = Column(String)
+    steps = Column(String)
 
     # dict whose keys are tags and values are annotations on the template
-    annotated_custom_properties = Column(String)
+    custom_properties = Column(String)
+
+    # TODO: define some default tags for each.
+    # lists whose split values can be substitutions in steps
+    category_tags = Column(String)
+    industry_tags = Column(String)
+    skill_tags = Column(String)
+    equipment_tags = Column(String)
