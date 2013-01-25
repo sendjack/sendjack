@@ -1,0 +1,10 @@
+{% extends ../../base.html %}
+
+
+{% block body %}
+    <form action="/template/{{ model["id"] }}" method="POST">
+        {% include component.html %}
+        <button type="submit">Update</button>
+        {% module xsrf_form_html() %}
+    </form>
+{% end %}
