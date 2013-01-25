@@ -1,0 +1,3 @@
+[submodule "sendjack/jutil"]
+	path = sendjack/jutil
+	url = https://github.com/sendjack/jutil.git

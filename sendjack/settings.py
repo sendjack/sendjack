@@ -8,13 +8,15 @@ import tornado.template
 import os
 from tornado.options import define, options
 
+from jutil import environment
+
 
 # Make filepaths relative to settings.
 path = lambda root, *a: os.path.join(root, *a)
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # tornado config
-PORT = os.environ.get("PORT", 5000)
+PORT = environment.get_integer(unicode("PORT"), 5000)
 define("port", default=PORT, help="run on the given port", type=int)
 define("config", default=None, help="tornado config file")
 define("debug", default=True, help="debug mode")
@@ -34,5 +36,6 @@ settings['template_loader'] = tornado.template.Loader(TEMPLATE_ROOT)
 settings['ui_modules'] = {}
 
 # SERVICES
-STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = environment.get_unicode(
+        unicode("STRIPE_PUBLISHABLE_KEY"))
+STRIPE_SECRET_KEY = environment.get_unicode(unicode("STRIPE_SECRET_KEY"))

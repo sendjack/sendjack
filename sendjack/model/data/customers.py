@@ -8,7 +8,7 @@
 """
 from sqlalchemy import Column, Integer, String, DateTime
 
-from util.decorators import constant
+from jutil.decorators import constant
 
 from sqlalchemy_db import Table
 from cruds import CRUDS
