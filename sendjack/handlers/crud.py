@@ -8,7 +8,7 @@
 
 """
 import json
-import tornado.web
+#import tornado.web
 
 from base import BaseHandler
 
@@ -17,7 +17,8 @@ class CRUDHandler(BaseHandler):
 
     """Provide an abstract superclass for CRUD operations.
 
-    Attributes:
+    Attributes
+    ----------
     _id : int
 
     """
