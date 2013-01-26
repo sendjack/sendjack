@@ -1,0 +1,366 @@
+/***********************************************************
+*
+*   App: Jackalope 
+*   
+************************************************************/
+
+/***********************************************************
+* IMPORTS
+************************************************************/
+@import "reset";
+
+
+/***********************************************************
+* COLOR DEFINITIONS
+************************************************************/
+@white: rgb(255, 255, 255);
+@black: rgb(0, 0, 0);
+@blue: rgb(0, 146, 255);
+@grey: rgb(151, 153, 156);
+
+
+/***********************************************************
+* SIZE DEFINITIONS
+************************************************************/
+@smallFontSize: 10px;
+@normalFontSize: 14px;
+@bigFontSize: 25px;
+
+@normalLineHeight: @normalFontSize + 12px;
+@bigLineHeight: @bigFontSize + 8px;
+@headerHeight: 50px;
+
+@textPadding: 15px;
+@linePadding: 5px;
+@buttonPadding: 30px;
+@boxPadding: 15px;
+@pagePadding: 350px;
+
+@normalBorder: 2px;
+@smallRound: 2px;
+@normalRound: 8px;
+
+
+/***********************************************************
+* FONTS (with help from http://fontsquirrel.com)
+************************************************************/
+.headerFont(@fontSize: @bigFontSize) {
+    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-size: @fontSize;
+    line-height: @bigLineHeight;
+}
+
+.normalFont(@fontSize: @normalFontSize) {
+    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-size: @fontSize;
+    line-height: @normalLineHeight;
+}
+
+
+/***********************************************************
+* TEXT STYLE SETS
+************************************************************/
+.headerText() {
+    .headerFont;
+    color: @white;
+}
+
+.subheaderText() {
+    .headerFont;
+    color: @black;
+}
+
+.titleText() {
+    .normalFont;
+    color: @grey;
+}
+
+.normalText() {
+    .normalFont;
+    color: @blue;
+}
+
+.contrastSubheaderText() {
+    .headerFont;
+    color: @white;
+}
+
+.contrastTitleText() {
+    .normalFont;
+    color: @black;
+}
+
+.contrastNormalText() {
+    .normalFont;
+    color: @white;
+}
+
+
+/***********************************************************
+* REUSABLE GENERIC CLASSES
+************************************************************/
+/* Create columns with no spacing. */
+.columns (@number) {
+    column-count: @number;
+    -webkit-column-count: @number;
+    -moz-column-count: @number;
+    
+    column-rule: 0px;
+    -webkit-column-rule: 0px;
+    -moz-column-rule: 0px;
+
+    column-gap: 0px;
+    -webkit-column-gap: 0px;
+    -moz-column-gap: 0px;
+}
+
+/* Cross browser border-radius */
+.border-radius(@radius) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+/* Cross browser backgorund-size */
+.background-size(@width, @height) {
+    background-size: @width @height;
+    -moz-background-size: @width @height;
+    -webkit-background-size: @width @height;
+    -o-background-size: @width @height;
+}
+
+/* Hide the content when using the background image for function. */
+.hidden-content {
+    line-height: 0px; 
+    font-size: 0px;
+    color: transparent; 
+}
+
+/* Add a box shadow. */
+.box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, @inset: ~"") {
+    -webkit-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
+        @inset;
+    -moz-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
+        @inset;
+    box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha) @inset;
+}
+
+/* Use a background-image in a consistent way. */
+.background-image-wrapper(
+        @width,
+        @height,
+        @imageSource,
+        @backgroundColor,
+        @repeat: no-repeat) {
+    width: @width;
+    height: @height;
+    background: url('/static/images/@{imageSource}') @backgroundColor @repeat;
+    // background size needs to be after the background it's sizing.
+    .background-size(@width, @height);
+}
+
+/* Center the background image in a consistent way. */
+.centered-image(@position, @width, @height) {
+    .horizontally-centered-image(@position, @width); 
+    .vertically-centered-image(@position, @height);
+}
+
+.vertically-centered-image(@position, @height) {
+    position: @position;
+    top: 50%;
+    margin-top: -(@height / 2);
+}
+
+.horizontally-centered-image(@position, @width) {
+    position: @position;
+    left: 50%;
+    margin-left: -(@width / 2);
+}
+
+.opacity(@value) {
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+    /* IE 5-7 */
+    @ieValue: @value * 100;
+    filter: alpha(opacity=@ieValue);
+
+    /* Netscape */
+    -moz-opacity: @value;
+
+    /* Safari 1.x */
+    -khtml-opacity: @value;
+
+    /* Good browsers */
+    opacity: @value;
+}
+
+
+/***********************************************************
+* REUSABLE APP-SPECIFIC CLASSES
+************************************************************/
+/* Add a light drop shadow below a box. */
+.drop-box-shadow(
+        @hShadow: 0px, 
+        @vShadow: 2px, 
+        @blur: 2px, 
+        @spread: -1px,
+        @alpha: .8) {
+    .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha);
+}
+
+/* Inner drop shadow. */
+.inner-box-shadow(
+        @hShadow: 0px,
+        @vShadow: 2px,
+        @blur: 1px,
+        @spread: 0px,
+        @alpha: 0.2) {
+    .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, inset);
+}
+    
+
+/* Emboss text slightly. */
+.emboss-text {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Header section needs to cut off long text. */
+.header-section {
+    overflow-y: hidden;
+}
+
+.form-element {
+    .normalText;
+    .border-radius(@smallRound);
+    height: @normalLineHeight;
+    border: @normalBorder fadeout(@black, 40%) solid;
+    padding: @textPadding @textPadding * 3;
+
+    background-color: @white;
+}
+
+.icon(@picture_file) {
+    .background-image-wrapper(
+        48px,
+        48px,
+        @picture_file,
+        transparent);
+}
+
+
+/***********************************************************
+* FRAMEWORK
+************************************************************/
+/* I like this box model better so deal with it. */
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    .normalText;
+    width: 100%;
+    height: 100%;
+    background-color: @blue;
+}
+
+header, section, footer {
+    width: 100%;
+    text-align: center;
+    float: left;
+
+    .inner-wrapper {
+        width: 100%;
+        height: 100%;
+        float: left;
+    }
+}
+header {
+    background: @black;
+    padding: @linePadding @pagePadding;
+    height: @headerHeight;
+    float: left;
+
+}
+
+section {
+    padding: 0px @pagePadding @boxPadding;
+    text-align: left;
+}
+
+.normal-section {
+    background: @white;
+    .normalText();
+
+    .subheader {
+        .subheaderText();
+    }
+
+    .title {
+        .titleText();
+    }
+}
+
+.contrast-section {
+    background: @blue;
+    .contrastNormalText();
+
+    .subheader {
+        .contrastSubheaderText();
+    }
+
+    .title {
+        .contrastTitleText();
+    }
+}
+
+
+/***********************************************************
+* COMPONENTS 
+************************************************************/
+#main-logo {
+    .background-image-wrapper(
+        42px,
+        40px,
+        'mainLogo.png',
+        transparent);
+    float: left;
+    height: 100%;
+    background-position: center;
+}
+
+#main-lettering {
+    .background-image-wrapper(
+        149px,
+        27px,
+        'mainLettering.png',
+        transparent);
+    float: right;
+    height: 100%;
+    background-position: center;
+}
+
+.subsection {
+
+
+}
+
+.one-column-subsection {
+
+}
+
+.two-column-subsection {
+
+}
+
+.subheader {
+    padding-top: @boxPadding;
+    padding-bottom: @boxPadding;
+}
