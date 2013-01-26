@@ -65,12 +65,12 @@
     color: @white;
 }
 
-.subheaderText() {
+.titleText() {
     .headerFont;
     color: @black;
 }
 
-.titleText() {
+.labelText() {
     .normalFont;
     color: @grey;
 }
@@ -80,12 +80,12 @@
     color: @blue;
 }
 
-.contrastSubheaderText() {
+.contrastTitleText() {
     .headerFont;
     color: @white;
 }
 
-.contrastTitleText() {
+.contrastLabelText() {
     .normalFont;
     color: @black;
 }
@@ -250,7 +250,7 @@
 
 
 /***********************************************************
-* FRAMEWORK
+* FRAMEWORK, SECTION, GRID
 ************************************************************/
 /* I like this box model better so deal with it. */
 * {
@@ -282,16 +282,38 @@ header, section, footer {
         float: left;
     }
 }
+
 header {
     background: @black;
     padding: @linePadding @pagePadding;
     height: @headerHeight;
     float: left;
 
+    #main-logo {
+        .background-image-wrapper(
+            42px,
+            40px,
+            'mainLogo.png',
+            transparent);
+        float: left;
+        height: 100%;
+        background-position: center;
+    }
+
+    #main-lettering {
+        .background-image-wrapper(
+            149px,
+            27px,
+            'mainLettering.png',
+            transparent);
+        float: right;
+        height: 100%;
+        background-position: center;
+    }
 }
 
 section {
-    padding: 0px @pagePadding @boxPadding;
+    padding: 0px @pagePadding;
     text-align: left;
 }
 
@@ -299,12 +321,12 @@ section {
     background: @white;
     .normalText();
 
-    .subheader {
-        .subheaderText();
-    }
-
     .title {
         .titleText();
+    }
+
+    .key {
+        .labelText();
     }
 }
 
@@ -312,55 +334,44 @@ section {
     background: @blue;
     .contrastNormalText();
 
-    .subheader {
-        .contrastSubheaderText();
-    }
-
     .title {
         .contrastTitleText();
     }
+
+    .key {
+        .contrastLabelText();
+    }
 }
+
+
+.grid {
+    float: left;
+    margin-top: @boxPadding;
+    margin-bottom: @boxPadding;
+
+    .title {
+        padding-bottom: @boxPadding;
+    }
+}
+
+.one-column-grid {
+    width: 100%;
+}
+
+/* FIXME XXX: make thi two-column-grid */
+.grid {
+    width: 50%;
+}
+
+/***********************************************************
+* COMPONENTS
+************************************************************/
 
 
 /***********************************************************
-* COMPONENTS 
+* PAGE - GENERIC
 ************************************************************/
-#main-logo {
-    .background-image-wrapper(
-        42px,
-        40px,
-        'mainLogo.png',
-        transparent);
-    float: left;
-    height: 100%;
-    background-position: center;
-}
 
-#main-lettering {
-    .background-image-wrapper(
-        149px,
-        27px,
-        'mainLettering.png',
-        transparent);
-    float: right;
-    height: 100%;
-    background-position: center;
-}
-
-.subsection {
-
-
-}
-
-.one-column-subsection {
-
-}
-
-.two-column-subsection {
-
-}
-
-.subheader {
-    padding-top: @boxPadding;
-    padding-bottom: @boxPadding;
-}
+/***********************************************************
+* PAGE - NEW TEMPLATE
+************************************************************/

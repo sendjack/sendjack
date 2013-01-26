@@ -42,4 +42,5 @@ STRIPE_PUBLISHABLE_KEY = environment.get_unicode(
 STRIPE_SECRET_KEY = environment.get_unicode(unicode("STRIPE_SECRET_KEY"))
 
 JINJA2_ENVIRONMENT = Environment(
-        loader=PackageLoader('app', 'view/templates'))
+        loader=PackageLoader('app', 'view/templates'),
+        trim_blocks=True)

@@ -1,0 +1,30 @@
+{# components -- small reusable building blocks. #}
+
+
+{% macro field(key, value) %}
+    <div class="field">
+        <span class="key">
+            {{ key }}
+        </span>
+        <span class="value">
+            {{ value }}
+        </span>
+    </div>
+{% endmacro %}
+
+{% macro title(el) %}
+    <p class="title">
+        {{ el }}
+    </p>
+{% endmacro %}
+
+{% macro field_list(field_els) %}
+    <ul class="field_list">
+        {% for el in field_els %}
+            <li>
+                {{ el }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+

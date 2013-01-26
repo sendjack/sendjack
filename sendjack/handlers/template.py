@@ -47,7 +47,7 @@ class TemplateNewHandler(BaseHandler):
 
     """
 
-    MARKUP_PATH = "crud/template/new.html"
+    MARKUP_PATH = "app/page/new_template.html"
 
     def get_model(self):
         # TODO: Perhaps this function should return an empty TemplateModel

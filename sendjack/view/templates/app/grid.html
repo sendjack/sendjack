@@ -1,0 +1,16 @@
+{# grid -- different grid pieces #}
+
+{% from "app/components.html" import title %}
+
+
+{% macro grid(el) %}
+    <div class="grid">
+        {{ el }}
+    </div>
+{% endmacro %}
+
+{% macro titled_grid(el, title_str) %}
+    {% set titled_el = title(title_str) + el %}
+    {{ grid(titled_el) }}
+{%endmacro %}
+

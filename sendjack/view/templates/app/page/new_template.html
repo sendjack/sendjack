@@ -1,0 +1,57 @@
+{% extends "app/body.html" %}
+
+{% from "app/section.html" import normal_section, contrast_section %}
+{% from "app/grid.html" import titled_grid %}
+{% from "app/components.html" import field, field_list %}
+
+
+{% block content %}
+    {% set main_title = "New Template" %}
+    {% set main_fields = [
+            field("Name", "Find me 20 CEOs"),
+            field("Creator", "Cassandra Orion"),
+            field("Steps", "Make a list of steps"),
+            field("Custom Prop", "TODO"),
+            field("Output Type", "xls"),
+            field("Output Method", "Email")
+            ]
+    %}
+    {% set main_el = field_list(main_fields) %}
+    {% set main_grid_el =  titled_grid(main_el, main_title) %}
+    {{ normal_section(main_grid_el) }}
+
+
+    {% set details_title = "Details" %}
+    {% set details_fields = [
+            field("Price", "$15-$25"),
+            field("Overhead", "5 Minutes"),
+            field("Interactions", "1 Email"),
+            ]
+    %}
+    {% set details_el = field_list(details_fields) %}
+    {% set details_grid_el = titled_grid(details_el, details_title) %}
+   
+    {% set worker_title = "Worker" %}
+    {% set worker_fields = [
+            field("Name", "James Marsh"),
+            field("Rating", ""),
+            field("Details / Notes", "")
+            ]
+    %}
+    {% set worker_el = field_list(worker_fields) %}
+    {% set worker_grid_el = titled_grid(worker_el, worker_title) %}
+
+    {% set tags_title = "Tags" %}
+    {% set tags_fields = [
+            field("Category", "Market Research"),
+            field("Industry", "Finance, Health Care"),
+            field("Skills", "Internet Research"),
+            field("Equipment", "Camera")
+            ]
+    %}
+    {% set tags_el = field_list(tags_fields) %}
+    {% set tags_grid_el = titled_grid(tags_el, tags_title) %}
+
+    {{ contrast_section(details_grid_el + worker_grid_el + tags_grid_el) }}
+
+{% endblock content %}
