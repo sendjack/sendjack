@@ -26,3 +26,5 @@ section{padding:0px 350px;text-align:left;}
 .grid{float:left;margin-top:15px;margin-bottom:15px;}.grid .title{padding-bottom:15px;}
 .one-column-grid{width:100%;}
 .grid{width:50%;}
+.columned-field-list li{clear:both;}.columned-field-list li .key{float:left;width:40%;}
+.columned-field-list li .value{float:left;width:60%;}

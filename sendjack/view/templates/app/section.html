@@ -2,22 +2,28 @@
 
 {% from "util.html" import get_class_attr %}
 
+
 {% macro section(el, classes=[]) %}
-    <section {{ get_class_attr("section", classes) }}>
+    {% set my_classes = classes + ["section"] %}
+
+    <section {{ get_class_attr(my_classes) }}>
         <div class="inner-wrapper">
             {{ el }}
         </div>
     </section>
-
 {% endmacro %}
+
 
 {% macro normal_section(el, classes=[]) %}
     {% set my_classes = classes + ["normal-section"] %}
+
     {{ section(el, my_classes) }}
 {% endmacro %}
 
+
 {% macro contrast_section(el, classes=[]) %}
     {% set my_classes = classes + ["contrast-section"] %}
+
     {{ section(el, my_classes) }}
 {% endmacro %}
 

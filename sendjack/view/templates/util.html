@@ -1,10 +1,7 @@
 {# util -- a bunch of generic jinja2 utility functions #}
 
-{% macro print_classes(classes) -%}
-    {{ " ".join(classes) }}
-{%- endmacro %}
 
-{% macro get_class_attr(class_, classes) -%}
-    {% set my_classes = [class_] + classes %}
-    class="{{ print_classes(my_classes) }}"
+{# Return a class attribute with all classes part of its value. #}
+{% macro get_class_attr(classes) -%}
+    {{ {"class": " ".join(classes)}|xmlattr }}
 {%- endmacro %}

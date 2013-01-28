@@ -358,7 +358,7 @@ section {
     width: 100%;
 }
 
-/* FIXME XXX: make thi two-column-grid */
+/* FIXME: make thi two-column-grid */
 .grid {
     width: 50%;
 }
@@ -366,6 +366,22 @@ section {
 /***********************************************************
 * COMPONENTS
 ************************************************************/
+.columned-field-list {
+
+    li {
+        clear: both;
+
+        .key {
+            float: left;
+            width: 40%;
+        }
+
+        .value {
+            float: left;
+            width: 60%;
+        }
+    }
+}
 
 
 /***********************************************************
