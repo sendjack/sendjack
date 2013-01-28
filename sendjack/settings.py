@@ -7,6 +7,7 @@ import tornado
 import tornado.template
 import os
 from tornado.options import define, options
+from jinja2 import Environment, PackageLoader
 
 from jutil import environment
 
@@ -39,3 +40,7 @@ settings['ui_modules'] = {}
 STRIPE_PUBLISHABLE_KEY = environment.get_unicode(
         unicode("STRIPE_PUBLISHABLE_KEY"))
 STRIPE_SECRET_KEY = environment.get_unicode(unicode("STRIPE_SECRET_KEY"))
+
+JINJA2_ENVIRONMENT = Environment(
+        loader=PackageLoader('app', 'view/templates'),
+        trim_blocks=True)

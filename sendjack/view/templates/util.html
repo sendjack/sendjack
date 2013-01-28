@@ -1,0 +1,7 @@
+{# util -- a bunch of generic jinja2 utility functions #}
+
+
+{# Return a class attribute with all classes part of its value. #}
+{% macro get_class_attr(classes) -%}
+    {{ {"class": " ".join(classes)}|xmlattr }}
+{%- endmacro %}

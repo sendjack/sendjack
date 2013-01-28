@@ -13,7 +13,8 @@ class TemplateCRUDHandler(CRUDHandler):
 
     """Handle all CRUD requests for a Template.
 
-    Attributes:
+    Attributes
+    ----------
     MARKUP_PATH : string
 
     """
@@ -40,12 +41,13 @@ class TemplateNewHandler(BaseHandler):
     """Handle the non-CRUD new template request, as CRUD doesn't provide a form
     to submit a new Template.
 
-    Attributes:
+    Attributes
+    ----------
     MARKUP_PATH : string
 
     """
 
-    MARKUP_PATH = "crud/template/new.html"
+    MARKUP_PATH = "app/page/new_template.html"
 
     def get_model(self):
         # TODO: Perhaps this function should return an empty TemplateModel
@@ -70,4 +72,5 @@ class TemplateNewHandler(BaseHandler):
 
     def process_synchronous_request(self):
         """Return the HTML page of an empty form."""
-        self.render(self.MARKUP_PATH, model=self.get_model())
+        self.render_jinja(self.MARKUP_PATH, model=self.get_model())
+        #self.render(self.MARKUP_PATH, model=self.get_model())

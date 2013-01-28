@@ -20,6 +20,7 @@ import json
 import tornado.web
 
 from jutil.decorators import constant
+import settings
 
 
 class _Argument(object):
@@ -110,3 +111,21 @@ class BaseHandler(tornado.web.RequestHandler):
         session = self.get_session()
         self.clear_cookie(COOKIE.SESSION)
         return session
+
+
+    def render_jinja(self, markup_path, **kwargs):
+        """Render a Jinja2 template.
+
+        Attributes
+        ----------
+        markup_path : string
+            Path to template
+        kwargs : dict
+            Misc list of objects to pass to template.
+
+        TODO: We can overwrite self.render if we want to make this the default.
+
+        """
+        jinja_environment = settings.JINJA2_ENVIRONMENT
+        template = jinja_environment.get_template(self.MARKUP_PATH)
+        self.write(template.render(**kwargs))
