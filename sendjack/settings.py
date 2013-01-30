@@ -31,7 +31,7 @@ settings['debug'] = options.debug
 settings['static_path'] = MEDIA_ROOT
 settings['cookie_secret'] = (
         "\xee\x0ec\x9bl\x02\xeb/.\xd4\xeb\xc2(\xb0\xb1\x8a\x0b\xb5[^Tq\xecy")
-settings['xsrf_cookies'] = True
+settings['xsrf_cookies'] = False
 settings['login_url'] = "/"
 settings['template_loader'] = tornado.template.Loader(TEMPLATE_ROOT)
 settings['ui_modules'] = {}

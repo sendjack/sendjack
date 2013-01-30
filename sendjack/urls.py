@@ -11,6 +11,8 @@ from handlers.signup import SignUpHandler
 from handlers.signup_submit import SignUpSubmitHandler
 from handlers.template import TemplateCRUDHandler, TemplateNewHandler
 
+from handlers.test import TestHandler, BackboneHandler
+
 
 url_patterns = [
         (r"/", RedirectHandler, {"url": "https://secure.sendjack.com/signup"}),
@@ -18,5 +20,7 @@ url_patterns = [
         (r"/thankyou", SignUpSubmitHandler),
         (r"/template", TemplateCRUDHandler),
         (r"/template/([0-9]+)", TemplateCRUDHandler),
-        (r"/template/new", TemplateNewHandler)
+        (r"/template/new", TemplateNewHandler),
+        (r"/test", TestHandler),
+        (r"/backbone", BackboneHandler)
         ]
