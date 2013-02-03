@@ -10,8 +10,8 @@ from sqlalchemy import Column, Integer, String, DateTime, Boolean
 
 from jutil.decorators import constant
 
-from sqlalchemy_db import Table
-from cruds import CRUDS
+from sqlalchemy_db import BaseObject
+from crud import CRUD
 
 
 class _TaskInstances(object):
@@ -23,7 +23,7 @@ class _TaskInstances(object):
 TASK_INSTANCES = _TaskInstances()
 
 
-class TaskInstancesTable(Table, CRUDS):
+class TaskInstances(BaseObject, CRUD):
 
     __tablename__ = TASK_INSTANCES.TABLE_NAME
 

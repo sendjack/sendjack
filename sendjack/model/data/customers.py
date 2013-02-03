@@ -10,8 +10,8 @@ from sqlalchemy import Column, Integer, String, DateTime
 
 from jutil.decorators import constant
 
-from sqlalchemy_db import Table
-from cruds import CRUDS
+from sqlalchemy_db import BaseObject
+from crud import CRUD
 
 
 class _Customers(object):
@@ -23,7 +23,7 @@ class _Customers(object):
 CUSTOMERS = _Customers()
 
 
-class CustomersTable(Table, CRUDS):
+class Customers(BaseObject, CRUD):
 
     __tablename__ = CUSTOMERS.TABLE_NAME
 

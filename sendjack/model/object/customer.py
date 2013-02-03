@@ -3,13 +3,13 @@
     customer
     --------
 
-    Define the Customer API object.
+    Define the Customer object.
 
 """
-from model.data.customers import CustomersTable
+from model.data.customers import Customers
 
 
-class Customer(CustomersTable):
+class Customer(Customers):
 
     @property
     def full_name(self):

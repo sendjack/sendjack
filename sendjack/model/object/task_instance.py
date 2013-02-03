@@ -3,13 +3,13 @@
     task_instance
     -------------
 
-    Define the TaskInstance API object.
+    Define the TaskInstance object.
 
 """
-from model.data.task_instances import TaskInstancesTable
+from model.data.task_instances import TaskInstances
 
 
-class TaskInstance(TaskInstancesTable):
+class TaskInstance(TaskInstances):
 
     @property
     def deadline(self):

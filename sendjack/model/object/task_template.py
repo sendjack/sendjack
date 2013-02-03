@@ -3,13 +3,13 @@
     task_template
     -------------
 
-    Define the TaskTemplate API object.
+    Define the TaskTemplate object.
 
 """
-from model.data.task_templates import TaskTemplatesTable
+from model.data.task_templates import TaskTemplates
 
 
-class TaskTemplate(TaskTemplatesTable):
+class TaskTemplate(TaskTemplates):
 
     @property
     def price_range(self):

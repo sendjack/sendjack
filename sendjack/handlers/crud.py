@@ -7,7 +7,6 @@
     authenticated reads and writes.
 
 """
-import json
 #import tornado.web
 
 from base import BaseHandler
@@ -19,61 +18,72 @@ class CRUDHandler(BaseHandler):
 
     Attributes
     ----------
-    _id : int
+    _model_object : object
 
     """
 
+    _model_object = None
+
 
     def get_current_user(self):
-        return self.get_session()
+        return self._get_session()
+
+
+    def prepare(self):
+        """Override to initialize a request before post/get/put/delete."""
+        self._init_model()
+
+
+    def _init_model(self):
+        """Construct a model object for this handler to make a CRUD call."""
+        # TODO: this override is required. see example error in jackalope repo.
+        raise NotImplementedError()
+
+
+    def _set_model(self, model):
+        """Set the model to send with the response to this request."""
+        self._model = model
+
+
+    def _process_request(self):
+        """Return the JSON version of the model."""
+        self._process_asynchronous_request()
 
 
     #@tornado.web.authenticated
     def post(self):
-        """Handle POST -- create -- request."""
-        print "POST received"
-        # TODO: Each request should be able to get generic parameters.
-        data = json.loads(self.request.body)
-        print data
-        self.process_request()
+        """Handle a POST request by mapping it to CREATE."""
+        object_dict = self._get_request_parameters()
+        model = self._model_object.create(object_dict)
+        self._set_model(model)
+        self._process_request()
 
 
     #@tornado.web.authenticated
     def get(self, id=None):
-        """Handle GET -- read -- request."""
-        print "GET received"
-        # TODO: Each request should be able to get generic parameters.
-        self._id = id
-        self.process_request()
+        """Handle a GET request by mapping it to READ."""
+        # TODO: raise error if id is None?
+        # TODO: get parameters besides id generically?
+        model = self._model_object.read(id)
+        self._set_model(model)
+        self._process_request()
 
 
     #@tornado.web.authenticated
     def put(self, id):
-        """Handle PUT -- update -- request."""
-        print "PUT received"
-        # TODO: Each request should be able to get generic parameters.
-        self._id = id
-        # FIXME: This won't work with Forms (forms only use GET and POST). WE'd
-        # have to use AJAX.
-        print "HAHA", id
-        pass
+        """Handle a PUT request by mapping it to UPDATE."""
+        # FIXME: forms only use GET/POST, so we have to do this asynchronously.
+        #object_dict = self._get_request_parameters()
+        #model = self._model_object.update(id, object_dict)
+        #self._set_model(model)
+        #self._process_request()
+        raise NotImplementedError()
 
 
     #@tornado.web.authenticated
     def delete(self, id):
-        """Handle DELETE -- delete -- request."""
-        print "DELETE received"
-        # TODO: Each request should be able to get generic parameters.
-        self._id = id
-        pass
-
-
-    def process_request(self):
-        """Return the JSON version of the model."""
-        self.write(json.dumps(self.get_model()))
-
-
-    def get_model(self):
-        """Return the model."""
-        # TODO: perhaps this should be load_model()
+        """Handle a DELETE request."""
+        #model = self._model_object.delete(id)
+        #self._set_model(model)
+        #self._process_request()
         raise NotImplementedError()

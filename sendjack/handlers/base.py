@@ -53,6 +53,9 @@ class BaseHandler(tornado.web.RequestHandler):
 
     """
 
+    _markup_path = None
+    _model = None
+
 
     def get_current_user(self):
         """Return current user from cookie or return None.
@@ -63,69 +66,76 @@ class BaseHandler(tornado.web.RequestHandler):
         return None
 
 
-    def process_request(self):
-        # TODO: grab errors subclassing this from jackalope and raise those.
-        raise NotImplementedError()
-
-
-    def process_asynchronous_request(self):
-        # TODO: grab errors subclassing this from jackalope and raise those.
-        raise NotImplementedError()
-
-
-    def process_synchronous_request(self):
-        # TODO: grab errors subclassing this from jackalope and raise those.
-        raise NotImplementedError()
-
-
-    def markup_path(self):
-        # TODO: grab errors subclassing this from jackalope and raise those.
-        raise NotImplementedError()
-
-
-    def content_model(self):
-        # TODO: grab errors subclassing this from jackalope and raise those.
-        raise NotImplementedError()
-
-
-    def is_asynchronous_request(self):
-        return bool(self.get_argument(ARGUMENT.ASYNCHRONOUS, False))
-
-
-    def get_request_parameters(self):
-        return json.loads(self.get_argument(ARGUMENT.PARAMETERS, None))
-
-
-    def set_session(self, cookie):
+    def _set_session(self, cookie):
         self.set_secure_cookie(
                 COOKIE.SESSION,
                 tornado.escape.json_encode(cookie))
 
 
-    def get_session(self):
+    def _get_session(self):
         session = self.get_secure_cookie(COOKIE.SESSION)
         return tornado.escape.json_decode(session) if session else None
 
 
-    def end_session(self):
-        session = self.get_session()
+    def _end_session(self):
+        session = self._get_session()
         self.clear_cookie(COOKIE.SESSION)
         return session
 
 
-    def render_jinja(self, markup_path, **kwargs):
-        """Render a Jinja2 template.
+    def prepare(self):
+        """Override to initialize a request before post/get/put/delete."""
+        self._init_markup()
 
-        Attributes
-        ----------
-        markup_path : string
-            Path to template
-        kwargs : dict
-            Misc list of objects to pass to template.
 
-        TODO: We can overwrite self.render if we want to make this the default.
+    def get(self):
+        """Handle a GET request by mapping it to READ."""
+        self._process_request()
 
-        """
-        jinja_environment = settings.JINJA2_ENVIRONMENT
-        template = jinja_environment.get_template(self.MARKUP_PATH)
+
+    def _process_request(self):
+        """Execute a request and send a response as JSON or markup."""
+        if self._is_asynchronous_request():
+            self._process_asynchronous_request()
+        else:
+            self._process_synchronous_request()
+
+
+    def _process_asynchronous_request(self):
+        """Send a JSON response to this request containing a model."""
+        # TODO: deal with passing constants along too.
+        self.write(json.dumps(self._model.json()))
+
+
+    def _process_synchronous_request(self):
+        """Render markup and a model as a response to this request."""
+        # TODO: synchronous might not exist for the CRUDHandler.
+        # TODO: deal with passing constants along too.
+        self.render(self._markup_path, model=self._model.json())
+
+
+    def _is_asynchronous_request(self):
+        return bool(self.get_argument(ARGUMENT.ASYNCHRONOUS, False))
+
+
+    def _init_markup(self):
+        """Set the path to the markup template for this handler."""
+        # TODO: this override is required. see example error in jackalope repo.
+        raise NotImplementedError()
+
+
+    def _init_model(self):
+        """Construct a model object for this handler to make a CRUD call."""
+        # TODO: intentionally no override here, but the crud subclass requires
+        # it. others should raise errors. see example error in jackalope repo.
+        raise NotImplementedError()
+
+
+    def _get_request_parameters(self):
+        return json.loads(self.request.body)
+
+
+    def render(self, markup_path, **kwargs):
+        """Render jinja markup with given arguments as the response."""
+        template = settings.JINJA2_ENVIRONMENT.get_template(markup_path)
         self.write(template.render(**kwargs))

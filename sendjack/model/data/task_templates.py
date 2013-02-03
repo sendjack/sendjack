@@ -10,8 +10,8 @@ from sqlalchemy import Column, Integer, String, DateTime
 
 from jutil.decorators import constant
 
-from sqlalchemy_db import Table
-from cruds import CRUDS
+from sqlalchemy_db import BaseObject
+from crud import CRUD
 
 
 class _TaskTemplates(object):
@@ -23,7 +23,7 @@ class _TaskTemplates(object):
 TASK_TEMPLATES = _TaskTemplates()
 
 
-class TaskTemplatesTable(Table, CRUDS):
+class TaskTemplates(BaseObject, CRUD):
 
     __tablename__ = TASK_TEMPLATES.TABLE_NAME
 

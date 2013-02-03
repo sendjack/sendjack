@@ -1,17 +1,20 @@
 """
-    base api object
-    ---------------
+    CRUD
+    ----
 
     Provide an interface and implementation for CRUD operations on database
-    backed objects. All database backed API objects should subclass.
+    backed objects. All database-backed objects should subclass.
 
 """
+import json
+
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.ext.declarative import DeclarativeMeta
 
 from sqlalchemy_db import Session
 
 
-class CRUDS(object):
+class CRUD(object):
 
 
     @classmethod
@@ -61,3 +64,36 @@ class CRUDS(object):
     @classmethod
     def search(class_, query):
         raise NotImplementedError()
+
+
+    def json(self):
+        return json.dumps(self, cls=SQLAlchemyEncoder(), check_circular=False)
+
+
+#stackoverflow.com/questions/5022066/how-to-serialize-sqlalchemy-result-to-json
+def SQLAlchemyEncoder():
+
+    _visited_objects = []
+
+
+    class _SQLAlchemyEncoder(json.JSONEncoder):
+
+        def default(self, object_):
+            if isinstance(object_.__class__, DeclarativeMeta):
+                # don't re-visit self
+                if object_ in _visited_objects:
+                    return None
+                _visited_objects.append(object_)
+
+                # a SQLAlchemy class
+                encodable = {}
+                object_properties = [
+                        x for x in dir(object_)
+                        if not x.startswith('_') and x != 'metadata'
+                        ]
+                for key in object_properties:
+                    encodable[key] = object_.__getattribute__(key)
+                return encodable
+            return json.JSONEncoder.default(self, object_)
+
+    return _SQLAlchemyEncoder

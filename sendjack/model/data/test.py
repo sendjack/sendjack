@@ -7,11 +7,11 @@
 """
 from sqlalchemy import Column, Integer, String
 
-from sqlalchemy_db import Table
-from cruds import CRUDS
+from sqlalchemy_db import BaseObject
+from crud import CRUD
 
 
-class TestTable(Table, CRUDS):
+class Test(BaseObject, CRUD):
 
     __tablename__ = unicode("acre")
 

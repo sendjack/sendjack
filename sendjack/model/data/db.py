@@ -8,24 +8,24 @@
 """
 from sqlalchemy_db import SQLAlchemy
 
-from test import TestTable
-from customers import CustomersTable
-from task_templates import TaskTemplatesTable
-from task_instances import TaskInstancesTable
+from test import Test
+from customers import Customers
+from task_templates import TaskTemplates
+from task_instances import TaskInstances
 
 
 class _DatabaseSingleton(object):
 
-    table_objects = [
-            TestTable,
-            CustomersTable,
-            TaskTemplatesTable,
-            TaskInstancesTable,
+    _objects = [
+            Test,
+            Customers,
+            TaskTemplates,
+            TaskInstances,
             ]
 
 
     def __init__(self):
-        self._db = SQLAlchemy(self.table_objects)
+        self._db = SQLAlchemy(self._objects)
 
 
     @property
