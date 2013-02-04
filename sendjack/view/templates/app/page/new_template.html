@@ -9,8 +9,10 @@
 
 {# The content section of the template creation page. #}
 {% block content %}
-    {{ normal_section(main_grid()) }}
-    {{ contrast_section(details_grid() + worker_grid() + tags_grid()) }}
+    <div class="new-template-content">
+        {{ normal_section(main_grid()) }}
+        {{ contrast_section(details_grid() + worker_grid() + tags_grid()) }}
+    </div>
 {% endblock content %}
 
 

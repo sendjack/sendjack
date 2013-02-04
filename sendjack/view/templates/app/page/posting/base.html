@@ -1,0 +1,38 @@
+{# posting/posting.html -- the base page in the posting series. #}
+
+{% extends "app/body.html" %}
+
+{% from "util.html" import get_class_attr %}
+{% from "app/section.html" import section %}
+{% from "app/grid.html" import grid %}
+
+
+{# The content section of the posting pages. #}
+{% block content %}
+    <div class="posting-content">
+        {{ posting_section(computer_grid() + posting_grid()) }}
+    </div>
+{% endblock content %}
+
+{% macro posting_section(el, classes=[]) %}
+    {% set my_classes = classes + ["posting-section"] %}
+
+    {{ section(el, my_classes) }}
+{% endmacro %}
+
+{% macro computer_grid() %}
+    {% set my_classes = ["computer-grid"] %}
+
+    {{ grid(computer_image(), my_classes) }}
+{% endmacro %}
+
+{% macro posting_grid(el, classes=[]) %}
+    {% set my_classes = classes + ["posting-grid"] %}
+
+    {{ grid(el, my_classes) }}
+{% endmacro %}
+
+
+{% macro computer_image() %}
+    <div {{ get_class_attr(["computer-image"]) }}></div>
+{% endmacro %}

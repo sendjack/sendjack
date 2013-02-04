@@ -212,7 +212,7 @@
 /* Inner drop shadow. */
 .inner-box-shadow(
         @hShadow: 0px,
-        @vShadow: 2px,
+        @vShadow: 1px,
         @blur: 1px,
         @spread: 0px,
         @alpha: 0.2) {
@@ -317,51 +317,7 @@ section {
     text-align: left;
 }
 
-.normal-section {
-    background: @white;
-    .normalText();
 
-    .title {
-        .titleText();
-    }
-
-    .key {
-        .labelText();
-    }
-}
-
-.contrast-section {
-    background: @blue;
-    .contrastNormalText();
-
-    .title {
-        .contrastTitleText();
-    }
-
-    .key {
-        .contrastLabelText();
-    }
-}
-
-
-.grid {
-    float: left;
-    margin-top: @boxPadding;
-    margin-bottom: @boxPadding;
-
-    .title {
-        padding-bottom: @boxPadding;
-    }
-}
-
-.one-column-grid {
-    width: 100%;
-}
-
-/* FIXME: make thi two-column-grid */
-.grid {
-    width: 50%;
-}
 
 /***********************************************************
 * COMPONENTS
@@ -383,11 +339,228 @@ section {
     }
 }
 
-
-/***********************************************************
-* PAGE - GENERIC
-************************************************************/
+button {
+    &:hover {
+     cursor: pointer;
+    }
+}
 
 /***********************************************************
 * PAGE - NEW TEMPLATE
 ************************************************************/
+.new-template-content {
+
+    .normal-section {
+        background: @white;
+        .normalText();
+
+        .title {
+            .titleText();
+        }
+
+        .key {
+            .labelText();
+        }
+    }
+
+    .contrast-section {
+        background: @blue;
+        .contrastNormalText();
+
+        .title {
+            .contrastTitleText();
+        }
+
+        .key {
+            .contrastLabelText();
+        }
+    }
+
+
+    .grid {
+        float: left;
+        margin-top: @boxPadding;
+        margin-bottom: @boxPadding;
+
+        .title {
+            padding-bottom: @boxPadding;
+        }
+    }
+
+    .one-column-grid {
+        width: 100%;
+    }
+
+    /* FIXME: make thi two-column-grid */
+    .grid {
+        width: 50%;
+    }
+}
+
+
+/***********************************************************
+* PAGE - POSTING
+************************************************************/
+.posting-content {
+    @postingGreen: rgb(37, 202, 221);
+    @postingTeal: rgb(0, 183, 233);
+    @postingBlue: rgb(0, 136, 254);
+    @postingGrey: rgb(166, 166, 166);
+
+    @postingPagePadding: 300px;
+
+    @postingFontSize: 12px;
+    @postingLineHeight: 16px;
+
+    @postingRound: 3px;
+
+
+    .postingFont(@fontSize: @postingFontSize) {
+        font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+        font-size: @fontSize;
+        line-height: @postingLineHeight;
+    }
+        
+    .postingText() {
+        .postingFont;
+        color: @white;
+    }
+
+    .posting-section {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+
+        height: 100%;
+        padding: 0px @postingPagePadding;
+        .postingText;
+        
+        .computer-grid {
+            position: relative;
+            top: 32%;
+            float: left;
+            .computer-image {
+
+                .background-image-wrapper(
+                    408px,
+                    320px,
+                    'computer.png',
+                    transparent);
+            }
+        }
+
+        .posting-grid {
+            position: relative;
+            top: 32%;
+            width: 247px;
+            float: right;
+        }
+
+        input, textarea {
+            padding: 5px 10px;
+            .border-radius(@postingRound);
+            border: 0px;
+            margin: 7px 0px;
+            .inner-box-shadow();
+
+        }
+        
+        button {
+            .border-radius(@postingRound);
+            margin: 7px 0px;
+            color: @white;
+
+            &[type=submit] {
+                border: 0px;
+                width: 100%;
+                .background-image-wrapper(
+                    247px,
+                    30px,
+                    'postingSignUpButton.png',
+                    transparent);
+
+                &:active {
+                    .background-image-wrapper(
+                        247px,
+                        30px,
+                        'postingSignUpButtonPressed.png',
+                        transparent);
+                }
+            }
+        }
+    }
+
+    /***********************************************************
+    * POSTING - SIGNUP SECTION
+    ************************************************************/
+    .signup-section {
+        background-color: @postingGreen;
+
+        .signup-grid {
+            .signup-title {
+                .background-image-wrapper(
+                    247px,
+                    72px,
+                    'postingSignUpTitle.png',
+                    transparent);
+            }
+
+            .signup-form {
+                input.first-name {
+                    width: 47%;
+                    float: left;
+                }
+
+                input.last-name {
+                    width: 47%;
+                    float: right;
+                }
+
+                input.email {
+                    width: 100%;
+                }
+
+            }
+        }
+    }
+
+    /***********************************************************
+    * POSTING - NEW TASK SECTION
+    ************************************************************/
+    .newtask-section {
+        background-color: @postingTeal;
+
+        .newtask-grid {
+            .newtask-title {
+                .background-image-wrapper(
+                    190px,
+                    23px,
+                    'postingNewTaskTitle.png',
+                    transparent);
+            }
+
+            .newtask-form {
+                input, textarea {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    /***********************************************************
+    * POSTING - THANK YOU SECTION
+    ************************************************************/
+    .thankyou-section {
+        background-color: @postingBlue;
+
+        .thankyou-grid {
+            .thankyou-title {
+                .background-image-wrapper(
+                    83px,
+                    23px,
+                    'postingThankYouTitle.png',
+                    transparent);
+            }
+        }
+    }
+}
