@@ -24,6 +24,4 @@ class TemplateNewHandler(BaseHandler):
 
     """Initialize markup for a CRUD request to create a new Template."""
 
-
-    def _init_markup(self):
-        self._markup_path = "app/page/new_template.html"
+    _MARKUP_PATH = "app/page/new_template.html"

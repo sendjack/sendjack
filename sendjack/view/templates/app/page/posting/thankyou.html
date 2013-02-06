@@ -1,0 +1,40 @@
+{# posting/thankyou -- the thank you page in the posting series. #}
+
+{% extends "app/page/posting/base.html" %}
+
+{% from "app/components.html" import contact_link %}
+
+{% from "app/page/posting/base.html" import posting_section %}
+{% from "app/page/posting/base.html" import computer_grid, signup_grid %}
+
+
+{# The content section of the posting thank you page. #}
+{% block content %}
+    <div class="posting-content">
+        {{ thankyou_section(computer_grid() + thankyou_grid()) }}
+    </div>
+{% endblock content %}
+
+
+{% macro thankyou_section(el, classes=[]) %}
+    {% set my_classes = classes + ["thankyou-section"] %}
+
+    {{ posting_section(el, my_classes) }}
+{% endmacro %}
+
+
+{% macro thankyou_grid() %}
+    {% set my_classes = ["thankyou-grid"] %}
+
+    {{ posting_grid(thankyou_el(), my_classes) }}
+{% endmacro %}
+
+
+{% macro thankyou_el() %}
+    <div class="thankyou-title title"></div>
+    <p>Jackalope is on it!</p>
+    <p>We're processing your task and making sure it looks great.</p>
+    <p>Then we'll email you to confirm all the details. Thanks for trying us out!</p>
+    {{ contact_link() }}
+{% endmacro %}
+P

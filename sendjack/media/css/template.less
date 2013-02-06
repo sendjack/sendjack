@@ -44,14 +44,30 @@
 /***********************************************************
 * FONTS (with help from http://fontsquirrel.com)
 ************************************************************/
+@font-face {
+    font-family: 'Helvetica Neue Light';
+    src: url('fonts/helvetica-neue-light-webfont.eot'); //ie9
+    src:
+        url('fonts/helvetica-neue-light-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/helvetica-neue-light-webfont.woff')
+            format('woff'), // modern
+        url('fonts/helvetica-neue-light-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/helvetica-neue-light-webfont.svg#HeleveticaNeueLight')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
 .headerFont(@fontSize: @bigFontSize) {
-    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
     line-height: @bigLineHeight;
 }
 
 .normalFont(@fontSize: @normalFontSize) {
-    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
     line-height: @normalLineHeight;
 }
@@ -212,7 +228,7 @@
 /* Inner drop shadow. */
 .inner-box-shadow(
         @hShadow: 0px,
-        @vShadow: 2px,
+        @vShadow: 1px,
         @blur: 1px,
         @spread: 0px,
         @alpha: 0.2) {
@@ -317,51 +333,7 @@ section {
     text-align: left;
 }
 
-.normal-section {
-    background: @white;
-    .normalText();
 
-    .title {
-        .titleText();
-    }
-
-    .key {
-        .labelText();
-    }
-}
-
-.contrast-section {
-    background: @blue;
-    .contrastNormalText();
-
-    .title {
-        .contrastTitleText();
-    }
-
-    .key {
-        .contrastLabelText();
-    }
-}
-
-
-.grid {
-    float: left;
-    margin-top: @boxPadding;
-    margin-bottom: @boxPadding;
-
-    .title {
-        padding-bottom: @boxPadding;
-    }
-}
-
-.one-column-grid {
-    width: 100%;
-}
-
-/* FIXME: make thi two-column-grid */
-.grid {
-    width: 50%;
-}
 
 /***********************************************************
 * COMPONENTS
@@ -383,11 +355,265 @@ section {
     }
 }
 
-
-/***********************************************************
-* PAGE - GENERIC
-************************************************************/
+button {
+    &:hover {
+     cursor: pointer;
+    }
+}
 
 /***********************************************************
 * PAGE - NEW TEMPLATE
 ************************************************************/
+.new-template-content {
+
+    .normal-section {
+        background: @white;
+        .normalText();
+
+        .title {
+            .titleText();
+        }
+
+        .key {
+            .labelText();
+        }
+    }
+
+    .contrast-section {
+        background: @blue;
+        .contrastNormalText();
+
+        .title {
+            .contrastTitleText();
+        }
+
+        .key {
+            .contrastLabelText();
+        }
+    }
+
+
+    .grid {
+        float: left;
+        margin-top: @boxPadding;
+        margin-bottom: @boxPadding;
+
+        .title {
+            padding-bottom: @boxPadding;
+        }
+    }
+
+    .one-column-grid {
+        width: 100%;
+    }
+
+    /* FIXME: make thi two-column-grid */
+    .grid {
+        width: 50%;
+    }
+}
+
+
+/***********************************************************
+* PAGE - POSTING
+************************************************************/
+.posting-content {
+    @postingGreen: rgb(37, 202, 221);
+    @postingTeal: rgb(0, 183, 233);
+    @postingBlue: rgb(0, 136, 254);
+    @postingGrey: rgb(166, 166, 166);
+
+    @postingPagePadding: 200px;
+
+    @postingFontSize: 13px;
+    @postingTinyFontSize: 8px;
+    @postingLineHeight: 16px;
+    @postingRound: 3px;
+
+
+    .postingFont(@fontSize: @postingFontSize) {
+        font-family: 'Helvetica Neue Light', 'Arial Light', sans-serif;
+        font-size: @fontSize;
+        line-height: @postingLineHeight;
+        letter-spacing: 1px;
+    }
+
+    .postingTinyFont(@fontSize: @postingTinyFontSize) {
+        font-family: 'Helvetica Neue Light', 'Arial Light', sans-serif;
+        font-size: @fontSize;
+        letter-spacing: 1px;
+    }
+        
+    .postingText() {
+        .postingFont;
+        color: @white;
+    }
+
+    .postingTinyText() {
+        .postingTinyFont;
+        color: @white;
+    }
+
+    a {
+        color: @white;
+        text-decoration: none;
+
+        &:hover {
+            color: @black;
+        }
+    }
+    .posting-section {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+
+        height: 100%;
+        padding: 0px @postingPagePadding;
+        .postingText;
+        
+        .computer-grid {
+            position: relative;
+            top: 32%;
+            float: left;
+            .computer-image {
+
+                .background-image-wrapper(
+                    425px,
+                    323px,
+                    'computer.png',
+                    transparent);
+            }
+        }
+
+        .posting-grid {
+            position: relative;
+            top: 32%;
+            width: 247px;
+            margin-left: 50px;
+            float: left;
+
+            .title {
+                margin-bottom: 15px;
+            }
+
+            .contact-link {
+                .postingTinyText;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        p {
+            margin-bottom: @postingLineHeight;
+        }
+
+        input, textarea {
+            .postingText;
+            color: @black;
+            padding: 5px 10px;
+            .border-radius(@postingRound);
+            border: 0px;
+            margin: 7px 0px;
+            .inner-box-shadow();
+
+        }
+        
+        button {
+            .postingText;
+            .border-radius(@postingRound);
+            margin: 7px 0px;
+
+            &[type=submit] {
+                border: 0px;
+                width: 100%;
+                .background-image-wrapper(
+                    247px,
+                    30px,
+                    'postingSignUpButton.png',
+                    transparent);
+
+                &:active {
+                    .background-image-wrapper(
+                        247px,
+                        30px,
+                        'postingSignUpButtonPressed.png',
+                        transparent);
+                }
+            }
+        }
+    }
+
+    /***********************************************************
+    * POSTING - SIGNUP SECTION
+    ************************************************************/
+    .signup-section {
+        background-color: @postingGreen;
+
+        .signup-grid {
+            .signup-title {
+                .background-image-wrapper(
+                    247px,
+                    57px,
+                    'postingSignUpTitle.png',
+                    transparent);
+            }
+
+            .signup-form {
+                input.first-name {
+                    width: 47%;
+                    float: left;
+                }
+
+                input.last-name {
+                    width: 47%;
+                    float: right;
+                }
+
+                input.email {
+                    width: 100%;
+                }
+
+            }
+        }
+    }
+
+    /***********************************************************
+    * POSTING - NEW TASK SECTION
+    ************************************************************/
+    .newtask-section {
+        background-color: @postingTeal;
+
+        .newtask-grid {
+            .newtask-title {
+                .background-image-wrapper(
+                    225px,
+                    19px,
+                    'postingNewTaskTitle.png',
+                    transparent);
+            }
+
+            .newtask-form {
+                input, textarea {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    /***********************************************************
+    * POSTING - THANK YOU SECTION
+    ************************************************************/
+    .thankyou-section {
+        background-color: @postingBlue;
+
+        .thankyou-grid {
+            .thankyou-title {
+                .background-image-wrapper(
+                    148px,
+                    30px,
+                    'postingThankYouTitle.png',
+                    transparent);
+            }
+        }
+    }
+}

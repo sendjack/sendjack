@@ -53,7 +53,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
     """
 
-    _markup_path = None
+    _MARKUP_PATH = None
     _model = None
 
 
@@ -83,13 +83,13 @@ class BaseHandler(tornado.web.RequestHandler):
         return session
 
 
-    def prepare(self):
-        """Override to initialize a request before post/get/put/delete."""
-        self._init_markup()
-
-
     def get(self):
         """Handle a GET request by mapping it to READ."""
+        self._process_request()
+
+
+    def post(self):
+        """Handle a POST request."""
         self._process_request()
 
 
@@ -107,21 +107,23 @@ class BaseHandler(tornado.web.RequestHandler):
         self.write(json.dumps(self._model.json()))
 
 
+    def get_request_arguments(self):
+        arguments = {}
+        print self.request.arguments
+        for k, v in self.request.arguments.items():
+            arguments[k] = v[0]
+        return arguments
+
+
     def _process_synchronous_request(self):
         """Render markup and a model as a response to this request."""
         # TODO: synchronous might not exist for the CRUDHandler.
         # TODO: deal with passing constants along too.
-        self.render(self._markup_path, model=self._model.json())
+        self.render(self._MARKUP_PATH, model=self._model)
 
 
     def _is_asynchronous_request(self):
         return bool(self.get_argument(ARGUMENT.ASYNCHRONOUS, False))
-
-
-    def _init_markup(self):
-        """Set the path to the markup template for this handler."""
-        # TODO: this override is required. see example error in jackalope repo.
-        raise NotImplementedError()
 
 
     def _init_model(self):
