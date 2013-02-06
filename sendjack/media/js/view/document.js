@@ -13,7 +13,10 @@ define(
             'backbone',
 
             //modules
-            'model/test'
+            'model/test',
+
+            //jquery ui
+            'jqueryui'
         ],
         function ($, Backbone, test) {
 
@@ -33,6 +36,7 @@ var DocumentView = Backbone.View.extend({
             }
         });
 
+        var datepicker = $('.datepicker').datepicker();
     },
 
     render: function () {
