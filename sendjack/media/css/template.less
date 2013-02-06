@@ -44,14 +44,30 @@
 /***********************************************************
 * FONTS (with help from http://fontsquirrel.com)
 ************************************************************/
+@font-face {
+    font-family: 'Helvetica Neue Light';
+    src: url('fonts/helvetica-neue-light-webfont.eot'); //ie9
+    src:
+        url('fonts/helvetica-neue-light-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/helvetica-neue-light-webfont.woff')
+            format('woff'), // modern
+        url('fonts/helvetica-neue-light-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/helvetica-neue-light-webfont.svg#HeleveticaNeueLight')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
 .headerFont(@fontSize: @bigFontSize) {
-    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
     line-height: @bigLineHeight;
 }
 
 .normalFont(@fontSize: @normalFontSize) {
-    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
     line-height: @normalLineHeight;
 }
@@ -409,16 +425,23 @@ button {
 
     @postingPagePadding: 200px;
 
-    @postingFontSize: 12px;
+    @postingFontSize: 13px;
+    @postingTinyFontSize: 8px;
     @postingLineHeight: 16px;
-
     @postingRound: 3px;
 
 
     .postingFont(@fontSize: @postingFontSize) {
-        font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+        font-family: 'Helvetica Neue Light', 'Arial Light', sans-serif;
         font-size: @fontSize;
         line-height: @postingLineHeight;
+        letter-spacing: 1px;
+    }
+
+    .postingTinyFont(@fontSize: @postingTinyFontSize) {
+        font-family: 'Helvetica Neue Light', 'Arial Light', sans-serif;
+        font-size: @fontSize;
+        letter-spacing: 1px;
     }
         
     .postingText() {
@@ -426,6 +449,19 @@ button {
         color: @white;
     }
 
+    .postingTinyText() {
+        .postingTinyFont;
+        color: @white;
+    }
+
+    a {
+        color: @white;
+        text-decoration: none;
+
+        &:hover {
+            color: @black;
+        }
+    }
     .posting-section {
         position: absolute;
         left: 0px;
@@ -459,9 +495,21 @@ button {
             .title {
                 margin-bottom: 15px;
             }
+
+            .contact-link {
+                .postingTinyText;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        p {
+            margin-bottom: @postingLineHeight;
         }
 
         input, textarea {
+            .postingText;
+            color: @black;
             padding: 5px 10px;
             .border-radius(@postingRound);
             border: 0px;
@@ -471,9 +519,9 @@ button {
         }
         
         button {
+            .postingText;
             .border-radius(@postingRound);
             margin: 7px 0px;
-            color: @white;
 
             &[type=submit] {
                 border: 0px;

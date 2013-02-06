@@ -2,6 +2,8 @@
 
 {% extends "app/page/posting/base.html" %}
 
+{% from "app/components.html" import contact_link %}
+
 {% from "app/page/posting/base.html" import posting_section %}
 {% from "app/page/posting/base.html" import computer_grid, signup_grid %}
 
@@ -30,8 +32,9 @@
 
 {% macro thankyou_el() %}
     <div class="thankyou-title title"></div>
-    <p>We're processing your task right now.</p>
-
-    <p>And we'll send you an email shortly to confirm all the details.</p>
+    <p>Jackalope is on it!</p>
+    <p>We're processing your task and making sure it looks great.</p>
+    <p>Then we'll email you to confirm all the details. Thanks for trying us out!</p>
+    {{ contact_link() }}
 {% endmacro %}
 P

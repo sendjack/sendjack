@@ -2,6 +2,8 @@
 
 {% extends "app/page/posting/base.html" %}
 
+{% from "app/components.html" import contact_link %}
+
 {% from "app/page/posting/base.html" import posting_section %}
 {% from "app/page/posting/base.html" import computer_grid, signup_grid %}
 
@@ -31,6 +33,7 @@
 {% macro newtask_el() %}
     <div class="newtask-title title"></div>
     {{ newtask_form() }}
+    {{ contact_link() }}
 {% endmacro %}
 
 
