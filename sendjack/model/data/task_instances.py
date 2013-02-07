@@ -6,11 +6,13 @@
     Define the task_instances table.
 
 """
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column
+from sqlalchemy.types import Integer, String, Boolean
 
 from jutil.decorators import constant
 
-from sqlalchemy_db import BaseObject
+from types import SerializableDateTime
+from base import BaseObject
 from crud import CRUD
 
 
@@ -27,17 +29,11 @@ class TaskInstances(BaseObject, CRUD):
 
     __tablename__ = TASK_INSTANCES.TABLE_NAME
 
-    # TODO: maybe but probably not since it could make the ORM confusing:
-    # - abstract fields common to all db-backed objects into ORM subclass
-    # - abstract fields common to task template/instance into superclass
+    # TODO: if not too confusing, abstract fields common to task
+    # template/instance into an abstract superclass below BaseObject.
 
     id = Column(Integer, primary_key=True)
     title = Column(String)
-
-    # TODO: will it cause problems for timestamps to be null?
-    created_ts = Column(DateTime, nullable=False)
-    updated_ts = Column(DateTime, nullable=False)
-    deleted_ts = Column(DateTime)
 
     # TODO: figure out foreign keys.
     customer_id = Column(Integer, nullable=False)
@@ -47,7 +43,7 @@ class TaskInstances(BaseObject, CRUD):
     customer_title = Column(String)
     customer_description = Column(String)
 
-    deadline_ts = Column(DateTime)
+    deadline_ts = Column(SerializableDateTime)
     is_urgent = Column(Boolean)
 
     # in US cents per hour

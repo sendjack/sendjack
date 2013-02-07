@@ -7,7 +7,7 @@
 """
 from sqlalchemy import Column, Integer, String
 
-from sqlalchemy_db import BaseObject
+from base import BaseObject
 from crud import CRUD
 
 

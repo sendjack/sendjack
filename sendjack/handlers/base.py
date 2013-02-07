@@ -104,7 +104,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def _process_asynchronous_request(self):
         """Send a JSON response to this request containing a model."""
         # TODO: deal with passing constants along too.
-        self.write(json.dumps(self._model.json()))
+        self.write(json.dumps(self._model.to_dict()))
 
 
     def get_request_arguments(self):
@@ -134,7 +134,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
 
     def _get_request_parameters(self):
-        return json.loads(self.request.body)
+        return json.loads(self.request.arguments)
 
 
     def render(self, markup_path, **kwargs):
