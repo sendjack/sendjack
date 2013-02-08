@@ -266,7 +266,7 @@
 
 
 /***********************************************************
-* FRAMEWORK, SECTION, GRID
+* ELEMENTARY
 ************************************************************/
 /* I like this box model better so deal with it. */
 * {
@@ -300,12 +300,34 @@ header, section, footer {
 }
 
 header {
-    background: @black;
     padding: @linePadding @pagePadding;
     height: @headerHeight;
+}
+
+section {
+    padding: 0px @pagePadding;
+    text-align: left;
+}
+
+button {
+    &:hover {
+     cursor: pointer;
+    }
+}
+
+/***********************************************************
+* APP PAGE AND BODY AND HEADER
+************************************************************/
+.page {
+    width: 100%;
+    height: 100%;
+}
+
+.main-header {
+    background: @black;
     float: left;
 
-    #main-logo {
+    .main-logo {
         .background-image-wrapper(
             42px,
             40px,
@@ -316,7 +338,7 @@ header {
         background-position: center;
     }
 
-    #main-lettering {
+    .main-lettering {
         .background-image-wrapper(
             149px,
             27px,
@@ -328,17 +350,10 @@ header {
     }
 }
 
-section {
-    padding: 0px @pagePadding;
-    text-align: left;
-}
-
-
-
 /***********************************************************
-* COMPONENTS
+* APP COMPONENTS
 ************************************************************/
-.columned-field-list {
+.field-list {
 
     li {
         clear: both;
@@ -355,16 +370,11 @@ section {
     }
 }
 
-button {
-    &:hover {
-     cursor: pointer;
-    }
-}
 
 /***********************************************************
-* PAGE - NEW TEMPLATE
+* CONTENT - MAIN STYLE
 ************************************************************/
-.new-template-content {
+.main-content {
 
     .normal-section {
         background: @white;
@@ -392,7 +402,6 @@ button {
         }
     }
 
-
     .grid {
         float: left;
         margin-top: @boxPadding;
@@ -411,49 +420,79 @@ button {
     .grid {
         width: 50%;
     }
+
+    /***********************************************************
+    * MAIN - NEW TEMPLATE PAGE
+    ************************************************************/
+    .template-new-page {
+        .worker-grid {
+            padding-left: 25px;
+        }
+    }
 }
 
 
+
 /***********************************************************
-* PAGE - POSTING
+* CONTENT - ALPHA SIGN UP SERIES (ALT)
 ************************************************************/
-.posting-content {
-    @postingGreen: rgb(37, 202, 221);
-    @postingTeal: rgb(0, 183, 233);
-    @postingBlue: rgb(0, 136, 254);
-    @postingGrey: rgb(166, 166, 166);
+.alt-content {
+    width: 100%;
+    height: 100%;
 
-    @postingPagePadding: 200px;
-
-    @postingFontSize: 13px;
-    @postingTinyFontSize: 8px;
-    @postingLineHeight: 16px;
-    @postingRound: 3px;
+    /***********************************************************
+    * ALT - COLOR DEFINITIONS
+    ************************************************************/
+    @altGreen: rgb(37, 202, 221);
+    @altTeal: rgb(0, 183, 233);
+    @altBlue: rgb(0, 136, 254);
 
 
-    .postingFont(@fontSize: @postingFontSize) {
+    /***********************************************************
+    * ALT - SIZE DEFINITIONS
+    ************************************************************/
+    @altPagePadding: 200px;
+
+    @altFontSize: 13px;
+    @altTinyFontSize: 8px;
+    @altLineHeight: 16px;
+    @altRound: 3px;
+
+
+    /***********************************************************
+    * ALT - FONTS (with help from http://fontsquirrel.com)
+    ************************************************************/
+    .altFont(@fontSize: @altFontSize) {
         font-family: 'Helvetica Neue Light', 'Arial Light', sans-serif;
         font-size: @fontSize;
-        line-height: @postingLineHeight;
+        line-height: @altLineHeight;
         letter-spacing: 1px;
     }
 
-    .postingTinyFont(@fontSize: @postingTinyFontSize) {
+    .altTinyFont(@fontSize: @altTinyFontSize) {
         font-family: 'Helvetica Neue Light', 'Arial Light', sans-serif;
         font-size: @fontSize;
         letter-spacing: 1px;
     }
         
-    .postingText() {
-        .postingFont;
+
+    /***********************************************************
+    * ALT - TEXT STYLE SETS
+    ************************************************************/
+    .altText() {
+        .altFont;
         color: @white;
     }
 
-    .postingTinyText() {
-        .postingTinyFont;
+    .altTinyText() {
+        .altTinyFont;
         color: @white;
     }
 
+
+    /***********************************************************
+    * ALT - FRAMEWORK AND BODY
+    ************************************************************/
     a {
         color: @white;
         text-decoration: none;
@@ -462,18 +501,17 @@ button {
             color: @black;
         }
     }
-    .posting-section {
-        position: absolute;
-        left: 0px;
-        top: 0px;
 
-        height: 100%;
-        padding: 0px @postingPagePadding;
-        .postingText;
+    /***********************************************************
+    * ALT - COMPONENTS
+    ************************************************************/
+    .alt-section {
+        .altText;
+        position: relative;
+        top: 32%;
+        padding: 0px @altPagePadding;
         
-        .computer-grid {
-            position: relative;
-            top: 32%;
+        .left-grid {
             float: left;
             .computer-image {
 
@@ -485,9 +523,7 @@ button {
             }
         }
 
-        .posting-grid {
-            position: relative;
-            top: 32%;
+        .right-grid {
             width: 247px;
             margin-left: 50px;
             float: left;
@@ -496,22 +532,22 @@ button {
                 margin-bottom: 15px;
             }
 
-            .contact-link {
-                .postingTinyText;
+            .contact-anchor {
+                .altTinyText;
                 width: 100%;
                 text-align: center;
             }
         }
 
-        p {
-            margin-bottom: @postingLineHeight;
+        .line {
+            margin-bottom: @altLineHeight;
         }
 
         input, textarea {
-            .postingText;
+            .altText;
             color: @black;
             padding: 5px 10px;
-            .border-radius(@postingRound);
+            .border-radius(@altRound);
             border: 0px;
             margin: 7px 0px;
             .inner-box-shadow();
@@ -519,8 +555,8 @@ button {
         }
         
         button {
-            .postingText;
-            .border-radius(@postingRound);
+            .altText;
+            .border-radius(@altRound);
             margin: 7px 0px;
 
             &[type=submit] {
@@ -529,14 +565,14 @@ button {
                 .background-image-wrapper(
                     247px,
                     30px,
-                    'postingSignUpButton.png',
+                    'altSignUpButton.png',
                     transparent);
 
                 &:active {
                     .background-image-wrapper(
                         247px,
                         30px,
-                        'postingSignUpButtonPressed.png',
+                        'altSignUpButtonPressed.png',
                         transparent);
                 }
             }
@@ -544,21 +580,21 @@ button {
     }
 
     /***********************************************************
-    * POSTING - SIGNUP SECTION
+    * ALT - SIGN UP PAGE 
     ************************************************************/
-    .signup-section {
-        background-color: @postingGreen;
+    .sign-up-page {
+        background-color: @altGreen;
 
-        .signup-grid {
-            .signup-title {
+        .sign-up-grid {
+            .sign-up-title {
                 .background-image-wrapper(
                     247px,
                     57px,
-                    'postingSignUpTitle.png',
+                    'altSignUpTitle.png',
                     transparent);
             }
 
-            .signup-form {
+            .sign-up-form {
                 input.first-name {
                     width: 47%;
                     float: left;
@@ -578,21 +614,21 @@ button {
     }
 
     /***********************************************************
-    * POSTING - NEW TASK SECTION
+    * ALT - NEW TASK PAGE
     ************************************************************/
-    .newtask-section {
-        background-color: @postingTeal;
+    .new-task-page {
+        background-color: @altTeal;
 
-        .newtask-grid {
-            .newtask-title {
+        .new-task-grid {
+            .new-task-title {
                 .background-image-wrapper(
                     225px,
                     19px,
-                    'postingNewTaskTitle.png',
+                    'altNewTaskTitle.png',
                     transparent);
             }
 
-            .newtask-form {
+            .new-task-form {
                 input, textarea {
                     width: 100%;
                 }
@@ -601,196 +637,19 @@ button {
     }
 
     /***********************************************************
-    * POSTING - THANK YOU SECTION
+    * ALT - THANK YOU PAGE
     ************************************************************/
-    .thankyou-section {
-        background-color: @postingBlue;
+    .thank-you-page {
+        background-color: @altBlue;
 
-        .thankyou-grid {
-            .thankyou-title {
+        .thank-you-grid {
+            .thank-you-title {
                 .background-image-wrapper(
                     148px,
                     30px,
-                    'postingThankYouTitle.png',
+                    'altThankYouTitle.png',
                     transparent);
             }
         }
     }
 }
-
-
-/***********************************************************
-* DATEPICKER JQUERY UI PLUGIN COMPONENT
-*
-* .ui-autocomplete-input
-* .ui-autocomplete, .ui-menu
-* .ui-menu-item
-*
-************************************************************/
-/* .ui-datepicker {
-    width: 17em;
-    padding: .2em .2em 0;
-    display: none;
-
-    .ui-datepicker-header {
-        position: relative;
-        padding: .2em 0;
-    }
-    .ui-datepicker-prev,
-    .ui-datepicker-next {
-        position: absolute;
-        top: 2px;
-        width: 1.8em;
-        height: 1.8em;
-    }
-    .ui-datepicker-prev-hover,
-    .ui-datepicker-next-hover {
-        top: 1px;
-    }
-    .ui-datepicker-prev {
-        left: 2px;
-    }
-    .ui-datepicker-next {
-        right: 2px;
-    }
-    .ui-datepicker-prev-hover {
-        left: 1px;
-    }
-    .ui-datepicker-next-hover {
-        right: 1px;
-    }
-    .ui-datepicker-prev span,
-    .ui-datepicker-next span {
-        display: block;
-        position: absolute;
-        left: 50%;
-        margin-left: -8px;
-        top: 50%;
-        margin-top: -8px;
-    }
-    .ui-datepicker-title {
-        margin: 0 2.3em;
-        line-height: 1.8em;
-        text-align: center;
-    }
-    .ui-datepicker-title select {
-        font-size: 1em;
-        margin: 1px 0;
-    }
-    select.ui-datepicker-month-year {
-        width: 100%;
-    }
-    select.ui-datepicker-month,
-    select.ui-datepicker-year {
-        width: 49%;
-    }
-    table {
-        width: 100%;
-        font-size: .9em;
-        border-collapse: collapse;
-        margin: 0 0 .4em;
-    }
-    th {
-        padding: .7em .3em;
-        text-align: center;
-        font-weight: bold;
-        border: 0;
-    }
-    td {
-        border: 0;
-        padding: 1px;
-    }
-    td span,
-    td a {
-        display: block;
-        padding: .2em;
-        text-align: right;
-        text-decoration: none;
-    }
-    .ui-datepicker-buttonpane {
-        background-image: none;
-        margin: .7em 0 0 0;
-        padding: 0 .2em;
-        border-left: 0;
-        border-right: 0;
-        border-bottom: 0;
-    }
-    .ui-datepicker-buttonpane button {
-        float: right;
-        margin: .5em .2em .4em;
-        cursor: pointer;
-        padding: .2em .6em .3em .6em;
-        width: auto;
-        overflow: visible;
-    }
-    .ui-datepicker-buttonpane button.ui-datepicker-current {
-        float: left;
-    }
-
-    &.ui-datepicker-multi {
-        width: auto;
-    }
-    .ui-datepicker-multi .ui-datepicker-group {
-        float: left;
-    }
-    .ui-datepicker-multi .ui-datepicker-group table {
-        width: 95%;
-        margin: 0 auto .4em;
-    }
-    .ui-datepicker-multi-2 .ui-datepicker-group {
-        width: 50%;
-    }
-    .ui-datepicker-multi-3 .ui-datepicker-group {
-        width: 33.3%;
-    }
-    .ui-datepicker-multi-4 .ui-datepicker-group {
-        width: 25%;
-    }
-    .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
-    .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
-        border-left-width: 0;
-    }
-    .ui-datepicker-multi .ui-datepicker-buttonpane {
-        clear: left;
-    }
-    .ui-datepicker-row-break {
-        clear: both;
-        width: 100%;
-        font-size: 0;
-    }
-
-    .ui-datepicker-rtl {
-        direction: rtl;
-    }
-    .ui-datepicker-rtl .ui-datepicker-prev {
-        right: 2px;
-        left: auto;
-    }
-    .ui-datepicker-rtl .ui-datepicker-next {
-        left: 2px;
-        right: auto;
-    }
-    .ui-datepicker-rtl .ui-datepicker-prev:hover {
-        right: 1px;
-        left: auto;
-    }
-    .ui-datepicker-rtl .ui-datepicker-next:hover {
-        left: 1px;
-        right: auto;
-    }
-    .ui-datepicker-rtl .ui-datepicker-buttonpane {
-        clear: right;
-    }
-    .ui-datepicker-rtl .ui-datepicker-buttonpane button {
-        float: left;
-    }
-    .ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
-    .ui-datepicker-rtl .ui-datepicker-group {
-        float: right;
-    }
-    .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
-    .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
-        border-right-width: 0;
-        border-left-width: 1px;
-    }
-} */

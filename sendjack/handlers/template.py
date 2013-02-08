@@ -7,6 +7,8 @@
 """
 from model.object.task_template import TaskTemplate
 
+from view.app.main.body import TemplateNewBody
+
 from base import BaseHandler
 from crud import CRUDHandler
 
@@ -24,4 +26,5 @@ class TemplateNewHandler(BaseHandler):
 
     """Initialize markup for a CRUD request to create a new Template."""
 
-    _MARKUP_PATH = "app/page/new_template.html"
+    def _render_body_markup(self, model=None):
+        return TemplateNewBody()

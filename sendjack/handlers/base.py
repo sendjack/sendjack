@@ -20,6 +20,7 @@ import json
 import tornado.web
 
 from jutil.decorators import constant
+from view.elementary.html import Element
 import settings
 
 
@@ -53,7 +54,6 @@ class BaseHandler(tornado.web.RequestHandler):
 
     """
 
-    _MARKUP_PATH = None
     _model = None
 
 
@@ -119,7 +119,14 @@ class BaseHandler(tornado.web.RequestHandler):
         """Render markup and a model as a response to this request."""
         # TODO: synchronous might not exist for the CRUDHandler.
         # TODO: deal with passing constants along too.
-        self.render(self._MARKUP_PATH, model=self._model)
+        self.render("pre_body.html")
+        self.write(Element.to_string(self._render_body_markup(self._model)))
+        self.render("post_body.html")
+
+
+    def _render_body_markup(self, model=None):
+        """Render markup for the response <body>."""
+        raise NotImplementedError()
 
 
     def _is_asynchronous_request(self):
