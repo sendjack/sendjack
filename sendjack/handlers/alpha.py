@@ -7,10 +7,10 @@
 """
 import mailer
 
-from post import PostHandler
-
 from view.elementary.html import Element
 from view.app.alpha_signup.body import SignUpBody, NewTaskBody, ThankYouBody
+
+from post import PostHandler
 
 
 class SignUpPostingHandler(PostHandler):

@@ -14,7 +14,7 @@ class MainBody(Body):
 
     """The standard <body> layout."""
 
-    MAIN_CONTENT = "main-content"
+    MAIN_CONTENT = unicode("main-content")
 
 
     def __init__(self):
@@ -39,12 +39,14 @@ class MainHeader(Header):
 
     """The standard <header> section."""
 
+    MAIN_HEADER = unicode("main-header")
     MAIN_LOGO = unicode("main-logo")
     MAIN_LETTERING = unicode("main-lettering")
 
 
     def __init__(self):
         super(MainHeader, self).__init__()
+        self.append_class(self.MAIN_HEADER)
 
         inner_wrapper = InnerWrapper()
 
@@ -63,7 +65,7 @@ class AltBody(Body):
 
     """The alternative <body> section."""
 
-    ALT_CONTENT = "alt-content"
+    ALT_CONTENT = unicode("alt-content")
 
 
     def __init__(self):
