@@ -7,7 +7,6 @@
 """
 import mailer
 
-from view.elementary.html import Element
 from view.app.alpha_signup.body import SignUpBody, NewTaskBody, ThankYouBody
 
 from post import PostHandler
@@ -17,12 +16,11 @@ class SignUpPostingHandler(PostHandler):
 
     _NEXT_URL = "/posting/newtask"
 
+    def _render_body_markup(self, model=None):
+        return SignUpBody()
 
-    def _render_body(self):
-        self.write(Element.to_string(SignUpBody()))
 
-
-    def _process_synchronous_request(self):
+    def _process_post_request(self):
         """Process the form data."""
         form_data = self.get_request_arguments()
         first_name = form_data.get("first-name")
@@ -42,12 +40,11 @@ class NewTaskPostingHandler(PostHandler):
 
     _NEXT_URL = "/posting/thankyou"
 
+    def _render_body_markup(self, model=None):
+        return NewTaskBody()
 
-    def _render_body(self):
-        self.write(Element.to_string(NewTaskBody()))
 
-
-    def _process_synchronous_request(self):
+    def _process_post_request(self):
         """Process the form data."""
         form_data = self.get_request_arguments()
         task_title = form_data.get("task-title")
@@ -67,6 +64,5 @@ class ThankYouPostingHandler(PostHandler):
 
     _NEXT_URL = None
 
-
-    def _render_body(self):
-        self.write(Element.to_string(ThankYouBody()))
+    def _render_body_markup(self, model=None):
+        return ThankYouBody()
