@@ -14,7 +14,13 @@ class PostHandler(BaseHandler):
 
 
     def get(self):
-        self.render(self._MARKUP_PATH, model=self._model)
+        self.render("pre_body.html")
+        self._render_body()
+        self.render("post_body.html")
+
+
+    def _render_body():
+        raise NotImplementedError("Subclass must override.")
 
 
     def _process_request(self):

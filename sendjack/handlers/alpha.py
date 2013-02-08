@@ -9,11 +9,17 @@ import mailer
 
 from post import PostHandler
 
+from view.elementary.html import Element
+from view.app.alpha_signup.body import SignUpBody, NewTaskBody, ThankYouBody
+
 
 class SignUpPostingHandler(PostHandler):
 
-    _MARKUP_PATH = "app/page/posting/signup.html"
     _NEXT_URL = "/posting/newtask"
+
+
+    def _render_body(self):
+        self.write(Element.to_string(SignUpBody()))
 
 
     def _process_synchronous_request(self):
@@ -34,8 +40,11 @@ class SignUpPostingHandler(PostHandler):
 
 class NewTaskPostingHandler(PostHandler):
 
-    _MARKUP_PATH = "app/page/posting/newtask.html"
     _NEXT_URL = "/posting/thankyou"
+
+
+    def _render_body(self):
+        self.write(Element.to_string(NewTaskBody()))
 
 
     def _process_synchronous_request(self):
@@ -56,5 +65,8 @@ class NewTaskPostingHandler(PostHandler):
 
 class ThankYouPostingHandler(PostHandler):
 
-    _MARKUP_PATH = "app/page/posting/thankyou.html"
     _NEXT_URL = None
+
+
+    def _render_body(self):
+        self.write(Element.to_string(ThankYouBody()))
