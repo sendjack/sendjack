@@ -15,19 +15,19 @@
 ************************************************************/
 @white: rgb(255, 255, 255);
 @black: rgb(0, 0, 0);
-@blue: rgb(0, 146, 255);
-@grey: rgb(151, 153, 156);
 
 
 /***********************************************************
 * SIZE DEFINITIONS
 ************************************************************/
-@smallFontSize: 10px;
-@normalFontSize: 14px;
+@tinyFontSize: 8px;
+@normalFontSize: 13px;
 @bigFontSize: 25px;
 
-@normalLineHeight: @normalFontSize + 12px;
+@normalLineHeight: @normalFontSize + 3px;
+@listLineHeight: 30px;
 @bigLineHeight: @bigFontSize + 8px;
+
 @headerHeight: 50px;
 
 @textPadding: 15px;
@@ -38,7 +38,7 @@
 
 @normalBorder: 2px;
 @smallRound: 2px;
-@normalRound: 8px;
+@normalRound: 3px;
 
 
 /***********************************************************
@@ -63,54 +63,29 @@
 .headerFont(@fontSize: @bigFontSize) {
     font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
-    line-height: @bigLineHeight;
 }
 
 .normalFont(@fontSize: @normalFontSize) {
     font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
-    line-height: @normalLineHeight;
+    letter-spacing: 1px;
 }
+
+.tinyFont(@fontSize: @altTinyFontSize) {
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+    font-size: @fontSize;
+    letter-spacing: 1px;
+}
+        
 
 
 /***********************************************************
 * TEXT STYLE SETS
 ************************************************************/
-.headerText() {
-    .headerFont;
-    color: @white;
-}
-
-.titleText() {
-    .headerFont;
-    color: @black;
-}
-
-.labelText() {
-    .normalFont;
-    color: @grey;
-}
-
-.normalText() {
-    .normalFont;
-    color: @blue;
-}
-
-.contrastTitleText() {
-    .headerFont;
-    color: @white;
-}
-
-.contrastLabelText() {
-    .normalFont;
-    color: @black;
-}
-
-.contrastNormalText() {
+.buttonText() {
     .normalFont;
     color: @white;
 }
-
 
 /***********************************************************
 * REUSABLE GENERIC CLASSES
@@ -247,13 +222,16 @@
 }
 
 .form-element {
-    .normalText;
+    .normalFont;
     .border-radius(@smallRound);
-    height: @normalLineHeight;
-    border: @normalBorder fadeout(@black, 40%) solid;
-    padding: @textPadding @textPadding * 3;
+    .inner-box-shadow();
 
+    height: @listLineHeight;
+    border: 0px;
+    padding: @textPadding @textPadding;
     background-color: @white;
+    color: @black;
+
 }
 
 .icon(@picture_file) {
@@ -281,10 +259,8 @@ html {
 }
 
 body {
-    .normalText;
     width: 100%;
     height: 100%;
-    background-color: @blue;
 }
 
 header, section, footer {
@@ -310,9 +286,38 @@ section {
 }
 
 button {
+}
+
+button {
+    .buttonText;
+    .border-radius(@normalRound);
+
     &:hover {
      cursor: pointer;
     }
+
+    &[type=submit] {
+        border: 0px;
+        width: 100%;
+        .background-image-wrapper(
+            247px,
+            30px,
+            'signUpButton.png',
+            transparent);
+
+        &:active {
+            .background-image-wrapper(
+                247px,
+                30px,
+                'signUpButtonPressed.png',
+                transparent);
+        }
+    }
+}
+
+li {
+    margin-bottom: @linePadding;
+    line-height: @listLineHeight;
 }
 
 /***********************************************************
@@ -356,16 +361,21 @@ button {
 .field-list {
 
     li {
+        float: left;
+        width: 100%;
         clear: both;
 
-        .key {
-            float: left;
-            width: 40%;
-        }
+        .field {
 
-        .value {
-            float: left;
-            width: 60%;
+            .key {
+                float: left;
+                width: 40%;
+            }
+
+            .value {
+                float: left;
+                width: 60%;
+            }
         }
     }
 }
@@ -375,7 +385,74 @@ button {
 * CONTENT - MAIN STYLE
 ************************************************************/
 .main-content {
+    /***********************************************************
+    * MAIN - COLOR DEFINITIONS
+    ************************************************************/
+    @blue: rgb(0, 146, 255);
+    @grey: rgb(151, 153, 156);
 
+    /***********************************************************
+    * MAIN - SIZE DEFINITIONS
+    ************************************************************/
+
+
+    /***********************************************************
+    * MAIN - FONTS (with help from http://fontsquirrel.com)
+    ************************************************************/
+
+    /***********************************************************
+    * MAIN - TEXT STYLE SETS
+    ************************************************************/
+    .headerText() {
+        .headerFont;
+        color: @white;
+    }
+
+    .titleText() {
+        .headerFont;
+        color: @black;
+    }
+
+    .labelText() {
+        .normalFont;
+        color: @grey;
+    }
+
+    .normalText() {
+        .normalFont;
+        color: @blue;
+    }
+
+    .contrastTitleText() {
+        .headerFont;
+        color: @white;
+    }
+
+    .contrastLabelText() {
+        .normalFont;
+        color: @black;
+    }
+
+    .contrastNormalText() {
+        .normalFont;
+        color: @white;
+    }
+
+    /***********************************************************
+    * MAIN - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
+    ************************************************************/
+    width: 100%;
+    height: 100%;
+    .normalText;
+    background-color: @blue;
+
+    input, textarea {
+        .form-element;
+    }
+
+    /***********************************************************
+    * MAIN - COMPONENTS
+    ************************************************************/
     .normal-section {
         background: @white;
         .normalText();
@@ -386,6 +463,10 @@ button {
 
         .key {
             .labelText();
+        }
+
+        .value {
+            color: @blue;
         }
     }
 
@@ -399,6 +480,9 @@ button {
 
         .key {
             .contrastLabelText();
+        }
+
+        .value {
         }
     }
 
@@ -425,12 +509,11 @@ button {
     * MAIN - NEW TEMPLATE PAGE
     ************************************************************/
     .template-new-page {
-        .worker-grid {
+        .post-grid, .worker-grid {
             padding-left: 25px;
         }
     }
 }
-
 
 
 /***********************************************************
@@ -443,55 +526,40 @@ button {
     /***********************************************************
     * ALT - COLOR DEFINITIONS
     ************************************************************/
-    @altGreen: rgb(37, 202, 221);
-    @altTeal: rgb(0, 183, 233);
-    @altBlue: rgb(0, 136, 254);
+    @green: rgb(37, 202, 221);
+    @teal: rgb(0, 183, 233);
+    @blue: rgb(0, 136, 254);
 
 
     /***********************************************************
     * ALT - SIZE DEFINITIONS
     ************************************************************/
-    @altPagePadding: 200px;
-
     @altFontSize: 13px;
     @altTinyFontSize: 8px;
     @altLineHeight: 16px;
-    @altRound: 3px;
-
+    
+    @altPagePadding: 200px;
 
     /***********************************************************
     * ALT - FONTS (with help from http://fontsquirrel.com)
     ************************************************************/
-    .altFont(@fontSize: @altFontSize) {
-        font-family: 'Helvetica Neue Light', 'Arial Light', sans-serif;
-        font-size: @fontSize;
-        line-height: @altLineHeight;
-        letter-spacing: 1px;
-    }
-
-    .altTinyFont(@fontSize: @altTinyFontSize) {
-        font-family: 'Helvetica Neue Light', 'Arial Light', sans-serif;
-        font-size: @fontSize;
-        letter-spacing: 1px;
-    }
-        
 
     /***********************************************************
     * ALT - TEXT STYLE SETS
     ************************************************************/
     .altText() {
-        .altFont;
+        .normalFont;
         color: @white;
     }
 
     .altTinyText() {
-        .altTinyFont;
+        .tinyFont;
         color: @white;
     }
 
 
     /***********************************************************
-    * ALT - FRAMEWORK AND BODY
+    * ALT - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
     ************************************************************/
     a {
         color: @white;
@@ -500,6 +568,16 @@ button {
         &:hover {
             color: @black;
         }
+    }
+
+    input, textarea {
+        .form-element;
+
+        margin: 7px 0px;
+    }
+    
+    button {
+        margin: 7px 0px;
     }
 
     /***********************************************************
@@ -543,47 +621,13 @@ button {
             margin-bottom: @altLineHeight;
         }
 
-        input, textarea {
-            .altText;
-            color: @black;
-            padding: 5px 10px;
-            .border-radius(@altRound);
-            border: 0px;
-            margin: 7px 0px;
-            .inner-box-shadow();
-
-        }
-        
-        button {
-            .altText;
-            .border-radius(@altRound);
-            margin: 7px 0px;
-
-            &[type=submit] {
-                border: 0px;
-                width: 100%;
-                .background-image-wrapper(
-                    247px,
-                    30px,
-                    'altSignUpButton.png',
-                    transparent);
-
-                &:active {
-                    .background-image-wrapper(
-                        247px,
-                        30px,
-                        'altSignUpButtonPressed.png',
-                        transparent);
-                }
-            }
-        }
     }
 
     /***********************************************************
     * ALT - SIGN UP PAGE 
     ************************************************************/
     .sign-up-page {
-        background-color: @altGreen;
+        background-color: @green;
 
         .sign-up-grid {
             .sign-up-title {
@@ -617,7 +661,7 @@ button {
     * ALT - NEW TASK PAGE
     ************************************************************/
     .new-task-page {
-        background-color: @altTeal;
+        background-color: @teal;
 
         .new-task-grid {
             .new-task-title {
@@ -640,7 +684,7 @@ button {
     * ALT - THANK YOU PAGE
     ************************************************************/
     .thank-you-page {
-        background-color: @altBlue;
+        background-color: @blue;
 
         .thank-you-grid {
             .thank-you-title {

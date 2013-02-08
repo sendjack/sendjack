@@ -12,34 +12,38 @@ img{border:none;}
 @font-face{font-family:'Helvetica Neue Light';src:url('fonts/helvetica-neue-light-webfont.eot');src:url('fonts/helvetica-neue-light-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/helvetica-neue-light-webfont.woff') format('woff'), url('fonts/helvetica-neue-light-webfont.ttf') format('truetype'), url('fonts/helvetica-neue-light-webfont.svg#HeleveticaNeueLight') format('svg');font-weight:normal;font-style:normal;}.hidden-content{line-height:0px;font-size:0px;color:transparent;}
 .emboss-text{text-shadow:0px -1px 0px rgba(0, 0, 0, 0.5);}
 .header-section{overflow-y:hidden;}
-.form-element{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:14px;line-height:26px;color:#0092ff;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;height:26px;border:2px rgba(0, 0, 0, 0.6) solid;padding:15px 45px;background-color:#ffffff;}
+.form-element{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;-moz-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;height:30px;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;}
 *{box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}
 html{width:100%;height:100%;}
-body{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:14px;line-height:26px;color:#0092ff;width:100%;height:100%;background-color:#0092ff;}
+body{width:100%;height:100%;}
 header,section,footer{width:100%;text-align:center;float:left;}header .inner-wrapper,section .inner-wrapper,footer .inner-wrapper{width:100%;height:100%;float:left;}
 header{padding:5px 350px;height:50px;}
 section{padding:0px 350px;text-align:left;}
-button:hover{cursor:pointer;}
+button{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#ffffff;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}button:hover{cursor:pointer;}
+button[type=submit]{border:0px;width:100%;width:247px;height:30px;background:url('/static/images/signUpButton.png') transparent no-repeat;background-size:247px 30px;-moz-background-size:247px 30px;-webkit-background-size:247px 30px;-o-background-size:247px 30px;}button[type=submit]:active{width:247px;height:30px;background:url('/static/images/signUpButtonPressed.png') transparent no-repeat;background-size:247px 30px;-moz-background-size:247px 30px;-webkit-background-size:247px 30px;-o-background-size:247px 30px;}
+li{margin-bottom:5px;line-height:30px;}
 .page{width:100%;height:100%;}
 .main-header{background:#000000;float:left;}.main-header .main-logo{width:42px;height:40px;background:url('/static/images/mainLogo.png') transparent no-repeat;background-size:42px 40px;-moz-background-size:42px 40px;-webkit-background-size:42px 40px;-o-background-size:42px 40px;float:left;height:100%;background-position:center;}
 .main-header .main-lettering{width:149px;height:27px;background:url('/static/images/mainLettering.png') transparent no-repeat;background-size:149px 27px;-moz-background-size:149px 27px;-webkit-background-size:149px 27px;-o-background-size:149px 27px;float:right;height:100%;background-position:center;}
-.field-list li{clear:both;}.field-list li .key{float:left;width:40%;}
-.field-list li .value{float:left;width:60%;}
-.main-content{}.main-content .normal-section{background:#ffffff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:14px;line-height:26px;color:#0092ff;}.main-content .normal-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;line-height:33px;color:#000000;}
-.main-content .normal-section .key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:14px;line-height:26px;color:#97999c;}
-.main-content .contrast-section{background:#0092ff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:14px;line-height:26px;color:#ffffff;}.main-content .contrast-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;line-height:33px;color:#ffffff;}
-.main-content .contrast-section .key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:14px;line-height:26px;color:#000000;}
+.field-list li{float:left;width:100%;clear:both;}.field-list li .field .key{float:left;width:40%;}
+.field-list li .field .value{float:left;width:60%;}
+.main-content{width:100%;height:100%;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#0092ff;background-color:#0092ff;}.main-content input,.main-content textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;-moz-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;height:30px;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;}
+.main-content .normal-section{background:#ffffff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#0092ff;}.main-content .normal-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;color:#000000;}
+.main-content .normal-section .key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#97999c;}
+.main-content .normal-section .value{color:#0092ff;}
+.main-content .contrast-section{background:#0092ff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#ffffff;}.main-content .contrast-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;color:#ffffff;}
+.main-content .contrast-section .key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#000000;}
 .main-content .grid{float:left;margin-top:15px;margin-bottom:15px;}.main-content .grid .title{padding-bottom:15px;}
 .main-content .one-column-grid{width:100%;}
 .main-content .grid{width:50%;}
-.main-content .template-new-page .worker-grid{padding-left:25px;}
+.main-content .template-new-page .post-grid,.main-content .template-new-page .worker-grid{padding-left:25px;}
 .alt-content{width:100%;height:100%;}.alt-content a{color:#ffffff;text-decoration:none;}.alt-content a:hover{color:#000000;}
-.alt-content .alt-section{font-family:'Helvetica Neue Light','Arial Light',sans-serif;font-size:13px;line-height:16px;letter-spacing:1px;color:#ffffff;position:relative;top:32%;padding:0px 200px;}.alt-content .alt-section .left-grid{float:left;}.alt-content .alt-section .left-grid .computer-image{width:425px;height:323px;background:url('/static/images/computer.png') transparent no-repeat;background-size:425px 323px;-moz-background-size:425px 323px;-webkit-background-size:425px 323px;-o-background-size:425px 323px;}
+.alt-content input,.alt-content textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;-moz-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;height:30px;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;margin:7px 0px;}
+.alt-content button{margin:7px 0px;}
+.alt-content .alt-section{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#ffffff;position:relative;top:32%;padding:0px 200px;}.alt-content .alt-section .left-grid{float:left;}.alt-content .alt-section .left-grid .computer-image{width:425px;height:323px;background:url('/static/images/computer.png') transparent no-repeat;background-size:425px 323px;-moz-background-size:425px 323px;-webkit-background-size:425px 323px;-o-background-size:425px 323px;}
 .alt-content .alt-section .right-grid{width:247px;margin-left:50px;float:left;}.alt-content .alt-section .right-grid .title{margin-bottom:15px;}
-.alt-content .alt-section .right-grid .contact-anchor{font-family:'Helvetica Neue Light','Arial Light',sans-serif;font-size:8px;letter-spacing:1px;color:#ffffff;width:100%;text-align:center;}
+.alt-content .alt-section .right-grid .contact-anchor{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:8px;letter-spacing:1px;color:#ffffff;width:100%;text-align:center;}
 .alt-content .alt-section .line{margin-bottom:16px;}
-.alt-content .alt-section input,.alt-content .alt-section textarea{font-family:'Helvetica Neue Light','Arial Light',sans-serif;font-size:13px;line-height:16px;letter-spacing:1px;color:#ffffff;color:#000000;padding:5px 10px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;border:0px;margin:7px 0px;-webkit-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;-moz-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;}
-.alt-content .alt-section button{font-family:'Helvetica Neue Light','Arial Light',sans-serif;font-size:13px;line-height:16px;letter-spacing:1px;color:#ffffff;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;margin:7px 0px;}.alt-content .alt-section button[type=submit]{border:0px;width:100%;width:247px;height:30px;background:url('/static/images/altSignUpButton.png') transparent no-repeat;background-size:247px 30px;-moz-background-size:247px 30px;-webkit-background-size:247px 30px;-o-background-size:247px 30px;}.alt-content .alt-section button[type=submit]:active{width:247px;height:30px;background:url('/static/images/altSignUpButtonPressed.png') transparent no-repeat;background-size:247px 30px;-moz-background-size:247px 30px;-webkit-background-size:247px 30px;-o-background-size:247px 30px;}
 .alt-content .sign-up-page{background-color:#25cadd;}.alt-content .sign-up-page .sign-up-grid .sign-up-title{width:247px;height:57px;background:url('/static/images/altSignUpTitle.png') transparent no-repeat;background-size:247px 57px;-moz-background-size:247px 57px;-webkit-background-size:247px 57px;-o-background-size:247px 57px;}
 .alt-content .sign-up-page .sign-up-grid .sign-up-form input.first-name{width:47%;float:left;}
 .alt-content .sign-up-page .sign-up-grid .sign-up-form input.last-name{width:47%;float:right;}

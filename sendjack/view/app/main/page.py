@@ -6,8 +6,10 @@
     <div class="page">
 
 """
+from view.elementary.html import SubmitButton
+
 from view.app.base.page import Page
-from view.app.base.components import Field, FieldList
+from view.app.base.components import Field, FieldList, Grid
 
 from components import NormalSection, ContrastSection, TitledGrid
 
@@ -30,6 +32,7 @@ class TemplateNewNormalSection(NormalSection):
         super(TemplateNewNormalSection, self).__init__()
 
         self.append_child(MainGrid())
+        self.append_child(PostGrid())
 
 
 class MainGrid(TitledGrid):
@@ -70,6 +73,18 @@ class MainGrid(TitledGrid):
 
         field_list = FieldList(fields)
         self.append_child(field_list)
+
+
+class PostGrid(Grid):
+
+    POST_GRID_CLASS = unicode("post-grid")
+    CREATE_TEMPLATE = unicode("Create Template")
+
+    def __init__(self):
+        super(PostGrid, self).__init__()
+        self.append_class(self.POST_GRID_CLASS)
+
+        self.append_child(SubmitButton(self.CREATE_TEMPLATE))
 
 
 class TemplateNewContrastSection(ContrastSection):
