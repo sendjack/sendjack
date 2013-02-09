@@ -9,22 +9,26 @@ from tornado.web import RedirectHandler
 
 from handlers.signup import SignUpHandler
 from handlers.signup_submit import SignUpSubmitHandler
-from handlers.template import TemplateHandler, TemplateNewHandler
+from handlers.template import TemplateCRUDHandler, TemplateSyncHandler
 from handlers.alpha import SignUpPostingHandler
 from handlers.alpha import NewTaskPostingHandler
 from handlers.alpha import ThankYouPostingHandler
-from handlers.test import TestHandler, BackboneHandler
+from handlers.test import TestHandler
 
 
 url_patterns = [
         (r"/", RedirectHandler, {"url": "https://secure.sendjack.com/signup"}),
+
         (r"/signup", SignUpHandler),
         (r"/thankyou", SignUpSubmitHandler),
+
         (r"/test", TestHandler),
-        (r"/backbone", BackboneHandler),
-        (r"/template/([0-9]+)", TemplateHandler),
-        (r"/template", TemplateNewHandler),
-        (r"/template/new", TemplateNewHandler),
+
+        (r"/a/template/([0-9]+)", TemplateCRUDHandler),
+        (r"/a/template", TemplateCRUDHandler),
+        (r"/template/([0-9]+)", TemplateSyncHandler),
+        (r"/template", TemplateSyncHandler),
+
         (r"/posting/signup", SignUpPostingHandler),
         (r"/posting/signup/submit", SignUpPostingHandler),
         (r"/posting/newtask", NewTaskPostingHandler),

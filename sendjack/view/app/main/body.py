@@ -8,12 +8,12 @@
 """
 from view.app.base.body import MainBody
 
-from page import TemplateNewPage
+from page import TemplatePage
 
 
-class TemplateNewBody(MainBody):
+class TemplateBody(MainBody):
 
     """The <body> for the template new Page."""
 
     def _construct_pages(self):
-        return [TemplateNewPage()]
+        return [TemplatePage()]

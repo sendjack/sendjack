@@ -141,7 +141,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
 
     def _get_request_parameters(self):
-        return json.loads(self.request.arguments)
+        return json.loads(self.request.body)
 
 
     def render(self, markup_path, **kwargs):

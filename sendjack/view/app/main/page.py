@@ -14,22 +14,24 @@ from view.app.base.components import Field, FieldList, Grid
 from components import NormalSection, ContrastSection, TitledGrid
 
 
-class TemplateNewPage(Page):
+class TemplatePage(Page):
 
     TEMPLATE_NEW_PAGE_CLASS = unicode("template-new-page")
+    TEMPLATE_ID = "template"
 
     def __init__(self):
-        super(TemplateNewPage, self).__init__()
+        super(TemplatePage, self).__init__()
         self.append_class(self.TEMPLATE_NEW_PAGE_CLASS)
+        self.set_id(self.TEMPLATE_ID)
 
-        self.append_child(TemplateNewNormalSection())
-        self.append_child(TemplateNewContrastSection())
+        self.append_child(TemplateNormalSection())
+        self.append_child(TemplateContrastSection())
 
 
-class TemplateNewNormalSection(NormalSection):
+class TemplateNormalSection(NormalSection):
 
     def __init__(self):
-        super(TemplateNewNormalSection, self).__init__()
+        super(TemplateNormalSection, self).__init__()
 
         self.append_child(MainGrid())
         self.append_child(PostGrid())
@@ -46,29 +48,34 @@ class MainGrid(TitledGrid):
 
         fields = [
                 Field(
+                        "ID",
+                        "id",
+                        ""),
+                Field(
                         "Name",
-                        "title",
-                        "Find me 20 CEOs."),
+                        "name",
+                        ""),
+
                 Field(
                         "Creator",
-                        "creator",
-                        "Cassandra Orion"),
+                        "creator_id",
+                        ""),
                 Field(
                         "Steps",
                         "steps",
-                        "Make a list of steps"),
+                        ""),
                 Field(
                         "Custom Prop",
-                        "custom-prop",
-                        "TODO"),
+                        "custom_properties",
+                        ""),
                 Field(
                         "Output Type",
-                        "output-type",
-                        "xls"),
+                        "output_type",
+                        ""),
                 Field(
                         "Output Method",
-                        "output-method",
-                        "Email")
+                        "output_method",
+                        "")
                 ]
 
         field_list = FieldList(fields)
@@ -87,10 +94,10 @@ class PostGrid(Grid):
         self.append_child(SubmitButton(self.CREATE_TEMPLATE))
 
 
-class TemplateNewContrastSection(ContrastSection):
+class TemplateContrastSection(ContrastSection):
 
     def __init__(self):
-        super(TemplateNewContrastSection, self).__init__()
+        super(TemplateContrastSection, self).__init__()
 
         self.append_child(DetailsGrid())
         self.append_child(WorkerGrid())
@@ -108,17 +115,29 @@ class DetailsGrid(TitledGrid):
 
         fields = [
                 Field(
-                        "Price",
-                        "price",
-                        "$15-$25"),
+                        "Min Price",
+                        "min_price",
+                        ""),
                 Field(
-                        "Overhead",
-                        "overhead",
-                        "5 Minutes"),
+                        "Max Price",
+                        "max_price",
+                        ""),
                 Field(
-                        "Interactions",
-                        "interactions",
-                        "1 Email"),
+                        "Min Overhead",
+                        "min_overhead",
+                        ""),
+                Field(
+                        "Max Overhead",
+                        "max_overhead",
+                        ""),
+                Field(
+                        "Min Interactions",
+                        "min_interactions",
+                        ""),
+                Field(
+                        "Max Interactions",
+                        "max_interactions",
+                        ""),
                 ]
 
         field_list = FieldList(fields)
@@ -137,16 +156,16 @@ class WorkerGrid(TitledGrid):
         fields = [
                 Field(
                         "Name",
-                        "worker-name",
-                        "Jame Marsh"),
+                        "",
+                        "James Marsh"),
                 Field(
                         "Rating",
-                        "rating",
+                        "All of Stars",
                         ""),
                 Field(
                         "Details / Notes",
-                        "details",
-                        ""),
+                        "",
+                        "This Grid isn't hooked up to anything."),
                 ]
 
         field_list = FieldList(fields)
@@ -165,20 +184,20 @@ class TagsGrid(TitledGrid):
         fields = [
                 Field(
                         "Category",
-                        "category",
-                        "Market Research"),
+                        "category_tags",
+                        ""),
                 Field(
                         "Industry",
-                        "industry",
-                        "Finance, Health Care"),
+                        "industry_tags",
+                        ""),
                 Field(
                         "Skills",
-                        "skills",
-                        "Internet Research"),
+                        "skills_tags",
+                        ""),
                 Field(
                         "Equipment",
-                        "equipment",
-                        "Camera"),
+                        "equipment_tags",
+                        ""),
                 ]
 
         field_list = FieldList(fields)

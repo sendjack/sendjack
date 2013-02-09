@@ -89,14 +89,14 @@ class Field(Div):
         super(Field, self).__init__()
         self.append_class(self.FIELD_CLASS)
 
-        key = Label(label, key)
-        value = TextInput(key, value)
+        key_el = Label(label, key)
+        value_el = TextInput(key, value)
 
-        key.append_class(self.KEY_CLASS)
-        value.append_class(self.VALUE_CLASS)
+        key_el.append_class(self.KEY_CLASS)
+        value_el.append_class(self.VALUE_CLASS)
 
-        self.append_child(key)
-        self.append_child(value)
+        self.append_child(key_el)
+        self.append_child(value_el)
 
 
 class FieldList(UL):

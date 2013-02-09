@@ -13,30 +13,24 @@ define(
             'backbone',
 
             //modules
-            'model/test',
+            'view/template',
 
             //jquery ui
             'jqueryui'
         ],
-        function ($, Backbone, test) {
+        function ($, Backbone, template) {
 
 
 var DocumentView = Backbone.View.extend({
 
     initialize: function () {
         this.setElement('#karma');
-        this.model = test.TestModel();
-        console.log(this.model);
-        this.model.save({name: 'captain'},{
-            success: function () {
-                console.log('sync success');
-            },
-            error: function () {
-                console.log('sync error');
-            }
-        });
 
         var datepicker = $('.datepicker').datepicker();
+
+        if ($('#template').length !== 0) {
+            var templateView = template.TemplateView();
+        }
     },
 
     render: function () {
