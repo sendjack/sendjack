@@ -1,38 +1,32 @@
 """
 
-    task_templates
+    task_template
     --------------
 
-    Define the task_templates table.
+    Define the task template model's table schema.
 
 """
 from sqlalchemy import Column
-from sqlalchemy.types import Integer, String
+from sqlalchemy.types import Integer
 
 from jutil.decorators import constant
 
-from base import BaseObject
+from task import TaskModel
 from crud import CRUD
 
 
-class _TaskTemplates(object):
+class _TaskTemplate(object):
 
     @constant
     def TABLE_NAME(self):
-        return "task_templates"
+        return "task_template"
 
-TASK_TEMPLATES = _TaskTemplates()
+TASK_TEMPLATE = _TaskTemplate()
 
 
-class TaskTemplates(BaseObject, CRUD):
+class TaskTemplateModel(TaskModel, CRUD):
 
-    __tablename__ = TASK_TEMPLATES.TABLE_NAME
-
-    # TODO: if not too confusing, abstract fields common to task
-    # template/instance into an abstract superclass below BaseObject.
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    __tablename__ = TASK_TEMPLATE.TABLE_NAME
 
     # TODO: figure out editor_ids (many-to-many relationship).
     # TODO: figure out foreign key.
@@ -61,24 +55,3 @@ class TaskTemplates(BaseObject, CRUD):
     # in some as yet undefined unit of measure
     min_score = Column(Integer)
     max_score = Column(Integer)
-
-    # approximate or specific address and radius in miles
-    location = Column(Integer)
-    location_radius = Column(String)
-
-    # TODO: define some default tags for each.
-    output_type = Column(String)
-    output_method = Column(String)
-
-    # list of free-form text
-    steps = Column(String)
-
-    # dict whose keys are tags and can be substitutions in steps
-    custom_properties = Column(String)
-
-    # TODO: define some default tags for each.
-    # lists whose split values can be substitutions in steps
-    category_tags = Column(String)
-    industry_tags = Column(String)
-    skill_tags = Column(String)
-    equipment_tags = Column(String)

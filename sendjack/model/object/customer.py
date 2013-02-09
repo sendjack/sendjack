@@ -6,10 +6,10 @@
     Define the Customer object.
 
 """
-from model.data.customers import Customers
+from model.data.customer import CustomerModel
 
 
-class Customer(Customers):
+class Customer(CustomerModel):
 
     @property
     def full_name(self):

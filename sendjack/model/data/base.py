@@ -10,11 +10,11 @@
 from datetime import datetime
 from sqlalchemy import Column
 
-from database import DeclarativeBase
+from database import DeclarativeModel
 from types import SerializableDateTime
 
 
-class BaseObject(DeclarativeBase):
+class BaseModel(DeclarativeModel):
 
     __abstract__ = True
 
@@ -32,7 +32,7 @@ class BaseObject(DeclarativeBase):
 
     def to_dict(self):
         """Return this as a dict keyed on table columns."""
-        # TODO: does this work with foreign keys? non-json-encodeable types?
+        # TODO: does this work with foreign keys?
 
         # http://stackoverflow.com/questions/5022066
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}

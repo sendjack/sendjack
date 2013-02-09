@@ -28,7 +28,7 @@ class Database(object):
 
 
 # SQLAlchemy classes for managing database access in this package
-DeclarativeBase = declarative_base()
+DeclarativeModel = declarative_base()
 Session = sessionmaker()
 
 
@@ -54,6 +54,6 @@ class SQLAlchemy(Database):
         engine = create_engine(url, echo=True)
 
         # create_all must be called after the objects are imported.
-        DeclarativeBase.metadata.create_all(engine)
+        DeclarativeModel.metadata.create_all(engine)
 
         Session.configure(bind=engine)

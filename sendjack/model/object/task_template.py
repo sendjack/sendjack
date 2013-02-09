@@ -6,10 +6,10 @@
     Define the TaskTemplate object.
 
 """
-from model.data.task_templates import TaskTemplates
+from model.data.task_template import TaskTemplateModel
 
 
-class TaskTemplate(TaskTemplates):
+class TaskTemplate(TaskTemplateModel):
 
     @property
     def price_range(self):

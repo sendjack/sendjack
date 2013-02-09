@@ -8,10 +8,10 @@
 """
 from database import SQLAlchemy
 
-from test import Test
-from customers import Customers
-from task_templates import TaskTemplates
-from task_instances import TaskInstances
+from test import TestModel
+from customer import CustomerModel
+from task_template import TaskTemplateModel
+from task_instance import TaskInstanceModel
 
 
 class _DatabaseSingleton(object):
@@ -21,10 +21,10 @@ class _DatabaseSingleton(object):
 
     def __init__(self):
         self._db = SQLAlchemy([
-                Test,
-                Customers,
-                TaskTemplates,
-                TaskInstances,
+                TestModel,
+                CustomerModel,
+                TaskTemplateModel,
+                TaskInstanceModel,
                 ])
 
 

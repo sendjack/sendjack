@@ -6,10 +6,10 @@
     Define the TaskInstance object.
 
 """
-from model.data.task_instances import TaskInstances
+from model.data.task_instance import TaskInstanceModel
 
 
-class TaskInstance(TaskInstances):
+class TaskInstance(TaskInstanceModel):
 
     @property
     def deadline(self):
