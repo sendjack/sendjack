@@ -81,7 +81,6 @@ class CRUDHandler(BaseHandler):
     #@tornado.web.authenticated
     def delete(self, id):
         """Handle a DELETE request."""
-        #model = self._model_object.delete(id)
-        #self._set_model(model)
-        #self._process_request()
-        raise NotImplementedError()
+        model = self._model_object.delete(id)
+        self._set_model(model)
+        self._process_request()
