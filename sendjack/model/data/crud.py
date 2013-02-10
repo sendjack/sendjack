@@ -43,6 +43,9 @@ class CRUD(object):
     def update(class_, id, updated_dict):
         """Return an updated instance of `class_`."""
         session = Session()
+
+        # TODO: this seems inefficient. we should probably be doing something
+        # like INSERT...ON DUPLICATE KEY UPDATE....
         object_ = class_.read(id)
         session.add(object_)
 
@@ -55,9 +58,4 @@ class CRUD(object):
 
     @classmethod
     def delete(class_, id):
-        raise NotImplementedError()
-
-
-    @classmethod
-    def search(class_, query):
         raise NotImplementedError()

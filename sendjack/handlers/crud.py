@@ -72,18 +72,15 @@ class CRUDHandler(BaseHandler):
     #@tornado.web.authenticated
     def put(self, id):
         """Handle a PUT request by mapping it to UPDATE."""
-        # FIXME: forms only use GET/POST, so we have to do this asynchronously.
-        #object_dict = self._get_request_parameters()
-        #model = self._model_object.update(id, object_dict)
-        #self._set_model(model)
-        #self._process_request()
-        raise NotImplementedError()
+        object_dict = self._get_request_parameters()
+        model = self._model_object.update(id, object_dict)
+        self._set_model(model)
+        self._process_request()
 
 
     #@tornado.web.authenticated
     def delete(self, id):
         """Handle a DELETE request."""
-        #model = self._model_object.delete(id)
-        #self._set_model(model)
-        #self._process_request()
-        raise NotImplementedError()
+        model = self._model_object.delete(id)
+        self._set_model(model)
+        self._process_request()
