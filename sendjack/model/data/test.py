@@ -7,11 +7,10 @@
 """
 from sqlalchemy import Column
 from sqlalchemy.types import Integer, String, Boolean, Enum
-from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.dialects.postgresql import HSTORE, ARRAY
 
 from base import BaseModel
 from crud import CRUD
+from types import SerializableStringList, SerializableDict
 
 
 class TestModel(BaseModel, CRUD):
@@ -29,8 +28,8 @@ class TestModel(BaseModel, CRUD):
                 unicode("enum3"),
                 name="test_enums"),
             default=unicode("default"))
-    test_list = Column(ARRAY(String))
-    test_dict = Column(MutableDict.as_mutable(HSTORE))
+    test_list = Column(SerializableStringList)
+    test_dict = Column(SerializableDict)
 
 
     def __repr__(self):

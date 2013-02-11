@@ -9,10 +9,9 @@
 """
 from sqlalchemy import Column
 from sqlalchemy.types import Integer, String
-from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.dialects.postgresql import HSTORE, ARRAY
 
 from base import BaseModel
+from types import SerializableStringList, SerializableDict
 from types import SerializableDateTime
 
 
@@ -32,18 +31,18 @@ class TaskModel(BaseModel):
     # model's object package.
 
     # TODO: define some default tags.
-    output_method = Column(MutableDict.as_mutable(HSTORE))
-    output_type = Column(MutableDict.as_mutable(HSTORE))
+    output_method = Column(SerializableStringList)
+    output_type = Column(SerializableStringList)
 
     # list of free-form text
-    steps = Column(ARRAY(String))
+    steps = Column(SerializableStringList)
 
     # dict whose keys are tags and values are annotations on the template
-    custom_properties = Column(MutableDict.as_mutable(HSTORE))
+    custom_properties = Column(SerializableDict)
 
     # TODO: define some default tags for each.
     # lists whose split values can be substitutions in steps
-    category_tags = Column(MutableDict.as_mutable(HSTORE))
-    industry_tags = Column(MutableDict.as_mutable(HSTORE))
-    skill_tags = Column(MutableDict.as_mutable(HSTORE))
-    equipment_tags = Column(MutableDict.as_mutable(HSTORE))
+    category_tags = Column(SerializableStringList)
+    industry_tags = Column(SerializableStringList)
+    skill_tags = Column(SerializableStringList)
+    equipment_tags = Column(SerializableStringList)
