@@ -47,9 +47,9 @@ class NewTaskPostingHandler(PostHandler):
     def _process_post_request(self):
         """Process the form data."""
         form_data = self.get_request_arguments()
-        task_title = form_data.get("task-title")
-        task_description = form_data.get("task-description")
-        task_deadline = form_data.get("task-deadline")
+        task_title = form_data.get("customer_title")
+        task_description = form_data.get("customer_description")
+        task_deadline = form_data.get("deadline_ts")
         mailer.send_message(
                 "jack@sendjack.com",
                 "jack-test@sendjack.com",

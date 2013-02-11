@@ -31,6 +31,7 @@ class SignUpGrid(RightGrid):
 
     SIGN_UP_GRID = "sign-up-grid"
     SIGN_UP_TITLE = "sign-up-title"
+    CUSTOMER_ID = "customer"
 
     LINES = [
             "Jackalope is the easiest way to outsource work.",
@@ -42,6 +43,8 @@ class SignUpGrid(RightGrid):
     def __init__(self):
         super(SignUpGrid, self).__init__()
         self.append_class(self.SIGN_UP_GRID)
+
+        self.set_id(self.CUSTOMER_ID)
 
 
     def _set_title_image_class(self, title_image_div):
@@ -66,8 +69,8 @@ class SignUpForm(Form):
     LAST_NAME_PLACEHOLDER = "Last Name"
     EMAIL_PLACEHOLDER = "Email"
 
-    FIRST_NAME = "first-name"
-    LAST_NAME = "last-name"
+    FIRST_NAME = "first_name"
+    LAST_NAME = "last_name"
     EMAIL = "email"
 
 
@@ -114,10 +117,13 @@ class NewTaskGrid(RightGrid):
 
     NEW_TASK_GRID = "new-task-grid"
     NEW_TASK_TITLE = "new-task-title"
+    INSTANCE_ID = "instance"
 
     def __init__(self):
         super(NewTaskGrid, self).__init__()
         self.append_class(self.NEW_TASK_GRID)
+
+        self.set_id(self.INSTANCE_ID)
 
 
     def _set_title_image_class(self, title_image_div):
@@ -138,9 +144,9 @@ class NewTaskForm(Form):
     TASK_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
     TASK_DEADLINE_PLACEHOLDER = "Monday, February 15, 2013"
 
-    TASK_TITLE = "task-title"
-    TASK_DESCRIPTION = "task-description"
-    TASK_DEADLINE = "task-deadline"
+    TASK_TITLE = "customer_title"
+    TASK_DESCRIPTION = "customer_description"
+    TASK_DEADLINE = "deadline_ts"
 
 
     def __init__(self):
