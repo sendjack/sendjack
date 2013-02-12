@@ -14,27 +14,41 @@ from view.app.base.components import Field, FieldList, Grid
 from components import NormalSection, ContrastSection, TitledGrid
 
 
-class TemplatePage(Page):
+class TaskTemplatePage(Page):
 
     TEMPLATE_NEW_PAGE_CLASS = unicode("template-new-page")
     TEMPLATE_ID = "template"
 
     def __init__(self):
-        super(TemplatePage, self).__init__()
+        super(TaskTemplatePage, self).__init__()
         self.append_class(self.TEMPLATE_NEW_PAGE_CLASS)
         self.set_id(self.TEMPLATE_ID)
 
-        self.append_child(TemplateNormalSection())
-        self.append_child(TemplateContrastSection())
+        self.append_child(TaskNormalSection())
+        self.append_child(TaskContrastSection())
 
 
-class TemplateNormalSection(NormalSection):
+class TaskNormalSection(NormalSection):
 
     def __init__(self):
-        super(TemplateNormalSection, self).__init__()
+        super(TaskNormalSection, self).__init__()
 
         self.append_child(MainGrid())
         self.append_child(PostGrid())
+
+
+class TaskInstancePage(Page):
+
+    #INSTANCE_NEW_PAGE_CLASS = unicode("instance-new-page")
+    INSTANCE_ID = unicode("instance")
+
+    def __init__(self):
+        super(TaskInstancePage, self).__init__()
+        #self.append_class(self.INSTANCE_NEW_PAGE_CLASS)
+        self.set_id(self.INSTANCE_ID)
+
+        self.append_child(TaskNormalSection())
+        self.append_child(TaskContrastSection())
 
 
 class MainGrid(TitledGrid):
@@ -94,10 +108,10 @@ class PostGrid(Grid):
         self.append_child(SubmitButton(self.CREATE_TEMPLATE))
 
 
-class TemplateContrastSection(ContrastSection):
+class TaskContrastSection(ContrastSection):
 
     def __init__(self):
-        super(TemplateContrastSection, self).__init__()
+        super(TaskContrastSection, self).__init__()
 
         self.append_child(DetailsGrid())
         self.append_child(WorkerGrid())

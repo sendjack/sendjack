@@ -8,12 +8,20 @@
 """
 from view.app.base.body import MainBody
 
-from page import TemplatePage
+from page import TaskTemplatePage, TaskInstancePage
 
 
-class TemplateBody(MainBody):
+class TaskTemplateBody(MainBody):
 
     """The <body> for the template new Page."""
 
     def _construct_pages(self):
-        return [TemplatePage()]
+        return [TaskTemplatePage()]
+
+
+class TaskInstanceBody(MainBody):
+
+    """The <body> for the instance new Page."""
+
+    def _construct_pages(self):
+        return [TaskInstancePage()]
