@@ -30,7 +30,34 @@ var TaskInstanceView = ObjectView.extend({
         ObjectView.prototype.initialize.call(
                 this,
                 '#instance',
-                instance.TaskInstanceModel());
+                instance.TaskInstanceModel(),
+                this.getBindings());
+    },
+
+    getBindings: function () {
+        return {
+            customer_title: '[name=customer_title]',
+            customer_description: '[name=customer_description]',
+            deadline_ts: {
+                selector: '[name=deadline_ts]',
+                converter: this.tsConverter
+            }
+        };
+    },
+
+    tsConverter: function (direction, value) {
+        var converted_ts;
+        if (direction === 'ViewToModel') {
+            var view_date = new Date(value);
+            converted_ts = view_date.toISOString();
+        } else if (direction === 'ModelToView') {
+            var model_date = new Date(value);
+            converted_ts = model_date.toLocaleDateString();
+        } else {
+            console.log('what the hell');
+        }
+
+        return converted_ts;
     }
 });
 

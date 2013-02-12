@@ -23,19 +23,24 @@ define(
 
 var ObjectView = Backbone.View.extend({
 
-    initialize: function (id, model) {
+    initialize: function (id, model, bindings) {
         this.setElement(id);
 
         this.$el.find('[name=id]').attr('disabled', 'disabled');
 
+        // set up model and if it has an id, then fetch data from server.
         this.model = model;
         if (!this.model.isNew()) {
             this.model.fetch();
         }
 
+        // set up view/model bindings.
         this._modelBinder = new Backbone.ModelBinder();
-        this._modelBinder.bind(this.model, this.el);
-        
+        if (bindings === null) {
+            this._modelBinder.bind(this.model, this.el);
+        } else {
+            this._modelBinder.bind(this.model, this.el, bindings);
+        }
          
         this.render();
     },
@@ -65,4 +70,3 @@ return {
 
 
 });
-
