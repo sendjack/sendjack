@@ -226,7 +226,7 @@
     .border-radius(@smallRound);
     .inner-box-shadow();
 
-    height: @listLineHeight;
+    //height: @listLineHeight;
     border: 0px;
     padding: @textPadding @textPadding;
     background-color: @white;
@@ -450,6 +450,11 @@ li {
         .form-element;
     }
 
+    input {
+        height: @listLineHeight;
+    }
+
+
     /***********************************************************
     * MAIN - COMPONENTS
     ************************************************************/
@@ -576,8 +581,11 @@ li {
 
     input, textarea {
         .form-element;
-
         margin: 7px 0px;
+    }
+
+    input {
+        height: @listLineHeight;
     }
     
     button {
