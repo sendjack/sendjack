@@ -83,10 +83,10 @@ class MainGrid(TitledGrid):
                         "Steps",
                         "steps",
                         ""),
-                Field(
-                        "Custom Prop",
-                        "custom_properties",
-                        ""),
+                #Field(
+                #        "Custom Prop",
+                #        "custom_properties",
+                #        ""),
                 Field(
                         "Output Type",
                         "output_type",
