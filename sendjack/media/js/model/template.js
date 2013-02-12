@@ -1,5 +1,5 @@
 /**
- * A model of a Template.
+ * A model of a Task Template.
  */
 define(
         [
@@ -12,13 +12,13 @@ define(
         function(Backbone) {
 
 
-var TemplateModel = Backbone.Model.extend({
+var TaskTemplateModel = Backbone.Model.extend({
     urlRoot: '/a/template'
 });
 
 return {
-    TemplateModel: function (attributes, options) {
-        return new TemplateModel(attributes, options);
+    TaskTemplateModel: function (attributes, options) {
+        return new TaskTemplateModel(attributes, options);
     }
 };
 

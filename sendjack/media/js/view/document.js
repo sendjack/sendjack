@@ -14,28 +14,29 @@ define(
 
             //modules
             'view/template',
+            'view/signUpSeries',
 
             //jquery ui
             'jqueryui'
         ],
-        function ($, Backbone, template) {
+        function ($, Backbone, template, signUpSeries) {
 
 
 var DocumentView = Backbone.View.extend({
 
     initialize: function () {
-        this.setElement('#karma');
+        //this.setElement('#karma');
 
         var datepicker = $('.datepicker').datepicker();
 
         if ($('#template').length !== 0) {
-            var templateView = template.TemplateView();
+            var taskTemplateView = template.TaskTemplateView();
         }
-    },
 
-    render: function () {
-        this.$el.show();
-        return this;
+        if ($('.alt-content').length !== 0) {
+            var signUpSeriesView = signUpSeries.SignUpSeries();
+        }
+
     }
 });
 

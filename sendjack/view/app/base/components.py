@@ -106,3 +106,17 @@ class FieldList(UL):
     def __init__(self, fields):
         super(FieldList, self).__init__(fields)
         self.append_class(self.FIELD_LIST_CLASS)
+
+
+class ObjectView(Div):
+
+    """Provide a view that corresponds to a model object. Provide a framework
+    for coordinating the javascript Model/View classes."""
+
+    OBJECT_VIEW_CLASS = "object-view"
+
+    def __init__(self, object_id):
+        super(ObjectView, self).__init__()
+        self.append_class(self.OBJECT_VIEW_CLASS)
+
+        self.set_id(object_id)

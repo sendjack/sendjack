@@ -11,28 +11,10 @@ from view.app.base.body import AltBody
 from page import SignUpPage, NewTaskPage, ThankYouPage
 
 
-class SignUpBody(AltBody):
+class SignUpSeriesBody(AltBody):
 
-    """The <body> with a sign up page."""
-
-
-    def _construct_pages(self):
-        return [SignUpPage()]
-
-
-class NewTaskBody(AltBody):
-
-    """The <body> with a new task page."""
+    """The <body> with a sign up pages."""
 
 
     def _construct_pages(self):
-        return [NewTaskPage()]
-
-
-class ThankYouBody(AltBody):
-
-    """The <body> with a thank you page."""
-
-
-    def _construct_pages(self):
-        return [ThankYouPage()]
+        return [SignUpPage(), NewTaskPage(), ThankYouPage()]

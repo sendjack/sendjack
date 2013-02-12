@@ -1,11 +1,11 @@
 /**
- * Access the TaskTemplateView.
+ * Access the CustomerView
  *
- * @exports view.template
+ * @exports view.customer
  *
  * @requires $
  * @requires view.base
- * @requires model.template
+ * @requires model.customer
  *
  */
 define(
@@ -15,29 +15,32 @@ define(
 
             //modules
             'view/base',
-            'model/template'
+            'model/customer'
 
             //jquery ui
         ],
-        function ($, base, template) {
+        function ($, base, customer) {
 
 
 // Get access to the superclass without instantiating an instance.
 var ObjectView = base.getObjectViewClass();
 
-var TaskTemplateView = ObjectView.extend({
+var CustomerView = ObjectView.extend({
 
     initialize: function () {
         ObjectView.prototype.initialize.call(
                 this,
-                '#template',
-                template.TaskTemplateModel({id: 1}));
+                '#customer',
+                customer.CustomerModel());
+
+        var status = this.$el.find('[name=status]').val();
+        this.model.set('status', status);
     }
 });
 
 return {
-    TaskTemplateView: function () {
-        return new TaskTemplateView();
+    CustomerView: function () {
+        return new CustomerView();
     }
 };
 
