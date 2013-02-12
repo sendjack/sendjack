@@ -60,10 +60,10 @@ class CustomerModel(BaseModel, CRUD):
 
     # TODO: figure out foreign keys.
 
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
+    first_name = Column(String)
+    last_name = Column(String)
     email = Column(String, nullable=False)
-    stripe_token = Column(String, nullable=False)
+    stripe_token = Column(String)
 
     status = Column(
             Enum(
