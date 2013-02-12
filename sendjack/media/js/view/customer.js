@@ -32,6 +32,9 @@ var CustomerView = ObjectView.extend({
                 this,
                 '#customer',
                 customer.CustomerModel());
+
+        var status = this.$el.find('[name=status]').val();
+        this.model.set('status', status);
     }
 });
 

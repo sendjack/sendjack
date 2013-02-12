@@ -26,11 +26,11 @@ var ObjectView = base.getObjectViewClass();
 
 var TaskInstanceView = ObjectView.extend({
 
-    initialize: function () {
+    initialize: function (customerModel) {
         ObjectView.prototype.initialize.call(
                 this,
                 '#instance',
-                instance.TaskInstanceModel(),
+                instance.TaskInstanceModel(customerModel),
                 this.getBindings());
     },
 
@@ -62,8 +62,8 @@ var TaskInstanceView = ObjectView.extend({
 });
 
 return {
-    TaskInstanceView: function () {
-        return new TaskInstanceView();
+    TaskInstanceView: function (customerModel) {
+        return new TaskInstanceView(customerModel);
     }
 };
 

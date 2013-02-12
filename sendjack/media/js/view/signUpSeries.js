@@ -30,13 +30,10 @@ var SignUpSeriesContent = Backbone.View.extend({
     initialize: function () {
         this.setElement('.alt-content');
 
-        if (this.$el.find('#instance').length !== 0) {
-            var taskInstanceView = instance.TaskInstanceView();
-        }
+        var customerView = customer.CustomerView();
+        var customerModel = customerView.model;
+        var taskInstanceView = instance.TaskInstanceView(customerModel);
 
-        if (this.$el.find('#customer').length !== 0) {
-            var customerView = customer.CustomerView();
-        }
 
         // remove the pages so we can show them one by one
         this.pageList = [

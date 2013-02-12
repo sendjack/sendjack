@@ -33,7 +33,7 @@ var ObjectView = Backbone.View.extend({
         if (!this.model.isNew()) {
             this.model.fetch();
         }
-
+        
         // set up view/model bindings.
         this._modelBinder = new Backbone.ModelBinder();
         if (bindings === null) {
@@ -41,7 +41,7 @@ var ObjectView = Backbone.View.extend({
         } else {
             this._modelBinder.bind(this.model, this.el, bindings);
         }
-         
+
         this.render();
     },
 
