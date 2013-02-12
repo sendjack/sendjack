@@ -6,9 +6,9 @@
     <div class="page">
 
 """
-from view.elementary.html import Form, TextInput, SubmitButton, Textarea
+from view.elementary.html import TextInput, SubmitButton, Textarea
 from view.app.base.page import Page
-from view.app.base.components import Line, DatePicker
+from view.app.base.components import Line, DatePicker, ObjectView
 
 from components import AltSection, RightGrid
 
@@ -31,7 +31,6 @@ class SignUpGrid(RightGrid):
 
     SIGN_UP_GRID = "sign-up-grid"
     SIGN_UP_TITLE = "sign-up-title"
-    CUSTOMER_ID = "customer"
 
     LINES = [
             "Jackalope is the easiest way to outsource work.",
@@ -44,8 +43,6 @@ class SignUpGrid(RightGrid):
         super(SignUpGrid, self).__init__()
         self.append_class(self.SIGN_UP_GRID)
 
-        self.set_id(self.CUSTOMER_ID)
-
 
     def _set_title_image_class(self, title_image_div):
         title_image_div.append_class(self.SIGN_UP_TITLE)
@@ -56,14 +53,14 @@ class SignUpGrid(RightGrid):
             line_el = Line(line)
             self.append_child(line_el)
 
-        self.append_child(SignUpForm())
+        self.append_child(CustomerView())
 
 
-class SignUpForm(Form):
+class CustomerView(ObjectView):
 
-    SIGN_UP_FORM = "sign-up-form"
+    CUSTOMER_VIEW_CLASS = "customer-view"
     SUBMIT_TEXT = "Take Jack for a Test Drive"
-    FORM_ACTION = "/posting/signup/submit"
+    CUSTOMER_ID = "customer"
 
     FIRST_NAME_PLACEHOLDER = "First Name"
     LAST_NAME_PLACEHOLDER = "Last Name"
@@ -75,10 +72,8 @@ class SignUpForm(Form):
 
 
     def __init__(self):
-        super(SignUpForm, self).__init__(self.SIGN_UP_FORM)
-        self.append_class(self.SIGN_UP_FORM)
-        self.set_post()
-        self.set_action(self.FORM_ACTION)
+        super(CustomerView, self).__init__(self.CUSTOMER_ID)
+        self.append_class(self.CUSTOMER_VIEW_CLASS)
 
         first_name = TextInput(self.FIRST_NAME)
         last_name = TextInput(self.LAST_NAME)
@@ -117,13 +112,10 @@ class NewTaskGrid(RightGrid):
 
     NEW_TASK_GRID = "new-task-grid"
     NEW_TASK_TITLE = "new-task-title"
-    INSTANCE_ID = "instance"
 
     def __init__(self):
         super(NewTaskGrid, self).__init__()
         self.append_class(self.NEW_TASK_GRID)
-
-        self.set_id(self.INSTANCE_ID)
 
 
     def _set_title_image_class(self, title_image_div):
@@ -131,14 +123,14 @@ class NewTaskGrid(RightGrid):
 
 
     def _set_grid_elements(self):
-        self.append_child(NewTaskForm())
+        self.append_child(TaskInstanceView())
 
 
-class NewTaskForm(Form):
+class TaskInstanceView(ObjectView):
 
-    NEW_TASK_FORM = "new-task-form"
+    TASK_INSTANCE_VIEW = "task-instance-view"
     SUBMIT_TEXT = "Post Task"
-    FORM_ACTION = "/posting/newtask/submit"
+    TASK_INSTANCE_ID = "instance"
 
     TASK_TITLE_PLACEHOLDER = "Task Title"
     TASK_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
@@ -150,10 +142,8 @@ class NewTaskForm(Form):
 
 
     def __init__(self):
-        super(NewTaskForm, self).__init__(self.NEW_TASK_FORM)
-        self.append_class(self.NEW_TASK_FORM)
-        self.set_post()
-        self.set_action(self.FORM_ACTION)
+        super(TaskInstanceView, self).__init__(self.TASK_INSTANCE_ID)
+        self.append_class(self.TASK_INSTANCE_VIEW)
 
         task_title = TextInput(self.TASK_TITLE)
         task_description = Textarea(self.TASK_DESCRIPTION)

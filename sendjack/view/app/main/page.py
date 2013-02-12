@@ -9,7 +9,7 @@
 from view.elementary.html import SubmitButton
 
 from view.app.base.page import Page
-from view.app.base.components import Field, FieldList, Grid
+from view.app.base.components import Field, FieldList, Grid, ObjectView
 
 from components import NormalSection, ContrastSection, TitledGrid
 
@@ -22,10 +22,12 @@ class TaskTemplatePage(Page):
     def __init__(self):
         super(TaskTemplatePage, self).__init__()
         self.append_class(self.TEMPLATE_NEW_PAGE_CLASS)
-        self.set_id(self.TEMPLATE_ID)
 
-        self.append_child(TaskNormalSection())
-        self.append_child(TaskContrastSection())
+        template_view = ObjectView(self.TEMPLATE_ID)
+        template_view.append_child(TaskNormalSection())
+        template_view.append_child(TaskContrastSection())
+
+        self.append_child(template_view)
 
 
 class TaskNormalSection(NormalSection):
@@ -47,8 +49,11 @@ class TaskInstancePage(Page):
         #self.append_class(self.INSTANCE_NEW_PAGE_CLASS)
         self.set_id(self.INSTANCE_ID)
 
-        self.append_child(TaskNormalSection())
-        self.append_child(TaskContrastSection())
+        instance_view = ObjectView(self.INSTANCE_ID)
+        instance_view.append_child(TaskNormalSection())
+        instance_view.append_child(TaskContrastSection())
+
+        self.append_child(instance_view)
 
 
 class MainGrid(TitledGrid):

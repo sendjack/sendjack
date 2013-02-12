@@ -14,9 +14,7 @@ from handlers.task_template import TaskTemplateCRUDHandler
 from handlers.task_template import TaskTemplateSyncHandler
 from handlers.task_instance import TaskInstanceCRUDHandler
 from handlers.task_instance import TaskInstanceSyncHandler
-from handlers.alpha import SignUpPostingHandler
-from handlers.alpha import NewTaskPostingHandler
-from handlers.alpha import ThankYouPostingHandler
+from handlers.alpha import SignUpSeriesHandler
 from handlers.test import TestHandler
 
 
@@ -41,9 +39,5 @@ url_patterns = [
         (r"/task", TaskInstanceSyncHandler),
         (r"/task/([0-9]+)", TaskInstanceSyncHandler),
 
-        (r"/posting/signup", SignUpPostingHandler),
-        (r"/posting/signup/submit", SignUpPostingHandler),
-        (r"/posting/newtask", NewTaskPostingHandler),
-        (r"/posting/newtask/submit", NewTaskPostingHandler),
-        (r"/posting/thankyou", ThankYouPostingHandler)
+        (r"/posting/signup", SignUpSeriesHandler),
         ]

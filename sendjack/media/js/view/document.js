@@ -13,14 +13,13 @@ define(
             'backbone',
 
             //modules
-            'view/customer',
-            'view/instance',
             'view/template',
+            'view/signUpSeries',
 
             //jquery ui
             'jqueryui'
         ],
-        function ($, Backbone, customer, instance, template) {
+        function ($, Backbone, template, signUpSeries) {
 
 
 var DocumentView = Backbone.View.extend({
@@ -34,18 +33,10 @@ var DocumentView = Backbone.View.extend({
             var taskTemplateView = template.TaskTemplateView();
         }
 
-        if ($('#instance').length !== 0) {
-            var taskInstanceView = instance.TaskInstanceView();
+        if ($('.alt-content').length !== 0) {
+            var signUpSeriesView = signUpSeries.SignUpSeries();
         }
 
-        if ($('#customer').length !== 0) {
-            var customerView = customer.CustomerView();
-        }
-    },
-
-    render: function () {
-        this.$el.show();
-        return this;
     }
 });
 
