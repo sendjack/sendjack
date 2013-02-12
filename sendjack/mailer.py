@@ -10,25 +10,12 @@
 import requests
 
 from jutil.decorators import constant
-from jutil import environment
+from jutil.environment import get_unicode, Deployment
 
-MAILGUN_API_KEY = environment.get_unicode(unicode("MAILGUN_API_KEY"))
-MAILGUN_DOMAIN = environment.get_unicode(unicode("MAILGUN_DOMAIN"))
+MAILGUN_API_KEY = get_unicode(unicode("MAILGUN_API_KEY"))
+MAILGUN_DOMAIN = get_unicode(unicode("MAILGUN_DOMAIN"))
 MAILGUN_API_URL = unicode("https://api.mailgun.net/v2")
 MAILGUN_MESSAGES_SUFFIX = unicode("messages")
-
-ENVIRONMENT = environment.get_unicode(unicode("ENVIRONMENT"))
-DEFAULT_NAME = unicode("")
-if ENVIRONMENT == unicode("PRODUCTION"):
-    DEFAULT_NAME = "Jack Lope"
-elif ENVIRONMENT == unicode("STAGING"):
-    DEFAULT_NAME = "Jack Staging"
-elif ENVIRONMENT == unicode("DEV"):
-    DEFAULT_NAME = "Jack Dev"
-
-DEFAULT_SENDER = unicode("{} <{}>").format(
-        DEFAULT_NAME,
-        environment.get_unicode(unicode("JACKS_EMAIL")))
 
 
 class _Mail(object):
@@ -118,6 +105,25 @@ class _Mail(object):
 MAIL = _Mail()
 
 
+def default_sender_name():
+    name = ""
+
+    if Deployment.is_prod():
+        name = "Jack Lope"
+    elif Deployment.is_staging():
+        name = "Jack Staging"
+    elif Deployment.is_dev():
+        name = "Jack Dev"
+
+    return unicode(name)
+
+
+def default_sender():
+    return unicode("{} <{}>").format(
+            default_sender_name(),
+            get_unicode(unicode("JACKS_EMAIL")))
+
+
 def send_message_from_jack(recipient, subject, body):
     """Send a smtp message using Mailgun's API with 'Jack Lope' as the sender
     and return the response dict.
@@ -130,7 +136,8 @@ def send_message_from_jack(recipient, subject, body):
     body : `str`
 
     """
-    return send_message(DEFAULT_SENDER, recipient, subject, body)
+    sender = default_sender()
+    return send_message(sender, recipient, subject, body)
 
 
 def send_message_as_jack(sender_email, recipient, subject, body):
@@ -146,7 +153,8 @@ def send_message_as_jack(sender_email, recipient, subject, body):
     body : `str`
 
     """
-    sender = unicode("{} <{}>").format(DEFAULT_NAME, sender_email)
+    sender_name = default_sender_name()
+    sender = unicode("{} <{}>").format(sender_name, sender_email)
     return send_message(sender, recipient, subject, body)
 
 
