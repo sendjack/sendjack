@@ -32,7 +32,8 @@ var SignUpSeriesContent = Backbone.View.extend({
 
         var customerView = customer.CustomerView();
         var customerModel = customerView.model;
-        var taskInstanceView = instance.TaskInstanceView(customerModel);
+        var instanceView = instance.TaskInstanceView(customerModel);
+        var instanceModel = instanceView.model;
 
 
         // remove the pages so we can show them one by one
@@ -50,13 +51,16 @@ var SignUpSeriesContent = Backbone.View.extend({
             that.$el.append($page);
         });
 
+        customerModel.on('change:id', this.render, this);
+        instanceModel.on('change:id', this.render, this);
+
         this.render();
     },
 
     events: function () {
         var _events = {};
 
-        _events['click .submit-button'] = 'render';
+        //_events['click .submit-button'] = 'render';
 
         return _events;
     },
