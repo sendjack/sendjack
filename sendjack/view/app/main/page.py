@@ -71,14 +71,14 @@ class MainGrid(TitledGrid):
                         "id",
                         ""),
                 Field(
-                        "Name",
-                        "name",
+                        "Title",
+                        "title",
                         ""),
 
-                Field(
-                        "Creator",
-                        "creator_id",
-                        ""),
+                #Field(
+                #        "Creator",
+                #        "creator_id",
+                #        ""),
                 Field(
                         "Steps",
                         "steps",

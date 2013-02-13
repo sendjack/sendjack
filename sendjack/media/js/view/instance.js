@@ -30,6 +30,7 @@ var TaskInstanceView = ObjectView.extend({
         ObjectView.prototype.initialize.call(
                 this,
                 '#instance',
+                'task',
                 instance.TaskInstanceModel(customerModel),
                 this.getBindings());
     },

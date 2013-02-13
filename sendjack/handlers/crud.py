@@ -1,5 +1,4 @@
 """
-
     crud
     ----
 
@@ -23,7 +22,6 @@ class CRUDHandler(BaseHandler):
     """
 
     _model_object = None
-
 
     def get_current_user(self):
         return self._get_session()

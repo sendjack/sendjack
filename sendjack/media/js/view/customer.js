@@ -31,6 +31,7 @@ var CustomerView = ObjectView.extend({
         ObjectView.prototype.initialize.call(
                 this,
                 '#customer',
+                'customer',
                 customer.CustomerModel());
 
         var status = this.$el.find('[name=status]').val();
