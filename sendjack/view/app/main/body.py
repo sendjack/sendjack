@@ -8,7 +8,7 @@
 """
 from view.app.base.body import MainBody
 
-from page import TaskTemplatePage, TaskInstancePage
+from page import TaskTemplatePage, TaskInstancePostPage
 
 
 class TaskTemplateBody(MainBody):
@@ -19,9 +19,9 @@ class TaskTemplateBody(MainBody):
         return [TaskTemplatePage()]
 
 
-class TaskInstanceBody(MainBody):
+class TaskInstancePostBody(MainBody):
 
     """The <body> for the instance new Page."""
 
     def _construct_pages(self):
-        return [TaskInstancePage()]
+        return [TaskInstancePostPage()]

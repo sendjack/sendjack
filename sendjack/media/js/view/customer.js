@@ -32,16 +32,18 @@ var CustomerView = ObjectView.extend({
                 this,
                 '#customer',
                 'customer',
-                customer.CustomerModel());
+                customer.CustomerModel({id: this.options.model_id}));
 
-        var status = this.$el.find('[name=status]').val();
-        this.model.set('status', status);
+        var $status = this.$el.find('[name=status]');
+        if ($status.length !== 0) {
+            this.model.set('status', $status.val());
+        }
     }
 });
 
 return {
-    CustomerView: function () {
-        return new CustomerView();
+    CustomerView: function (attributes, options) {
+        return new CustomerView(attributes, options);
     }
 };
 

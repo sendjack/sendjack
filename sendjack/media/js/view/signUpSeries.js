@@ -31,10 +31,14 @@ var SignUpSeriesContent = Backbone.View.extend({
         this.setElement('.alt-content');
 
         var customerView = customer.CustomerView();
-        var customerModel = customerView.model;
-        var instanceView = instance.TaskInstanceView(customerModel);
-        var instanceModel = instanceView.model;
+        var instanceCreateView = TaskInstanceCreateView();
 
+        var customerModel = customerView.model;
+        var instanceModel = instanceCreateView.model;
+
+        customerModel.on('change:id', function (model) {
+            instanceModel.set('customer_id', model.get('id'));
+        });
 
         // remove the pages so we can show them one by one
         this.pageList = [
@@ -76,6 +80,25 @@ var SignUpSeriesContent = Backbone.View.extend({
         return this;
     }
 });
+
+var TaskInstanceView = instance.getTaskInstanceViewClass();
+function TaskInstanceCreateView() {
+    var TaskInstanceCreateViewClass = TaskInstanceView.extend({
+
+        getBindings: function () {
+            return {
+                customer_title: '[name=customer_title]',
+                customer_description: '[name=customer_description]',
+                deadline_ts: {
+                    selector: '[name=deadline_ts]',
+                    converter: this.tsConverter
+                }
+            };
+        }
+    });
+
+    return new TaskInstanceCreateViewClass();
+}
 
 
 return {

@@ -15,11 +15,12 @@ define(
             //modules
             'view/template',
             'view/signUpSeries',
+            'view/taskInstancePostPage',
 
             //jquery ui
             'jqueryui'
         ],
-        function ($, Backbone, template, signUpSeries) {
+        function ($, Backbone, template, signUpSeries, taskInstancePostPage) {
 
 
 var DocumentView = Backbone.View.extend({
@@ -35,6 +36,10 @@ var DocumentView = Backbone.View.extend({
 
         if ($('.alt-content').length !== 0) {
             var signUpSeriesView = signUpSeries.SignUpSeries();
+        }
+
+        if ($('.task-instance-post-page').length !== 0) {
+            var taskPostPage = taskInstancePostPage.TaskInstancePostPage();
         }
 
     }
