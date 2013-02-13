@@ -33,7 +33,27 @@ var TaskTemplateView = ObjectView.extend({
                 '#template',
                 'template',
                 template.TaskTemplateModel());
+    },
+
+    editBindings: function (bindings) {
+        bindings.steps.converter = this.convertSteps;
+        return bindings;
+    },
+
+    convertSteps: function (direction, value) {
+        // TODO: FILL THIS IN!
+        var converted;
+        if (direction === 'ViewToModel') {
+            var view_date = new Date(value);
+            converted = view_date.toISOString();
+        } else if (direction === 'ModelToView') {
+            var model_date = new Date(value);
+            converted = model_date.toLocaleDateString();
+        }
+
+        return converted;
     }
+
 });
 
 return {

@@ -24,15 +24,16 @@ define(
 var ObjectView = Backbone.View.extend({
 
     urlPath: null,
+    model: null,
+    modelBinder: null,
 
     /**
      * Initialize the ObjectView.
      * @param {String} selector Define the el.
      * @param {String} urlPath Define the url path that matches this object.
      * @param {Object} model Bind to this model.
-     * @param {Dict} bindings (Optional) Use this mapping to bind fields.
      */
-    initialize: function (selector, urlPath, model, bindings) {
+    initialize: function (selector, urlPath, model) {
         this.setElement(selector);
         this.urlPath = urlPath;
 
@@ -40,18 +41,14 @@ var ObjectView = Backbone.View.extend({
 
         this.model = this.setupModel(model);
 
-        // set up view/model bindings.
-        this._modelBinder = new Backbone.ModelBinder();
-        if (bindings === null) {
-            this._modelBinder.bind(this.model, this.el);
-        } else {
-            this._modelBinder.bind(this.model, this.el, bindings);
-        }
+        this.modelBinder = new Backbone.ModelBinder();
+        this.modelBinder.bind(this.model, this.el, this.getBindings());
 
         var thatModel = this.model;
         this.model.on('change', function () {
             console.log(thatModel.toJSON());
         });
+
         this.render();
     },
 
@@ -89,7 +86,35 @@ var ObjectView = Backbone.View.extend({
         }
         
         return model;
+    },
+
+    /**
+     * If we want to handle bindings differently and/or more generically, these
+     * two links should be helpful:
+     *      https://github.com/theironcook/Backbone.ModelBinder
+     *          #quickly-create-and-modify-bindings
+     *          #the-power-of-jquery
+     */
+    getBindings: function (boundAttribute) {
+        var attr = boundAttribute || 'name';
+
+        var bindings = this.modelBinder.createDefaultBindings(this.el, attr);
+
+        return this.editBindings(bindings);
+    },
+
+    /**
+     * Views extending ObjectView may override to edit default bindings.
+     *
+     * For example:
+     *
+     *      bindings['phone'].converter = this._phoneConverterFunction;
+     *      delete bindings['complicatedAttribute'];
+     */
+    editBindings: function (bindings) {
+        return bindings;
     }
+
 });
 
 return {

@@ -130,6 +130,27 @@ class FieldList(UL):
         self.append_class(self.FIELD_LIST_CLASS)
 
 
+class MultiField(Div):
+
+    MULTI_FIELD_CLASS = unicode("multi-field")
+
+    def __init__(self, label, key, fields=[], include_empty=True):
+        super(MultiField, self).__init__()
+        self.append_class(self.MULTI_FIELD_CLASS)
+
+        self.append_child(Label(label, key))
+
+        if include_empty:
+            empty_field = self.empty_field(key, len(fields))
+            fields.append(empty_field)
+
+        self.append_child(FieldList(fields))
+
+
+    def empty_field(self, key, index):
+        return Field(unicode(""), "{}[{}]".format(key, index))
+
+
 class Paragraph(Div):
 
     PARAGRAPH_CLASS = unicode("paragraph")
