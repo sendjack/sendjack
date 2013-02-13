@@ -18,15 +18,16 @@ class BaseModel(DeclarativeModel):
 
     __abstract__ = True
 
+    _utcnow = datetime.utcnow()
 
     created_ts = Column(
             SerializableDateTime,
             nullable=False,
-            default=datetime.utcnow)
+            default=_utcnow)
     updated_ts = Column(
             SerializableDateTime,
             nullable=False,
-            default=datetime.utcnow)
+            default=_utcnow)
     deleted_ts = Column(SerializableDateTime)
 
 
