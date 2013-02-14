@@ -1,3 +1,6 @@
+    input, textarea {
+        .form-element;
+    }
 /***********************************************************
 *
 *   App: Jackalope 
@@ -443,6 +446,7 @@ li {
     ************************************************************/
     width: 100%;
     height: 100%;
+    float: left;
     .normalText;
     background-color: @blue;
 
@@ -516,6 +520,55 @@ li {
     .task-instance-post-page {
         display: none;
 
+        section {
+            margin-top: @buttonPadding;
+            .contrastNormalText();
+            font-size: 1.1em;
+        }
+
+        input, textarea {
+            .contrastLabelText();
+
+            &[disabled] {
+                background: transparent;
+                .inner-box-shadow(
+                        0px,
+                        0px,
+                        0px,
+                        0px,
+                        0);
+                padding: @textPadding 0px;
+                color: @white;
+            }
+        }
+
+        .grid {
+            width: 100%;
+            margin-top: @buttonPadding;
+            margin-bottom: @buttonPadding;
+        }
+
+        .field-list {
+            margin-top: @buttonPadding;
+            margin-bottom: @buttonPadding;
+
+        }
+
+        .key {
+            .contrastNormalText();
+            font-size: 1.1em;
+        }
+
+        .task-instance-grid {
+            .field-list {
+
+                .key, .value {
+                    float: none;
+                    display: block;
+                }
+
+            }
+        }
     }
 
     /***********************************************************

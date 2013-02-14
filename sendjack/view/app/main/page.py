@@ -241,7 +241,7 @@ class TaskInstanceGrid(Grid):
     TASK_INSTANCE_GRID_CLASS = unicode("task-instance-grid")
     TASK_INSTANCE_GRID_ID = unicode("task-instance-grid")
     TASK_INSTANCE_ID = unicode("instance")
-    WELCOME_TEXT = unicode("Hi! Here's your task details and pricing.")
+    WELCOME_TEXT = unicode("Hi! Here are your task details and pricing.")
 
     def __init__(self):
         super(TaskInstanceGrid, self).__init__()

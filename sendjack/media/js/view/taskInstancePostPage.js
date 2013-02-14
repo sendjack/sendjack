@@ -32,6 +32,8 @@ var TaskInstancePostPage = Backbone.View.extend({
         this.setElement('.task-instance-post-page');
 
         var taskInstanceView = TaskInstancePostView();
+
+        // wait until after the instance data is fetched to grab customer id.
         var customerView;
         taskInstanceView.model.on('sync', function (model) {
             var customerID = model.get('customer_id');
@@ -75,6 +77,14 @@ var TaskInstancePostPage = Backbone.View.extend({
 var TaskInstanceView = instance.getTaskInstanceViewClass();
 function TaskInstancePostView() {
     var TaskInstancePostViewClass = TaskInstanceView.extend({
+
+        initialize: function () {
+            TaskInstanceView.prototype.initialize.call(this);
+           
+            // TODO: makea a list of disabled fields
+            this.$el.find('.value[name=steps]').attr('disabled', 'disabled');
+            this.$el.find('.value[name=deadline_ts]').attr('disabled', 'disabled');
+        },
 
         getBindings: function () {
             return {
