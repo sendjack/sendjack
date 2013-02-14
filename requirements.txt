@@ -4,6 +4,7 @@ wsgiref==0.1.2
 
 # standard
 tornado==2.4
+Jinja2==2.6
 requests==0.14.2
 SQLAlchemy==0.8.0b2
 psycopg2==2.4.6

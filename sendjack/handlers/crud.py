@@ -1,5 +1,4 @@
 """
-
     crud
     ----
 
@@ -7,41 +6,79 @@
     authenticated reads and writes.
 
 """
-import tornado.web
+#import tornado.web
 
 from base import BaseHandler
 
 
 class CRUDHandler(BaseHandler):
 
+    """Provide an abstract superclass for CRUD operations.
+
+    Attributes
+    ----------
+    _model_object : object
+
+    """
+
+    _model_object = None
 
     def get_current_user(self):
-        return self.get_session()
+        return self._get_session()
 
 
-    @tornado.web.authenticated
-    def get(self):
-        self.process_request()
+    def prepare(self):
+        """Override to initialize a request before post/get/put/delete."""
+        self._init_model()
 
 
-    @tornado.web.authenticated
+    def _init_model(self):
+        """Construct a model object for this handler to make a CRUD call."""
+        # TODO: this override is required. see example error in jackalope repo.
+        raise NotImplementedError()
+
+
+    def _set_model(self, model):
+        """Set the model to send with the response to this request."""
+        self._model = model
+
+
+    def _process_request(self):
+        """Return the JSON version of the model."""
+        self._process_asynchronous_request()
+
+
+    #@tornado.web.authenticated
     def post(self):
-        self.process_request()
+        """Handle a POST request by mapping it to CREATE."""
+        object_dict = self._get_request_parameters()
+        model = self._model_object.create(object_dict)
+        self._set_model(model)
+        self._process_request()
 
 
-    def process_request(self):
-        if self.is_asynchronous_request():
-            self.process_asynchronous_request()
-        else:
-            self.process_synchronous_request()
+    #@tornado.web.authenticated
+    def get(self, id=None):
+        """Handle a GET request by mapping it to READ."""
+        # TODO: raise error if id is None?
+        # TODO: get parameters besides id generically?
+        model = self._model_object.read(id)
+        self._set_model(model)
+        self._process_request()
 
 
-    def process_asynchronous_request(self):
-        self.write({
-                "markup": self.markup_path(),
-                "model": self.content_model(),
-                })
+    #@tornado.web.authenticated
+    def put(self, id):
+        """Handle a PUT request by mapping it to UPDATE."""
+        object_dict = self._get_request_parameters()
+        model = self._model_object.update(id, object_dict)
+        self._set_model(model)
+        self._process_request()
 
 
-    def process_synchronous_request(self):
-        self.render(self.markup_path(), self.content_model())
+    #@tornado.web.authenticated
+    def delete(self, id):
+        """Handle a DELETE request."""
+        model = self._model_object.delete(id)
+        self._set_model(model)
+        self._process_request()

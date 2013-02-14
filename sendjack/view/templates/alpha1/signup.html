@@ -1,0 +1,68 @@
+{% extends "alpha1/base.html" %} 
+
+
+{% block body %}
+    <section id="first_focus" class="focus-section">
+        <a href="#second-focus" class="scroll">
+            <img id="focus" src="/static/images/signUpFocus.jpg" width="1642"
+                height="731" alt="sign up" />
+        </a>
+    </section>
+    <section class="subheader-section" id="second-focus">
+        Let's get Jack on your team.
+    </section>
+    <section class="signup-section">
+        <div class="payment-errors"></div>
+        <form action="/thankyou" method="POST" id="payment-form">
+            <div class="form-row">
+                <label>First Name:</label>
+                <input type="text" name="first-name" maxlength="20"
+                    required="required" autocomplete="off" class="first-name" 
+                    placeholder="Jack" />
+            </div>
+            <div class="form-row">
+                <label>Last Name:</label>
+                <input type="text" name="last-name" maxlength="20"
+                    required="required" autocomplete="off" class="last-name"
+                    placeholder="Lope" />
+            </div>
+            <div class="form-row">
+                <label>Email:</label>
+                <input type="email" name="email" maxlength="40" autocomplete="off"
+                    required="required" class="email" 
+                    placeholder="jack@sendjack.com" />
+            </div>
+
+            <input type="hidden" name="token" />
+            <input type="hidden" name="_xsrf" value="{{ xsrf_token }}" />
+
+            <div class="form-row">
+                <label>Credit Card:</label>
+                <input type="text" maxlength="20" autocomplete="off"
+                    required="required" class="card-number"
+                    placeholder="5555555555555555" />
+            </div>
+            <div class="form-row">
+                <label>Exp Month:</label>
+                <input type="text" maxlength="2" class="card-expiry-month"
+                    required="required" placeholder="MM" />
+            </div>
+            <div class="form-row">
+                <label>Exp Year:</label>
+                <input type="text" maxlength="4" class="card-expiry-year"
+                    required="required" placeholder="YYYY" />
+            </div>
+            <div class="form-row">
+                <label>CVC:</label>
+                <input type="text" maxlength="4" autocomplete="off"
+                    required="required" class="card-cvc" placeholder="555" />
+            </div>
+            <button type="submit" class="submit-button" > 
+                Send Jack
+            </button>
+        </form>
+    </section>
+    <section class="subheader-section">
+        Send Jack tasks. See Jack run. Get work done.
+    </section>
+{% endblock %}

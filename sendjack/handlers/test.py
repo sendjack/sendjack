@@ -5,15 +5,12 @@
     A test handler.
 
 """
+#from model.data.test import Test
 from base import BaseHandler
-from model.data.test import TestTable
 
 
 class TestHandler(BaseHandler):
 
 
-    def get(self):
-
-        test = TestTable.read(6)
-        self.write("ID: {}<br />".format(test.id))
-        self.write("NAME: {}\n".format(test.stop))
+    def _init_markup(self):
+        self._markup_path = "app/test.html"

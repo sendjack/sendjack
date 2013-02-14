@@ -1,7 +1,9 @@
 #!/usr/bin/env python
-""" Module: app
+"""
+    Jackalope: SendJack
+    -------------------
 
-Jackalope website to provide a sign up page.
+    Run Jackalope application.
 
 """
 import tornado.httpserver
