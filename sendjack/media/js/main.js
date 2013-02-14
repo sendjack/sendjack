@@ -16,7 +16,8 @@ require.config({
         lodash: 'http://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.0-rc.3/lodash.min',
         backbone: 'libs/backbone/backbone',
         modelbinder: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.modelbinder/0.1.3/Backbone.ModelBinder-min',
-        jqueryui: 'libs/jquery/jquery-ui'
+        jqueryui: 'libs/jquery/jquery-ui',
+        stripe: 'libs/stripe/stripe'
     },
     shim: {
         'backbone': {
@@ -32,6 +33,9 @@ require.config({
         'modelbinder': {
             deps: ['backbone'],
             exports: 'ModelBinder'
+        },
+        'stripe': {
+            exports: 'Stripe'
         }
     }
 

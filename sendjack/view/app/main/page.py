@@ -6,10 +6,11 @@
     <div class="page">
 
 """
-from view.elementary.html import SubmitButton, Div
+from view.elementary.html import SubmitButton, Div, Img
 
 from view.app.base.page import Page
 from view.app.base.components import Field, FieldList, Grid, ObjectView, Title
+from view.app.base.components import BigField
 
 from components import NormalSection, ContrastSection, TitledGrid
 
@@ -218,22 +219,13 @@ class TaskInstancePostPage(Page):
 
 class TaskInstancePostContrastSection(ContrastSection):
 
-    POST_TITLE = unicode("Post your Task")
-    POST_TASK_TEXT = unicode("Post Task")
-    GRID_CONTAINER = unicode("grid-container")
 
     def __init__(self):
         super(TaskInstancePostContrastSection, self).__init__()
 
-        grid_container = Div()
-        grid_container.append_class(self.GRID_CONTAINER)
-
-        grid_container.append_child(TaskInstanceGrid())
-        grid_container.append_child(CreditCardGrid())
-
-        self.append_child(Title(self.POST_TITLE))
-        self.append_child(grid_container)
-        self.append_child(SubmitButton(self.POST_TASK_TEXT))
+        self.append_child(TaskInstanceGrid())
+        self.append_child(CreditCardGrid())
+        self.append_child(ThankYouGrid())
 
 
 class TaskInstanceGrid(Grid):
@@ -241,7 +233,12 @@ class TaskInstanceGrid(Grid):
     TASK_INSTANCE_GRID_CLASS = unicode("task-instance-grid")
     TASK_INSTANCE_GRID_ID = unicode("task-instance-grid")
     TASK_INSTANCE_ID = unicode("instance")
-    WELCOME_TEXT = unicode("Hi! Here are your task details and pricing.")
+    WELCOME_TEXT = unicode(
+            "We checked out a number of tasks like yours that went "
+            "well, and fine-tuned your description. We've also suggested a "
+            "price below.")
+    POST_TASK_TEXT = unicode("Save")
+    POST_TITLE = unicode("Post Your Task")
 
     def __init__(self):
         super(TaskInstanceGrid, self).__init__()
@@ -255,7 +252,11 @@ class TaskInstanceGrid(Grid):
         fields = [
                 Field(
                         "Task:",
-                        "steps",
+                        "customer_title",
+                        ""),
+                BigField(
+                        "Steps:",
+                        "customer_description",
                         ""),
                 Field(
                         "Deadline:",
@@ -267,8 +268,10 @@ class TaskInstanceGrid(Grid):
                         "")
                 ]
 
+        task_instance_view.append_child(Title(self.POST_TITLE))
         task_instance_view.append_child(welcome_div)
         task_instance_view.append_child(FieldList(fields))
+        task_instance_view.append_child(SubmitButton(self.POST_TASK_TEXT))
         self.append_child(task_instance_view)
 
 
@@ -278,7 +281,11 @@ class CreditCardGrid(Grid):
     CREDIT_CARD_GRID_ID = unicode("credit-card-grid")
     CUSTOMER_ID = "customer"
     WELCOME_TEXT = unicode(
-            "Now we just need your Billing Info and we're all set!")
+            "Register your credit card to finish signing up for "
+            "Jackalope. You will not be charged until you're satisfied "
+            "with the work.")
+    POST_TASK_TEXT = unicode("Send Jack")
+    POST_TITLE = unicode("Post Your Task")
 
     def __init__(self):
         super(CreditCardGrid, self).__init__()
@@ -305,18 +312,49 @@ class CreditCardGrid(Grid):
                         ""),
                 Field(
                         "Credit Card:",
-                        "credit-card",
+                        "card_number",
                         ""),
                 Field(
-                        "Exp:",
-                        "expiration-date",
+                        "Exp Month",
+                        "card_expiry_month",
+                        ""),
+                Field(
+                        "Exp Year",
+                        "card_expiry_year",
                         ""),
                 Field(
                         "CVC:",
-                        "cvc",
+                        "card_cvc",
                         "")
                 ]
 
+        customer_view.append_child(Title(self.POST_TITLE))
         customer_view.append_child(welcome_div)
         customer_view.append_child(FieldList(fields))
+        customer_view.append_child(SubmitButton(self.POST_TASK_TEXT))
         self.append_child(customer_view)
+
+
+class ThankYouGrid(Grid):
+    THANK_YOU_GRID_CLASS = unicode("thank-you-grid")
+    THANK_YOU_GRID_ID = unicode("thank-you-grid")
+    MAIN_TITLE = unicode("Thanks!")
+    SUB_TEXT = unicode("We're on it. We'll let you know when it's done.")
+    IMG_SOURCE = "/static/images/jackalope.jpg"
+
+    def __init__(self):
+        super(ThankYouGrid, self).__init__()
+        self.append_class(self.THANK_YOU_GRID_CLASS)
+
+        self.set_id(self.THANK_YOU_GRID_ID)
+
+        main_title = Title(self.MAIN_TITLE)
+
+        sub_div = Div()
+        sub_div.set_text(self.SUB_TEXT)
+
+        img = Img(self.IMG_SOURCE, "")
+
+        self.append_child(main_title)
+        self.append_child(sub_div)
+        self.append_child(img)

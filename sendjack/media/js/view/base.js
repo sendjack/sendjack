@@ -48,6 +48,10 @@ var ObjectView = Backbone.View.extend({
             this._modelBinder.bind(this.model, this.el, bindings);
         }
 
+        var thatModel = this.model;
+        this.model.on('change', function () {
+            console.log(thatModel.toJSON());
+        });
         this.render();
     },
 

@@ -538,7 +538,7 @@ li {
                         0px,
                         0);
                 padding: @textPadding 0px;
-                color: @white;
+                color: @black;
             }
         }
 
@@ -546,6 +546,12 @@ li {
             width: 100%;
             margin-top: @buttonPadding;
             margin-bottom: @buttonPadding;
+
+            .submit-button {
+                margin-top: @buttonPadding;
+                margin-bottom: @buttonPadding;
+            }
+
         }
 
         .field-list {
@@ -559,16 +565,36 @@ li {
             font-size: 1.1em;
         }
 
+        .value {
+            color: @black;
+        }
+
+
         .task-instance-grid {
             .field-list {
 
-                .key, .value {
-                    float: none;
-                    display: block;
+
+                .key {
+                    width: 20%;
+                }
+                .value {
+                    width: 80%;
                 }
 
+                .value[name=customer_description] {
+                    margin-left: -18px;
+                }
+            }
+
+        }
+
+        #thank-you-grid {
+            img {
+                height: 60%;
+                margin-top: 30px;
             }
         }
+
     }
 
     /***********************************************************

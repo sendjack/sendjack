@@ -5,7 +5,7 @@
     Components that are to be reused across styles.
 
 """
-from view.elementary.html import Section, Div, TextInput, Label, UL
+from view.elementary.html import Section, Div, TextInput, Label, UL, Textarea
 
 
 class InnerWrapper(Div):
@@ -91,6 +91,28 @@ class Field(Div):
 
         key_el = Label(label, key)
         value_el = TextInput(key, value)
+
+        key_el.append_class(self.KEY_CLASS)
+        value_el.append_class(self.VALUE_CLASS)
+
+        self.append_child(key_el)
+        self.append_child(value_el)
+
+
+class BigField(Div):
+    FIELD_CLASS = unicode("field")
+    BIG_FIELD_CLASS = unicode("big-field")
+    KEY_CLASS = unicode("key")
+    VALUE_CLASS = unicode("value")
+
+    def __init__(self, label, key, value=""):
+        super(BigField, self).__init__()
+        self.append_class(self.FIELD_CLASS)
+        self.append_class(self.BIG_FIELD_CLASS)
+
+        key_el = Label(label, key)
+        value_el = Textarea(key, value)
+        value_el.set_rows(7)
 
         key_el.append_class(self.KEY_CLASS)
         value_el.append_class(self.VALUE_CLASS)
