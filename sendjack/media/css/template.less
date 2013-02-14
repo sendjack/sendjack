@@ -368,21 +368,31 @@ li {
         width: 100%;
         clear: both;
 
-        .field {
-
+        .field, .sub-field {
             .key {
                 float: left;
-                width: 40%;
+                width: 30%;
+            }
+
+            .head-key {
+                float: left;
+                width: 100%;
+            }
+
+            .sub-key {
+                float: left;
+                width: 30%;
+                text-align: right;
+                padding-right: @textPadding;
             }
 
             .value {
                 float: left;
-                width: 60%;
+                width: 70%;
             }
         }
     }
 }
-
 
 /***********************************************************
 * CONTENT - MAIN STYLE
@@ -470,7 +480,7 @@ li {
             .titleText();
         }
 
-        .key {
+        .key, .head-key, .sub-key {
             .labelText();
         }
 
@@ -487,7 +497,7 @@ li {
             .contrastTitleText();
         }
 
-        .key {
+        .key, .head-key, .sub-key {
             .contrastLabelText();
         }
 

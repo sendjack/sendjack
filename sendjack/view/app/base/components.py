@@ -90,12 +90,11 @@ class Field(Div):
         self.append_class(self.FIELD_CLASS)
 
         key_el = Label(label, key)
-        value_el = TextInput(key, value)
-
         key_el.append_class(self.KEY_CLASS)
-        value_el.append_class(self.VALUE_CLASS)
-
         self.append_child(key_el)
+
+        value_el = TextInput(key, value)
+        value_el.append_class(self.VALUE_CLASS)
         self.append_child(value_el)
 
 
@@ -121,6 +120,39 @@ class BigField(Div):
         self.append_child(value_el)
 
 
+class HeadField(Div):
+
+    FIELD_CLASS = unicode("field")
+    KEY_CLASS = unicode("head-key")
+
+    def __init__(self, label, key, value=""):
+        super(HeadField, self).__init__()
+        self.append_class(self.FIELD_CLASS)
+
+        key_el = Label(label, key)
+        key_el.append_class(self.KEY_CLASS)
+        self.append_child(key_el)
+
+
+class SubField(Div):
+
+    FIELD_CLASS = unicode("sub-field")
+    KEY_CLASS = unicode("sub-key")
+    VALUE_CLASS = unicode("value")
+
+    def __init__(self, label, key, value=""):
+        super(SubField, self).__init__()
+        self.append_class(self.FIELD_CLASS)
+
+        key_el = Label(label, key)
+        key_el.append_class(self.KEY_CLASS)
+        self.append_child(key_el)
+
+        value_el = TextInput(key, value)
+        value_el.append_class(self.VALUE_CLASS)
+        self.append_child(value_el)
+
+
 class FieldList(UL):
 
     FIELD_LIST_CLASS = unicode("field-list")
@@ -128,27 +160,6 @@ class FieldList(UL):
     def __init__(self, fields):
         super(FieldList, self).__init__(fields)
         self.append_class(self.FIELD_LIST_CLASS)
-
-
-class MultiField(Div):
-
-    MULTI_FIELD_CLASS = unicode("multi-field")
-
-    def __init__(self, label, key, fields=[], include_empty=True):
-        super(MultiField, self).__init__()
-        self.append_class(self.MULTI_FIELD_CLASS)
-
-        self.append_child(Label(label, key))
-
-        if include_empty:
-            empty_field = self.empty_field(key, len(fields))
-            fields.append(empty_field)
-
-        self.append_child(FieldList(fields))
-
-
-    def empty_field(self, key, index):
-        return Field(unicode(""), "{}[{}]".format(key, index))
 
 
 class Paragraph(Div):

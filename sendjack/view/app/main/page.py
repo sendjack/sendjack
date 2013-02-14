@@ -9,8 +9,9 @@
 from view.elementary.html import SubmitButton, Div, Img
 
 from view.app.base.page import Page
-from view.app.base.components import Field, FieldList, Grid, ObjectView, Title
-from view.app.base.components import BigField, MultiField, Paragraph
+from view.app.base.components import FieldList, Grid, ObjectView, Title
+from view.app.base.components import Field, BigField, HeadField, SubField
+from view.app.base.components import Paragraph
 
 from components import NormalSection, ContrastSection, TitledGrid
 
@@ -62,10 +63,12 @@ class MainGrid(TitledGrid):
                 #        "Creator",
                 #        "creator_id",
                 #        ""),
-                MultiField(
+                HeadField(
                         unicode("Steps"),
-                        unicode("steps"),
-                        []),
+                        unicode("steps")),
+                SubField(
+                        unicode("Step 1"),
+                        unicode("steps[1]")),
                 #Field(
                 #        "Custom Prop",
                 #        "custom_properties",
@@ -77,7 +80,7 @@ class MainGrid(TitledGrid):
                 Field(
                         "Output Method",
                         "output_method",
-                        "")
+                        ""),
                 ]
 
         field_list = FieldList(fields)
