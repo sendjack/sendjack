@@ -22,13 +22,12 @@ define(
         function ($, base, template) {
 
 
-// Get access to the superclass without instantiating an instance.
-var ObjectView = base.getObjectViewClass();
+var TaskView = base.getTaskViewClass();
 
-var TaskTemplateView = ObjectView.extend({
+var TaskTemplateView = TaskView.extend({
 
     initialize: function () {
-        ObjectView.prototype.initialize.call(
+        TaskView.prototype.initialize.call(
                 this,
                 '#template',
                 'template',
@@ -36,22 +35,9 @@ var TaskTemplateView = ObjectView.extend({
     },
 
     editBindings: function (bindings) {
+        bindings.steps.selector = '[class~=sub-value]';
         bindings.steps.converter = this.convertSteps;
         return bindings;
-    },
-
-    convertSteps: function (direction, value) {
-        // TODO: FILL THIS IN!
-        var converted;
-        if (direction === 'ViewToModel') {
-            var view_date = new Date(value);
-            converted = view_date.toISOString();
-        } else if (direction === 'ModelToView') {
-            var model_date = new Date(value);
-            converted = model_date.toLocaleDateString();
-        }
-
-        return converted;
     }
 
 });

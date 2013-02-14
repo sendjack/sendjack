@@ -138,7 +138,7 @@ class SubField(Div):
 
     FIELD_CLASS = unicode("sub-field")
     KEY_CLASS = unicode("sub-key")
-    VALUE_CLASS = unicode("value")
+    VALUE_CLASS = unicode("sub-value")
 
     def __init__(self, label, key, value=""):
         super(SubField, self).__init__()

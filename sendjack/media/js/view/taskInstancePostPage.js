@@ -71,6 +71,7 @@ var TaskInstancePostPage = Backbone.View.extend({
             that.$el.find('.contrast-section').append($grid);
         });
 
+        // TODO: add support for inserting new step fields on focus.
 
         this.render();
     },
@@ -121,15 +122,13 @@ function TaskInstancePostView() {
 
         getBindings: function () {
             return {
-                customer_title: '[name=customer_title]',
-                customer_description: '[name=customer_description]',
                 deadline_ts: {
                     selector: '[name=deadline_ts]',
                     converter: this.tsConverter
-                },
-                price: '[name=price]'
+                }
             };
         }
+
     });
 
     return new TaskInstancePostViewClass();

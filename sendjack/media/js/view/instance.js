@@ -22,41 +22,41 @@ define(
         function ($, base, instance) {
 
 
-var ObjectView = base.getObjectViewClass();
+var TaskView = base.getTaskViewClass();
 
-var TaskInstanceView = ObjectView.extend({
+var TaskInstanceView = TaskView.extend({
 
     initialize: function () {
-        ObjectView.prototype.initialize.call(
+        TaskView.prototype.initialize.call(
                 this,
                 '#instance',
                 'task',
-                instance.TaskInstanceModel(),
-                this.getBindings());
+                instance.TaskInstanceModel());
     },
 
-    getBindings: function () {
-        return null;
+    editBindings: function (bindings) {
+        bindings.steps.selector = '[class~=sub-value]';
+        bindings.steps.converter = this.convertSteps;
+        bindings.deadline_ts.converter = this.convertDeadline;
+        return bindings;
     },
 
-    tsConverter: function (direction, value) {
-        var converted_ts;
-        if (direction === 'ViewToModel') {
-            var view_date = new Date(value);
-            converted_ts = view_date.toISOString();
-        } else if (direction === 'ModelToView') {
-            var model_date = new Date(value);
-            converted_ts = model_date.toLocaleDateString();
-        } else {
-            console.log('what the hell');
+    convertDeadline: function (direction, value) {
+        var converted;
+
+        if (this.convertingToModel(direction)) {
+            converted = (new Date(value)).toISOString();
+        } else if (this.convertingToView(direction)) {
+            converted = (new Date(value)).toLocaleDateString();
         }
 
-        return converted_ts;
+        return converted;
     },
 
     setStatus: function (status) {
         this.model.set('status', status);
     }
+
 });
 
 return {
@@ -71,4 +71,3 @@ return {
 
 
 });
-

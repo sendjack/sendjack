@@ -88,6 +88,14 @@ var ObjectView = Backbone.View.extend({
         return model;
     },
 
+    convertingToModel: function (direction) {
+        return direction === 'ViewToModel';
+    },
+
+    convertingToView: function (direction) {
+        return direction === 'ModelToView';
+    },
+
     /**
      * If we want to handle bindings differently and/or more generically, these
      * two links should be helpful:
@@ -117,9 +125,31 @@ var ObjectView = Backbone.View.extend({
 
 });
 
+
+var TaskView = ObjectView.extend({
+
+    convertSteps: function (direction, value) {
+        var converted;
+        console.log(direction);
+        console.log(value);
+        //if (this.convertingToModel(direction)) {
+
+        //} else if (this.convertingToView(direction)) {
+
+        //}
+
+        return converted;
+    }
+
+});
+
 return {
     getObjectViewClass: function () {
         return ObjectView;
+    },
+
+    getTaskViewClass: function () {
+        return TaskView;
     }
 };
 
