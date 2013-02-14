@@ -21,7 +21,9 @@ class CRUD(object):
         object_ = class_(**object_dict)
         session.add(object_)
 
+        # the next line is where the OperationalError is happening.
         session.commit()
+        session.close()
         return object_
 
 
@@ -29,6 +31,7 @@ class CRUD(object):
     def read(class_, id):
         """Return an instance of `class_`."""
         session = Session()
+        # the next line is where the OperationalError is happening.
         object_ = session.query(class_).get(id)
 
         if object_ is None:
@@ -36,6 +39,7 @@ class CRUD(object):
             raise NoResultFound(msg)
 
         session.expunge(object_)
+        session.close()
         return object_
 
 
@@ -53,9 +57,11 @@ class CRUD(object):
             setattr(object_, k, v)
 
         session.commit()
+        session.close()
         return object_
 
 
     @classmethod
     def delete(class_, id):
+        # session.close()
         raise NotImplementedError()
