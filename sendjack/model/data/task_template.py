@@ -30,7 +30,8 @@ class TaskTemplateModel(TaskModel, CRUD):
 
     # TODO: figure out editor_ids (many-to-many relationship).
     # TODO: figure out foreign key.
-    creator_id = Column(Integer, nullable=False)
+    # TODO: make this nullable=False when we have accounts.
+    creator_id = Column(Integer)
 
     # TODO: in the future this might not be stored as a range or at all. for
     # now, we don't know how to split a template and rebalance its instances.

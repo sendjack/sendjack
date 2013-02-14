@@ -26,23 +26,17 @@ var ObjectView = base.getObjectViewClass();
 
 var TaskInstanceView = ObjectView.extend({
 
-    initialize: function (customerModel) {
+    initialize: function () {
         ObjectView.prototype.initialize.call(
                 this,
                 '#instance',
-                instance.TaskInstanceModel(customerModel),
+                'task',
+                instance.TaskInstanceModel(),
                 this.getBindings());
     },
 
     getBindings: function () {
-        return {
-            customer_title: '[name=customer_title]',
-            customer_description: '[name=customer_description]',
-            deadline_ts: {
-                selector: '[name=deadline_ts]',
-                converter: this.tsConverter
-            }
-        };
+        return null;
     },
 
     tsConverter: function (direction, value) {
@@ -64,6 +58,10 @@ var TaskInstanceView = ObjectView.extend({
 return {
     TaskInstanceView: function (customerModel) {
         return new TaskInstanceView(customerModel);
+    },
+
+    getTaskInstanceViewClass: function () {
+        return TaskInstanceView;
     }
 };
 

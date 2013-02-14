@@ -31,7 +31,8 @@ var TaskTemplateView = ObjectView.extend({
         ObjectView.prototype.initialize.call(
                 this,
                 '#template',
-                template.TaskTemplateModel({id: 1}));
+                'template',
+                template.TaskTemplateModel());
     }
 });
 

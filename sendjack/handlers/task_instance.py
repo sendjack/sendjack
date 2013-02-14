@@ -8,7 +8,7 @@
 """
 from model.object.task_instance import TaskInstance
 
-from view.app.main.body import TaskInstanceBody
+from view.app.main.body import TaskInstancePostBody
 
 from base import BaseHandler
 from crud import CRUDHandler
@@ -27,4 +27,4 @@ class TaskInstanceSyncHandler(BaseHandler):
     """Initialize the markup for a request for a new Task Instance form."""
 
     def _render_body_markup(self, model=None):
-        return TaskInstanceBody()
+        return TaskInstancePostBody()

@@ -12,7 +12,6 @@ from sqlalchemy.types import Integer, String
 
 from base import BaseModel
 from types import SerializableStringList, SerializableDict
-from types import SerializableDateTime
 
 
 class TaskModel(BaseModel):

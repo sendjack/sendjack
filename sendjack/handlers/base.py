@@ -83,7 +83,7 @@ class BaseHandler(tornado.web.RequestHandler):
         return session
 
 
-    def get(self):
+    def get(self, id=None):
         """Handle a GET request by mapping it to READ."""
         self._process_request()
 

@@ -1,34 +1,27 @@
 /**
  * A model of a Task Instance.
+ *
+ * @exports model.instance
+ *
+ * @requires Backbone
  */
 define(
         [
             // libraries
-            'lodash',
             'backbone'
 
             // modules
             // jqueryui
         ],
-        function(_, Backbone) {
+        function(Backbone) {
 
 
 var TaskInstanceModel = Backbone.Model.extend({
-    urlRoot: '/a/task',
-
-    initialize: function (attributes, options) {
-        var that = this;
-        var customerModel = options.customerModel;
-        customerModel.on('change:id', function (model) {
-            that.set('customer_id', model.get('id'));
-        });
-    }
+    urlRoot: '/a/task'
 });
 
 return {
-    TaskInstanceModel: function (customerModel, attributes, options) {
-
-        options = _.extend(options || {}, {customerModel: customerModel});
+    TaskInstanceModel: function (attributes, options) {
         return new TaskInstanceModel(attributes, options);
     }
 };

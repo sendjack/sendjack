@@ -6,10 +6,10 @@
     <div class="page">
 
 """
-from view.elementary.html import SubmitButton
+from view.elementary.html import SubmitButton, Div
 
 from view.app.base.page import Page
-from view.app.base.components import Field, FieldList, Grid, ObjectView
+from view.app.base.components import Field, FieldList, Grid, ObjectView, Title
 
 from components import NormalSection, ContrastSection, TitledGrid
 
@@ -24,36 +24,19 @@ class TaskTemplatePage(Page):
         self.append_class(self.TEMPLATE_NEW_PAGE_CLASS)
 
         template_view = ObjectView(self.TEMPLATE_ID)
-        template_view.append_child(TaskNormalSection())
-        template_view.append_child(TaskContrastSection())
+        template_view.append_child(TaskTemplateNormalSection())
+        template_view.append_child(TaskTemplateContrastSection())
 
         self.append_child(template_view)
 
 
-class TaskNormalSection(NormalSection):
+class TaskTemplateNormalSection(NormalSection):
 
     def __init__(self):
-        super(TaskNormalSection, self).__init__()
+        super(TaskTemplateNormalSection, self).__init__()
 
         self.append_child(MainGrid())
         self.append_child(PostGrid())
-
-
-class TaskInstancePage(Page):
-
-    #INSTANCE_NEW_PAGE_CLASS = unicode("instance-new-page")
-    INSTANCE_ID = unicode("instance")
-
-    def __init__(self):
-        super(TaskInstancePage, self).__init__()
-        #self.append_class(self.INSTANCE_NEW_PAGE_CLASS)
-        self.set_id(self.INSTANCE_ID)
-
-        instance_view = ObjectView(self.INSTANCE_ID)
-        instance_view.append_child(TaskNormalSection())
-        instance_view.append_child(TaskContrastSection())
-
-        self.append_child(instance_view)
 
 
 class MainGrid(TitledGrid):
@@ -71,14 +54,14 @@ class MainGrid(TitledGrid):
                         "id",
                         ""),
                 Field(
-                        "Name",
-                        "name",
+                        "Title",
+                        "title",
                         ""),
 
-                Field(
-                        "Creator",
-                        "creator_id",
-                        ""),
+                #Field(
+                #        "Creator",
+                #        "creator_id",
+                #        ""),
                 Field(
                         "Steps",
                         "steps",
@@ -113,10 +96,10 @@ class PostGrid(Grid):
         self.append_child(SubmitButton(self.CREATE_TEMPLATE))
 
 
-class TaskContrastSection(ContrastSection):
+class TaskTemplateContrastSection(ContrastSection):
 
     def __init__(self):
-        super(TaskContrastSection, self).__init__()
+        super(TaskTemplateContrastSection, self).__init__()
 
         self.append_child(DetailsGrid())
         self.append_child(WorkerGrid())
@@ -219,5 +202,121 @@ class TagsGrid(TitledGrid):
                         ""),
                 ]
 
-        field_list = FieldList(fields)
-        self.append_child(field_list)
+        self.append_child(FieldList(fields))
+
+
+class TaskInstancePostPage(Page):
+
+    TASK_INSTANCE_POST_PAGE_CLASS = unicode("task-instance-post-page")
+
+    def __init__(self):
+        super(TaskInstancePostPage, self).__init__()
+        self.append_class(self.TASK_INSTANCE_POST_PAGE_CLASS)
+
+        self.append_child(TaskInstancePostContrastSection())
+
+
+class TaskInstancePostContrastSection(ContrastSection):
+
+    POST_TITLE = unicode("Post your Task")
+    POST_TASK_TEXT = unicode("Post Task")
+    GRID_CONTAINER = unicode("grid-container")
+
+    def __init__(self):
+        super(TaskInstancePostContrastSection, self).__init__()
+
+        grid_container = Div()
+        grid_container.append_class(self.GRID_CONTAINER)
+
+        grid_container.append_child(TaskInstanceGrid())
+        grid_container.append_child(CreditCardGrid())
+
+        self.append_child(Title(self.POST_TITLE))
+        self.append_child(grid_container)
+        self.append_child(SubmitButton(self.POST_TASK_TEXT))
+
+
+class TaskInstanceGrid(Grid):
+
+    TASK_INSTANCE_GRID_CLASS = unicode("task-instance-grid")
+    TASK_INSTANCE_GRID_ID = unicode("task-instance-grid")
+    TASK_INSTANCE_ID = unicode("instance")
+    WELCOME_TEXT = unicode("Hi! Here are your task details and pricing.")
+
+    def __init__(self):
+        super(TaskInstanceGrid, self).__init__()
+        self.append_class(self.TASK_INSTANCE_GRID_CLASS)
+
+        self.set_id(self.TASK_INSTANCE_GRID_ID)
+
+        task_instance_view = ObjectView(self.TASK_INSTANCE_ID)
+        welcome_div = Div()
+        welcome_div.set_text(self.WELCOME_TEXT)
+        fields = [
+                Field(
+                        "Task:",
+                        "steps",
+                        ""),
+                Field(
+                        "Deadline:",
+                        "deadline_ts",
+                        ""),
+                Field(
+                        "Price:",
+                        "price",
+                        "")
+                ]
+
+        task_instance_view.append_child(welcome_div)
+        task_instance_view.append_child(FieldList(fields))
+        self.append_child(task_instance_view)
+
+
+class CreditCardGrid(Grid):
+
+    CREDIT_CARD_GRID_CLASS = unicode("credit-card-grid")
+    CREDIT_CARD_GRID_ID = unicode("credit-card-grid")
+    CUSTOMER_ID = "customer"
+    WELCOME_TEXT = unicode(
+            "Now we just need your Billing Info and we're all set!")
+
+    def __init__(self):
+        super(CreditCardGrid, self).__init__()
+        self.append_class(self.CREDIT_CARD_GRID_CLASS)
+
+        self.set_id(self.CREDIT_CARD_GRID_ID)
+
+        customer_view = ObjectView(self.CUSTOMER_ID)
+        welcome_div = Div()
+        welcome_div.set_text(self.WELCOME_TEXT)
+
+        fields = [
+                Field(
+                        "First Name:",
+                        "first_name",
+                        ""),
+                Field(
+                        "Last Name:",
+                        "last_name",
+                        ""),
+                Field(
+                        "Email:",
+                        "email",
+                        ""),
+                Field(
+                        "Credit Card:",
+                        "credit-card",
+                        ""),
+                Field(
+                        "Exp:",
+                        "expiration-date",
+                        ""),
+                Field(
+                        "CVC:",
+                        "cvc",
+                        "")
+                ]
+
+        customer_view.append_child(welcome_div)
+        customer_view.append_child(FieldList(fields))
+        self.append_child(customer_view)
