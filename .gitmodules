@@ -3,4 +3,4 @@
 	url = https://github.com/sendjack/jutil.git
 [submodule "sendjack/view/elementary"]
 	path = sendjack/view/elementary
-	url = git@github.com:sendjack/elementary.git
+	url = https://github.com/sendjack/elementary.git
