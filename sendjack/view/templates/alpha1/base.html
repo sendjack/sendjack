@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {% include head.html %}
+        {% include "alpha1/head.html" %}
     </head>
 
     <body>
         <header>
             <div id="main-logo"></div>
         </header>
-        {% block body %} {% end %}
+        {% block body %} {% endblock %}
         <footer>
             <div class="email-section">
-                <a href="mailto:contact@sendjack.com">
-                    contact@sendjack.com
-                </a>
+                <a href="mailto:contact@sendjack.com">contact@sendjack.com</a>
             </div>
             <!-- <div class="link-section">
                 <a

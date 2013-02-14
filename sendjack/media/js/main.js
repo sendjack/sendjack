@@ -38,5 +38,5 @@ require.config({
 });
 
 require([
-        'app2'
+        'app'
 ]);
