@@ -23,7 +23,6 @@ class CRUD(object):
 
         # the next line is where the OperationalError is happening.
         session.commit()
-        session.close()
         return object_
 
 
@@ -39,7 +38,6 @@ class CRUD(object):
             raise NoResultFound(msg)
 
         session.expunge(object_)
-        session.close()
         return object_
 
 
@@ -57,7 +55,6 @@ class CRUD(object):
             setattr(object_, k, v)
 
         session.commit()
-        session.close()
         return object_
 
 

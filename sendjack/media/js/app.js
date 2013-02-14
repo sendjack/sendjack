@@ -1,30 +1,60 @@
 /**
- * Sign up application.
+ * The entire Jackalope client side application.
+ *
+ * DEPENDENCIES:
+ * 1. RequireJS: http://requirejs.org
+ * 2. Backbone: http://backbonejs.org
+ *
+ * CONVENTIONS:
+ * 1. Douglas Crockford: http://javascript.crockford.com/code.html
+ * 2. JSDocs
+ * 3. $NAME: jQuery variable
  *
  * @exports app
- *
  * @requires $
- * @requires Stripe
- **/
+ */
+require(
+        [
+            // libraries
+            'jquery',
 
-var jackalope = jackalope || {};
-jackalope.app = (function () {
+            // modules
+            'view/document'
+        ],
+        function ($, document) {
 
-    // remove imported libraries from global
-    jQuery.noConflict();
-    var stripeNoConflict = Stripe;
-    delete Stripe;
+/**
+ * Initialize Object with superpowers per Crockford's recommendation.
+ * 1. Object.create: http://javascript.crockford.com/prototypal.html
+ */
+var initializeObject = (function () {
+    if (typeof Object.create !== 'function') {
+        Object.create = function (o) {
+            function F() {}
+            F.prototype = o;
+            return new F();
+        };
+    }
+})();
 
-    this.init = (function ($) {
-        $(document).ready(function() {
-            jackalope.payment($, stripeNoConflict);
 
-            $('.scroll').click(function (event) {
-                event.preventDefault();
-                var offset = $($(this).attr('href')).offset().top;
-                $('html, body').animate({scrollTop:offset}, 1000);
-            });
-        });
-    }(jQuery));
+/**
+ * Initialize Environment.
+ */
+var initializeEnvironment = (function () {
+    // Make sure AJAX requests are not cached.
+    $.ajaxSetup({cache: false});
+})();
 
-}());
+
+/**
+ * Initialize Application.
+ */
+var initializeApp = (function () {
+    $(document).ready(function () {
+        var my_view = document.DocumentView();
+    });
+})();
+
+
+});

@@ -36,7 +36,7 @@ class SignUpHandler(BaseHandler):
 
     def get(self):
         """ Overload BaseHandler's HTTP GET. """
-        self.render("signup.html", xsrf_token=self.xsrf_token)
+        self.render("alpha1/signup.html", xsrf_token=self.xsrf_token)
 
 
 class SignUpSubmitHandler(BaseHandler):
@@ -51,12 +51,12 @@ class SignUpSubmitHandler(BaseHandler):
             new_user = User(parameters)
             new_user.store()
 
-            self.render("thankyou.html")
+            self.render("alpha1/thankyou.html")
         except KeyError as e:
-            self.render("error.html")
+            self.render("alpha1/error.html")
         except Exception as e:
             print type(e)
-            self.render("error.html")
+            self.render("alpha1/error.html")
 
 
     def _get_arguments(self):

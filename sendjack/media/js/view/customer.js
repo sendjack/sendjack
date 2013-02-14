@@ -38,6 +38,8 @@ var CustomerView = ObjectView.extend({
         if ($status.length !== 0) {
             this.model.set('status', $status.val());
         }
+
+        this.model.on('change:stripe_token', this.save, this);
     }
 });
 

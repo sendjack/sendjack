@@ -137,7 +137,7 @@ class TaskInstanceView(ObjectView):
 
     TASK_TITLE_PLACEHOLDER = "Task Title"
     TASK_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
-    TASK_DEADLINE_PLACEHOLDER = "Monday, February 15, 2013"
+    TASK_DEADLINE_PLACEHOLDER = "06/31/2013"
 
     TASK_TITLE = "customer_title"
     TASK_DESCRIPTION = "customer_description"

@@ -1,4 +1,4 @@
-{% extends base.html %} 
+{% extends "alpha1/base.html" %} 
 
 
 {% block body %}
@@ -34,7 +34,7 @@
             </div>
 
             <input type="hidden" name="token" />
-            <input type="hidden" name="_xsrf" value="{% raw xsrf_token %}" />
+            <input type="hidden" name="_xsrf" value="{{ xsrf_token }}" />
 
             <div class="form-row">
                 <label>Credit Card:</label>
@@ -54,7 +54,7 @@
             </div>
             <div class="form-row">
                 <label>CVC:</label>
-                <input type="text" maxlength="3" autocomplete="off"
+                <input type="text" maxlength="4" autocomplete="off"
                     required="required" class="card-cvc" placeholder="555" />
             </div>
             <button type="submit" class="submit-button" > 
@@ -65,4 +65,4 @@
     <section class="subheader-section">
         Send Jack tasks. See Jack run. Get work done.
     </section>
-{% end %}
+{% endblock %}

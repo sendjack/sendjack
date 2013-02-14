@@ -1,8 +1,0 @@
-{# Task Template form to be used by all CRUD templates. #}
-
-<ul>
-    {% if model["id"] != "" %}
-    <li>id: <input type="text" name="id" value="{{ model["id"] }}" disabled /></li>
-    {% end %}
-    <li>name: <input type="text" name="name" value="{{ model["name"] }}" /></li>
-</ul>
