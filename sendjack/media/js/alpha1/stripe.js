@@ -10,11 +10,8 @@
 var jackalope = jackalope || {};
 jackalope.payment = function ($, Stripe) {
 
-    // Stripe keys
-    // TODO: Pull from a constants file
-    var PUBLISHABLE_DEV_KEY = "pk_gd3qjiAUdlUvLbjLqJsS5ApMRSQqO";
-    var PUBLISHABLE_PROD_KEY = "pk_W32hVKbXvAXcpskodZueIxA3QyGJ3";
-    var api_key = PUBLISHABLE_PROD_KEY;
+    // Get Stripe key from meta data.
+    var apiKey = $('meta[name=stripe-key]').attr('content');
 
     // Sign up form required fields
     var required_fields = [
@@ -28,7 +25,7 @@ jackalope.payment = function ($, Stripe) {
     ];
 
     // this identifies your website in the createToken call below
-    Stripe.setPublishableKey(api_key);
+    Stripe.setPublishableKey(apiKey);
 
     this.setupPaymentForm = (function () {
         $("#payment-form").submit(function(event) {
