@@ -45,3 +45,6 @@ JINJA2_ENVIRONMENT = Environment(
         loader=PackageLoader('app', 'view/templates'),
         trim_blocks=True)
 JINJA2_ENVIRONMENT.globals['stripe_key'] = STRIPE_PUBLISHABLE_KEY
+
+MAILGUN_API_KEY = environment.get_unicode(unicode("MAILGUN_API_KEY"))
+MAILGUN_DOMAIN = environment.get_unicode(unicode("MAILGUN_DOMAIN"))
