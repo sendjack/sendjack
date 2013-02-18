@@ -159,15 +159,15 @@ class WorkerGrid(TitledGrid):
         fields = [
                 Field(
                         "Name",
-                        "",
+                        "name",
                         "James Marsh"),
                 Field(
                         "Rating",
-                        "All of Stars",
-                        ""),
+                        "rating",
+                        "All of Stars"),
                 Field(
                         "Details / Notes",
-                        "",
+                        "notes",
                         "This Grid isn't hooked up to anything."),
                 ]
 
