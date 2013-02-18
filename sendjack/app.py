@@ -3,7 +3,7 @@
     Jackalope: SendJack
     -------------------
 
-    Run Jackalope application.
+    Run Jackalope's SendJack application.
 
 """
 import tornado.httpserver
@@ -17,9 +17,9 @@ import settings
 from urls import url_patterns
 
 
-class JackalopeApp(tornado.web.Application):
+class SendJackApp(tornado.web.Application):
 
-    """ The Tornado instance for Jackalope. """
+    """ The Tornado instance for SendJack. """
 
 
     def __init__(self):
@@ -39,7 +39,7 @@ class JackalopeApp(tornado.web.Application):
 
 def main():
     """ main loop for Python script. """
-    app = JackalopeApp()
+    app = SendJackApp()
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()

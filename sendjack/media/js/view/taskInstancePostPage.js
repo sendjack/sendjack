@@ -30,15 +30,16 @@ var TaskInstancePostPage = Backbone.View.extend({
     $currGrid: null,
     customerView: null,
     creditCardView: null,
+    taskInstanceView: null,
 
     initialize: function () {
         this.setElement('.task-instance-post-page');
 
-        var taskInstanceView = TaskInstancePostView();
+        this.taskInstanceView = TaskInstancePostView();
 
         // wait until after the instance data is fetched to grab customer id.
         var that = this;
-        taskInstanceView.model.on('change:customer_id', function (model) {
+        this.taskInstanceView.model.on('change:customer_id', function (model) {
 
             // Create the Customer View with the customer_id
             var customerID = model.get('customer_id');
@@ -98,6 +99,8 @@ var TaskInstancePostPage = Backbone.View.extend({
 
     save: function () {
         this.creditCardView.save();
+        this.taskInstanceView.setStatus("created");
+        this.taskInstanceView.save();
     }
 
 });

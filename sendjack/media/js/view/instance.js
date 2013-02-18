@@ -52,6 +52,10 @@ var TaskInstanceView = ObjectView.extend({
         }
 
         return converted_ts;
+    },
+
+    setStatus: function (status) {
+        this.model.set('status', status);
     }
 });
 
