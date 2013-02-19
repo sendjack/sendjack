@@ -12,7 +12,5 @@ from crud import CRUDHandler
 
 class CustomerCRUDHandler(CRUDHandler):
 
-    """Initialize the model for a Customer CRUD request."""
-
-    def _init_model(self):
-        self._model_object = Customer()
+    def _set_model_class(self):
+        self._model_class = Customer

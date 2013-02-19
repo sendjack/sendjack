@@ -7,22 +7,19 @@
 
 """
 from model.object.task_template import TaskTemplate
-
 from view.app.main.body import TaskTemplateBody
 
-from base import BaseHandler
-from crud import CRUDHandler
+from .crud import CRUDHandler
+from .sync import SyncHandler
 
 
 class TaskTemplateCRUDHandler(CRUDHandler):
 
-    """Initialize the model for a TaskTemplate CRUD request."""
-
-    def _init_model(self):
-        self._model_object = TaskTemplate()
+    def _set_model_class(self):
+        self._model_class = TaskTemplate
 
 
-class TaskTemplateSyncHandler(BaseHandler):
+class TaskTemplateSyncHandler(SyncHandler):
 
     """Initialize the markup for a request for a new Task Template form."""
 

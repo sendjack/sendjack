@@ -20,21 +20,9 @@ import json
 import tornado.web
 
 from jutil.decorators import constant
-from view.elementary.html import Element
+from jutil.errors import OverrideRequiredError
+
 import settings
-
-
-class _Argument(object):
-
-    @constant
-    def ASYNCHRONOUS(self):
-        return "asynchronous"
-
-    @constant
-    def PARAMETERS(self):
-        return "parameters"
-
-ARGUMENT = _Argument()
 
 
 class _COOKIE(object):
@@ -48,13 +36,7 @@ COOKIE = _COOKIE()
 
 class BaseHandler(tornado.web.RequestHandler):
 
-    """Collect common handler methods.
-
-    All handlers should be subclasses.
-
-    """
-
-    _model = None
+    """Handle all requests through subclasses."""
 
 
     def get_current_user(self):
@@ -67,47 +49,32 @@ class BaseHandler(tornado.web.RequestHandler):
 
 
     def _set_session(self, cookie):
+        # TODO: Sessions are not being used.
         self.set_secure_cookie(
                 COOKIE.SESSION,
                 tornado.escape.json_encode(cookie))
 
 
     def _get_session(self):
+        # TODO: Sessions are not being used.
         session = self.get_secure_cookie(COOKIE.SESSION)
         return tornado.escape.json_decode(session) if session else None
 
 
     def _end_session(self):
+        # TODO: Sessions are not being used.
         session = self._get_session()
         self.clear_cookie(COOKIE.SESSION)
         return session
 
 
-    def get(self, id=None):
-        """Handle a GET request by mapping it to READ."""
-        self._process_request()
-
-
-    def post(self):
-        """Handle a POST request."""
-        self._process_request()
-
-
     def _process_request(self):
         """Execute a request and send a response as JSON or markup."""
-        if self._is_asynchronous_request():
-            self._process_asynchronous_request()
-        else:
-            self._process_synchronous_request()
+        raise OverrideRequiredError()
 
 
-    def _process_asynchronous_request(self):
-        """Send a JSON response to this request containing a model."""
-        # TODO: deal with passing constants along too.
-        self.write(json.dumps(self._model.to_dict()))
-
-
-    def get_request_arguments(self):
+    def _get_request_arguments(self):
+        """Return the request arguments from the URL as a dict."""
         arguments = {}
         print self.request.arguments
         for k, v in self.request.arguments.items():
@@ -115,32 +82,8 @@ class BaseHandler(tornado.web.RequestHandler):
         return arguments
 
 
-    def _process_synchronous_request(self):
-        """Render markup and a model as a response to this request."""
-        # TODO: synchronous might not exist for the CRUDHandler.
-        # TODO: deal with passing constants along too.
-        self.render("pre_body.html")
-        self.write(Element.to_string(self._render_body_markup(self._model)))
-        self.render("post_body.html")
-
-
-    def _render_body_markup(self, model=None):
-        """Render markup for the response <body>."""
-        raise NotImplementedError()
-
-
-    def _is_asynchronous_request(self):
-        return bool(self.get_argument(ARGUMENT.ASYNCHRONOUS, False))
-
-
-    def _init_model(self):
-        """Construct a model object for this handler to make a CRUD call."""
-        # TODO: intentionally no override here, but the crud subclass requires
-        # it. others should raise errors. see example error in jackalope repo.
-        raise NotImplementedError()
-
-
-    def _get_request_parameters(self):
+    def _get_request_body(self):
+        """Return the request body (POST / PUT data) as a dict."""
         return json.loads(self.request.body)
 
 

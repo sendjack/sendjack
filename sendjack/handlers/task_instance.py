@@ -6,23 +6,29 @@
     task instance.
 
 """
-from model.object.task_instance import TaskInstance
+import requests
 
+from model.object.task_instance import TaskInstance
 from view.app.main.body import TaskInstancePostBody
 
-from base import BaseHandler
-from crud import CRUDHandler
+from .crud import CRUDHandler
+from .sync import SyncHandler
 
 
 class TaskInstanceCRUDHandler(CRUDHandler):
 
-    """Initialize the model for a TaskInstance CRUD request."""
-
-    def _init_model(self):
-        self._model_object = TaskInstance()
+    def _set_model_class(self):
+        self._model_class = TaskInstance
 
 
-class TaskInstanceSyncHandler(BaseHandler):
+    def _function_that_is_not_called(task_instance):
+            # check for created
+            path = unicode("/sendjack/task/{}").format(task_instance.id)
+            url = unicode("{}{}").format("http://localhost:5100", path)
+            requests.get(url).json
+
+
+class TaskInstanceSyncHandler(SyncHandler):
 
     """Initialize the markup for a request for a new Task Instance form."""
 

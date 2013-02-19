@@ -9,11 +9,13 @@ from handlers.test import TestHandler
 from handlers.signup import SignUpHandler, SignUpSubmitHandler
 from handlers.alpha import SignUpSeriesHandler
 from handlers.logged_out import LoggedOutHandler
-from handlers.customer import CustomerCRUDHandler
-from handlers.task_template import TaskTemplateCRUDHandler
-from handlers.task_template import TaskTemplateSyncHandler
-from handlers.task_instance import TaskInstanceCRUDHandler
+
 from handlers.task_instance import TaskInstanceSyncHandler
+from handlers.task_template import TaskTemplateSyncHandler
+
+from handlers.customer import CustomerCRUDHandler
+from handlers.task_instance import TaskInstanceCRUDHandler
+from handlers.task_template import TaskTemplateCRUDHandler
 
 
 url_patterns = [
@@ -26,16 +28,10 @@ url_patterns = [
 
         (r"/", LoggedOutHandler),
 
-        (r"/a/customer", CustomerCRUDHandler),
-        (r"/a/customer/([0-9]+)", CustomerCRUDHandler),
+        (r"/task/?([0-9]+)?", TaskInstanceSyncHandler),
+        (r"/template/?([0-9]+)?", TaskTemplateSyncHandler),
 
-        (r"/a/template", TaskTemplateCRUDHandler),
-        (r"/a/template/([0-9]+)", TaskTemplateCRUDHandler),
-        (r"/template", TaskTemplateSyncHandler),
-        (r"/template/([0-9]+)", TaskTemplateSyncHandler),
-
-        (r"/a/task", TaskInstanceCRUDHandler),
-        (r"/a/task/([0-9]+)", TaskInstanceCRUDHandler),
-        (r"/task", TaskInstanceSyncHandler),
-        (r"/task/([0-9]+)", TaskInstanceSyncHandler),
+        (r"/a/customer/?([0-9]+)?", CustomerCRUDHandler),
+        (r"/a/task/?([0-9]+)?", TaskInstanceCRUDHandler),
+        (r"/a/template/?([0-9]+)?", TaskTemplateCRUDHandler),
         ]
