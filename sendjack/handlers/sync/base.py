@@ -1,17 +1,33 @@
 """
-    sync
+    base
     ----
 
-    Handle all sync requests through subclasses.
+    Define a base synchronous handler for subclassing.
 
 """
-from jutil.errors import OverrideNotAllowedError
+from jutil.errors import OverrideNotAllowedError, OverrideRequiredError
 from view.elementary.html import Element
-
-from .base import BaseHandler
+from handlers.base import BaseHandler
 
 
 class SyncHandler(BaseHandler):
+
+    """Provide an abstract superclass for synchronous requests.
+
+    Attributes
+    ----------
+    _markup_class : class
+
+    """
+
+    def initialize(self):
+        self._set_markup_class()
+
+
+    def _set_markup_class(self):
+        """Set the markup class to use."""
+        raise OverrideRequiredError()
+
 
     def get(self, id=None):
         """Handle synchronous GET requests."""
@@ -28,7 +44,7 @@ class SyncHandler(BaseHandler):
         # TODO: synchronous might not exist for the CRUDHandler.
         # TODO: deal with passing constants along too.
         self.render("pre_body.html")
-        self.write(Element.to_string(self._render_body_markup()))
+        self.write(Element.to_string(self._markup_class()))
         self.render("post_body.html")
 
 

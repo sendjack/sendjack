@@ -1,8 +1,8 @@
 """
-    crud
+    base
     ----
 
-    Define a CRUD handler intended to be an abstract superclass for
+    Define a base CRUD handler intended to be an abstract superclass for
     authenticated reads and writes.
 
 """
@@ -11,7 +11,7 @@ import json
 
 from jutil.errors import OverrideRequiredError
 
-from .base import BaseHandler
+from handlers.base import BaseHandler
 
 
 class CRUDHandler(BaseHandler):
@@ -34,13 +34,15 @@ class CRUDHandler(BaseHandler):
 
 
     def _set_model_class(self):
-        """Construct a model object for this handler to make a CRUD call."""
+        """Set the model class to use."""
         raise OverrideRequiredError()
 
 
     #@tornado.web.authenticated
-    def post(self):
+    def post(self, id=None):
         """Handle a POST request by mapping it to CREATE."""
+        # FIXME: we need the id parameter here although we should be able to
+        # change the RegEx in urls.py so it won't post if it doesn't hit.
         self._pre_process_request()
 
         object_dict = self._get_request_body()

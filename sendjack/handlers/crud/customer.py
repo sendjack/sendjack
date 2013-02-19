@@ -2,12 +2,12 @@
     customer
     --------
 
-    Handle all asynchronous CRUD interactions for a customer.
+    Handle all CRUD interactions for a customer.
 
 """
 from model.object.customer import Customer
 
-from crud import CRUDHandler
+from base import CRUDHandler
 
 
 class CustomerCRUDHandler(CRUDHandler):
