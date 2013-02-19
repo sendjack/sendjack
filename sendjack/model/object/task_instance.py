@@ -5,7 +5,7 @@
     Define the TaskInstance object.
 
 """
-from model.data.task_instance import TaskInstanceModel
+from model.data.task_instance import TaskInstanceModel, TASK_INSTANCE
 
 
 class TaskInstance(TaskInstanceModel):
@@ -37,3 +37,31 @@ class TaskInstance(TaskInstanceModel):
         return "within {} miles of {}".format(
                 self.location_radius,
                 self.location)
+
+
+    def is_saved(self):
+        return self.status == TASK_INSTANCE.SAVED
+
+
+    def is_created(self):
+        return self.status == TASK_INSTANCE.CREATED
+
+
+    def is_posted(self):
+        return self.status == TASK_INSTANCE.POSTED
+
+
+    def is_completed(self):
+        return self.status == TASK_INSTANCE.COMPLETED
+
+
+    def is_approved(self):
+        return self.status == TASK_INSTANCE.APPROVED
+
+
+    def is_expired(self):
+        return self.status == TASK_INSTANCE.EXPIRED
+
+
+    def is_canceled(self):
+        return self.status == TASK_INSTANCE.CANCELED

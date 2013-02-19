@@ -5,8 +5,8 @@
     Handle all asynchronous CRUD interactions for a task instance.
 
 """
-import requests
-
+import redflag
+import settings
 from model.object.task_instance import TaskInstance
 
 from .base import CRUDHandler
@@ -18,8 +18,15 @@ class TaskInstanceCRUDHandler(CRUDHandler):
         self._model_class = TaskInstance
 
 
-    def _function_that_is_not_called(task_instance):
-            # check for created
-            path = unicode("/sendjack/task/{}").format(task_instance.id)
-            url = unicode("{}{}").format("http://localhost:5100", path)
-            requests.get(url).json
+    def _post_process_request(self):
+        if self._model.is_created() and not self._is_read():
+            email = unicode("{}-{}-{}@{}").format(
+                    "sendjack",
+                    "task",
+                    self._model.id,
+                    settings.MAILGUN_DOMAIN)
+
+            redflag.redflag.send_message_from_jack(
+                    email,
+                    "POST THIS TASK",
+                    "neither the messsage nor subject make a difference")

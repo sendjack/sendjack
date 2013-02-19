@@ -17,6 +17,7 @@
 
 """
 import json
+import tornado
 import tornado.web
 
 from jutil.decorators import constant
