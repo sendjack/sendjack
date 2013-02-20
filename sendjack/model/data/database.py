@@ -56,8 +56,8 @@ class SQLAlchemy(Database):
         # all applications (Jackalope, SendJack, Prod/Staging/Warman/Hammer)
         engine = create_engine(
                 url,
-                echo=True,
-                echo_pool=True,
+                #echo=True,
+                #echo_pool=True,
                 pool_size=2,
                 max_overflow=1)
 
@@ -83,11 +83,8 @@ def set_db(database):
     else:
         raise RuntimeError()
 
-    print "set", db_singleton
-
 
 def db():
     global db_singleton
 
-    print "get", db_singleton
     return db_singleton

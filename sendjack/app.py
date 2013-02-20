@@ -34,7 +34,8 @@ class SendJackApp(tornado.web.Application):
         redflag.initialize(
                 settings.MAILGUN_API_KEY,
                 settings.MAILGUN_DOMAIN,
-                "jack@sendjack.com")
+                settings.JACKALOPE_EMAIL,
+                settings.JACKALOPE_NAME)
 
 
 def main():
