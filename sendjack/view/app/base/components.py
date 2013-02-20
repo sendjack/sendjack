@@ -125,7 +125,7 @@ class HeadField(Div):
     FIELD_CLASS = unicode("field")
     KEY_CLASS = unicode("head-key")
 
-    def __init__(self, label, key, value=""):
+    def __init__(self, label, key):
         super(HeadField, self).__init__()
         self.append_class(self.FIELD_CLASS)
 
@@ -140,9 +140,15 @@ class SubField(Div):
     KEY_CLASS = unicode("sub-key")
     VALUE_CLASS = unicode("sub-value")
 
-    def __init__(self, label, key, value=""):
+    def __init__(self, label, key, value="", include_index=False):
         super(SubField, self).__init__()
         self.append_class(self.FIELD_CLASS)
+
+        if include_index:
+            label = unicode("{} 1".format(label))
+
+        # TODO: can this be <subfield-name>[]?
+        #key = unicode("{}[]".format(key))
 
         key_el = Label(label, key)
         key_el.append_class(self.KEY_CLASS)
