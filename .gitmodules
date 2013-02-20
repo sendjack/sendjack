@@ -4,3 +4,6 @@
 [submodule "sendjack/view/elementary"]
 	path = sendjack/view/elementary
 	url = https://github.com/sendjack/elementary.git
+[submodule "sendjack/redflag"]
+	path = sendjack/redflag
+	url = https://github.com/sendjack/redflag.git

@@ -6,7 +6,7 @@
     Load the SendJack database.
 
 """
-from database import SQLAlchemy
+import database
 
 from test import TestModel
 from customer import CustomerModel
@@ -18,14 +18,15 @@ class _DatabaseSingleton(object):
 
     _db = None
 
-
     def __init__(self):
-        self._db = SQLAlchemy([
+        self._db = database.SQLAlchemy([
                 TestModel,
                 CustomerModel,
                 TaskTemplateModel,
                 TaskInstanceModel,
                 ])
+
+        database.set_db(self._db)
 
 
     @property

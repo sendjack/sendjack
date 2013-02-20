@@ -3,9 +3,9 @@
 Settings for Tornado project.
 
 """
+import os
 import tornado
 import tornado.template
-import os
 from tornado.options import define, options
 from jinja2 import Environment, PackageLoader
 
@@ -45,3 +45,10 @@ JINJA2_ENVIRONMENT = Environment(
         loader=PackageLoader('app', 'view/templates'),
         trim_blocks=True)
 JINJA2_ENVIRONMENT.globals['stripe_key'] = STRIPE_PUBLISHABLE_KEY
+
+MAILGUN_API_KEY = environment.get_unicode(unicode("MAILGUN_API_KEY"))
+MAILGUN_DOMAIN = environment.get_unicode(unicode("MAILGUN_DOMAIN"))
+
+JACKALOPE_NAME = environment.get_unicode(unicode("JACKALOPE_NAME"))
+JACKALOPE_USERNAME = environment.get_unicode(unicode("JACKALOPE_USERNAME"))
+JACKALOPE_EMAIL = unicode(JACKALOPE_USERNAME + "@" + MAILGUN_DOMAIN)

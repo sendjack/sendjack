@@ -14,6 +14,7 @@ Jackalope (submodules)
 ++++++++++++++++++++++
 - `jutil <https://github.com/sendjack/jutil>`_: Jackalope Utility
 - `elementary <https://github.com/sendjack/elementary>`_: Python HTML Generation
+- `redflag <https://github.com/sendjack/redflag>`_: Mail sender 
 
 Javascript Framework
 ++++++++++++++++++++

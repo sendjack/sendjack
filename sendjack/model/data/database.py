@@ -9,7 +9,7 @@
 
 """
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 
 from jutil import environment
@@ -29,7 +29,6 @@ class Database(object):
 
 # SQLAlchemy classes for managing database access in this package
 DeclarativeModel = declarative_base()
-Session = sessionmaker()
 
 
 class SQLAlchemy(Database):
@@ -51,9 +50,41 @@ class SQLAlchemy(Database):
                 self._HOST,
                 self._PORT,
                 self._PATH)
-        engine = create_engine(url, echo=True)
+
+
+        # our dev instance of PostGres only allows for 20 connections across
+        # all applications (Jackalope, SendJack, Prod/Staging/Warman/Hammer)
+        engine = create_engine(
+                url,
+                #echo=True,
+                #echo_pool=True,
+                pool_size=2,
+                max_overflow=1)
 
         # create_all must be called after the objects are imported.
         DeclarativeModel.metadata.create_all(engine)
 
-        Session.configure(bind=engine)
+        session_factory = sessionmaker(bind=engine)
+        self.session_constructor = scoped_session(session_factory)
+
+
+    def session(self):
+        return self.session_constructor()
+
+
+db_singleton = None
+
+
+def set_db(database):
+    global db_singleton
+
+    if db_singleton is None:
+        db_singleton = database
+    else:
+        raise RuntimeError()
+
+
+def db():
+    global db_singleton
+
+    return db_singleton
