@@ -4,6 +4,7 @@
  * @exports view.base
  *
  * @requires $
+ * @requires Lodash
  * @requires Backbone
  * @requires ModelBinder
  *
@@ -12,13 +13,14 @@ define(
         [
             //libraries
             'jquery',
+            'lodash',
             'backbone',
             'modelbinder'
 
             //modules
             //jquery ui
         ],
-        function ($, Backbone, ModelBinder) {
+        function ($, _, Backbone, ModelBinder) {
 
 
 var ObjectView = Backbone.View.extend({
@@ -84,16 +86,8 @@ var ObjectView = Backbone.View.extend({
             model.set('id', model_id);
             model.fetch();
         }
-        
+
         return model;
-    },
-
-    convertingToModel: function (direction) {
-        return direction === 'ViewToModel';
-    },
-
-    convertingToView: function (direction) {
-        return direction === 'ModelToView';
     },
 
     /**
@@ -104,11 +98,10 @@ var ObjectView = Backbone.View.extend({
      *          #the-power-of-jquery
      */
     getBindings: function (boundAttribute) {
-        var attr = boundAttribute || 'name';
+        var attribute = boundAttribute || 'name';
 
-        var bindings = this.modelBinder.createDefaultBindings(this.el, attr);
-
-        return this.editBindings(bindings);
+        return this.editBindings(
+            Backbone.ModelBinder.createDefaultBindings(this.el, attribute));
     },
 
     /**
@@ -128,17 +121,98 @@ var ObjectView = Backbone.View.extend({
 
 var TaskView = ObjectView.extend({
 
+    initialize: function (selector, urlPath, model) {
+        ObjectView.prototype.initialize.call(this, selector, urlPath, model);
+
+        _.bindAll(this);
+
+        this.model.on('change:steps', this.replaceSteps);
+    },
+
+    events: function () {
+        //var _events = {};
+        var _events = ObjectView.prototype.events.call(this);
+
+        _events['focus .step'] = 'appendEmptyStepOnEndFocus';
+        _events['keydown .step'] = 'insertEmptyStepOnTab';
+        _events['change [name=step]'] = 'updateSteps';
+
+        return _events;
+    },
+
+    appendEmptyStepOnEndFocus: function (event) {
+        // find the step whose input has focus
+        var step = $(event.currentTarget);
+
+        // if this is the last step, grow the list
+        if (step.is(':last-child')) {
+            this.insertEmptyStepAfter(step);
+        }
+    },
+
+    insertEmptyStepOnTab: function (event) {
+        // TODO: handle SHIFT+TAB (9=TAB; 16=SHIFT)
+        // check whether TAB was pressed
+        if (event.which === 9) {
+            // insert after the step whose input has focus
+            var step = $(event.currentTarget);
+            this.insertEmptyStepAfter(step);
+        }
+    },
+
+    insertEmptyStepAfter: function (currentStep) {
+        // TODO: is this deep a copy warranted?
+        var newStep = currentStep.clone(true, true);
+
+        // make sure the value of the new step is empty
+        newStep.children().filter(':input').val('');
+
+        // TODO: add support for displaying a number in the Step label.
+
+        // add the new step to the list after the current step
+        newStep.insertAfter(currentStep);
+    },
+
+    updateSteps: function (event) {
+        var stepDivs = $(event.currentTarget).parent().parent().children();
+
+        var steps = [];
+        for (var i=0; i < stepDivs.length; i=i+1) {
+            // don't add empty steps. the model doesn't need 'em.
+            var step = $(stepDivs[i]).children('[name=step]').val();
+            if (step) {
+                steps[i] = step;
+            }
+        }
+
+        // set the steps hidden input to be synched with the model.
+        this.$el.find('[name=steps]').val(JSON.stringify(steps)).change();
+    },
+
     convertSteps: function (direction, value) {
         var converted;
-        console.log(direction);
-        console.log(value);
-        //if (this.convertingToModel(direction)) {
 
-        //} else if (this.convertingToView(direction)) {
-
-        //}
+        if (direction === Backbone.ModelBinder.Constants.ModelToView) {
+            converted = JSON.stringify(value);
+        } else if (direction === Backbone.ModelBinder.Constants.ViewToModel) {
+            converted = JSON.parse(value);
+        }
 
         return converted;
+    },
+
+    replaceSteps: function (model, value, options) {
+        var stepDivs = this.$el.find('.step');
+        var lastStep = stepDivs.filter(':last');
+
+        stepDivs.slice(0, -1).remove();
+
+        var newStep;
+        for (var i=0; i < value.length; i=i+1) {
+            newStep = lastStep.clone(true, true);
+            newStep.children().filter(':input').val(value[i]);
+            newStep.insertBefore(lastStep);
+        }
     }
 
 });

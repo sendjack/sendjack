@@ -26,7 +26,6 @@ define(
 var DocumentView = Backbone.View.extend({
 
     initialize: function () {
-        //this.setElement('#karma');
 
         var datepicker = $('.datepicker').datepicker({minDate: '0'});
 

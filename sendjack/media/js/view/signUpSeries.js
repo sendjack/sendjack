@@ -58,8 +58,6 @@ var SignUpSeriesContent = Backbone.View.extend({
         customerModel.on('change:id', this.render, this);
         instanceModel.on('change:id', this.render, this);
 
-        // TODO: add support for inserting new step fields on focus.
-
         this.render();
     },
 

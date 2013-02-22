@@ -86,7 +86,6 @@ var TaskInstancePostPage = Backbone.View.extend({
     },
 
     render: function () {
-        console.log('render');
         this.$el.show();
         if (this.$currGrid !== null) {
             this.$currGrid.hide();
@@ -118,15 +117,6 @@ function TaskInstancePostView() {
             this.$el.find('.value[name=customer_description]').attr('disabled', 'disabled');
             this.$el.find('.value[name=deadline_ts]').attr('disabled', 'disabled');
             this.$el.find('.value[name=price]').attr('disabled', 'disabled');
-        },
-
-        getBindings: function () {
-            return {
-                deadline_ts: {
-                    selector: '[name=deadline_ts]',
-                    converter: this.tsConverter
-                }
-            };
         }
 
     });

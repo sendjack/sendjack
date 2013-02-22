@@ -4,6 +4,8 @@
  * @exports view.instance
  *
  * @requires $
+ * @requires Backbone
+ * @requires ModelBinder
  * @requires view.base
  * @requires model.instance
  *
@@ -12,6 +14,8 @@ define(
         [
             //libraries
             'jquery',
+            'backbone',
+            'modelbinder',
 
             //modules
             'view/base',
@@ -19,7 +23,7 @@ define(
 
             //jquery ui
         ],
-        function ($, base, instance) {
+        function ($, Backbone, ModelBinder, base, instance) {
 
 
 var TaskView = base.getTaskViewClass();
@@ -35,18 +39,18 @@ var TaskInstanceView = TaskView.extend({
     },
 
     editBindings: function (bindings) {
-        bindings.steps.selector = '[class~=sub-value]';
-        bindings.steps.converter = this.convertSteps;
+        //bindings.steps.converter = this.convertSteps;
         bindings.deadline_ts.converter = this.convertDeadline;
+
         return bindings;
     },
 
     convertDeadline: function (direction, value) {
         var converted;
 
-        if (this.convertingToModel(direction)) {
+        if (direction === Backbone.ModelBinder.Constants.ViewToModel) {
             converted = (new Date(value)).toISOString();
-        } else if (this.convertingToView(direction)) {
+        } else if (direction === Backbone.ModelBinder.Constants.ModelToView) {
             converted = (new Date(value)).toLocaleDateString();
         }
 

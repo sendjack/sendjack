@@ -35,8 +35,10 @@ var TaskTemplateView = TaskView.extend({
     },
 
     editBindings: function (bindings) {
-        bindings.steps.selector = '[class~=sub-value]';
+        // TODO: maybe move this to TaskView?
+
         bindings.steps.converter = this.convertSteps;
+
         return bindings;
     }
 
