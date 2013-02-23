@@ -10,7 +10,7 @@ from view.elementary.html import SubmitButton, Div, Img
 
 from view.app.base.page import Page
 from view.app.base.components import Field, FieldList, Grid, ObjectView, Title
-from view.app.base.components import BigField
+from view.app.base.components import BigField, Paragraph
 
 from components import NormalSection, ContrastSection, TitledGrid
 
@@ -358,3 +358,55 @@ class ThankYouGrid(Grid):
         self.append_child(main_title)
         self.append_child(sub_div)
         self.append_child(img)
+
+
+class TaskInstanceApprovePage(Page):
+
+    TASK_INSTANCE_APPROVE_PAGE_CLASS = unicode("task-instance-approve-page")
+
+    def __init__(self):
+        super(TaskInstanceApprovePage, self).__init__()
+        self.append_class(self.TASK_INSTANCE_APPROVE_PAGE_CLASS)
+
+        self.append_child(TaskInstanceApproveContrastSection())
+
+
+class TaskInstanceApproveContrastSection(ContrastSection):
+
+
+    def __init__(self):
+        super(TaskInstanceApproveContrastSection, self).__init__()
+
+        self.append_child(ApproveTaskGrid())
+
+
+class ApproveTaskGrid(Grid):
+
+    APPROVE_TASK_GRID_CLASS = unicode("approve-task-grid")
+    APPROVE_TASK_GRID_ID = unicode("approve-task-grid")
+    TASK_INSTANCE_ID = unicode("instance")
+    PARAGRAPHS = [
+            unicode("Your Task Is Complete!"),
+            unicode("Hi, your task has been completed and your file is in "
+                    "your email inbox."),
+            unicode("Once you review your work, please approve the work below "
+                    "so that we can pay your worker."),
+            unicode("Thanks!")
+            ]
+
+    APPROVE_TASK_TEXT = unicode("Approve Work")
+
+    def __init__(self):
+        super(ApproveTaskGrid, self).__init__()
+        self.append_class(self.APPROVE_TASK_GRID_CLASS)
+
+        self.set_id(self.APPROVE_TASK_GRID_ID)
+
+        for p in self.PARAGRAPHS:
+            paragraph = Paragraph()
+            paragraph.set_text(p)
+            self.append_child(paragraph)
+
+        task_instance_view = ObjectView(self.TASK_INSTANCE_ID)
+        task_instance_view.append_child(SubmitButton(self.APPROVE_TASK_TEXT))
+        self.append_child(task_instance_view)

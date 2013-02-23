@@ -17,6 +17,7 @@ class SyncHandler(BaseHandler):
     Attributes
     ----------
     _markup_class : class
+    _id : id
 
     """
 
@@ -31,7 +32,10 @@ class SyncHandler(BaseHandler):
 
     def get(self, id=None):
         """Handle synchronous GET requests."""
-        self._process_request()
+        self._id = id
+
+        self._pre_process_request()
+        self._send_response()
 
 
     def post(self, id=None):
@@ -39,7 +43,7 @@ class SyncHandler(BaseHandler):
         raise OverrideNotAllowedError
 
 
-    def _process_request(self):
+    def _send_response(self):
         """Render markup and a model as a response to this request."""
         # TODO: synchronous might not exist for the CRUDHandler.
         # TODO: deal with passing constants along too.
@@ -48,6 +52,6 @@ class SyncHandler(BaseHandler):
         self.render("post_body.html")
 
 
-    def _render_body_markup(self, model=None):
-        """Render markup for the response <body>."""
-        raise NotImplementedError()
+    def _pre_process_request(self):
+        """Do any class specific pre processing."""
+        pass
