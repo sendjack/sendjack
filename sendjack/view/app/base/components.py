@@ -130,6 +130,15 @@ class FieldList(UL):
         self.append_class(self.FIELD_LIST_CLASS)
 
 
+class Paragraph(Div):
+
+    PARAGRAPH_CLASS = unicode("paragraph")
+
+    def __init__(self):
+        super(Paragraph, self).__init__()
+        self.append_class(self.PARAGRAPH_CLASS)
+
+
 class ObjectView(Div):
 
     """Provide a view that corresponds to a model object. Provide a framework

@@ -515,9 +515,9 @@ li {
     }
 
     /***********************************************************
-    * MAIN - TASK INSTANCE POST PAGE
+    * MAIN - TASK INSTANCE POST PAGE and TASK INSTANCE APPROVE PAGE
     ************************************************************/
-    .task-instance-post-page {
+    .task-instance-post-page, .task-instance-approve-page {
         display: none;
 
         section {
@@ -552,6 +552,12 @@ li {
                 margin-bottom: @buttonPadding;
             }
 
+        }
+
+        .paragraph {
+            .contrastTitleText;
+            margin-top: @buttonPadding;
+            margin-bottom: @buttonPadding;
         }
 
         .field-list {
