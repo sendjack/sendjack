@@ -17,7 +17,6 @@ class SerializableDateTime(TypeDecorator):
 
     impl = DateTime
 
-
     def process_result_value(self, value, dialect):
         # account for nullable deleted_ts by simply returning None
         return value.isoformat() if value is not None else value
@@ -27,26 +26,38 @@ class SerializableStringList(TypeDecorator):
 
     impl = ARRAY(String)
 
-
     def process_bind_param(self, value, dialect):
         #return [s.strip() for s in value.split(',')]
-        pass
+        return value
 
     def process_result_value(self, value, dialect):
         #return str.join(value)
-        pass
+        return value
 
 
 class SerializableDict(TypeDecorator):
 
     impl = MutableDict.as_mutable(HSTORE)
 
-
     def process_bind_param(self, value, dialect):
         #return {s.strip(): s.strip() for s in value.split(',')}
-        pass
+        return value
 
 
     def process_result_value(self, value, dialect):
         #return str.join(value.keys())
-        pass
+        return value
+
+
+# TODO: if/when output_method and output_type actually become lists, remove
+# this class and use SerializableStringList again instead.
+class OutputList(TypeDecorator):
+
+    impl = SerializableStringList
+
+    def process_bind_param(self, value, dialect):
+        return [value]
+
+
+    def process_result_value(self, value, dialect):
+        return value[0]

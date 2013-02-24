@@ -90,12 +90,11 @@ class Field(Div):
         self.append_class(self.FIELD_CLASS)
 
         key_el = Label(label, key)
-        value_el = TextInput(key, value)
-
         key_el.append_class(self.KEY_CLASS)
-        value_el.append_class(self.VALUE_CLASS)
-
         self.append_child(key_el)
+
+        value_el = TextInput(key, value)
+        value_el.append_class(self.VALUE_CLASS)
         self.append_child(value_el)
 
 
@@ -118,6 +117,45 @@ class BigField(Div):
         value_el.append_class(self.VALUE_CLASS)
 
         self.append_child(key_el)
+        self.append_child(value_el)
+
+
+class HeadField(Div):
+
+    FIELD_CLASS = unicode("field")
+    KEY_CLASS = unicode("head-key")
+
+    def __init__(self, label, key):
+        super(HeadField, self).__init__()
+        self.append_class(self.FIELD_CLASS)
+
+        key_el = Label(label, key)
+        key_el.append_class(self.KEY_CLASS)
+        self.append_child(key_el)
+
+
+class SubField(Div):
+
+    FIELD_CLASS = unicode("sub-field")
+    KEY_CLASS = unicode("sub-key")
+    VALUE_CLASS = unicode("sub-value")
+
+    def __init__(self, label, key, value="", include_index=False):
+        super(SubField, self).__init__()
+        self.append_class(self.FIELD_CLASS)
+
+        if include_index:
+            label = unicode("{} 1".format(label))
+
+        # TODO: can this be <subfield-name>[]?
+        #key = unicode("{}[]".format(key))
+
+        key_el = Label(label, key)
+        key_el.append_class(self.KEY_CLASS)
+        self.append_child(key_el)
+
+        value_el = TextInput(key, value)
+        value_el.append_class(self.VALUE_CLASS)
         self.append_child(value_el)
 
 

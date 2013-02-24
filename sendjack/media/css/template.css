@@ -26,15 +26,17 @@ li{margin-bottom:5px;line-height:30px;}
 .page{width:100%;height:100%;}
 .main-header{background:#000000;float:left;}.main-header .main-logo{width:42px;height:40px;background:url('/static/images/mainLogo.png') transparent no-repeat;background-size:42px 40px;-moz-background-size:42px 40px;-webkit-background-size:42px 40px;-o-background-size:42px 40px;float:left;height:100%;background-position:center;}
 .main-header .main-lettering{width:149px;height:27px;background:url('/static/images/mainLettering.png') transparent no-repeat;background-size:149px 27px;-moz-background-size:149px 27px;-webkit-background-size:149px 27px;-o-background-size:149px 27px;float:right;height:100%;background-position:center;}
-.field-list li{float:left;width:100%;clear:both;}.field-list li .field .key{float:left;width:40%;}
-.field-list li .field .value{float:left;width:60%;}
+.field-list li{float:left;width:100%;clear:both;}.field-list li .field .key,.field-list li .sub-field .key{float:left;width:30%;}
+.field-list li .field .head-key,.field-list li .sub-field .head-key{float:left;width:100%;}
+.field-list li .field .sub-key,.field-list li .sub-field .sub-key{float:left;width:30%;text-align:right;padding-right:15px;}
+.field-list li .field .value,.field-list li .sub-field .value,.field-list li .field .sub-value,.field-list li .sub-field .sub-value{float:left;width:70%;}
 .main-content{width:100%;height:100%;float:left;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#0092ff;background-color:#0092ff;}.main-content input,.main-content textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;-moz-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;}
 .main-content input{height:30px;}
 .main-content .normal-section{background:#ffffff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#0092ff;}.main-content .normal-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;color:#000000;}
-.main-content .normal-section .key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#97999c;}
-.main-content .normal-section .value{color:#0092ff;}
+.main-content .normal-section .key,.main-content .normal-section .head-key,.main-content .normal-section .sub-key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#97999c;}
+.main-content .normal-section .value,.main-content .normal-section .sub-value{color:#0092ff;}
 .main-content .contrast-section{background:#0092ff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#ffffff;}.main-content .contrast-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;color:#ffffff;}
-.main-content .contrast-section .key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#000000;}
+.main-content .contrast-section .key,.main-content .contrast-section .head-key,.main-content .contrast-section .sub-key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#000000;}
 .main-content .grid{float:left;margin-top:15px;margin-bottom:15px;}.main-content .grid .title{padding-bottom:15px;}
 .main-content .one-column-grid{width:100%;}
 .main-content .grid{width:50%;}
@@ -48,6 +50,7 @@ li{margin-bottom:5px;line-height:30px;}
 .main-content .task-instance-post-page .task-instance-grid .field-list .key,.main-content .task-instance-approve-page .task-instance-grid .field-list .key{width:20%;}
 .main-content .task-instance-post-page .task-instance-grid .field-list .value,.main-content .task-instance-approve-page .task-instance-grid .field-list .value{width:80%;}
 .main-content .task-instance-post-page .task-instance-grid .field-list .value[name=customer_description],.main-content .task-instance-approve-page .task-instance-grid .field-list .value[name=customer_description]{margin-left:-18px;}
+.main-content .task-instance-post-page .task-instance-grid .field-list .key,.main-content .task-instance-approve-page .task-instance-grid .field-list .key,.main-content .task-instance-post-page .task-instance-grid .field-list .value,.main-content .task-instance-approve-page .task-instance-grid .field-list .value,.main-content .task-instance-post-page .task-instance-grid .field-list .sub-value,.main-content .task-instance-approve-page .task-instance-grid .field-list .sub-value{float:none;display:block;}
 .main-content .task-instance-post-page #thank-you-grid img,.main-content .task-instance-approve-page #thank-you-grid img{height:60%;margin-top:30px;}
 .main-content .template-new-page .post-grid,.main-content .template-new-page .worker-grid{padding-left:25px;}
 .main-content .template-new-page .tags-grid{clear:both;}

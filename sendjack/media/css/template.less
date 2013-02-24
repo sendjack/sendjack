@@ -368,21 +368,31 @@ li {
         width: 100%;
         clear: both;
 
-        .field {
-
+        .field, .sub-field {
             .key {
                 float: left;
-                width: 40%;
+                width: 30%;
             }
 
-            .value {
+            .head-key {
                 float: left;
-                width: 60%;
+                width: 100%;
+            }
+
+            .sub-key {
+                float: left;
+                width: 30%;
+                text-align: right;
+                padding-right: @textPadding;
+            }
+
+            .value, .sub-value {
+                float: left;
+                width: 70%;
             }
         }
     }
 }
-
 
 /***********************************************************
 * CONTENT - MAIN STYLE
@@ -470,11 +480,11 @@ li {
             .titleText();
         }
 
-        .key {
+        .key, .head-key, .sub-key {
             .labelText();
         }
 
-        .value {
+        .value, .sub-value {
             color: @blue;
         }
     }
@@ -487,11 +497,11 @@ li {
             .contrastTitleText();
         }
 
-        .key {
+        .key, .head-key, .sub-key {
             .contrastLabelText();
         }
 
-        .value {
+        .value, .sub-value {
         }
     }
 
@@ -579,7 +589,6 @@ li {
         .task-instance-grid {
             .field-list {
 
-
                 .key {
                     width: 20%;
                 }
@@ -589,6 +598,11 @@ li {
 
                 .value[name=customer_description] {
                     margin-left: -18px;
+                }
+
+                .key, .value, .sub-value {
+                    float: none;
+                    display: block;
                 }
             }
 

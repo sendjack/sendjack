@@ -9,10 +9,11 @@
 from view.elementary.html import SubmitButton, Div, Img
 
 from view.app.base.page import Page
-from view.app.base.components import Field, FieldList, Grid, ObjectView, Title
-from view.app.base.components import BigField, Paragraph
+from view.app.base.components import FieldList, Grid, ObjectView, Title
+from view.app.base.components import Field, BigField, Paragraph
 
 from components import NormalSection, ContrastSection, TitledGrid
+from components import StepsField, StepField
 
 
 class TaskTemplatePage(Page):
@@ -58,15 +59,12 @@ class MainGrid(TitledGrid):
                         "Title",
                         "title",
                         ""),
-
                 #Field(
                 #        "Creator",
                 #        "creator_id",
                 #        ""),
-                Field(
-                        "Steps",
-                        "steps",
-                        ""),
+                StepsField(),
+                StepField(),
                 #Field(
                 #        "Custom Prop",
                 #        "custom_properties",
@@ -78,7 +76,7 @@ class MainGrid(TitledGrid):
                 Field(
                         "Output Method",
                         "output_method",
-                        "")
+                        ""),
                 ]
 
         field_list = FieldList(fields)
@@ -254,10 +252,12 @@ class TaskInstanceGrid(Grid):
                         "Task:",
                         "customer_title",
                         ""),
-                BigField(
-                        "Steps:",
-                        "customer_description",
-                        ""),
+                #BigField(
+                #        "Steps:",
+                #        "customer_description",
+                #        ""),
+                StepsField(),
+                StepField(),
                 Field(
                         "Deadline:",
                         "deadline_ts",

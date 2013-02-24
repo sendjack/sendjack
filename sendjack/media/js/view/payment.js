@@ -4,6 +4,7 @@
  * @exports payment
  *
  * @requires $
+ * @requires Lodash
  * @requires Backbone
  *
  */
