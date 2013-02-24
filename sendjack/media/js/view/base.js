@@ -129,6 +129,18 @@ var TaskView = ObjectView.extend({
         this.model.on('change:steps', this.replaceSteps);
     },
 
+    /**
+     * Override ObjectView.save() to silently remove from the model any named
+     * attributes we don't want posted to the server on submit. The canonical
+     * example here will be any fields which exist in groups that compose some
+     * aggregate field to be passed as a JSON array or object (step,
+     * custom_property, etc.).
+     */
+    save: function () {
+        this.model.unset('step', {silent: true});
+        this.model.save();
+    },
+
     events: function () {
         //var _events = {};
         var _events = ObjectView.prototype.events.call(this);
