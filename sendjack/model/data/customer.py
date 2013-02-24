@@ -7,7 +7,7 @@
 
 """
 from sqlalchemy import Column
-from sqlalchemy.types import Integer, String, Enum
+from sqlalchemy.types import Integer, String, Enum, Boolean
 
 from jutil.decorators import constant
 
@@ -75,3 +75,6 @@ class CustomerModel(BaseModel, CRUD):
                 CUSTOMER.CLOSED,
                 name=CUSTOMER.ACCOUNT_STATUS),
             nullable=False)
+
+    test_cohort_name = Column(String)
+    control_group = Column(Boolean, default=False)
