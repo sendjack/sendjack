@@ -132,40 +132,65 @@ class NewTaskGrid(RightGrid):
 class TaskInstanceView(ObjectView):
 
     TASK_INSTANCE_VIEW = "task-instance-view"
-    SUBMIT_TEXT = "Post Task"
     TASK_INSTANCE_ID = "instance"
 
-    TASK_TITLE_PLACEHOLDER = "Task Title"
-    TASK_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
-    TASK_DEADLINE_PLACEHOLDER = "06/31/2013"
+    # names
+    CUSTOMER_TITLE_NAME = "customer_title"
+    CUSTOMER_DESCRIPTION_NAME = "customer_description"
+    TITLE_NAME = "title"
+    STEPS_NAME = "steps"
+    DEADLINE_NAME = "deadline_ts"
 
-    TASK_TITLE = "customer_title"
-    TASK_DESCRIPTION = "customer_description"
-    TASK_DEADLINE = "deadline_ts"
+    # classes
+    CUSTOMER_TITLE_CLASS = "customer-title"
+    CUSTOMER_DESCRIPTION_CLASS = "customer-description"
+    TITLE_CLASS = "title"
+    DEADLINE_CLASS = "deadline"
 
+    # placeholder values
+    CUSTOMER_TITLE_PLACEHOLDER = "Task Title"
+    CUSTOMER_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
+    DEADLINE_PLACEHOLDER = "06/31/2013"
+
+    TEXTAREA_DEFAULT_ROWS = 4
+    SUBMIT_TEXT = "Post Task"
 
     def __init__(self):
         super(TaskInstanceView, self).__init__(self.TASK_INSTANCE_ID)
         self.append_class(self.TASK_INSTANCE_VIEW)
 
-        task_title = TextInput(self.TASK_TITLE)
-        task_description = Textarea(self.TASK_DESCRIPTION)
-        task_deadline = DatePicker(self.TASK_DEADLINE)
+        # assemble customer title
+        customer_title = TextInput(self.CUSTOMER_TITLE_NAME)
+        customer_title.append_class(self.CUSTOMER_TITLE_CLASS)
+        customer_title.set_placeholder(self.TITLE_PLACEHOLDER)
+
+        # assemble customer description
+        customer_description = Textarea(self.CUSTOMER_DESCRIPTION_NAME)
+        customer_description.append_class(self.CUSTOMER_DESCRIPTION_CLASS)
+        customer_description.set_placeholder(
+                self.CUSTOMER_DESCRIPTION_PLACEHOLDER)
+        customer_description.set_rows(self.TEXTAREA_DEFAULT_ROWS)
+
+        # assemble title
+        title = TextInput(self.TITLE_NAME)
+        title.append_class(self.TITLE_CLASS)
+        title.set_placeholder(self.TITLE_PLACEHOLDER)
+
+        # assemble steps
+        steps = HiddenInput(self.STEPS_NAME)
+
+        # assemble deadline
+        deadline = DatePicker(self.DEADLINE_NAME)
+        deadline.append_class(self.DEADLINE_CLASS)
+        deadline.set_placeholder(self.DEADLINE_PLACEHOLDER)
+
         submit = SubmitButton(self.SUBMIT_TEXT)
 
-        task_title.append_class(self.TASK_TITLE)
-        task_description.append_class(self.TASK_DESCRIPTION)
-        task_deadline.append_class(self.TASK_DEADLINE)
-
-        task_title.set_placeholder(self.TASK_TITLE_PLACEHOLDER)
-        task_description.set_placeholder(self.TASK_DESCRIPTION_PLACEHOLDER)
-        task_deadline.set_placeholder(self.TASK_DEADLINE_PLACEHOLDER)
-
-        task_description.set_rows(4)
-
-        self.append_child(task_title)
-        self.append_child(task_description)
-        self.append_child(task_deadline)
+        self.append_child(customer_title)
+        self.append_child(customer_description)
+        self.append_child(title)
+        self.append_child(steps)
+        self.append_child(deadline)
         self.append_child(submit)
 
 
