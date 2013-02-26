@@ -231,6 +231,8 @@ class TaskInstanceGrid(Grid):
                 StepField(),
                 #CustomPropertiesField(),
                 #CustomPropertyField(),
+                #OutputTypeField(),
+                #OutputMethodField(),
                 DeadlineField(),
                 PriceField(),
                 #CategoryTagsField(),

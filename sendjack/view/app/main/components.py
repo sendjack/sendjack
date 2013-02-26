@@ -100,34 +100,34 @@ class TitleField(Field):
 
     def __init__(self, value=""):
         super(TitleField, self).__init__(self.LABEL, self.KEY, value)
-        self.append_class(self.TITLE_CLASS)
+        self.append_class(self.CLASS)
 
 
 class StepsField(HeadField):
 
-    STEPS_LABEL = unicode("Steps")
-    STEPS_KEY = unicode("steps")
-    STEPS_CLASS = unicode("steps")
+    LABEL = unicode("Steps")
+    KEY = unicode("steps")
+    CLASS = unicode("steps")
 
     def __init__(self, value=""):
-        super(StepsField, self).__init__(self.STEPS_LABEL, self.STEPS_KEY)
-        self.append_class(self.STEPS_CLASS)
-        self.append_child(HiddenInput(self.STEPS_KEY, value))
+        super(StepsField, self).__init__(self.LABEL, self.KEY)
+        self.append_class(self.CLASS)
+        self.append_child(HiddenInput(self.KEY, value))
 
 
 class StepField(SubField):
 
-    STEP_LABEL = unicode("Step")
-    STEP_KEY = unicode("step")
-    STEP_CLASS = unicode("step")
+    LABEL = unicode("Step")
+    KEY = unicode("step")
+    CLASS = unicode("step")
 
     def __init__(self, value="", include_index=False):
         super(StepField, self).__init__(
-                self.STEP_LABEL,
-                self.STEP_KEY,
+                self.LABEL,
+                self.KEY,
                 value,
                 include_index)
-        self.append_class(self.STEP_CLASS)
+        self.append_class(self.CLASS)
 
 
 class DeadlineField(Field):
