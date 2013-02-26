@@ -56,8 +56,10 @@ class OutputList(TypeDecorator):
     impl = SerializableStringList
 
     def process_bind_param(self, value, dialect):
-        return [value]
+        # WIP: while lots of fields are still nullable, expect bad data.
+        return [value] if value else value
 
 
     def process_result_value(self, value, dialect):
-        return value[0]
+        # WIP: while lots of fields are still nullable, expect bad data.
+        return value[0] if value else value

@@ -252,12 +252,12 @@ class TaskInstanceGrid(Grid):
                         "Task:",
                         "customer_title",
                         ""),
-                #BigField(
-                #        "Steps:",
-                #        "customer_description",
-                #        ""),
-                StepsField(),
-                StepField(),
+                BigField(
+                        "Steps:",
+                        "customer_description",
+                        ""),
+                #StepsField(),
+                #StepField(),
                 Field(
                         "Deadline:",
                         "deadline_ts",
