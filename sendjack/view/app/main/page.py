@@ -10,10 +10,16 @@ from view.elementary.html import SubmitButton, Div, Img
 
 from view.app.base.page import Page
 from view.app.base.components import FieldList, Grid, ObjectView, Title
-from view.app.base.components import Field, BigField, Paragraph
+from view.app.base.components import Field, Paragraph
 
 from components import NormalSection, ContrastSection, TitledGrid
-from components import StepsField, StepField
+from components import IDField, CustomerTitleField, CustomerDescriptionField
+#from components import CreatorField
+from components import TitleField, StepsField, StepField, DeadlineField
+#from components import CustomPropertiesField, CustomPropertyField
+from components import PriceField, OutputTypeField, OutputMethodField
+from components import CategoryTagsField, IndustryTagsField
+from components import SkillsTagsField, EquipmentTagsField
 
 
 class TaskTemplatePage(Page):
@@ -51,32 +57,15 @@ class MainGrid(TitledGrid):
         self.append_class(self.MAIN_GRID_CLASS)
 
         fields = [
-                Field(
-                        "ID",
-                        "id",
-                        ""),
-                Field(
-                        "Title",
-                        "title",
-                        ""),
-                #Field(
-                #        "Creator",
-                #        "creator_id",
-                #        ""),
+                IDField(),
+                #CreatorField(),
+                TitleField(),
                 StepsField(),
                 StepField(),
-                #Field(
-                #        "Custom Prop",
-                #        "custom_properties",
-                #        ""),
-                Field(
-                        "Output Type",
-                        "output_type",
-                        ""),
-                Field(
-                        "Output Method",
-                        "output_method",
-                        ""),
+                #CustomPropertiesField(),
+                #CustomPropertyField(),
+                OutputTypeField(),
+                OutputMethodField(),
                 ]
 
         field_list = FieldList(fields)
@@ -183,22 +172,10 @@ class TagsGrid(TitledGrid):
         self.append_class(self.TAGS_GRID_CLASS)
 
         fields = [
-                Field(
-                        "Category",
-                        "category_tags",
-                        ""),
-                Field(
-                        "Industry",
-                        "industry_tags",
-                        ""),
-                Field(
-                        "Skills",
-                        "skills_tags",
-                        ""),
-                Field(
-                        "Equipment",
-                        "equipment_tags",
-                        ""),
+                CategoryTagsField(),
+                IndustryTagsField(),
+                SkillsTagsField(),
+                EquipmentTagsField(),
                 ]
 
         self.append_child(FieldList(fields))
@@ -216,7 +193,6 @@ class TaskInstancePostPage(Page):
 
 
 class TaskInstancePostContrastSection(ContrastSection):
-
 
     def __init__(self):
         super(TaskInstancePostContrastSection, self).__init__()
@@ -248,24 +224,21 @@ class TaskInstanceGrid(Grid):
         welcome_div = Div()
         welcome_div.set_text(self.WELCOME_TEXT)
         fields = [
-                Field(
-                        "Task:",
-                        "customer_title",
-                        ""),
-                BigField(
-                        "Steps:",
-                        "customer_description",
-                        ""),
-                #StepsField(),
-                #StepField(),
-                Field(
-                        "Deadline:",
-                        "deadline_ts",
-                        ""),
-                Field(
-                        "Price:",
-                        "price",
-                        "")
+                CustomerTitleField(),
+                CustomerDescriptionField(),
+                TitleField(),
+                StepsField(),
+                StepField(),
+                #CustomPropertiesField(),
+                #CustomPropertyField(),
+                #OutputTypeField(),
+                #OutputMethodField(),
+                DeadlineField(),
+                PriceField(),
+                #CategoryTagsField(),
+                #IndustryTagsField(),
+                #SkillsTagsField(),
+                #EquipmentTagsField(),
                 ]
 
         task_instance_view.append_child(Title(self.POST_TITLE))

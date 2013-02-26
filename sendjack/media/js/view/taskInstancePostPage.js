@@ -112,10 +112,16 @@ function TaskInstancePostView() {
         initialize: function () {
             TaskInstanceView.prototype.initialize.call(this);
            
-            // TODO: makea a list of disabled fields
-            this.$el.find('.value[name=customer_title]').attr('disabled', 'disabled');
-            this.$el.find('.value[name=customer_description]').attr('disabled', 'disabled');
-            this.$el.find('.value[name=deadline_ts]').attr('disabled', 'disabled');
+            // TODO: make an iterable of fields to hide/disable?
+
+            this.$el.find('.customer-title').hide();
+            this.$el.find('.customer-description').hide();
+
+            this.$el.find('.value[name=title]').attr('disabled', 'disabled');
+            // TODO: each?
+            this.$el.find('.value[name=step]').attr('disabled', 'disabled');
+            this.$el.find('.value[name=deadline_ts]')
+                    .attr('disabled', 'disabled');
             this.$el.find('.value[name=price]').attr('disabled', 'disabled');
         }
 

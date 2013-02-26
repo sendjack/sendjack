@@ -89,32 +89,39 @@ class Field(Div):
         super(Field, self).__init__()
         self.append_class(self.FIELD_CLASS)
 
+        # assemble label
         key_el = Label(label, key)
         key_el.append_class(self.KEY_CLASS)
-        self.append_child(key_el)
 
+        # assemble input
         value_el = TextInput(key, value)
         value_el.append_class(self.VALUE_CLASS)
+
+        self.append_child(key_el)
         self.append_child(value_el)
 
 
 class BigField(Div):
-    FIELD_CLASS = unicode("field")
+
     BIG_FIELD_CLASS = unicode("big-field")
+    FIELD_CLASS = unicode("field")
     KEY_CLASS = unicode("key")
     VALUE_CLASS = unicode("value")
+    TEXTAREA_DEFAULT_ROWS = 7
 
     def __init__(self, label, key, value=""):
         super(BigField, self).__init__()
         self.append_class(self.FIELD_CLASS)
         self.append_class(self.BIG_FIELD_CLASS)
 
+        # assemble label
         key_el = Label(label, key)
-        value_el = Textarea(key, value)
-        value_el.set_rows(7)
-
         key_el.append_class(self.KEY_CLASS)
+
+        # assemble input
+        value_el = Textarea(key, value)
         value_el.append_class(self.VALUE_CLASS)
+        value_el.set_rows(self.TEXTAREA_DEFAULT_ROWS)
 
         self.append_child(key_el)
         self.append_child(value_el)
@@ -129,8 +136,10 @@ class HeadField(Div):
         super(HeadField, self).__init__()
         self.append_class(self.FIELD_CLASS)
 
+        # assemble label
         key_el = Label(label, key)
         key_el.append_class(self.KEY_CLASS)
+
         self.append_child(key_el)
 
 
@@ -150,12 +159,15 @@ class SubField(Div):
         # TODO: can this be <subfield-name>[]?
         #key = unicode("{}[]".format(key))
 
+        # assemble label
         key_el = Label(label, key)
         key_el.append_class(self.KEY_CLASS)
-        self.append_child(key_el)
 
+        # assemble input
         value_el = TextInput(key, value)
         value_el.append_class(self.VALUE_CLASS)
+
+        self.append_child(key_el)
         self.append_child(value_el)
 
 
