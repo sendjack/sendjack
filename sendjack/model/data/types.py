@@ -63,3 +63,19 @@ class OutputList(TypeDecorator):
     def process_result_value(self, value, dialect):
         # WIP: while lots of fields are still nullable, expect bad data.
         return value[0] if value else value
+
+
+# TODO: if/when tag lists are passed as JSON arrays instead of CSV strings,
+# remove this class and use SerializableStringList again instead.
+class TagList(TypeDecorator):
+
+    impl = SerializableStringList
+
+    def process_bind_param(self, value, dialect):
+        # WIP: while lots of fields are still nullable, expect bad data.
+        return [s.strip() for s in value.split(',')] if value else value
+
+
+    def process_result_value(self, value, dialect):
+        # WIP: while lots of fields are still nullable, expect bad data.
+        return str.join(value) if value else value
