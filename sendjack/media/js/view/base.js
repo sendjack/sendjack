@@ -214,6 +214,10 @@ var TaskView = ObjectView.extend({
     },
 
     replaceSteps: function (model, value, options) {
+        if (value === null) {
+            return;
+        }
+
         var stepDivs = this.$el.find('.step');
         var lastStep = stepDivs.filter(':last');
 
