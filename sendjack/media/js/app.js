@@ -19,9 +19,11 @@ require(
             'jquery',
 
             // modules
-            'view/document'
+            'view/document',
+
+            'util/track'
         ],
-        function ($, document) {
+        function ($, document, track) {
 
 /**
  * Initialize Object with superpowers per Crockford's recommendation.

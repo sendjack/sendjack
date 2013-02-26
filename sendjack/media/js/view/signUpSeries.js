@@ -15,12 +15,13 @@ define(
 
             //modules
             'event',
+            'util/track',
             'view/customer',
             'view/instance'
 
             //jquery ui
         ],
-        function ($, Backbone, event, customer, instance) {
+        function ($, Backbone, event, track, customer, instance) {
 
 
 var SignUpSeriesContent = Backbone.View.extend({
@@ -38,7 +39,10 @@ var SignUpSeriesContent = Backbone.View.extend({
         var instanceModel = instanceView.model;
 
         customerModel.on('change:id', function (model) {
-            instanceModel.set('customer_id', model.get('id'));
+            var id = model.get('id');
+            var email = model.get('email');
+            track.signUp(id, email);
+            instanceModel.set('customer_id', id);
         });
 
         // remove the pages so we can show them one by one
@@ -59,6 +63,8 @@ var SignUpSeriesContent = Backbone.View.extend({
         customerModel.once(event.SAVE, this.render, this);
         instanceModel.once(event.SAVE, this.render, this);
         this.render();
+
+        track.viewPage(window.location.href);
     },
 
     events: function () {

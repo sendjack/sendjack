@@ -17,13 +17,14 @@ define(
 
             // modules
             'event',
+            'util/track',
             'view/instance',
             'view/customer',
             'view/payment'
 
             // jquery ui
         ],
-        function ($, Backbone, event, instance, customer, payment) {
+        function ($, Backbone, event, track, instance, customer, payment) {
 
 
 var TaskInstancePostPage = Backbone.View.extend({
@@ -86,6 +87,8 @@ var TaskInstancePostPage = Backbone.View.extend({
         // TODO: add support for inserting new step fields on focus.
 
         this.render();
+
+        track.viewPage(window.location.href);
     },
 
     events: function () {
