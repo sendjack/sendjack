@@ -31,10 +31,10 @@ var SignUpSeriesContent = Backbone.View.extend({
         this.setElement('.alt-content');
 
         var customerView = customer.CustomerView();
-        var instanceCreateView = instance.TaskInstanceView();
+        var instanceView = TaskInstanceSaveView();
 
         var customerModel = customerView.model;
-        var instanceModel = instanceCreateView.model;
+        var instanceModel = instanceView.model;
 
         customerModel.on('change:id', function (model) {
             instanceModel.set('customer_id', model.get('id'));
@@ -80,6 +80,44 @@ var SignUpSeriesContent = Backbone.View.extend({
         return this;
     }
 });
+
+var TaskInstanceView = instance.getTaskInstanceViewClass();
+function TaskInstanceSaveView() {
+    var TaskInstanceSaveViewClass = TaskInstanceView.extend({
+
+        initialize: function () {
+            TaskInstanceView.prototype.initialize.call(this);
+
+            // TODO: make an iterable of fields to hide/disable?
+
+            console.log('askldfj alskdfj alsdkfj laksfdj');
+            console.log(this.$el.find('.title'));
+            this.$el.find('.title').hide();
+            this.$el.find('.steps').hide();
+            // TODO: each?
+            this.$el.find('.step').hide();
+            //this.$el.find('.custom-properties').hide();
+            //this.$el.find('.custom-property').hide();
+            //this.$el.find('.output-type').hide();
+            //this.$el.find('.output-method').hide();
+            this.$el.find('.price').hide();
+            //this.$el.find('.category-tags').hide();
+            //this.$el.find('.industry-tags').hide();
+            //this.$el.find('.skill-tags').hide();
+            //this.$el.find('.equipment-tags').hide();
+
+            // TODO: these are wrong. they don't even use class=value
+            this.$el.find('[name=title]').attr('disabled', 'disabled');
+            // TODO: each?
+            this.$el.find('[name=steps]').attr('disabled', 'disabled');
+            this.$el.find('[name=step]').attr('disabled', 'disabled');
+            this.$el.find('[name=price]').attr('disabled', 'disabled');
+        }
+
+    });
+
+    return new TaskInstanceSaveViewClass();
+}
 
 return {
     SignUpSeries: function () {

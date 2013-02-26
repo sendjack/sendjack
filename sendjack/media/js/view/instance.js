@@ -39,7 +39,7 @@ var TaskInstanceView = TaskView.extend({
     },
 
     editBindings: function (bindings) {
-        //bindings.steps.converter = this.convertSteps;
+        bindings.steps.converter = this.convertSteps;
         bindings.deadline_ts.converter = this.convertDeadline;
 
         return bindings;
