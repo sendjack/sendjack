@@ -139,6 +139,12 @@ class TaskInstanceView(ObjectView):
     CUSTOMER_DESCRIPTION_NAME = "customer_description"
     TITLE_NAME = "title"
     STEPS_NAME = "steps"
+    #CUSTOM_PROPERTIES_NAME = "custom_properties"
+    #CATEGORY_TAGS_NAME = "category_tags"
+    #INDUSTRY_TAGS_NAME = "industry_tags"
+    #SKILLS_TAGS_NAME = "skills_tags"
+    #EQUIPMENT_TAGS_NAME = "equipment_tags"
+    #PRICE_NAME = "price"
     DEADLINE_NAME = "deadline_ts"
 
     # classes
@@ -176,13 +182,21 @@ class TaskInstanceView(ObjectView):
         title.append_class(self.TITLE_CLASS)
         title.set_placeholder(self.TITLE_PLACEHOLDER)
 
-        # assemble steps
+        # assemble hidden steps, properties inputs
         steps = HiddenInput(self.STEPS_NAME)
+        #custom_properties = HiddenInput(self.CUSTOM_PROPERTIES_NAME)
 
         # assemble deadline
         deadline = DatePicker(self.DEADLINE_NAME)
         deadline.append_class(self.DEADLINE_CLASS)
         deadline.set_placeholder(self.DEADLINE_PLACEHOLDER)
+
+        # assemble hidden tags, price inputs
+        #price = HiddenInput(self.PRICE_NAME)
+        #category_tags = HiddenInput(self.CATEGORY_TAGS_NAME)
+        #industry_tags = HiddenInput(self.INDUSTRY_TAGS_NAME)
+        #skills_tags = HiddenInput(self.SKILLS_TAGS_NAME)
+        #equipment_tags = HiddenInput(self.EQUIPMENT_TAGS_NAME)
 
         submit = SubmitButton(self.SUBMIT_TEXT)
 
@@ -190,7 +204,13 @@ class TaskInstanceView(ObjectView):
         self.append_child(customer_description)
         self.append_child(title)
         self.append_child(steps)
+        #self.append_child(custom_properties)
         self.append_child(deadline)
+        #self.append_child(price)
+        #self.append_child(category_tags)
+        #self.append_child(industry_tags)
+        #self.append_child(skills_tags)
+        #self.append_child(equipment_tags)
         self.append_child(submit)
 
 

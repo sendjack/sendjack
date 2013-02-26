@@ -233,6 +233,10 @@ class TaskInstanceGrid(Grid):
                 #CustomPropertyField(),
                 DeadlineField(),
                 PriceField(),
+                #CategoryTagsField(),
+                #IndustryTagsField(),
+                #SkillsTagsField(),
+                #EquipmentTagsField(),
                 ]
 
         task_instance_view.append_child(Title(self.POST_TITLE))
