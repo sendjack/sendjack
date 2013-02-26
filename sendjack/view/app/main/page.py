@@ -19,7 +19,7 @@ from components import TitleField, StepsField, StepField, DeadlineField
 from components import CustomPropertiesField, CustomPropertyField
 from components import PriceField, OutputTypeField, OutputMethodField
 from components import CategoryTagsField, IndustryTagsField
-from components import SkillsTagsField, EquipmentTagsField
+from components import SkillTagsField, EquipmentTagsField
 
 
 class TaskTemplatePage(Page):
@@ -174,7 +174,7 @@ class TagsGrid(TitledGrid):
         fields = [
                 CategoryTagsField(),
                 IndustryTagsField(),
-                SkillsTagsField(),
+                SkillTagsField(),
                 EquipmentTagsField(),
                 ]
 
@@ -231,14 +231,14 @@ class TaskInstanceGrid(Grid):
                 StepField(),
                 CustomPropertiesField(),
                 CustomPropertyField(),
-                #OutputTypeField(),
-                #OutputMethodField(),
+                OutputTypeField(),
+                OutputMethodField(),
                 DeadlineField(),
                 PriceField(),
-                #CategoryTagsField(),
-                #IndustryTagsField(),
-                #SkillsTagsField(),
-                #EquipmentTagsField(),
+                CategoryTagsField(),
+                IndustryTagsField(),
+                SkillTagsField(),
+                EquipmentTagsField(),
                 ]
 
         task_instance_view.append_child(Title(self.POST_TITLE))

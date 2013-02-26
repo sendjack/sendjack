@@ -203,7 +203,7 @@ class OutputMethodField(Field):
 
 class CategoryTagsField(Field):
 
-    LABEL = unicode("Category Tags")
+    LABEL = unicode("Categories Tags")
     NAME = unicode("category_tags")
     CLASS = unicode("category-tags")
 
@@ -214,7 +214,7 @@ class CategoryTagsField(Field):
 
 class IndustryTagsField(Field):
 
-    LABEL = unicode("Industry Tags")
+    LABEL = unicode("Industries")
     NAME = unicode("industry_tags")
     CLASS = unicode("industry-tags")
 
@@ -223,20 +223,20 @@ class IndustryTagsField(Field):
         self.append_class(self.CLASS)
 
 
-class SkillsTagsField(Field):
+class SkillTagsField(Field):
 
-    LABEL = unicode("Skills Tags")
-    NAME = unicode("skills_tags")
-    CLASS = unicode("skills-tags")
+    LABEL = unicode("Skills")
+    NAME = unicode("skill_tags")
+    CLASS = unicode("skill-tags")
 
     def __init__(self, value=""):
-        super(SkillsTagsField, self).__init__(self.LABEL, self.NAME, value)
+        super(SkillTagsField, self).__init__(self.LABEL, self.NAME, value)
         self.append_class(self.CLASS)
 
 
 class EquipmentTagsField(Field):
 
-    LABEL = unicode("Equipment Tags")
+    LABEL = unicode("Equipment")
     NAME = unicode("equipment_tags")
     CLASS = unicode("equipment-tags")
 

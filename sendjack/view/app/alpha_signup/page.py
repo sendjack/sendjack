@@ -139,15 +139,15 @@ class TaskInstanceView(ObjectView):
     CUSTOMER_DESCRIPTION_NAME = "customer_description"
     TITLE_NAME = "title"
     STEPS_NAME = "steps"
-    #CUSTOM_PROPERTIES_NAME = "custom_properties"
-    #OUTPUT_TYPE_NAME = "output_type"
-    #OUTPUT_METHOD_NAME = "output_method"
+    CUSTOM_PROPERTIES_NAME = "custom_properties"
+    OUTPUT_TYPE_NAME = "output_type"
+    OUTPUT_METHOD_NAME = "output_method"
     DEADLINE_NAME = "deadline_ts"
-    #PRICE_NAME = "price"
-    #CATEGORY_TAGS_NAME = "category_tags"
-    #INDUSTRY_TAGS_NAME = "industry_tags"
-    #SKILLS_TAGS_NAME = "skills_tags"
-    #EQUIPMENT_TAGS_NAME = "equipment_tags"
+    PRICE_NAME = "price"
+    CATEGORY_TAGS_NAME = "category_tags"
+    INDUSTRY_TAGS_NAME = "industry_tags"
+    SKILL_TAGS_NAME = "skill_tags"
+    EQUIPMENT_TAGS_NAME = "equipment_tags"
 
     # classes
     CUSTOMER_TITLE_CLASS = "customer-title"
@@ -186,9 +186,9 @@ class TaskInstanceView(ObjectView):
 
         # assemble hidden steps, properties inputs
         steps = HiddenInput(self.STEPS_NAME)
-        #custom_properties = HiddenInput(self.CUSTOM_PROPERTIES_NAME)
-        #output_type = HiddenInput(self.OUTPUT_TYPE_NAME)
-        #output_method = HiddenInput(self.OUTPUT_METHOD_NAME)
+        custom_properties = HiddenInput(self.CUSTOM_PROPERTIES_NAME)
+        output_type = HiddenInput(self.OUTPUT_TYPE_NAME)
+        output_method = HiddenInput(self.OUTPUT_METHOD_NAME)
 
         # assemble deadline
         deadline = DatePicker(self.DEADLINE_NAME)
@@ -196,11 +196,11 @@ class TaskInstanceView(ObjectView):
         deadline.set_placeholder(self.DEADLINE_PLACEHOLDER)
 
         # assemble hidden tags, price inputs
-        #price = HiddenInput(self.PRICE_NAME)
-        #category_tags = HiddenInput(self.CATEGORY_TAGS_NAME)
-        #industry_tags = HiddenInput(self.INDUSTRY_TAGS_NAME)
-        #skills_tags = HiddenInput(self.SKILLS_TAGS_NAME)
-        #equipment_tags = HiddenInput(self.EQUIPMENT_TAGS_NAME)
+        price = HiddenInput(self.PRICE_NAME)
+        category_tags = HiddenInput(self.CATEGORY_TAGS_NAME)
+        industry_tags = HiddenInput(self.INDUSTRY_TAGS_NAME)
+        skill_tags = HiddenInput(self.SKILL_TAGS_NAME)
+        equipment_tags = HiddenInput(self.EQUIPMENT_TAGS_NAME)
 
         submit = SubmitButton(self.SUBMIT_TEXT)
 
@@ -208,15 +208,15 @@ class TaskInstanceView(ObjectView):
         self.append_child(customer_description)
         self.append_child(title)
         self.append_child(steps)
-        #self.append_child(custom_properties)
-        #self.append_child(output_type)
-        #self.append_child(output_method)
+        self.append_child(custom_properties)
+        self.append_child(output_type)
+        self.append_child(output_method)
         self.append_child(deadline)
-        #self.append_child(price)
-        #self.append_child(category_tags)
-        #self.append_child(industry_tags)
-        #self.append_child(skills_tags)
-        #self.append_child(equipment_tags)
+        self.append_child(price)
+        self.append_child(category_tags)
+        self.append_child(industry_tags)
+        self.append_child(skill_tags)
+        self.append_child(equipment_tags)
         self.append_child(submit)
 
 
