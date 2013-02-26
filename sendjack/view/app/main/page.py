@@ -16,7 +16,7 @@ from components import NormalSection, ContrastSection, TitledGrid
 from components import IDField, CustomerTitleField, CustomerDescriptionField
 #from components import CreatorField
 from components import TitleField, StepsField, StepField, DeadlineField
-#from components import CustomPropertiesField, CustomPropertyField
+from components import CustomPropertiesField, CustomPropertyField
 from components import PriceField, OutputTypeField, OutputMethodField
 from components import CategoryTagsField, IndustryTagsField
 from components import SkillsTagsField, EquipmentTagsField
@@ -62,8 +62,8 @@ class MainGrid(TitledGrid):
                 TitleField(),
                 StepsField(),
                 StepField(),
-                #CustomPropertiesField(),
-                #CustomPropertyField(),
+                CustomPropertiesField(),
+                CustomPropertyField(),
                 OutputTypeField(),
                 OutputMethodField(),
                 ]
@@ -229,8 +229,8 @@ class TaskInstanceGrid(Grid):
                 TitleField(),
                 StepsField(),
                 StepField(),
-                #CustomPropertiesField(),
-                #CustomPropertyField(),
+                CustomPropertiesField(),
+                CustomPropertyField(),
                 #OutputTypeField(),
                 #OutputMethodField(),
                 DeadlineField(),
