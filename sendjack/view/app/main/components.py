@@ -203,7 +203,7 @@ class OutputMethodField(Field):
 
 class CategoryTagsField(Field):
 
-    LABEL = unicode("Categories Tags")
+    LABEL = unicode("Categories")
     NAME = unicode("category_tags")
     CLASS = unicode("category-tags")
 
