@@ -16,10 +16,10 @@ from components import NormalSection, ContrastSection, TitledGrid
 from components import IDField, CustomerTitleField, CustomerDescriptionField
 #from components import CreatorField
 from components import TitleField, StepsField, StepField, DeadlineField
-#from components import CustomPropertiesField, CustomPropertyField
+from components import CustomPropertiesField, CustomPropertyField
 from components import PriceField, OutputTypeField, OutputMethodField
 from components import CategoryTagsField, IndustryTagsField
-from components import SkillsTagsField, EquipmentTagsField
+from components import SkillTagsField, EquipmentTagsField
 
 
 class TaskTemplatePage(Page):
@@ -62,8 +62,8 @@ class MainGrid(TitledGrid):
                 TitleField(),
                 StepsField(),
                 StepField(),
-                #CustomPropertiesField(),
-                #CustomPropertyField(),
+                CustomPropertiesField(),
+                CustomPropertyField(),
                 OutputTypeField(),
                 OutputMethodField(),
                 ]
@@ -174,7 +174,7 @@ class TagsGrid(TitledGrid):
         fields = [
                 CategoryTagsField(),
                 IndustryTagsField(),
-                SkillsTagsField(),
+                SkillTagsField(),
                 EquipmentTagsField(),
                 ]
 
@@ -229,16 +229,16 @@ class TaskInstanceGrid(Grid):
                 TitleField(),
                 StepsField(),
                 StepField(),
-                #CustomPropertiesField(),
-                #CustomPropertyField(),
-                #OutputTypeField(),
-                #OutputMethodField(),
+                CustomPropertiesField(),
+                CustomPropertyField(),
+                OutputTypeField(),
+                OutputMethodField(),
                 DeadlineField(),
                 PriceField(),
-                #CategoryTagsField(),
-                #IndustryTagsField(),
-                #SkillsTagsField(),
-                #EquipmentTagsField(),
+                CategoryTagsField(),
+                IndustryTagsField(),
+                SkillTagsField(),
+                EquipmentTagsField(),
                 ]
 
         task_instance_view.append_child(Title(self.POST_TITLE))

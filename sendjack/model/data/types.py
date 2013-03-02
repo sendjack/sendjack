@@ -22,19 +22,6 @@ class SerializableDateTime(TypeDecorator):
         return value.isoformat() if value is not None else value
 
 
-class SerializableStringList(TypeDecorator):
-
-    impl = ARRAY(String)
-
-    def process_bind_param(self, value, dialect):
-        #return [s.strip() for s in value.split(',')]
-        return value
-
-    def process_result_value(self, value, dialect):
-        #return str.join(value)
-        return value
-
-
 class SerializableDict(TypeDecorator):
 
     impl = MutableDict.as_mutable(HSTORE)
@@ -46,6 +33,31 @@ class SerializableDict(TypeDecorator):
 
     def process_result_value(self, value, dialect):
         #return str.join(value.keys())
+        return value
+
+
+class SerializableStringList(TypeDecorator):
+
+    impl = ARRAY(String)
+
+    def process_bind_param(self, value, dialect):
+        #return [s.strip() for s in value.split(',')]
+        return value
+
+    def process_result_value(self, value, dialect):
+        #return ', '.join(value)
+        return value
+
+
+class SerializableDictList(TypeDecorator):
+
+    impl = ARRAY(SerializableDict)
+
+    def process_bind_param(self, value, dialect):
+        return value
+
+
+    def process_result_value(self, value, dialect):
         return value
 
 
@@ -63,3 +75,19 @@ class OutputList(TypeDecorator):
     def process_result_value(self, value, dialect):
         # WIP: while lots of fields are still nullable, expect bad data.
         return value[0] if value else value
+
+
+# TODO: if/when tag lists are passed as JSON arrays instead of CSV strings,
+# remove this class and use SerializableStringList again instead.
+class TagList(TypeDecorator):
+
+    impl = SerializableStringList
+
+    def process_bind_param(self, value, dialect):
+        # WIP: while lots of fields are still nullable, expect bad data.
+        return [s.strip() for s in value.split(',')] if value else value
+
+
+    def process_result_value(self, value, dialect):
+        # WIP: while lots of fields are still nullable, expect bad data.
+        return ', '.join(value) if value else value

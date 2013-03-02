@@ -11,7 +11,7 @@ from sqlalchemy import Column
 from sqlalchemy.types import Integer, String
 
 from base import BaseModel
-from types import SerializableStringList, SerializableDict, OutputList
+from types import SerializableStringList, SerializableDictList, OutputList, TagList
 
 
 class TaskModel(BaseModel):
@@ -39,11 +39,11 @@ class TaskModel(BaseModel):
     steps = Column(SerializableStringList)
 
     # dict whose keys are tags and values are annotations on the template
-    custom_properties = Column(SerializableDict)
+    custom_properties = Column(SerializableDictList)
 
     # TODO: define some default tags for each.
     # lists whose split values can be substitutions in steps
-    category_tags = Column(SerializableStringList)
-    industry_tags = Column(SerializableStringList)
-    skill_tags = Column(SerializableStringList)
-    equipment_tags = Column(SerializableStringList)
+    category_tags = Column(TagList)
+    industry_tags = Column(TagList)
+    skill_tags = Column(TagList)
+    equipment_tags = Column(TagList)

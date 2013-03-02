@@ -85,16 +85,16 @@ class Field(Div):
     KEY_CLASS = unicode("key")
     VALUE_CLASS = unicode("value")
 
-    def __init__(self, label, key, value=""):
+    def __init__(self, label, name, value=""):
         super(Field, self).__init__()
         self.append_class(self.FIELD_CLASS)
 
         # assemble label
-        key_el = Label(label, key)
+        key_el = Label(label, name)
         key_el.append_class(self.KEY_CLASS)
 
         # assemble input
-        value_el = TextInput(key, value)
+        value_el = TextInput(name, value)
         value_el.append_class(self.VALUE_CLASS)
 
         self.append_child(key_el)
@@ -109,17 +109,17 @@ class BigField(Div):
     VALUE_CLASS = unicode("value")
     TEXTAREA_DEFAULT_ROWS = 7
 
-    def __init__(self, label, key, value=""):
+    def __init__(self, label, name, value=""):
         super(BigField, self).__init__()
         self.append_class(self.FIELD_CLASS)
         self.append_class(self.BIG_FIELD_CLASS)
 
         # assemble label
-        key_el = Label(label, key)
+        key_el = Label(label, name)
         key_el.append_class(self.KEY_CLASS)
 
         # assemble input
-        value_el = Textarea(key, value)
+        value_el = Textarea(name, value)
         value_el.append_class(self.VALUE_CLASS)
         value_el.set_rows(self.TEXTAREA_DEFAULT_ROWS)
 
@@ -132,12 +132,12 @@ class HeadField(Div):
     FIELD_CLASS = unicode("field")
     KEY_CLASS = unicode("head-key")
 
-    def __init__(self, label, key):
+    def __init__(self, label, name):
         super(HeadField, self).__init__()
         self.append_class(self.FIELD_CLASS)
 
         # assemble label
-        key_el = Label(label, key)
+        key_el = Label(label, name)
         key_el.append_class(self.KEY_CLASS)
 
         self.append_child(key_el)
@@ -149,7 +149,7 @@ class SubField(Div):
     KEY_CLASS = unicode("sub-key")
     VALUE_CLASS = unicode("sub-value")
 
-    def __init__(self, label, key, value="", include_index=False):
+    def __init__(self, label, name, value="", include_index=False):
         super(SubField, self).__init__()
         self.append_class(self.FIELD_CLASS)
 
@@ -157,14 +157,40 @@ class SubField(Div):
             label = unicode("{} 1".format(label))
 
         # TODO: can this be <subfield-name>[]?
-        #key = unicode("{}[]".format(key))
+        #name = unicode("{}[]".format(name))
 
         # assemble label
-        key_el = Label(label, key)
+        key_el = Label(label, name)
         key_el.append_class(self.KEY_CLASS)
 
         # assemble input
-        value_el = TextInput(key, value)
+        value_el = TextInput(name, value)
+        value_el.append_class(self.VALUE_CLASS)
+
+        self.append_child(key_el)
+        self.append_child(value_el)
+
+
+class KeyedSubField(Div):
+
+    FIELD_CLASS = unicode("sub-field")
+    KEY_CLASS = unicode("sub-key")
+    VALUE_CLASS = unicode("sub-value")
+
+    def __init__(self, key_name, value_name, key_value="", value_value=""):
+        super(KeyedSubField, self).__init__()
+        self.append_class(self.FIELD_CLASS)
+
+        # TODO: can this be <subfield-name>[]?
+        #key_name = unicode("{}[]".format(key_name))
+        #value_name = unicode("{}[]".format(value_name))
+
+        # assemble key input
+        key_el = TextInput(key_name, key_value)
+        key_el.append_class(self.KEY_CLASS)
+
+        # assemble value input
+        value_el = TextInput(value_name, value_value)
         value_el.append_class(self.VALUE_CLASS)
 
         self.append_child(key_el)

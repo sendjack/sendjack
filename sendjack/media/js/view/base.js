@@ -127,6 +127,7 @@ var TaskView = ObjectView.extend({
         _.bindAll(this);
 
         this.model.on('change:steps', this.replaceSteps);
+        this.model.on('change:custom_properties', this.replaceCustomProperties);
     },
 
     /**
@@ -138,6 +139,9 @@ var TaskView = ObjectView.extend({
      */
     save: function () {
         this.model.unset('step', {silent: true});
+        this.model.unset('custom_property_key', {silent: true});
+        this.model.unset('custom_property_value', {silent: true});
+
         this.model.save();
     },
 
@@ -145,63 +149,18 @@ var TaskView = ObjectView.extend({
         //var _events = {};
         var _events = ObjectView.prototype.events.call(this);
 
-        _events['focus .step'] = 'appendEmptyStepOnEndFocus';
-        _events['keydown .step'] = 'insertEmptyStepOnTab';
+        _events['focus .step'] = 'appendInputOnFocus';
+        //_events['keydown .step'] = 'insertInputOnTab';
         _events['change [name=step]'] = 'updateSteps';
+
+        _events['focus .custom-property'] = 'appendInputOnFocus';
+        //_events['keydown [name=custom_property_value]'] = 'insertInputOnTab';
+        _events['change [name^=custom_property_]'] = 'updateCustomProperties';
 
         return _events;
     },
 
-    appendEmptyStepOnEndFocus: function (event) {
-        // find the step whose input has focus
-        var step = $(event.currentTarget);
-
-        // if this is the last step, grow the list
-        if (step.is(':last-child')) {
-            this.insertEmptyStepAfter(step);
-        }
-    },
-
-    insertEmptyStepOnTab: function (event) {
-        // TODO: handle SHIFT+TAB (9=TAB; 16=SHIFT)
-        // check whether TAB was pressed
-        if (event.which === 9) {
-            // insert after the step whose input has focus
-            var step = $(event.currentTarget);
-            this.insertEmptyStepAfter(step);
-        }
-    },
-
-    insertEmptyStepAfter: function (currentStep) {
-        // TODO: is this deep a copy warranted?
-        var newStep = currentStep.clone(true, true);
-
-        // make sure the value of the new step is empty
-        newStep.children().filter(':input').val('');
-
-        // TODO: add support for displaying a number in the Step label.
-
-        // add the new step to the list after the current step
-        newStep.insertAfter(currentStep);
-    },
-
-    updateSteps: function (event) {
-        var stepDivs = $(event.currentTarget).parent().parent().children();
-
-        var steps = [];
-        for (var i=0; i < stepDivs.length; i=i+1) {
-            // don't add empty steps. the model doesn't need 'em.
-            var step = $(stepDivs[i]).children('[name=step]').val();
-            if (step) {
-                steps[i] = step;
-            }
-        }
-
-        // set the steps hidden input to be synched with the model.
-        this.$el.find('[name=steps]').val(JSON.stringify(steps)).change();
-    },
-
-    convertSteps: function (direction, value) {
+    convertJSON: function (direction, value) {
         var converted;
 
         if (direction === Backbone.ModelBinder.Constants.ModelToView) {
@@ -213,22 +172,123 @@ var TaskView = ObjectView.extend({
         return converted;
     },
 
+    appendInputOnFocus: function (event) {
+        var targetEl = $(event.currentTarget);
+
+        // if this is the last item in the list, grow the list.
+        if (targetEl.is(':last-child')) {
+            this.insertEmptyCloneAfter(targetEl);
+        }
+    },
+
+    insertInputOnTab: function (event) {
+        // TODO: handle SHIFT+TAB (9=TAB; 16=SHIFT)
+
+        // check whether TAB was pressed
+        if (event.which === 9) {
+            // insert after the step whose input has focus
+            this.insertEmptyCloneAfter($(event.currentTarget));
+        }
+    },
+
+    insertEmptyCloneAfter: function (el) {
+        // TODO: is this deep a copy warranted?
+        var nextEl = el.clone(true, true);
+
+        // make sure the value for each input in the clone are empty
+        nextEl.children(':input').val('');
+
+        // add the new one to the dom's list after the current one
+        nextEl.insertAfter(el);
+    },
+
+    updateSteps: function (event) {
+        this.updateInputSet(
+            $(event.currentTarget).parent().parent().children(),
+            '[name=steps]',
+            '[name=step]');
+    },
+
+    updateCustomProperties: function (event) {
+        this.updateInputSet(
+            $(event.currentTarget).parent().parent().children(),
+            '[name=custom_properties]',
+            '[name=custom_property_value]',
+            '[name=custom_property_key]');
+    },
+
+    updateInputSet: function (els, setSelector, valueSelector, keySelector) {
+        var set = [];
+
+        var inputEls, value, key;
+        for (var i=0; i < els.length; i=i+1) {
+            inputEls = els.eq(i).children();
+
+            value = inputEls.filter(valueSelector).val();
+
+            // an undefined key selector is valid. it's an optional parameter.
+            if (typeof keySelector !== 'undefined') {
+                key = inputEls.filter(keySelector).val();
+            } else {
+                key = null;
+            }
+
+            // if a key selector has been specified and a valid key exists,
+            // store the value, which may be empty, in a list of dicts. if not,
+            // only care about non-empty values, and store them in a 1-D list.
+            if (key !== null && key !== '') {
+                set[i] = {};
+                set[i][key] = value;
+            } else if (value !== null && value !== '') {
+                set[i] = value;
+            }
+        }
+
+        this.$el.find(setSelector).val(JSON.stringify(set)).change();
+    },
+
     replaceSteps: function (model, value, options) {
-        if (value === null) {
-            return;
+        if (value !== null) {
+            this.replaceInputs('.step', value, false);
+        }
+    },
+
+    replaceCustomProperties: function (model, value, options) {
+        if (value !== null) {
+            this.replaceInputs('.custom-property', value, true);
+        }
+    },
+
+    replaceInputs: function (inputsSelector, inputValues, fromDicts) {
+        var el = this.resetInputs(inputsSelector);
+
+        for (var i=0; i < inputValues.length; i=i+1) {
+            this.replaceInput(el, inputValues[i], fromDicts);
         }
 
-        var stepDivs = this.$el.find('.step');
-        var lastStep = stepDivs.filter(':last');
+    },
 
-        stepDivs.slice(0, -1).remove();
+    resetInputs: function (inputsSelector) {
+        var els = this.$el.find(inputsSelector);
+        els.slice(0, -1).remove();
+        return els.filter(':last');
+    },
 
-        var newStep;
-        for (var i=0; i < value.length; i=i+1) {
-            newStep = lastStep.clone(true, true);
-            newStep.children().filter(':input').val(value[i]);
-            newStep.insertBefore(lastStep);
+    replaceInput: function (containerEl, inputValue, isDict) {
+        var newEl = containerEl.clone(true, true);
+
+        if (isDict) {
+            for (var key in inputValue) {
+                if (inputValue.hasOwnProperty(key)) {
+                    newEl.children(':input').first().val(key);
+                    newEl.children(':input').last().val(inputValue[key]);
+                }
+            }
+        } else {
+            newEl.children(':input').last().val(inputValue);
         }
+
+        newEl.insertBefore(containerEl);
     }
 
 });
