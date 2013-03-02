@@ -3,20 +3,24 @@
  *
  * @exports model.instance
  *
- * @requires Backbone
+ * @requires model.base
  */
 define(
         [
             // libraries
-            'backbone'
 
             // modules
+            'model/base'
+
             // jqueryui
         ],
-        function(Backbone) {
+        function(base) {
 
 
-var TaskInstanceModel = Backbone.Model.extend({
+// Get access to the superclass without instantiating an instance.
+var BaseModel = base.getBaseModelClass();
+
+var TaskInstanceModel = BaseModel.extend({
     urlRoot: '/a/task'
 });
 

@@ -15,12 +15,13 @@ define(
             'jquery',
             'lodash',
             'backbone',
-            'modelbinder'
+            'modelbinder',
 
             //modules
+            'event'
             //jquery ui
         ],
-        function ($, _, Backbone, ModelBinder) {
+        function ($, _, Backbone, ModelBinder, event) {
 
 
 var ObjectView = Backbone.View.extend({
@@ -42,12 +43,19 @@ var ObjectView = Backbone.View.extend({
         this.$el.find('[name=id]').attr('disabled', 'disabled');
 
         this.model = this.setupModel(model);
-
+        
         this.modelBinder = new Backbone.ModelBinder();
         this.modelBinder.bind(this.model, this.el, this.getBindings());
 
+        // keep these separate as the 'required' should happen in the page
+        // specific subclasses and the 'type-checking' should happen at the
+        // model views.
+        this.addRequiredValidationRules();
+        this.addTypeCheckingValidationRules();
+
         var thatModel = this.model;
         this.model.on('change', function () {
+            console.log(thatModel);
             console.log(thatModel.toJSON());
         });
 
@@ -66,8 +74,26 @@ var ObjectView = Backbone.View.extend({
         return this;
     },
 
+    isValid: function () {
+        return this.$el.valid();
+    },
+
+    isValidAndSynced: function () {
+        return (this.isValid() && this.model.isDirty());
+    },
+
     save: function () {
-        this.model.save();
+        if (this.$el.valid()) {
+            this.model.save({
+                success: function (model, response, options) {
+                    this.model.trigger(event.SAVE, 'red');
+                },
+                error: function (model, xhr, options) {
+                }
+            });
+        } else {
+            console.log('this form is not valid');
+        }
     },
 
     /**
@@ -88,6 +114,23 @@ var ObjectView = Backbone.View.extend({
         }
 
         return model;
+    },
+
+    /**
+     * Add Type Checking validation rules.
+     *
+     * This should be overriden by each base subclass.
+     */
+    addTypeCheckingValidationRules: function () {
+    },
+
+    /**
+     * Add Required validation rules.
+     *
+     * This should be overriden by the subclasses associated with specific
+     * pages.
+     */
+    addRequiredValidationRules: function () {
     },
 
     /**

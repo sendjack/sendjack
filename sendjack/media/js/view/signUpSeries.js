@@ -30,7 +30,7 @@ var SignUpSeriesContent = Backbone.View.extend({
     initialize: function () {
         this.setElement('.alt-content');
 
-        var customerView = customer.CustomerView();
+        var customerView = SignUpCustomerView();
         var instanceView = TaskInstanceSaveView();
 
         var customerModel = customerView.model;
@@ -81,8 +81,9 @@ var SignUpSeriesContent = Backbone.View.extend({
     }
 });
 
+
 var TaskInstanceView = instance.getTaskInstanceViewClass();
-function TaskInstanceSaveView() {
+function TaskInstanceSaveView(attributes, options) {
     var TaskInstanceSaveViewClass = TaskInstanceView.extend({
 
         initialize: function () {
@@ -116,7 +117,32 @@ function TaskInstanceSaveView() {
 
     });
 
-    return new TaskInstanceSaveViewClass();
+    return new TaskInstanceSaveViewClass(attributes, options);
+}
+
+
+var CustomerView = customer.getCustomerViewClass();
+function SignUpCustomerView(attributes, options) {
+    var SignUpCustomerViewClass = CustomerView.extend({
+
+        initialize: function (attributes, options) {
+            CustomerView.prototype.initialize.call(this, attributes, options);
+
+            this.model.on('change:stripe_token', this.save, this);
+        },
+
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    first_name: 'required',
+                    last_name: 'required',
+                    email: 'required'
+                }
+            });
+        }
+    });
+
+    return new SignUpCustomerViewClass(attributes, options);
 }
 
 return {

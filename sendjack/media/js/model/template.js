@@ -1,18 +1,26 @@
 /**
  * A model of a Task Template.
+ *
+ * @exports model.template
+ *
+ * @requires model.base
  */
 define(
         [
             // libraries
-            'backbone'
 
             // modules
+            'model/base'
+
             // jqueryui
         ],
-        function(Backbone) {
+        function(base) {
 
 
-var TaskTemplateModel = Backbone.Model.extend({
+// Get access to the superclass without instantiating an instance.
+var BaseModel = base.getBaseModelClass();
+
+var TaskTemplateModel = BaseModel.extend({
     urlRoot: '/a/template'
 });
 
