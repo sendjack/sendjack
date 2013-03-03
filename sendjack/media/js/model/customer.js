@@ -4,15 +4,19 @@
 define(
         [
             // libraries
-            'backbone'
 
             // modules
+            'model/base'
+
             // jqueryui
         ],
-        function(Backbone) {
+        function(base) {
 
 
-var CustomerModel = Backbone.Model.extend({
+// Get access to the superclass without instantiating an instance.
+var BaseModel = base.getBaseModelClass();
+
+var CustomerModel = BaseModel.extend({
     urlRoot: '/a/customer'
 });
 

@@ -16,26 +16,27 @@ define(
             'backbone',
 
             // modules
+            'event',
             'view/instance',
             'view/customer',
             'view/payment'
 
             // jquery ui
         ],
-        function ($, Backbone, instance, customer, payment) {
+        function ($, Backbone, event, instance, customer, payment) {
 
 
 var TaskInstancePostPage = Backbone.View.extend({
 
     $currGrid: null,
-    customerView: null,
-    creditCardView: null,
     taskInstanceView: null,
+    customerView: null,
 
     initialize: function () {
         this.setElement('.task-instance-post-page');
 
         this.taskInstanceView = TaskInstancePostView();
+
 
         // wait until after the instance data is fetched to grab customer id.
         var that = this;
@@ -43,18 +44,27 @@ var TaskInstancePostPage = Backbone.View.extend({
 
             // Create the Customer View with the customer_id
             var customerID = model.get('customer_id');
-            that.customerView = customer.CustomerView({model_id: customerID});
+            that.customerView = PostCustomerView({model_id: customerID});
 
             // Create the credit card view with the Customer Model
             var $creditCard = that.$el.find('#credit-card-grid');
-            that.creditCardView = payment.CreditCardView(
+            var creditCardView = payment.CreditCardView(
                     {
                         el: $creditCard,
                         customerModel: that.customerView.model
                     });
 
-            //customerView.model.on('change:stripe_token', that.render, that);
+            // when credit card view is saved then update customer view
+            // credit card isn't model backed so the event is tied to the view
+            creditCardView.once(
+                    event.SAVE,
+                    that.updateCustomer,
+                    that);
+
         });
+
+        // when task instance view is saved then render next page
+        this.taskInstanceView.model.once(event.SAVE, this.render, this);
 
           
         // remove the grids so we can show them one by one
@@ -71,6 +81,7 @@ var TaskInstancePostPage = Backbone.View.extend({
             that.$el.find('.contrast-section').append($grid);
         });
 
+
         // TODO: add support for inserting new step fields on focus.
 
         this.render();
@@ -79,8 +90,8 @@ var TaskInstancePostPage = Backbone.View.extend({
     events: function () {
         var _events = {};
 
-        _events['click #credit-card-grid .submit-button'] = 'save';
-        _events['click .submit-button'] = 'render';
+        //_events['click #task-insance-grid .submit-button'] = 'renderCreditCard';
+        //_events['click #credit-card-grid .submit-button'] = 'renderThankYou';
 
         return _events;
     },
@@ -97,16 +108,27 @@ var TaskInstancePostPage = Backbone.View.extend({
         return this;
     },
 
-    save: function () {
-        this.creditCardView.save();
+    updateCustomer: function () {
+        // when customer view is saved then update task view
+        this.customerView.model.once(
+                event.SAVE,
+                this.updateTaskInstance,
+                this);
+
+        this.customerView.save();
+    },
+
+    updateTaskInstance: function (color) {
+        console.log(color);
         this.taskInstanceView.setStatus("created");
+        this.taskInstanceView.model.once(event.SAVE, this.render, this);
         this.taskInstanceView.save();
     }
-
 });
 
+
 var TaskInstanceView = instance.getTaskInstanceViewClass();
-function TaskInstancePostView() {
+function TaskInstancePostView(attributes, options) {
     var TaskInstancePostViewClass = TaskInstanceView.extend({
 
         initialize: function () {
@@ -127,7 +149,30 @@ function TaskInstancePostView() {
 
     });
 
-    return new TaskInstancePostViewClass();
+    return new TaskInstancePostViewClass(attributes, options);
+}
+
+
+var CustomerView = customer.getCustomerViewClass();
+function PostCustomerView(attributes, options) {
+    var PostCustomerViewClass = CustomerView.extend({
+        
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    first_name: 'required',
+                    last_name: 'required',
+                    email: 'required',
+                    card_number: 'required',
+                    card_expiry_month: 'required',
+                    card_expiry_year: 'required',
+                    cvc: 'required'
+                }
+            });
+        }
+    });
+
+    return new PostCustomerViewClass(attributes, options);
 }
 
 return {

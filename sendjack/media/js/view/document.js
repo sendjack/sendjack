@@ -17,8 +17,9 @@ define(
             'view/signUpSeries',
             'view/taskInstancePostPage',
 
-            //jquery ui
-            'jqueryui'
+            //jquery plugins
+            'jqueryui',
+            'validation'
         ],
         function ($, Backbone, template, signUpSeries, taskInstancePostPage) {
 
@@ -28,6 +29,11 @@ var DocumentView = Backbone.View.extend({
     initialize: function () {
 
         var datepicker = $('.datepicker').datepicker({minDate: '0'});
+        
+        // cancel form submissions
+        $('form button[type=submit]').click(function (event) {
+            event.preventDefault();
+        });
 
         if ($('#template').length !== 0) {
             var taskTemplateView = template.TaskTemplateView();

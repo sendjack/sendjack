@@ -39,13 +39,42 @@ var CustomerView = ObjectView.extend({
             this.model.set('status', $status.val());
         }
 
-        this.model.on('change:stripe_token', this.save, this);
+    },
+
+    addTypeCheckingValidationRules: function () {
+        this.$el.validate({
+            rules: {
+                email: {
+                    email: true
+                },
+                card_number: {
+                    creditcard: true
+                },
+                card_expiry_month: {
+                    range: [0,12]
+                },
+                card_expiry_year: {
+                    number: true,
+                    minlength: 4,
+                    maxlength: 4
+                },
+                cvc: {
+                    number: true,
+                    maxlength: 5
+                }
+            }
+        });
     }
+
 });
 
 return {
     CustomerView: function (attributes, options) {
         return new CustomerView(attributes, options);
+    },
+
+    getCustomerViewClass: function () {
+        return CustomerView;
     }
 };
 

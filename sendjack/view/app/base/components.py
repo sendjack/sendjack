@@ -6,6 +6,7 @@
 
 """
 from view.elementary.html import Section, Div, TextInput, Label, UL, Textarea
+from view.elementary.html import Form
 
 
 class InnerWrapper(Div):
@@ -215,7 +216,7 @@ class Paragraph(Div):
         self.append_class(self.PARAGRAPH_CLASS)
 
 
-class ObjectView(Div):
+class ObjectView(Form):
 
     """Provide a view that corresponds to a model object. Provide a framework
     for coordinating the javascript Model/View classes."""
@@ -223,7 +224,7 @@ class ObjectView(Div):
     OBJECT_VIEW_CLASS = "object-view"
 
     def __init__(self, object_id):
-        super(ObjectView, self).__init__()
+        super(ObjectView, self).__init__(object_id)
         self.append_class(self.OBJECT_VIEW_CLASS)
 
         self.set_id(object_id)

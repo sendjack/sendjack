@@ -14,12 +14,13 @@ define(
             'backbone',
 
             //modules
+            'event',
             'view/customer',
             'view/instance'
 
             //jquery ui
         ],
-        function ($, Backbone, customer, instance) {
+        function ($, Backbone, event, customer, instance) {
 
 
 var SignUpSeriesContent = Backbone.View.extend({
@@ -30,7 +31,7 @@ var SignUpSeriesContent = Backbone.View.extend({
     initialize: function () {
         this.setElement('.alt-content');
 
-        var customerView = customer.CustomerView();
+        var customerView = SignUpCustomerView();
         var instanceView = TaskInstanceSaveView();
 
         var customerModel = customerView.model;
@@ -55,9 +56,8 @@ var SignUpSeriesContent = Backbone.View.extend({
             that.$el.append($page);
         });
 
-        customerModel.on('change:id', this.render, this);
-        instanceModel.on('change:id', this.render, this);
-
+        customerModel.once(event.SAVE, this.render, this);
+        instanceModel.once(event.SAVE, this.render, this);
         this.render();
     },
 
@@ -81,8 +81,9 @@ var SignUpSeriesContent = Backbone.View.extend({
     }
 });
 
+
 var TaskInstanceView = instance.getTaskInstanceViewClass();
-function TaskInstanceSaveView() {
+function TaskInstanceSaveView(attributes, options) {
     var TaskInstanceSaveViewClass = TaskInstanceView.extend({
 
         initialize: function () {
@@ -112,11 +113,47 @@ function TaskInstanceSaveView() {
             this.$el.find('[name=steps]').attr('disabled', 'disabled');
             this.$el.find('[name=step]').attr('disabled', 'disabled');
             this.$el.find('[name=price]').attr('disabled', 'disabled');
+        },
+
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    customer_title: 'required',
+                    customer_description: 'required',
+                    deadline_ts: 'required'
+                }
+            });
         }
+
 
     });
 
-    return new TaskInstanceSaveViewClass();
+    return new TaskInstanceSaveViewClass(attributes, options);
+}
+
+
+var CustomerView = customer.getCustomerViewClass();
+function SignUpCustomerView(attributes, options) {
+    var SignUpCustomerViewClass = CustomerView.extend({
+
+        initialize: function (attributes, options) {
+            CustomerView.prototype.initialize.call(this, attributes, options);
+
+            this.model.on('change:stripe_token', this.save, this);
+        },
+
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    first_name: 'required',
+                    last_name: 'required',
+                    email: 'required'
+                }
+            });
+        }
+    });
+
+    return new SignUpCustomerViewClass(attributes, options);
 }
 
 return {

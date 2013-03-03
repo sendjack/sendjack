@@ -17,6 +17,7 @@ require.config({
         backbone: 'libs/backbone/backbone',
         modelbinder: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.modelbinder/0.1.3/Backbone.ModelBinder-min',
         jqueryui: 'libs/jquery/jquery-ui',
+        validation: 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min',
         stripe: 'libs/stripe/stripe'
     },
     shim: {
@@ -28,6 +29,11 @@ require.config({
         'jqueryui': {
             deps: ['jquery'],
             exports: 'jqueryui'
+        },
+
+        'validation': {
+            deps: ['jquery'],
+            exports: 'validation'
         },
 
         'modelbinder': {
