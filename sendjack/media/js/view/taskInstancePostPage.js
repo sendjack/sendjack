@@ -37,6 +37,7 @@ var TaskInstancePostPage = Backbone.View.extend({
 
         this.taskInstanceView = TaskInstancePostView();
 
+
         // wait until after the instance data is fetched to grab customer id.
         var that = this;
         this.taskInstanceView.model.on('change:customer_id', function (model) {
@@ -47,18 +48,23 @@ var TaskInstancePostPage = Backbone.View.extend({
 
             // Create the credit card view with the Customer Model
             var $creditCard = that.$el.find('#credit-card-grid');
-            payment.CreditCardView(
+            var creditCardView = payment.CreditCardView(
                     {
                         el: $creditCard,
                         customerModel: that.customerView.model
                     });
 
-            // when customer view is saved then update task instance
-            that.customerView.once(event.SAVE, that.updateTaskInstance, that);
+            // when credit card view is saved then update customer view
+            // credit card isn't model backed so the event is tied to the view
+            creditCardView.once(
+                    event.SAVE,
+                    that.updateCustomer,
+                    that);
+
         });
 
         // when task instance view is saved then render next page
-        this.taskInstanceView.once(event.SAVE, this.render, this);
+        this.taskInstanceView.model.once(event.SAVE, this.render, this);
 
           
         // remove the grids so we can show them one by one
@@ -102,11 +108,20 @@ var TaskInstancePostPage = Backbone.View.extend({
         return this;
     },
 
-    updateTaskInstance: function (color) {
+    updateCustomer: function () {
+        // when customer view is saved then update task view
+        this.customerView.model.once(
+                event.SAVE,
+                this.updateTaskInstance,
+                this);
 
+        this.customerView.save();
+    },
+
+    updateTaskInstance: function (color) {
         console.log(color);
         this.taskInstanceView.setStatus("created");
-        this.taskInstanceView.once(event.SAVE, this.render, this);
+        this.taskInstanceView.model.once(event.SAVE, this.render, this);
         this.taskInstanceView.save();
     }
 });

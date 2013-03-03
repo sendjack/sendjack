@@ -19,7 +19,6 @@ var BaseModel = Backbone.Model.extend({
     dirty: false,
 
     initialize: function (attributes, options) {
-        
         this.on('change', this.makeDirty, this);
         this.on('sync', this.clearDirty, this);
     },

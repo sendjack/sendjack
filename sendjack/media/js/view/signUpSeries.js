@@ -14,12 +14,13 @@ define(
             'backbone',
 
             //modules
+            'event',
             'view/customer',
             'view/instance'
 
             //jquery ui
         ],
-        function ($, Backbone, customer, instance) {
+        function ($, Backbone, event, customer, instance) {
 
 
 var SignUpSeriesContent = Backbone.View.extend({
@@ -55,9 +56,8 @@ var SignUpSeriesContent = Backbone.View.extend({
             that.$el.append($page);
         });
 
-        customerModel.on('change:id', this.render, this);
-        instanceModel.on('change:id', this.render, this);
-
+        customerModel.once(event.SAVE, this.render, this);
+        instanceModel.once(event.SAVE, this.render, this);
         this.render();
     },
 
@@ -113,7 +113,18 @@ function TaskInstanceSaveView(attributes, options) {
             this.$el.find('[name=steps]').attr('disabled', 'disabled');
             this.$el.find('[name=step]').attr('disabled', 'disabled');
             this.$el.find('[name=price]').attr('disabled', 'disabled');
+        },
+
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    customer_title: 'required',
+                    customer_description: 'required',
+                    deadline_ts: 'required'
+                }
+            });
         }
+
 
     });
 

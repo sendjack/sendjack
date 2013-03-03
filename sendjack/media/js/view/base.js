@@ -84,9 +84,10 @@ var ObjectView = Backbone.View.extend({
 
     save: function () {
         if (this.$el.valid()) {
-            this.model.save({
+            var that = this;
+            this.model.save({}, {
                 success: function (model, response, options) {
-                    this.model.trigger(event.SAVE, 'red');
+                    that.model.trigger(event.SAVE, 'red');
                 },
                 error: function (model, xhr, options) {
                 }
@@ -185,7 +186,7 @@ var TaskView = ObjectView.extend({
         this.model.unset('custom_property_key', {silent: true});
         this.model.unset('custom_property_value', {silent: true});
 
-        this.model.save();
+        ObjectView.prototype.save.call(this);
     },
 
     events: function () {

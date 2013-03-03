@@ -16,11 +16,12 @@ define(
             'backbone',
 
             //modules
+            'event',
             'util/payment'
 
             //jquery ui
         ],
-        function ($, _, Backbone, payment) {
+        function ($, _, Backbone, event, payment) {
 
 
 var CreditCardView = Backbone.View.extend({
@@ -45,7 +46,7 @@ var CreditCardView = Backbone.View.extend({
     events: function () {
         var _events = {};
 
-        //_events['click .submit-button'] = 'save';
+        _events['click .submit-button'] = 'save';
 
         return _events;
     },
@@ -75,6 +76,7 @@ var CreditCardView = Backbone.View.extend({
             //$('html, body').animate({scrollTop:offset}, 1000);
         } else {
             this.customerModel.set('stripe_token', token);
+            this.trigger(event.SAVE);
         }
     },
 
