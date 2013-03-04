@@ -36,7 +36,14 @@ var TaskInstanceView = TaskView.extend({
                 '#instance',
                 'task',
                 instance.TaskInstanceModel());
+
+        this.initializeShownFields();
+        this.initializeDisabledFields();
     },
+
+    initializeShownFields: function () {},
+
+    initializeDisabledFields: function () {},
 
     editBindings: function (bindings) {
         // TODO: maybe move this to TaskView?

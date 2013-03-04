@@ -152,11 +152,10 @@ class TaskInstanceView(ObjectView):
     # classes
     CUSTOMER_TITLE_CLASS = "customer-title"
     CUSTOMER_DESCRIPTION_CLASS = "customer-description"
-    TITLE_CLASS = "title"
     DEADLINE_CLASS = "deadline"
 
     # placeholder values
-    TITLE_PLACEHOLDER = "Task Title"
+    CUSTOMER_TITLE_PLACEHOLDER = "Task Title"
     CUSTOMER_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
     DEADLINE_PLACEHOLDER = "06/31/2013"
 
@@ -170,7 +169,7 @@ class TaskInstanceView(ObjectView):
         # assemble customer title
         customer_title = TextInput(self.CUSTOMER_TITLE_NAME)
         customer_title.append_class(self.CUSTOMER_TITLE_CLASS)
-        customer_title.set_placeholder(self.TITLE_PLACEHOLDER)
+        customer_title.set_placeholder(self.CUSTOMER_TITLE_PLACEHOLDER)
 
         # assemble customer description
         customer_description = Textarea(self.CUSTOMER_DESCRIPTION_NAME)
@@ -179,12 +178,8 @@ class TaskInstanceView(ObjectView):
                 self.CUSTOMER_DESCRIPTION_PLACEHOLDER)
         customer_description.set_rows(self.TEXTAREA_DEFAULT_ROWS)
 
-        # assemble title
-        title = TextInput(self.TITLE_NAME)
-        title.append_class(self.TITLE_CLASS)
-        title.set_placeholder(self.TITLE_PLACEHOLDER)
-
-        # assemble hidden steps, properties inputs
+        # assemble hidden title, steps, properties inputs
+        title = HiddenInput(self.TITLE_NAME)
         steps = HiddenInput(self.STEPS_NAME)
         custom_properties = HiddenInput(self.CUSTOM_PROPERTIES_NAME)
         output_type = HiddenInput(self.OUTPUT_TYPE_NAME)
@@ -195,7 +190,7 @@ class TaskInstanceView(ObjectView):
         deadline.append_class(self.DEADLINE_CLASS)
         deadline.set_placeholder(self.DEADLINE_PLACEHOLDER)
 
-        # assemble hidden tags, price inputs
+        # assemble hidden price, tags inputs
         price = HiddenInput(self.PRICE_NAME)
         category_tags = HiddenInput(self.CATEGORY_TAGS_NAME)
         industry_tags = HiddenInput(self.INDUSTRY_TAGS_NAME)
