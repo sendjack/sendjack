@@ -43,12 +43,20 @@ class TaskInstance(TaskInstanceModel):
         return self.status == TASK_INSTANCE.SAVED
 
 
+    def is_processed(self):
+        return self.status == TASK_INSTANCE.PROCESSED
+
+
     def is_created(self):
         return self.status == TASK_INSTANCE.CREATED
 
 
     def is_posted(self):
         return self.status == TASK_INSTANCE.POSTED
+
+
+    def is_assigned(self):
+        return self.status == TASK_INSTANCE.ASSIGNED
 
 
     def is_completed(self):

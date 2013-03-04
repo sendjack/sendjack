@@ -32,6 +32,11 @@ class _TaskInstance(object):
         return "saved"
 
     @constant
+    def PROCESSED(self):
+        """Task has been processed by us but not yet created for posting."""
+        return "processed"
+
+    @constant
     def CREATED(self):
         """Task has been created but not yet posted to a vendor."""
         return "created"
@@ -86,6 +91,7 @@ class TaskInstanceModel(TaskModel, CRUD):
     status = Column(
             Enum(
                 TASK_INSTANCE.SAVED,
+                TASK_INSTANCE.PROCESSED,
                 TASK_INSTANCE.CREATED,
                 TASK_INSTANCE.POSTED,
                 TASK_INSTANCE.ASSIGNED,
