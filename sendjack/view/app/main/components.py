@@ -157,6 +157,22 @@ class CustomPropertyField(KeyedSubField):
         self.append_class(self.CLASS)
 
 
+class NotesField(BigField):
+
+    LABEL = unicode("Notes")
+    NAME = unicode("notes")
+    CLASS = unicode("notes")
+    NUM_ROWS = 4
+
+    def __init__(self, value=""):
+        super(NotesField, self).__init__(
+                self.LABEL,
+                self.NAME,
+                value)
+        self.append_class(self.CLASS)
+        self._input_el.set_rows(self.NUM_ROWS)
+
+
 class DeadlineField(Field):
 
     LABEL = unicode("Deadline")
