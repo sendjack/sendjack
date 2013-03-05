@@ -36,9 +36,8 @@ var TaskInstancePostPage = Backbone.View.extend({
     initialize: function () {
         this.setElement('.task-instance-post-page');
 
-        // TODO: one displays steps and the other displays customer description
-        //this.taskInstanceView = TaskInstancePostTestView();
-        this.taskInstanceView = TaskInstancePostControlView();
+        // the TaskInstancePostView will handle test v control.
+        this.taskInstanceView = TaskInstancePostView();
 
         // wait until after the instance data is fetched to grab customer id.
         var that = this;
@@ -63,6 +62,15 @@ var TaskInstancePostPage = Backbone.View.extend({
                     that.onCreditCardTokenReceived,
                     that);
 
+            // once the customer is pulled from server show the correct fields.
+            that.customerView.model.once(
+                    'change:control_group',
+                    function (model) {
+                        var isControlGroup = model.get('control_group');
+                        that.taskInstanceView.setupControlAndTestFields(
+                                isControlGroup);
+                    },
+                    that);
         });
 
         // when task instance view is saved then render next page
@@ -140,54 +148,29 @@ var TaskInstancePostPage = Backbone.View.extend({
 
 
 var TaskInstanceView = instance.getTaskInstanceViewClass();
+function TaskInstancePostView(attributes, options) {
+    var TaskInstancePostViewClass = TaskInstanceView.extend({
 
-
-function TaskInstancePostTestView(attributes, options) {
-    var TaskInstancePostTestViewClass = TaskInstanceView.extend({
-
-        initializeShownFields: function () {
-            TaskInstanceView.prototype.initializeShownFields.call(this);
-
-            this.$el.find('.customer-title').hide();
-            this.$el.find('.customer-description').hide();
-
-            // TODO: put these in a superclass TaskInstancePostView.
-            this.$el.find('.custom-properties').hide();
-            this.$el.find('.custom-property').hide();
-            this.$el.find('.output-type').hide();
-            this.$el.find('.output-method').hide();
-            this.$el.find('.category-tags').hide();
-            this.$el.find('.industry-tags').hide();
-            this.$el.find('.skill-tags').hide();
-            this.$el.find('.equipment-tags').hide();
+        setupControlAndTestFields: function (isControlGroup) {
+            if (isControlGroup) {
+                console.log("control group!");
+                this.initializeControlFields();
+            } else {
+                this.initializeTestFields();
+            }
         },
 
-        initializeDisabledFields: function () {
-            TaskInstanceView.prototype.initializeDisabledFields.call(this);
+        initializeControlFields: function () {
+            this.initializeShownControlFields();
+            this.initializeDisabledControlFields();
+        },
 
-            this.$el.find('[name=title]').attr('disabled', 'disabled');
-            // TODO: can hidden inputs be disabled?
-            //this.$el.find('[name=steps]').attr('disabled', 'disabled');
-            this.$el.find('[name=step]').attr('disabled', 'disabled');
+        initializeTestFields: function () {
+            this.initializeShownTestFields();
+            this.initializeDisabledTestFields();
+        },
 
-            // TODO: put these in a superclass TaskInstancePostView.
-            this.$el.find('[name=notes]').attr('disabled', 'disabled');
-            this.$el.find('[name=deadline_ts]').attr('disabled', 'disabled');
-            this.$el.find('[name=price]').attr('disabled', 'disabled');
-        }
-
-    });
-
-    return new TaskInstancePostTestViewClass(attributes, options);
-}
-
-
-function TaskInstancePostControlView(attributes, options) {
-    var TaskInstancePostControlViewClass = TaskInstanceView.extend({
-
-        initializeShownFields: function () {
-            TaskInstanceView.prototype.initializeShownFields.call(this);
-
+        initializeShownControlFields: function () {
             this.$el.find('.title').hide();
             this.$el.find('.steps').hide();
             this.$el.find('.step').hide();
@@ -203,9 +186,7 @@ function TaskInstancePostControlView(attributes, options) {
             this.$el.find('.equipment-tags').hide();
         },
 
-        initializeDisabledFields: function () {
-            TaskInstanceView.prototype.initializeDisabledFields.call(this);
-
+        initializeDisabledControlFields: function () {
             this.$el.find('[name=customer_title]')
                     .attr('disabled', 'disabled');
             this.$el.find('[name=customer_description]')
@@ -215,11 +196,38 @@ function TaskInstancePostControlView(attributes, options) {
             this.$el.find('[name=notes]').attr('disabled', 'disabled');
             this.$el.find('[name=deadline_ts]').attr('disabled', 'disabled');
             this.$el.find('[name=price]').attr('disabled', 'disabled');
+        },
+
+        initializeShownTestFields: function () {
+            this.$el.find('.customer-title').hide();
+            this.$el.find('.customer-description').hide();
+
+            // TODO: put these in a superclass TaskInstancePostView.
+            this.$el.find('.custom-properties').hide();
+            this.$el.find('.custom-property').hide();
+            this.$el.find('.output-type').hide();
+            this.$el.find('.output-method').hide();
+            this.$el.find('.category-tags').hide();
+            this.$el.find('.industry-tags').hide();
+            this.$el.find('.skill-tags').hide();
+            this.$el.find('.equipment-tags').hide();
+        },
+
+        initializeDisabledTestFields: function () {
+            this.$el.find('[name=title]').attr('disabled', 'disabled');
+            // TODO: can hidden inputs be disabled?
+            //this.$el.find('[name=steps]').attr('disabled', 'disabled');
+            this.$el.find('[name=step]').attr('disabled', 'disabled');
+
+            // TODO: put these in a superclass TaskInstancePostView.
+            this.$el.find('[name=notes]').attr('disabled', 'disabled');
+            this.$el.find('[name=deadline_ts]').attr('disabled', 'disabled');
+            this.$el.find('[name=price]').attr('disabled', 'disabled');
         }
 
     });
 
-    return new TaskInstancePostControlViewClass(attributes, options);
+    return new TaskInstancePostViewClass(attributes, options);
 }
 
 
