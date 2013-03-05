@@ -6,18 +6,29 @@ define(
             // libraries
 
             // modules
+            'event',
+            'util/track',
             'model/base'
 
             // jqueryui
         ],
-        function(base) {
+        function (event, track, base) {
 
 
 // Get access to the superclass without instantiating an instance.
 var BaseModel = base.getBaseModelClass();
 
 var CustomerModel = BaseModel.extend({
-    urlRoot: '/a/customer'
+    urlRoot: '/a/customer',
+
+    onCreate: function (model, options) {
+        console.log('happiness');
+        track.signUp(model.get('id'), model.get('email'));
+    },
+
+    save: function (attributes, options) {
+        BaseModel.prototype.save.call(this, attributes, options);
+    }
 });
 
 return {

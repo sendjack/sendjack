@@ -23,30 +23,28 @@ require.config({
     },
 
     shim: {
-        'backbone': {
+        backbone: {
             deps: ['lodash', 'jquery'],
             exports: 'Backbone'
         },
 
-        'jqueryui': {
+        jqueryui: {
             deps: ['jquery'],
             exports: 'jqueryui'
         },
 
-        'validation': {
+        validation: {
             deps: ['jquery'],
             exports: 'validation'
         },
 
-        'modelbinder': {
+        modelbinder: {
             deps: ['backbone'],
             exports: 'ModelBinder'
         },
-        'stripe': {
+
+        stripe: {
             exports: 'Stripe'
-        },
-        'mp': {
-            exports: 'mixpanel'
         }
     }
 

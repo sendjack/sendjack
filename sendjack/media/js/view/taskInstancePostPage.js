@@ -60,7 +60,7 @@ var TaskInstancePostPage = Backbone.View.extend({
             // credit card isn't model backed so the event is tied to the view
             creditCardView.once(
                     event.SAVE,
-                    that.updateCustomer,
+                    that.onCreditCardTokenReceived,
                     that);
 
         });
@@ -88,7 +88,7 @@ var TaskInstancePostPage = Backbone.View.extend({
 
         this.render();
 
-        track.viewPage(window.location.href);
+        track.viewPage(window.location.pathname);
     },
 
     events: function () {
@@ -112,21 +112,29 @@ var TaskInstancePostPage = Backbone.View.extend({
         return this;
     },
 
-    updateCustomer: function () {
+    onCreditCardTokenReceived: function (model, options) {
         // when customer view is saved then update task view
         this.customerView.model.once(
                 event.SAVE,
-                this.updateTaskInstance,
+                this.onCreditCardAdded,
                 this);
 
         this.customerView.save();
     },
 
-    updateTaskInstance: function (color) {
-        console.log(color);
-        this.taskInstanceView.setStatus("created");
-        this.taskInstanceView.model.once(event.SAVE, this.render, this);
+    onCreditCardAdded: function (model, options) {
+        var taskInstanceModel = this.taskInstanceView.model;
+
+        track.addCreditCard(taskInstanceModel.get('price'));
+
+        taskInstanceModel.set('status', 'created');
+        taskInstanceModel.once(event.SAVE, this.onCreatedTask, this);
         this.taskInstanceView.save();
+    },
+
+    onCreatedTask: function (model, options) {
+        track.postTask(model.get('id'), model.get('price'));
+        this.render();
     }
 });
 

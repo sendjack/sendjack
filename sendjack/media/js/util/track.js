@@ -16,16 +16,19 @@ define(
             // modules
             // jquery ui
         ],
-        function ($, MP) {
+        function ($) {
 
 
 // get MixPanel token from meta data.
 var token = $('meta[name=mixpanel-token]').attr('content');
 
-// this identifies your website when calling any MP event.
-MP.init(token);
-MP.set_config({
-    debug: true
+// for the life of me, I cannot get MixPanel to integrate with RequireJS.
+// this identifies your website when calling any mixpanel event.
+mixpanel.init(token);
+mixpanel.set_config({
+    debug: true,
+    test: true,
+    verbose: true
 });
 
 // MixPanel events
@@ -44,9 +47,11 @@ var EVENT = {
 
 // MixPanel properties
 var PROPERTY = {
+    PAGE: "page",
     TEST_COHORT: "test cohort",
     TASK_ID: "task id",
-    PRICE: "price"
+    PRICE: "price",
+    FIRST_TASK_PRICE: "price"
 };
 
 var track = (function () {
@@ -56,27 +61,28 @@ var track = (function () {
      * Track any event.
      */
     function trackEvent(event, properties) {
-        MP.track(event, properties);
+        mixpanel.track(event, properties);
     }
 
     /**
      * Initialize customer with Jackalope ID and persistent properties.
      */
     that.initCustomer = function (customerID, email) {
-        MP.alias(customerID);
+        mixpanel.alias(customerID);
         if (email) {
-            MP.name_tag(email);
+            mixpanel.name_tag(email);
         }
 
         var superProperties = {};
         superProperties[PROPERTY.TEST_COHORT] = 'dev';
-        MP.register(superProperties);
+        mixpanel.register(superProperties);
     };
 
     /**
      * Sign up user with one time SIGN_UP.
      */
     that.signUp = function (customerID, email) {
+        console.log("TRACK sign up", customerID, email);
         that.initCustomer(customerID, email);
 
         
@@ -91,13 +97,16 @@ var track = (function () {
         // TODO
         // double-check but you should call identify here.
         // then probably want to track it too.
+        // then update super properties.
     };
 
     /**
      * Add a credit card to a customer's account.
      */
-    that.addCreditCard = function () {
+    that.addCreditCard = function (firstTaskPrice) {
+        console.log("TRACK add credit card", firstTaskPrice);
         var properties = {};
+        properties[PROPERTY.FIRST_TASK_PRICE] = firstTaskPrice;
         trackEvent(EVENT.ADD_CREDIT_CARD, properties);
     };
 
@@ -105,6 +114,7 @@ var track = (function () {
      * Track a VIEW_PAGE.
      */
     that.viewPage = function (page) {
+        console.log("TRACK view page", page);
         var properties = {};
         properties[PROPERTY.PAGE] = page;
         trackEvent(EVENT.VIEW_PAGE, properties);
@@ -114,6 +124,7 @@ var track = (function () {
      * Track a SUBMIT_TASK.
      */
     that.submitTask = function (taskID) {
+        console.log("TRACK submit task", taskID);
         var properties = {};
         properties[PROPERTY.TASK_ID] = taskID;
         trackEvent(EVENT.SUBMIT_TASK, properties);
@@ -123,6 +134,7 @@ var track = (function () {
      * Track a POST_TASK.
      */
     that.postTask = function (taskID, price) {
+        console.log("TRACK post task", taskID, price);
         var properties = {};
         properties[PROPERTY.TASK_ID] = taskID;
         properties[PROPERTY.PRICE] = price;
@@ -132,9 +144,12 @@ var track = (function () {
     /**
      * Track a APPROVE_TASK.
      */
-    that.approveTask = function (taskID) {
+    that.approveTask = function (taskID, price) {
+        console.log("TRACK post task", taskID, price);
+        // FIXME XXX add this function to approve js.
         var properties = {};
         properties[PROPERTY.TASK_ID] = taskID;
+        properties[PROPERTY.PRICE] = price;
         trackEvent(EVENT.APPROVE_TASK, properties);
     };
 

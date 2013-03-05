@@ -41,7 +41,6 @@ var SignUpSeriesContent = Backbone.View.extend({
         customerModel.on('change:id', function (model) {
             var id = model.get('id');
             var email = model.get('email');
-            track.signUp(id, email);
             instanceModel.set('customer_id', id);
         });
 
@@ -64,7 +63,7 @@ var SignUpSeriesContent = Backbone.View.extend({
         instanceModel.once(event.SAVE, this.render, this);
         this.render();
 
-        track.viewPage(window.location.href);
+        track.viewPage(window.location.pathname);
     },
 
     events: function () {
@@ -115,7 +114,7 @@ function SignUpCustomerView(attributes, options) {
         initialize: function (attributes, options) {
             CustomerView.prototype.initialize.call(this, attributes, options);
 
-            this.model.on('change:stripe_token', this.save, this);
+            this.model.on('change:stripe_token', this.onAttributeChange, this);
         },
 
         addRequiredValidationRules: function () {
@@ -126,6 +125,10 @@ function SignUpCustomerView(attributes, options) {
                     email: 'required'
                 }
             });
+        },
+
+        onAttributeChange: function (model, value, options) {
+            this.save();
         }
     });
 

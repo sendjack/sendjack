@@ -55,7 +55,6 @@ var ObjectView = Backbone.View.extend({
 
         var thatModel = this.model;
         this.model.on('change', function () {
-            console.log(thatModel);
             console.log(thatModel.toJSON());
         });
 
@@ -65,7 +64,7 @@ var ObjectView = Backbone.View.extend({
     events: function () {
         var _events = {};
 
-        _events['click .submit-button'] = 'save';
+        _events['click .submit-button'] = 'onSubmit';
 
         return _events;
     },
@@ -82,16 +81,13 @@ var ObjectView = Backbone.View.extend({
         return (this.isValid() && this.model.isDirty());
     },
 
-    save: function () {
-        if (this.$el.valid()) {
-            var that = this;
-            this.model.save({}, {
-                success: function (model, response, options) {
-                    that.model.trigger(event.SAVE, 'red');
-                },
-                error: function (model, xhr, options) {
-                }
-            });
+    onSubmit: function (event) {
+        this.save();
+    },
+
+    save: function (attributes, options) {
+        if (this.isValid()) {
+            this.model.save(attributes, options);
         } else {
             console.log('this form is not valid');
         }

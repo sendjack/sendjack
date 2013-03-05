@@ -19,11 +19,10 @@ require(
             'jquery',
 
             // modules
-            'view/document',
-
-            'util/track'
+            'util/track',
+            'view/document'
         ],
-        function ($, document, track) {
+        function ($, track, document) {
 
 /**
  * Initialize Object with superpowers per Crockford's recommendation.
@@ -46,6 +45,7 @@ var initializeObject = (function () {
 var initializeEnvironment = (function () {
     // Make sure AJAX requests are not cached.
     $.ajaxSetup({cache: false});
+
 })();
 
 

@@ -10,18 +10,23 @@ define(
             // libraries
 
             // modules
+            'util/track',
             'model/base'
 
             // jqueryui
         ],
-        function(base) {
+        function(track,base) {
 
 
 // Get access to the superclass without instantiating an instance.
 var BaseModel = base.getBaseModelClass();
 
 var TaskInstanceModel = BaseModel.extend({
-    urlRoot: '/a/task'
+    urlRoot: '/a/task',
+
+    onCreate: function (model, options) {
+        track.submitTask(model.get('id'));
+    }
 });
 
 return {
