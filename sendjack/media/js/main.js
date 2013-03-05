@@ -18,29 +18,32 @@ require.config({
         modelbinder: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.modelbinder/0.1.3/Backbone.ModelBinder-min',
         jqueryui: 'libs/jquery/jquery-ui',
         validation: 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min',
-        stripe: 'libs/stripe/stripe'
+        stripe: 'libs/stripe/stripe',
+        mp: 'libs/mixpanel/mixpanel'
     },
+
     shim: {
-        'backbone': {
+        backbone: {
             deps: ['lodash', 'jquery'],
             exports: 'Backbone'
         },
 
-        'jqueryui': {
+        jqueryui: {
             deps: ['jquery'],
             exports: 'jqueryui'
         },
 
-        'validation': {
+        validation: {
             deps: ['jquery'],
             exports: 'validation'
         },
 
-        'modelbinder': {
+        modelbinder: {
             deps: ['backbone'],
             exports: 'ModelBinder'
         },
-        'stripe': {
+
+        stripe: {
             exports: 'Stripe'
         }
     }

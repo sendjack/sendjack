@@ -41,10 +41,13 @@ STRIPE_PUBLISHABLE_KEY = environment.get_unicode(
         unicode("STRIPE_PUBLISHABLE_KEY"))
 STRIPE_SECRET_KEY = environment.get_unicode(unicode("STRIPE_SECRET_KEY"))
 
+MIXPANEL_TOKEN = environment.get_unicode(unicode("MIXPANEL_TOKEN"))
+
 JINJA2_ENVIRONMENT = Environment(
         loader=PackageLoader('app', 'view/templates'),
         trim_blocks=True)
 JINJA2_ENVIRONMENT.globals['stripe_key'] = STRIPE_PUBLISHABLE_KEY
+JINJA2_ENVIRONMENT.globals['mixpanel_token'] = MIXPANEL_TOKEN
 
 MAILGUN_API_KEY = environment.get_unicode(unicode("MAILGUN_API_KEY"))
 MAILGUN_DOMAIN = environment.get_unicode(unicode("MAILGUN_DOMAIN"))

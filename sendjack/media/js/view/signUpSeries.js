@@ -15,12 +15,13 @@ define(
 
             //modules
             'event',
+            'util/track',
             'view/customer',
             'view/instance'
 
             //jquery ui
         ],
-        function ($, Backbone, event, customer, instance) {
+        function ($, Backbone, event, track, customer, instance) {
 
 
 var SignUpSeriesContent = Backbone.View.extend({
@@ -38,7 +39,9 @@ var SignUpSeriesContent = Backbone.View.extend({
         var instanceModel = instanceView.model;
 
         customerModel.on('change:id', function (model) {
-            instanceModel.set('customer_id', model.get('id'));
+            var id = model.get('id');
+            var email = model.get('email');
+            instanceModel.set('customer_id', id);
         });
 
         // remove the pages so we can show them one by one
@@ -59,6 +62,8 @@ var SignUpSeriesContent = Backbone.View.extend({
         customerModel.once(event.SAVE, this.render, this);
         instanceModel.once(event.SAVE, this.render, this);
         this.render();
+
+        track.viewPage(window.location.pathname);
     },
 
     events: function () {
@@ -109,7 +114,7 @@ function SignUpCustomerView(attributes, options) {
         initialize: function (attributes, options) {
             CustomerView.prototype.initialize.call(this, attributes, options);
 
-            this.model.on('change:stripe_token', this.save, this);
+            this.model.on('change:stripe_token', this.onAttributeChange, this);
         },
 
         addRequiredValidationRules: function () {
@@ -120,6 +125,10 @@ function SignUpCustomerView(attributes, options) {
                     email: 'required'
                 }
             });
+        },
+
+        onAttributeChange: function (model, value, options) {
+            this.save();
         }
     });
 

@@ -29,8 +29,12 @@ Stripe.setPublishableKey(apiKey);
  * Save Credit Card with Stripe.
  */
 var payment = (function () {
+    var that = {};
 
-    this.saveCreditCard = function (
+    /**
+     * Convert credit card data to Stripe token and save it.
+     */
+    that.saveCreditCard = function (
             number,
             cvc,
             expMonth,
@@ -47,7 +51,10 @@ var payment = (function () {
                 responseFunction);
     };
 
-    this.getTokenFromStripeResponse = function (status, response) {
+    /**
+     * Return Stripe token.
+     */
+    that.getTokenFromStripeResponse = function (status, response) {
         var token = null;
         if (response.error) {
             console.log('Stripe response error:', response.error.message);
@@ -58,7 +65,7 @@ var payment = (function () {
         return token;
     };
 
-    return this;
+    return that;
 })();
 
 return payment;

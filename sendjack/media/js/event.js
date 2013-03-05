@@ -8,6 +8,7 @@ define([], function () {
 
 
 var event = {
+    CREATE: 'create',
     SAVE: 'save'
 };
 
