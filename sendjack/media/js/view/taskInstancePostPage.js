@@ -16,25 +16,27 @@ define(
             'backbone',
 
             // modules
+            'event',
+            'util/track',
             'view/instance',
             'view/customer',
             'view/payment'
 
             // jquery ui
         ],
-        function ($, Backbone, instance, customer, payment) {
+        function ($, Backbone, event, track, instance, customer, payment) {
 
 
 var TaskInstancePostPage = Backbone.View.extend({
 
     $currGrid: null,
-    customerView: null,
-    creditCardView: null,
     taskInstanceView: null,
+    customerView: null,
 
     initialize: function () {
         this.setElement('.task-instance-post-page');
 
+        // the TaskInstancePostView will handle test v control.
         this.taskInstanceView = TaskInstancePostView();
 
         // wait until after the instance data is fetched to grab customer id.
@@ -43,18 +45,36 @@ var TaskInstancePostPage = Backbone.View.extend({
 
             // Create the Customer View with the customer_id
             var customerID = model.get('customer_id');
-            that.customerView = customer.CustomerView({model_id: customerID});
+            that.customerView = PostCustomerView({model_id: customerID});
 
             // Create the credit card view with the Customer Model
             var $creditCard = that.$el.find('#credit-card-grid');
-            that.creditCardView = payment.CreditCardView(
+            var creditCardView = payment.CreditCardView(
                     {
                         el: $creditCard,
                         customerModel: that.customerView.model
                     });
 
-            //customerView.model.on('change:stripe_token', that.render, that);
+            // when credit card view is saved then update customer view
+            // credit card isn't model backed so the event is tied to the view
+            creditCardView.once(
+                    event.SAVE,
+                    that.onCreditCardTokenReceived,
+                    that);
+
+            // once the customer is pulled from server show the correct fields.
+            that.customerView.model.once(
+                    'change:control_group',
+                    function (model) {
+                        var isControlGroup = model.get('control_group');
+                        that.taskInstanceView.setupControlAndTestFields(
+                                isControlGroup);
+                    },
+                    that);
         });
+
+        // when task instance view is saved then render next page
+        this.taskInstanceView.model.once(event.SAVE, this.render, this);
 
           
         // remove the grids so we can show them one by one
@@ -72,20 +92,23 @@ var TaskInstancePostPage = Backbone.View.extend({
         });
 
 
+        // TODO: add support for inserting new step fields on focus.
+
         this.render();
+
+        track.viewPage(window.location.pathname);
     },
 
     events: function () {
         var _events = {};
 
-        _events['click #credit-card-grid .submit-button'] = 'save';
-        _events['click .submit-button'] = 'render';
+        //_events['click #task-insance-grid .submit-button'] = 'renderCreditCard';
+        //_events['click #credit-card-grid .submit-button'] = 'renderThankYou';
 
         return _events;
     },
 
     render: function () {
-        console.log('render');
         this.$el.show();
         if (this.$currGrid !== null) {
             this.$currGrid.hide();
@@ -97,42 +120,139 @@ var TaskInstancePostPage = Backbone.View.extend({
         return this;
     },
 
-    save: function () {
-        this.creditCardView.save();
-        this.taskInstanceView.setStatus("created");
-        this.taskInstanceView.save();
-    }
+    onCreditCardTokenReceived: function (model, options) {
+        // when customer view is saved then update task view
+        this.customerView.model.once(
+                event.SAVE,
+                this.onCreditCardAdded,
+                this);
 
+        this.customerView.save();
+    },
+
+    onCreditCardAdded: function (model, options) {
+        var taskInstanceModel = this.taskInstanceView.model;
+
+        track.addCreditCard(taskInstanceModel.get('price'));
+
+        taskInstanceModel.set('status', 'created');
+        taskInstanceModel.once(event.SAVE, this.onCreatedTask, this);
+        this.taskInstanceView.save();
+    },
+
+    onCreatedTask: function (model, options) {
+        track.postTask(model.get('id'), model.get('price'));
+        this.render();
+    }
 });
 
+
 var TaskInstanceView = instance.getTaskInstanceViewClass();
-function TaskInstancePostView() {
+function TaskInstancePostView(attributes, options) {
     var TaskInstancePostViewClass = TaskInstanceView.extend({
 
-        initialize: function () {
-            TaskInstanceView.prototype.initialize.call(this);
-           
-            // TODO: makea a list of disabled fields
-            this.$el.find('.value[name=customer_title]').attr('disabled', 'disabled');
-            this.$el.find('.value[name=customer_description]').attr('disabled', 'disabled');
-            this.$el.find('.value[name=deadline_ts]').attr('disabled', 'disabled');
-            this.$el.find('.value[name=price]').attr('disabled', 'disabled');
+        setupControlAndTestFields: function (isControlGroup) {
+            if (isControlGroup) {
+                console.log("control group!");
+                this.initializeControlFields();
+            } else {
+                this.initializeTestFields();
+            }
         },
 
-        getBindings: function () {
-            return {
-                customer_title: '[name=customer_title]',
-                customer_description: '[name=customer_description]',
-                deadline_ts: {
-                    selector: '[name=deadline_ts]',
-                    converter: this.tsConverter
-                },
-                price: '[name=price]'
-            };
+        initializeControlFields: function () {
+            this.initializeShownControlFields();
+            this.initializeDisabledControlFields();
+        },
+
+        initializeTestFields: function () {
+            this.initializeShownTestFields();
+            this.initializeDisabledTestFields();
+        },
+
+        initializeShownControlFields: function () {
+            this.$el.find('.field.title').hide();
+            this.$el.find('.steps').hide();
+            this.$el.find('.step').hide();
+
+            // TODO: put these in a superclass TaskInstancePostView.
+            this.$el.find('.notes').hide();
+            this.$el.find('.custom-properties').hide();
+            this.$el.find('.custom-property').hide();
+            this.$el.find('.output-type').hide();
+            this.$el.find('.output-method').hide();
+            this.$el.find('.category-tags').hide();
+            this.$el.find('.industry-tags').hide();
+            this.$el.find('.skill-tags').hide();
+            this.$el.find('.equipment-tags').hide();
+        },
+
+        initializeDisabledControlFields: function () {
+            this.$el.find('[name=customer_title]')
+                    .attr('disabled', 'disabled');
+            this.$el.find('[name=customer_description]')
+                    .attr('disabled', 'disabled');
+
+            // TODO: put these in a superclass TaskInstancePostView.
+            //this.$el.find('[name=notes]').attr('disabled', 'disabled');
+            this.$el.find('[name=deadline_ts]').attr('disabled', 'disabled');
+            this.$el.find('[name=price]').attr('disabled', 'disabled');
+        },
+
+        initializeShownTestFields: function () {
+            this.$el.find('.customer-title').hide();
+            this.$el.find('.customer-description').hide();
+
+            // TODO: put these in a superclass TaskInstancePostView.
+            this.$el.find('.notes').hide();
+            this.$el.find('.custom-properties').hide();
+            this.$el.find('.custom-property').hide();
+            this.$el.find('.output-type').hide();
+            this.$el.find('.output-method').hide();
+            this.$el.find('.category-tags').hide();
+            this.$el.find('.industry-tags').hide();
+            this.$el.find('.skill-tags').hide();
+            this.$el.find('.equipment-tags').hide();
+        },
+
+        initializeDisabledTestFields: function () {
+            this.$el.find('[name=title]').attr('disabled', 'disabled');
+            // TODO: can hidden inputs be disabled?
+            //this.$el.find('[name=steps]').attr('disabled', 'disabled');
+            this.$el.find('[name=step]').attr('disabled', 'disabled');
+
+            // TODO: put these in a superclass TaskInstancePostView.
+            //this.$el.find('[name=notes]').attr('disabled', 'disabled');
+            this.$el.find('[name=deadline_ts]').attr('disabled', 'disabled');
+            this.$el.find('[name=price]').attr('disabled', 'disabled');
+        }
+
+    });
+
+    return new TaskInstancePostViewClass(attributes, options);
+}
+
+
+var CustomerView = customer.getCustomerViewClass();
+function PostCustomerView(attributes, options) {
+    var PostCustomerViewClass = CustomerView.extend({
+        
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    first_name: 'required',
+                    last_name: 'required',
+                    email: 'required',
+                    card_number: 'required',
+                    card_expiry_month: 'required',
+                    card_expiry_year: 'required',
+                    cvc: 'required'
+                }
+            });
         }
     });
 
-    return new TaskInstancePostViewClass();
+    return new PostCustomerViewClass(attributes, options);
 }
 
 return {

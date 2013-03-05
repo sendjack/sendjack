@@ -14,12 +14,14 @@ define(
             'backbone',
 
             //modules
+            'event',
+            'util/track',
             'view/customer',
             'view/instance'
 
             //jquery ui
         ],
-        function ($, Backbone, customer, instance) {
+        function ($, Backbone, event, track, customer, instance) {
 
 
 var SignUpSeriesContent = Backbone.View.extend({
@@ -30,14 +32,16 @@ var SignUpSeriesContent = Backbone.View.extend({
     initialize: function () {
         this.setElement('.alt-content');
 
-        var customerView = customer.CustomerView();
-        var instanceCreateView = TaskInstanceCreateView();
+        var customerView = SignUpCustomerView();
+        var instanceView = TaskInstanceSaveView();
 
         var customerModel = customerView.model;
-        var instanceModel = instanceCreateView.model;
+        var instanceModel = instanceView.model;
 
         customerModel.on('change:id', function (model) {
-            instanceModel.set('customer_id', model.get('id'));
+            var id = model.get('id');
+            var email = model.get('email');
+            instanceModel.set('customer_id', id);
         });
 
         // remove the pages so we can show them one by one
@@ -55,10 +59,11 @@ var SignUpSeriesContent = Backbone.View.extend({
             that.$el.append($page);
         });
 
-        customerModel.on('change:id', this.render, this);
-        instanceModel.on('change:id', this.render, this);
-
+        customerModel.once(event.SAVE, this.render, this);
+        instanceModel.once(event.SAVE, this.render, this);
         this.render();
+
+        track.viewPage(window.location.pathname);
     },
 
     events: function () {
@@ -81,25 +86,54 @@ var SignUpSeriesContent = Backbone.View.extend({
     }
 });
 
-var TaskInstanceView = instance.getTaskInstanceViewClass();
-function TaskInstanceCreateView() {
-    var TaskInstanceCreateViewClass = TaskInstanceView.extend({
 
-        getBindings: function () {
-            return {
-                customer_title: '[name=customer_title]',
-                customer_description: '[name=customer_description]',
-                deadline_ts: {
-                    selector: '[name=deadline_ts]',
-                    converter: this.tsConverter
+var TaskInstanceView = instance.getTaskInstanceViewClass();
+function TaskInstanceSaveView(attributes, options) {
+    var TaskInstanceSaveViewClass = TaskInstanceView.extend({
+
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    customer_title: 'required',
+                    customer_description: 'required',
+                    deadline_ts: 'required'
                 }
-            };
+            });
+        }
+
+    });
+
+    return new TaskInstanceSaveViewClass(attributes, options);
+}
+
+
+var CustomerView = customer.getCustomerViewClass();
+function SignUpCustomerView(attributes, options) {
+    var SignUpCustomerViewClass = CustomerView.extend({
+
+        initialize: function (attributes, options) {
+            CustomerView.prototype.initialize.call(this, attributes, options);
+
+            this.model.on('change:stripe_token', this.onAttributeChange, this);
+        },
+
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    first_name: 'required',
+                    last_name: 'required',
+                    email: 'required'
+                }
+            });
+        },
+
+        onAttributeChange: function (model, value, options) {
+            this.save();
         }
     });
 
-    return new TaskInstanceCreateViewClass();
+    return new SignUpCustomerViewClass(attributes, options);
 }
-
 
 return {
     SignUpSeries: function () {

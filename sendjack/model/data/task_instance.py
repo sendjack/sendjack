@@ -81,6 +81,7 @@ class TaskInstanceModel(TaskModel, CRUD):
 
     customer_title = Column(String)
     customer_description = Column(String)
+    notes = Column(String)
 
     status = Column(
             Enum(

@@ -368,21 +368,31 @@ li {
         width: 100%;
         clear: both;
 
-        .field {
-
+        .field, .sub-field {
             .key {
                 float: left;
-                width: 40%;
+                width: 30%;
             }
 
-            .value {
+            .head-key {
                 float: left;
-                width: 60%;
+                width: 100%;
+            }
+
+            .sub-key {
+                float: left;
+                width: 30%;
+                text-align: right;
+                padding-right: @textPadding;
+            }
+
+            .value, .sub-value {
+                float: left;
+                width: 70%;
             }
         }
     }
 }
-
 
 /***********************************************************
 * CONTENT - MAIN STYLE
@@ -470,11 +480,11 @@ li {
             .titleText();
         }
 
-        .key {
+        .key, .head-key, .sub-key {
             .labelText();
         }
 
-        .value {
+        .value, .sub-value {
             color: @blue;
         }
     }
@@ -487,11 +497,11 @@ li {
             .contrastTitleText();
         }
 
-        .key {
+        .key, .head-key, .sub-key {
             .contrastLabelText();
         }
 
-        .value {
+        .value, .sub-value {
         }
     }
 
@@ -515,9 +525,9 @@ li {
     }
 
     /***********************************************************
-    * MAIN - TASK INSTANCE POST PAGE
+    * MAIN - TASK INSTANCE POST PAGE and TASK INSTANCE APPROVE PAGE
     ************************************************************/
-    .task-instance-post-page {
+    .task-instance-post-page, .task-instance-approve-page {
         display: none;
 
         section {
@@ -554,6 +564,12 @@ li {
 
         }
 
+        .paragraph {
+            .contrastTitleText;
+            margin-top: @buttonPadding;
+            margin-bottom: @buttonPadding;
+        }
+
         .field-list {
             margin-top: @buttonPadding;
             margin-bottom: @buttonPadding;
@@ -562,7 +578,7 @@ li {
 
         .key {
             .contrastNormalText();
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
 
         .value {
@@ -573,7 +589,6 @@ li {
         .task-instance-grid {
             .field-list {
 
-
                 .key {
                     width: 20%;
                 }
@@ -581,8 +596,9 @@ li {
                     width: 80%;
                 }
 
-                .value[name=customer_description] {
-                    margin-left: -18px;
+                .key, .value, .sub-value {
+                    float: none;
+                    display: block;
                 }
             }
 

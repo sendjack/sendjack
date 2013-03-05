@@ -3,21 +3,30 @@
  *
  * @exports model.instance
  *
- * @requires Backbone
+ * @requires model.base
  */
 define(
         [
             // libraries
-            'backbone'
 
             // modules
+            'util/track',
+            'model/base'
+
             // jqueryui
         ],
-        function(Backbone) {
+        function(track,base) {
 
 
-var TaskInstanceModel = Backbone.Model.extend({
-    urlRoot: '/a/task'
+// Get access to the superclass without instantiating an instance.
+var BaseModel = base.getBaseModelClass();
+
+var TaskInstanceModel = BaseModel.extend({
+    urlRoot: '/a/task',
+
+    onCreate: function (model, options) {
+        track.submitTask(model.get('id'));
+    }
 });
 
 return {

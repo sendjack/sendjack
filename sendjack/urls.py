@@ -15,6 +15,7 @@ from handlers.sync.task_template import TaskTemplateSyncHandler
 from handlers.crud.customer import CustomerCRUDHandler
 from handlers.crud.task_instance import TaskInstanceCRUDHandler
 from handlers.crud.task_template import TaskTemplateCRUDHandler
+from handlers.crud.comment import CommentCRUDHandler
 
 
 url_patterns = [
@@ -31,4 +32,5 @@ url_patterns = [
         (r"/a/customer/?([0-9]+)?", CustomerCRUDHandler),
         (r"/a/task/?([0-9]+)?", TaskInstanceCRUDHandler),
         (r"/a/template/?([0-9]+)?", TaskTemplateCRUDHandler),
+        (r"/a/comment/?([0-9]+)?", CommentCRUDHandler),
         ]

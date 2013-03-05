@@ -22,18 +22,27 @@ define(
         function ($, base, template) {
 
 
-// Get access to the superclass without instantiating an instance.
-var ObjectView = base.getObjectViewClass();
+var TaskView = base.getTaskViewClass();
 
-var TaskTemplateView = ObjectView.extend({
+var TaskTemplateView = TaskView.extend({
 
     initialize: function () {
-        ObjectView.prototype.initialize.call(
+        TaskView.prototype.initialize.call(
                 this,
                 '#template',
                 'template',
                 template.TaskTemplateModel());
+    },
+
+    editBindings: function (bindings) {
+        // TODO: maybe move this to TaskView?
+
+        bindings.steps.converter = this.convertJSON;
+        bindings.custom_properties.converter = this.convertJSON;
+
+        return bindings;
     }
+
 });
 
 return {

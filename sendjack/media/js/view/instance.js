@@ -4,6 +4,8 @@
  * @exports view.instance
  *
  * @requires $
+ * @requires Backbone
+ * @requires ModelBinder
  * @requires view.base
  * @requires model.instance
  *
@@ -12,6 +14,8 @@ define(
         [
             //libraries
             'jquery',
+            'backbone',
+            'modelbinder',
 
             //modules
             'view/base',
@@ -19,44 +23,43 @@ define(
 
             //jquery ui
         ],
-        function ($, base, instance) {
+        function ($, Backbone, ModelBinder, base, instance) {
 
 
-var ObjectView = base.getObjectViewClass();
+var TaskView = base.getTaskViewClass();
 
-var TaskInstanceView = ObjectView.extend({
+var TaskInstanceView = TaskView.extend({
 
     initialize: function () {
-        ObjectView.prototype.initialize.call(
+        TaskView.prototype.initialize.call(
                 this,
                 '#instance',
                 'task',
-                instance.TaskInstanceModel(),
-                this.getBindings());
+                instance.TaskInstanceModel());
     },
 
-    getBindings: function () {
-        return null;
+    editBindings: function (bindings) {
+        // TODO: maybe move this to TaskView?
+
+        bindings.steps.converter = this.convertJSON;
+        bindings.custom_properties.converter = this.convertJSON;
+        bindings.deadline_ts.converter = this.convertDeadline;
+
+        return bindings;
     },
 
-    tsConverter: function (direction, value) {
-        var converted_ts;
-        if (direction === 'ViewToModel') {
-            var view_date = new Date(value);
-            converted_ts = view_date.toISOString();
-        } else if (direction === 'ModelToView') {
-            var model_date = new Date(value);
-            converted_ts = model_date.toLocaleDateString();
-        } else {
-            console.log('what the hell');
+    convertDeadline: function (direction, value) {
+        var converted;
+
+        if (direction === Backbone.ModelBinder.Constants.ViewToModel) {
+            converted = (new Date(value)).toISOString();
+        } else if (direction === Backbone.ModelBinder.Constants.ModelToView) {
+            converted = (new Date(value)).toLocaleDateString();
         }
 
-        return converted_ts;
-    },
-
-    setStatus: function (status) {
-        this.model.set('status', status);
+        return converted;
     }
+
 });
 
 return {
@@ -71,4 +74,3 @@ return {
 
 
 });
-

@@ -132,40 +132,86 @@ class NewTaskGrid(RightGrid):
 class TaskInstanceView(ObjectView):
 
     TASK_INSTANCE_VIEW = "task-instance-view"
-    SUBMIT_TEXT = "Post Task"
     TASK_INSTANCE_ID = "instance"
 
-    TASK_TITLE_PLACEHOLDER = "Task Title"
-    TASK_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
-    TASK_DEADLINE_PLACEHOLDER = "06/31/2013"
+    # names
+    CUSTOMER_TITLE_NAME = "customer_title"
+    CUSTOMER_DESCRIPTION_NAME = "customer_description"
+    TITLE_NAME = "title"
+    STEPS_NAME = "steps"
+    CUSTOM_PROPERTIES_NAME = "custom_properties"
+    OUTPUT_TYPE_NAME = "output_type"
+    OUTPUT_METHOD_NAME = "output_method"
+    DEADLINE_NAME = "deadline_ts"
+    PRICE_NAME = "price"
+    CATEGORY_TAGS_NAME = "category_tags"
+    INDUSTRY_TAGS_NAME = "industry_tags"
+    SKILL_TAGS_NAME = "skill_tags"
+    EQUIPMENT_TAGS_NAME = "equipment_tags"
 
-    TASK_TITLE = "customer_title"
-    TASK_DESCRIPTION = "customer_description"
-    TASK_DEADLINE = "deadline_ts"
+    # classes
+    CUSTOMER_TITLE_CLASS = "customer-title"
+    CUSTOMER_DESCRIPTION_CLASS = "customer-description"
+    DEADLINE_CLASS = "deadline"
 
+    # placeholder values
+    CUSTOMER_TITLE_PLACEHOLDER = "Task Title"
+    CUSTOMER_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
+    DEADLINE_PLACEHOLDER = "06/31/2013"
+
+    TEXTAREA_DEFAULT_ROWS = 4
+    SUBMIT_TEXT = "Post Task"
 
     def __init__(self):
         super(TaskInstanceView, self).__init__(self.TASK_INSTANCE_ID)
         self.append_class(self.TASK_INSTANCE_VIEW)
 
-        task_title = TextInput(self.TASK_TITLE)
-        task_description = Textarea(self.TASK_DESCRIPTION)
-        task_deadline = DatePicker(self.TASK_DEADLINE)
+        # assemble customer title
+        customer_title = TextInput(self.CUSTOMER_TITLE_NAME)
+        customer_title.append_class(self.CUSTOMER_TITLE_CLASS)
+        customer_title.set_placeholder(self.CUSTOMER_TITLE_PLACEHOLDER)
+
+        # assemble customer description
+        customer_description = Textarea(self.CUSTOMER_DESCRIPTION_NAME)
+        customer_description.append_class(self.CUSTOMER_DESCRIPTION_CLASS)
+        customer_description.set_placeholder(
+                self.CUSTOMER_DESCRIPTION_PLACEHOLDER)
+        customer_description.set_rows(self.TEXTAREA_DEFAULT_ROWS)
+
+        # assemble hidden title, steps, properties inputs
+        title = HiddenInput(self.TITLE_NAME)
+        steps = HiddenInput(self.STEPS_NAME)
+        custom_properties = HiddenInput(self.CUSTOM_PROPERTIES_NAME)
+        output_type = HiddenInput(self.OUTPUT_TYPE_NAME)
+        output_method = HiddenInput(self.OUTPUT_METHOD_NAME)
+
+        # assemble deadline
+        deadline = DatePicker(self.DEADLINE_NAME)
+        deadline.append_class(self.DEADLINE_CLASS)
+        deadline.set_placeholder(self.DEADLINE_PLACEHOLDER)
+
+        # assemble hidden price, tags inputs
+        price = HiddenInput(self.PRICE_NAME)
+        category_tags = HiddenInput(self.CATEGORY_TAGS_NAME)
+        industry_tags = HiddenInput(self.INDUSTRY_TAGS_NAME)
+        skill_tags = HiddenInput(self.SKILL_TAGS_NAME)
+        equipment_tags = HiddenInput(self.EQUIPMENT_TAGS_NAME)
+
         submit = SubmitButton(self.SUBMIT_TEXT)
 
-        task_title.append_class(self.TASK_TITLE)
-        task_description.append_class(self.TASK_DESCRIPTION)
-        task_deadline.append_class(self.TASK_DEADLINE)
-
-        task_title.set_placeholder(self.TASK_TITLE_PLACEHOLDER)
-        task_description.set_placeholder(self.TASK_DESCRIPTION_PLACEHOLDER)
-        task_deadline.set_placeholder(self.TASK_DEADLINE_PLACEHOLDER)
-
-        task_description.set_rows(4)
-
-        self.append_child(task_title)
-        self.append_child(task_description)
-        self.append_child(task_deadline)
+        self.append_child(customer_title)
+        self.append_child(customer_description)
+        self.append_child(title)
+        self.append_child(steps)
+        self.append_child(custom_properties)
+        self.append_child(output_type)
+        self.append_child(output_method)
+        self.append_child(deadline)
+        self.append_child(price)
+        self.append_child(category_tags)
+        self.append_child(industry_tags)
+        self.append_child(skill_tags)
+        self.append_child(equipment_tags)
         self.append_child(submit)
 
 
