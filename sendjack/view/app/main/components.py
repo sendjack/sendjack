@@ -56,6 +56,17 @@ class IDField(Field):
         self.append_class(self.CLASS)
 
 
+class TemplateField(Field):
+
+    LABEL = unicode("Template")
+    NAME = unicode("template_id")
+    CLASS = unicode("template-id")
+
+    def __init__(self, value=""):
+        super(TemplateField, self).__init__(self.LABEL, self.NAME, value)
+        self.append_class(self.CLASS)
+
+
 class CreatorField(Field):
 
     LABEL = unicode("Creator")

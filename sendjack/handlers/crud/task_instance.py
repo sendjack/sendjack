@@ -58,32 +58,22 @@ class TaskInstanceCRUDHandler(CRUDHandler):
             # created. If so, it might be appropriate to do nothing, since the
             # created-to-posted transition would contact the customer.
             pass
+
         elif self._is_update_request():
             # the task wasn't just created, but rather a change was made
             # without advancing it to the processed state.
-            if self._model.template_id:
-                # TODO: figure out how to skip this step when
-                # self._model.template_id was not changed by this request.
 
+            # TODO: get the diff and check that instead of self._model.
+            if self._model.template_id:
                 # TODO: write copy() into model.data.crud or
                 # model.data.task_instance. if this isn't the right call, then
                 # at least programmatically get the common columns to construct
                 # the fields dict below.
+                self._model = self._copy_from_task_template()
 
-                # copy task template fields into this task instance
-                task_template = TaskTemplate.read(self._model.template_id)
-                fields = {
-                        "title": task_template.title,
-                        "steps": task_template.steps,
-                        "custom_properties": task_template.custom_properties,
-                        "output_type": task_template.output_type,
-                        "output_method": task_template.output_method,
-                        "category_tags": task_template.category_tags,
-                        "industry_tags": task_template.industry_tags,
-                        "skill_tags": task_template.skill_tags,
-                        "equipment_tags": task_template.equipment_tags,
-                        }
-                self._model = TaskInstance.update(self._model.id, fields)
+            #if self._model.price:
+            #    # TODO: add a second button to be more clear about this.
+            #    self._change_state("processed")
 
 
     def _trigger_processed_action(self):
@@ -141,3 +131,29 @@ class TaskInstanceCRUDHandler(CRUDHandler):
 
     def _trigger_canceled_action(self):
         pass
+
+
+    def _copy_from_task_template(self):
+        """Copy common TaskTemplate fields into this TaskInstance."""
+        # TODO: figure out how to skip this step when
+        # self._model.template_id was not changed by this request.
+
+        task_template = TaskTemplate.read(self._model.template_id)
+
+        fields = {
+                "title": task_template.title,
+                "steps": task_template.steps,
+                "custom_properties": task_template.custom_properties,
+                "output_type": task_template.output_type,
+                "output_method": task_template.output_method,
+                "category_tags": task_template.category_tags,
+                "industry_tags": task_template.industry_tags,
+                "skill_tags": task_template.skill_tags,
+                "equipment_tags": task_template.equipment_tags,
+                }
+
+        return TaskInstance.update(self._model.id, fields)
+
+
+    def _change_state(self, to_status):
+        return TaskInstance.update(self._model.id, {"status": to_status})

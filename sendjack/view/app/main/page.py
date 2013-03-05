@@ -13,8 +13,9 @@ from view.app.base.components import FieldList, Grid, ObjectView, Title
 from view.app.base.components import Field, Paragraph
 
 from components import NormalSection, ContrastSection, TitledGrid
-from components import IDField, CustomerTitleField, CustomerDescriptionField
+from components import IDField, TemplateField
 #from components import CreatorField
+from components import CustomerTitleField, CustomerDescriptionField
 from components import TitleField, StepsField, StepField, DeadlineField
 from components import CustomPropertiesField, CustomPropertyField, NotesField
 from components import PriceField, OutputTypeField, OutputMethodField
@@ -224,6 +225,7 @@ class TaskInstanceGrid(Grid):
         welcome_div = Div()
         welcome_div.set_text(self.WELCOME_TEXT)
         fields = [
+                TemplateField(),
                 CustomerTitleField(),
                 CustomerDescriptionField(),
                 TitleField(),
