@@ -39,6 +39,14 @@ var CustomerView = ObjectView.extend({
             this.model.set('status', $status.val());
         }
 
+        if (this.model.isNew()) {
+            var isControlGroup = Math.floor(Math.random() * 2);
+            if (isControlGroup) {
+                this.model.set('control_group', true);
+            } else {
+                this.model.set('control_group', false);
+            }
+        }
     },
 
     addTypeCheckingValidationRules: function () {
