@@ -171,11 +171,12 @@ function TaskInstancePostView(attributes, options) {
         },
 
         initializeShownControlFields: function () {
-            this.$el.find('.title').hide();
+            this.$el.find('.field.title').hide();
             this.$el.find('.steps').hide();
             this.$el.find('.step').hide();
 
             // TODO: put these in a superclass TaskInstancePostView.
+            this.$el.find('.notes').hide();
             this.$el.find('.custom-properties').hide();
             this.$el.find('.custom-property').hide();
             this.$el.find('.output-type').hide();
@@ -193,7 +194,7 @@ function TaskInstancePostView(attributes, options) {
                     .attr('disabled', 'disabled');
 
             // TODO: put these in a superclass TaskInstancePostView.
-            this.$el.find('[name=notes]').attr('disabled', 'disabled');
+            //this.$el.find('[name=notes]').attr('disabled', 'disabled');
             this.$el.find('[name=deadline_ts]').attr('disabled', 'disabled');
             this.$el.find('[name=price]').attr('disabled', 'disabled');
         },
@@ -203,6 +204,7 @@ function TaskInstancePostView(attributes, options) {
             this.$el.find('.customer-description').hide();
 
             // TODO: put these in a superclass TaskInstancePostView.
+            this.$el.find('.notes').hide();
             this.$el.find('.custom-properties').hide();
             this.$el.find('.custom-property').hide();
             this.$el.find('.output-type').hide();
@@ -220,7 +222,7 @@ function TaskInstancePostView(attributes, options) {
             this.$el.find('[name=step]').attr('disabled', 'disabled');
 
             // TODO: put these in a superclass TaskInstancePostView.
-            this.$el.find('[name=notes]').attr('disabled', 'disabled');
+            //this.$el.find('[name=notes]').attr('disabled', 'disabled');
             this.$el.find('[name=deadline_ts]').attr('disabled', 'disabled');
             this.$el.find('[name=price]').attr('disabled', 'disabled');
         }
