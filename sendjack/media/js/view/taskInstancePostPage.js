@@ -69,8 +69,7 @@ var TaskInstancePostPage = Backbone.View.extend({
                     that.onCreditCardTokenReceived,
                     that);
 
-            // TODO FIXME XXX: why is this undefined?
-            var taskStatus = model.status;
+            var taskStatus = model.get('status');
 
             // once the customer is pulled from server show the correct fields.
             that.customerView.model.once(
@@ -163,13 +162,10 @@ function TaskInstancePostView(attributes, options) {
 
         setupControlAndTestFields: function (isControlGroup, taskStatus) {
             if (isControlGroup) {
-                console.log("control group!");
                 this.initializeControlFields(taskStatus);
             } else {
-                console.log("test group!");
                 this.initializeTestFields(taskStatus);
             }
-            console.log(taskStatus);
         },
 
         initializeControlFields: function (taskStatus) {
