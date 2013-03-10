@@ -16,15 +16,29 @@ define(
             //modules
             'event',
             'util/track',
-            'view/object/customer',
-            'view/object/instance'
+            'view/page/createInstance',
+            'view/page/createCustomer',
+            'view/page/createInstanceThanks',
+            'view/item/customer',
+            'view/item/instance'
 
             //jquery ui
         ],
-        function ($, Backbone, event, track, customer, instance) {
+        function (
+                $,
+                Backbone,
+                event,
+                track,
+                createInstance,
+                createCustomer,
+                createInstanceThanks,
+                customer,
+                instance) {
 
 
-var CreateInstanceSeriesView = Backbone.View.extend({
+var CreateInstanceController = Backbone.Marionette.Controller.extend({
+
+    region: null,
 
     customerView: null,
     instanceView: null,
@@ -32,22 +46,24 @@ var CreateInstanceSeriesView = Backbone.View.extend({
     instanceModel: null,
 
     $currPage: null,
-    $instanceCreatePage: null,
-    $customerCreatePage: null,
-    $instanceCreateThanksPage: null,
+    createInstancePage: null,
+    createCustomerPage: null,
+    createInstanceThanksPage: null,
 
 
-    initialize: function (router) {
-        this.setElement('.alt-content');
+    initialize: function () {
+        this.region = new Backbone.Marionette.Region({
+            el: '.alt-content'
+        });
 
         this.initializeObjects();
         this.initializePages();
 
         this.customerModel.once(event.SAVE, function () {
-            router.navigate('/tasks/create/thanks', {trigger: true});
+            Backbone.history.navigate('/tasks/create/thanks', {trigger: true});
         });
         this.instanceModel.once(event.SAVE, function () {
-            router.navigate('/users/create', {trigger: true});
+            Backbone.history.navigate('/users/create', {trigger: true});
         });
     },
 
@@ -65,47 +81,40 @@ var CreateInstanceSeriesView = Backbone.View.extend({
     },
 
     initializePages: function () {
-        this.$instanceCreatePage = this.$el.find('#instance-create-page');
-        this.$customerCreatePage = this.$el.find('#customer-create-page');
-        this.$instanceCreateThanksPage = this.$el.find(
-                '#instance-create-thanks-page');
+        this.createInstancePage = createInstance.CreateInstancePageView();
+        this.createCustomerPage = createCustomer.CreateCustomerPageView();
+        this.createInstanceThanksPage = createInstanceThanks
+                .CreateInstanceThanksPageView();
 
         var pages = [
-            this.$instanceCreatePage,
-            this.$customerCreatePage,
-            this.$instanceCreateThanksPage
+            this.createInstancePage,
+            this.createCustomerPage,
+            this.createInstanceThanksPage
         ];
 
-        $.each(pages, function (index, $page) {
+        $.each(pages, function (index, view) {
             // $.show() and $.fadeIn() revert to the last display state.
-            $page.detach().css('display', 'block').hide();
+            view.$el.detach().css('display', 'block');
         });
     },
 
     transitionPages: function (newPage) {
-        // all this junk is necessary to fade the next page in.
-        if (this.$currPage) {
-            this.$currPage.detach();
-        }
-        this.$currPage = newPage;
-        this.$el.append(newPage);
-        newPage.fadeIn();
-
+        this.region.show(newPage);
         track.viewPage(window.location.pathname);
 
         return newPage;
     },
 
-    loadInstanceCreatePage: function () {
-        this.transitionPages(this.$instanceCreatePage);
+    loadCreateInstancePage: function () {
+        this.transitionPages(this.createInstancePage);
     },
 
-    loadCustomerCreatePage: function () {
-        this.transitionPages(this.$customerCreatePage);
+    loadCreateCustomerPage: function () {
+        this.transitionPages(this.createCustomerPage);
     },
 
-    loadInstanceCreateThanksPage: function () {
-        this.transitionPages(this.$instanceCreateThanksPage);
+    loadCreateInstanceThanksPage: function () {
+        this.transitionPages(this.createInstanceThanksPage);
     }
 });
 
@@ -141,6 +150,7 @@ function SignUpCustomerView(attributes, options) {
         },
 
         addRequiredValidationRules: function () {
+            console.log(this.$el);
             this.$el.validate({
                 rules: {
                     first_name: 'required',
@@ -158,16 +168,16 @@ function SignUpCustomerView(attributes, options) {
     return new SignUpCustomerViewClass(attributes, options);
 }
 
-/** Make sure CreateInstanceSeriesView is a singleton. */
-var createInstanceSeriesView = null;
+/** Make sure CreateInstanceController is a singleton. */
+var createInstanceController = null;
 
 return {
-    CreateInstanceSeriesView: function (router) {
-        if (createInstanceSeriesView === null) {
-            createInstanceSeriesView = new CreateInstanceSeriesView(router);
+    CreateInstanceController: function () {
+        if (createInstanceController === null) {
+            createInstanceController = new CreateInstanceController();
         }
 
-        return createInstanceSeriesView;
+        return createInstanceController;
     }
 };
 

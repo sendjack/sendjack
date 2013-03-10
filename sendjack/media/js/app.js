@@ -4,6 +4,7 @@
  * DEPENDENCIES:
  * 1. RequireJS: http://requirejs.org
  * 2. Backbone: http://backbonejs.org
+ * 3. Marionette: http://marionettejs.org
  *
  * CONVENTIONS:
  * 1. Douglas Crockford: http://javascript.crockford.com/code.html
@@ -17,20 +18,19 @@ require(
         [
             // libraries
             'jquery',
+            'backbone',
 
             // modules
             'util/track',
             'router',
 
-            // one-time instantiators
+            // plugins that need to be loaded first
             'jqueryui',
-            'validation'
+            'validation',
+            'marionette'
         ],
-        function ($, track, router) {
+        function ($, Backbone, track, router) {
 
-console.log($);
-console.log(track);
-console.log(router);
 
 /**
  * Initialize Object with superpowers per Crockford's recommendation.
@@ -47,24 +47,32 @@ var initializeObject = (function () {
 })();
 
 
-/**
- * Initialize Environment.
- */
+/** Initialize Environment. */
 var initializeEnvironment = (function () {
     // Make sure AJAX requests are not cached.
     $.ajaxSetup({cache: false});
 
+    // Turn off template loading for Marionette.
+    Backbone.Marionette.Renderer.render = function (template, data) {
+        return template;
+    };
+
 })();
 
 
-/**
- * Initialize Application.
- */
-var initializeApp = (function () {
-    $(document).ready(function () {
-        var appRouter = router.AppRouter();
-    });
-})();
+var sendjack = new Backbone.Marionette.Application();
 
+
+/** Add all the routers to the application. */
+sendjack.addInitializer(function (options) {
+    var createInstanceRouter = router.CreateInstanceRouter();
+    //var confirmInstanceRouter = router.ConfirmInstanceRouter();
+    //var approveInstanceRouter = router.ApproveInstanceRouter();
+
+    Backbone.history.start({pushState: true});
+});
+
+
+$(document).ready(function () {sendjack.start();});
 
 });

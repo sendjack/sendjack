@@ -14,7 +14,7 @@ define(
             'jquery',
 
             //modules
-            'view/object/base',
+            'view/item/base',
             'model/template'
 
             //jquery ui

@@ -1,5 +1,5 @@
 /**
- * Provide a router for async page changes.
+ * Provide routers.
  *
  * @exports router
  *
@@ -10,71 +10,87 @@
 define(
         [
             //libraries
-            'jquery',
-            'lodash',
             'backbone',
 
             //modules
-            'controller/createInstance'
+            'controller/createInstance',
+            'controller/confirmInstance',
+            'controller/approveInstance'
+
             //jquery ui
         ],
-        function ($, _, Backbone, createInstanceController) {
+        function (Backbone, createInstance, confirmInstance, approveInstance) {
 
 
-var AppRouter = Backbone.Router.extend({
+/** Every router has a single controller. */
+var createInstanceController = createInstance.CreateInstanceController();
+var confirmInstanceController = confirmInstance.ConfirmInstanceController();
+var approveInstanceController = approveInstance.ApproveInstanceController();
 
-    /** Initialize all non-page specific functionality. */
-    initialize: function () {
-        var datepicker = $('.datepicker').datepicker({minDate: '0'});
-        
-        // cancel form submissions
-        $('form button[type=submit]').click(function (event) {
-            event.preventDefault();
-        });
-    },
 
-    routes: {
-        'tasks/create': 'loadInstanceCreate',
-        'users/create': 'loadCustomerCreate',
-        'tasks/create/thanks': 'loadInstanceCreateThanks'
+var CreateInstanceRouter = Backbone.Marionette.AppRouter.extend({
 
-    },
+    controller: createInstanceController,
 
-    loadInstanceCreate: function () {
-        var controller = createInstanceController.CreateInstanceSeriesView(this);
-        controller.loadInstanceCreatePage();
-    },
-
-    loadCustomerCreate: function () {
-        var controller = createInstanceController.CreateInstanceSeriesView(this);
-        controller.loadCustomerCreatePage();
-    },
-
-    loadInstanceCreateThanks: function () {
-        var controller = createInstanceController.CreateInstanceSeriesView(this);
-        controller.loadInstanceCreateThanksPage();
+    appRoutes: {
+        'tasks/create': 'loadCreateInstancePage',
+        'users/create': 'loadCreateCustomerPage',
+        'tasks/create/thanks': 'loadCreateInstanceThanksPage'
     }
-
 });
 
-/** Make sure router is a singleton. */
-var appRouter = null;
+
+var ConfirmInstanceRouter = Backbone.Marionette.AppRouter.extend({
+
+    controller: confirmInstanceController,
+
+    appRoutes: {
+        'tasks/:id/confirm': '',
+        'users/:id/card': '',
+        'tasks/:id/confirm/thanks': ''
+    }
+});
+
+var ApproveInstanceRouter = Backbone.Marionette.AppRouter.extend({
+
+    controller: approveInstanceController,
+
+    appRoutes: {
+        'tasks/:id/approve': '',
+        'tasks/:id/approve/thanks': ''
+    }
+});
+
+/** Make sure the routers are singletons. */
+var createInstanceRouter = null;
+var confirmInstanceRouter = null;
+var approveInstanceRouter = null;
 
 return {
-    AppRouter: function () {
-        if (appRouter === null) {
-            appRouter = new AppRouter();
-            
-            var options = {
-                pushState: true
-            };
-
-            Backbone.history.start(options);
+    CreateInstanceRouter: function () {
+        if (createInstanceRouter === null) {
+            createInstanceRouter= new CreateInstanceRouter();
         }
 
-        return appRouter;
-    }
+        return createInstanceRouter;
+    },
 
+    ConfirmInstanceRouter: function () {
+        if (confirmInstanceRouter === null) {
+            confirmInstanceRouter= new ConfirmInstanceRouter();
+        }
+
+        return confirmInstanceRouter;
+    },
+
+    ApproveInstanceRouter: function () {
+        if (approveInstanceRouter === null) {
+            approveInstanceRouter= new ApproveInstanceRouter();
+        }
+
+        return approveInstanceRouter;
+    }
 };
+
 
 });

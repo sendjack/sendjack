@@ -12,7 +12,7 @@ define(
         [
             //libraries
             'jquery',
-            'lodash',
+            'underscore',
             'backbone',
 
             //modules

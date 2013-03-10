@@ -1,7 +1,7 @@
 /**
- * Provide a base class for object views.
+ * Provide a base class for item views.
  *
- * @exports view.base
+ * @exports view.item.base
  *
  * @requires $
  * @requires Lodash
@@ -13,7 +13,7 @@ define(
         [
             //libraries
             'jquery',
-            'lodash',
+            'underscore',
             'backbone',
             'modelbinder',
 
