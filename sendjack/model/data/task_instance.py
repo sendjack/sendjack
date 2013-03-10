@@ -27,14 +27,24 @@ class _TaskInstance(object):
         return "task_status"
 
     @constant
-    def SAVED(self):
-        """Task has been submitted to us but not processed yet."""
-        return "saved"
+    def NEW(self):
+        """Task is new, but a row exists, probably from a search query."""
+        return "new"
 
     @constant
     def CREATED(self):
-        """Task has been created but not yet posted to a vendor."""
+        """Task has been submitted to us but not processed yet."""
         return "created"
+
+    @constant
+    def PROCESSED(self):
+        """Task has been processed by us but not yet created for posting."""
+        return "processed"
+
+    @constant
+    def CONFIRMED(self):
+        """Task has been confirmed but not yet posted to a vendor."""
+        return "confirmed"
 
     @constant
     def POSTED(self):
@@ -85,8 +95,10 @@ class TaskInstanceModel(TaskModel, CRUD):
 
     status = Column(
             Enum(
-                TASK_INSTANCE.SAVED,
+                TASK_INSTANCE.NEW,
                 TASK_INSTANCE.CREATED,
+                TASK_INSTANCE.PROCESSED,
+                TASK_INSTANCE.CONFIRMED,
                 TASK_INSTANCE.POSTED,
                 TASK_INSTANCE.ASSIGNED,
                 TASK_INSTANCE.COMPLETED,
@@ -94,7 +106,7 @@ class TaskInstanceModel(TaskModel, CRUD):
                 TASK_INSTANCE.EXPIRED,
                 TASK_INSTANCE.CANCELED,
                 name=TASK_INSTANCE.TASK_STATUS),
-            default=TASK_INSTANCE.SAVED)
+            default=TASK_INSTANCE.NEW)
 
     deadline_ts = Column(SerializableDateTime)
     is_urgent = Column(Boolean)

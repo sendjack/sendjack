@@ -69,6 +69,7 @@ class CRUDHandler(BaseHandler):
         self._request_type = REQUEST_TYPE.CREATE
         self._pre_process_request()
 
+        # TODO: catch exceptions raised and handle failure gracefully.
         object_dict = self._get_request_body()
         self._model = self._model_class.create(object_dict)
 
@@ -84,6 +85,7 @@ class CRUDHandler(BaseHandler):
         # TODO: get parameters besides id generically?
         self._pre_process_request()
 
+        # TODO: catch exceptions raised and handle failure gracefully.
         self._model = self._model_class.read(id)
 
         self._post_process_request()
@@ -96,6 +98,7 @@ class CRUDHandler(BaseHandler):
         self._request_type = REQUEST_TYPE.UPDATE
         self._pre_process_request()
 
+        # TODO: catch exceptions raised and handle failure gracefully.
         object_dict = self._get_request_body()
         self._model = self._model_class.update(id, object_dict)
 
@@ -109,6 +112,7 @@ class CRUDHandler(BaseHandler):
         self._request_type = REQUEST_TYPE.DELETE
         self._pre_process_request()
 
+        # TODO: catch exceptions raised and handle failure gracefully.
         self._model = self._model_class.delete(id)
 
         self._post_process_request()
@@ -131,17 +135,17 @@ class CRUDHandler(BaseHandler):
         self.finish()
 
 
-    def _is_create(self):
+    def _is_create_request(self):
         return self._request_type == REQUEST_TYPE.CREATE
 
 
-    def _is_read(self):
+    def _is_read_request(self):
         return self._request_type == REQUEST_TYPE.READ
 
 
-    def _is_update(self):
+    def _is_update_request(self):
         return self._request_type == REQUEST_TYPE.UPDATE
 
 
-    def _is_delete(self):
+    def _is_delete_request(self):
         return self._request_type == REQUEST_TYPE.DELETE
