@@ -18,8 +18,8 @@ define(
             // modules
             'event',
             'util/track',
-            'view/instance',
-            'view/customer',
+            'view/object/instance',
+            'view/object/customer',
             'view/payment'
 
             // jquery ui

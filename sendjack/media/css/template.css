@@ -62,10 +62,10 @@ li{margin-bottom:5px;line-height:30px;}
 .alt-content .alt-section .right-grid{width:247px;margin-left:50px;float:left;}.alt-content .alt-section .right-grid .title{margin-bottom:15px;}
 .alt-content .alt-section .right-grid .contact-anchor{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:8px;letter-spacing:1px;color:#ffffff;width:100%;text-align:center;}
 .alt-content .alt-section .line{margin-bottom:16px;}
-.alt-content .sign-up-page{background-color:#25cadd;}.alt-content .sign-up-page .sign-up-grid .sign-up-title{width:247px;height:57px;background:url('/static/images/altSignUpTitle.png') transparent no-repeat;background-size:247px 57px;-moz-background-size:247px 57px;-webkit-background-size:247px 57px;-o-background-size:247px 57px;}
-.alt-content .sign-up-page .sign-up-grid .customer-view input.first_name{width:47%;float:left;}
-.alt-content .sign-up-page .sign-up-grid .customer-view input.last_name{width:47%;float:right;}
-.alt-content .sign-up-page .sign-up-grid .customer-view input.email{width:100%;}
-.alt-content .new-task-page{background-color:#00b7e9;}.alt-content .new-task-page .new-task-grid .new-task-title{width:225px;height:19px;background:url('/static/images/altNewTaskTitle.png') transparent no-repeat;background-size:225px 19px;-moz-background-size:225px 19px;-webkit-background-size:225px 19px;-o-background-size:225px 19px;}
-.alt-content .new-task-page .new-task-grid .task-instance-view input,.alt-content .new-task-page .new-task-grid .task-instance-view textarea{width:100%;}
-.alt-content .thank-you-page{background-color:#0088fe;}.alt-content .thank-you-page .thank-you-grid .thank-you-title{width:148px;height:30px;background:url('/static/images/altThankYouTitle.png') transparent no-repeat;background-size:148px 30px;-moz-background-size:148px 30px;-webkit-background-size:148px 30px;-o-background-size:148px 30px;}
+.alt-content #customer-create-page{background-color:#25cadd;}.alt-content #customer-create-page .sign-up-grid .sign-up-title{width:247px;height:57px;background:url('/static/images/altSignUpTitle.png') transparent no-repeat;background-size:247px 57px;-moz-background-size:247px 57px;-webkit-background-size:247px 57px;-o-background-size:247px 57px;}
+.alt-content #customer-create-page .sign-up-grid .customer-view input.first_name{width:47%;float:left;}
+.alt-content #customer-create-page .sign-up-grid .customer-view input.last_name{width:47%;float:right;}
+.alt-content #customer-create-page .sign-up-grid .customer-view input.email{width:100%;}
+.alt-content #instance-create-page{background-color:#00b7e9;}.alt-content #instance-create-page .new-task-grid .new-task-title{width:225px;height:19px;background:url('/static/images/altNewTaskTitle.png') transparent no-repeat;background-size:225px 19px;-moz-background-size:225px 19px;-webkit-background-size:225px 19px;-o-background-size:225px 19px;}
+.alt-content #instance-create-page .new-task-grid .task-instance-view input,.alt-content #instance-create-page .new-task-grid .task-instance-view textarea{width:100%;}
+.alt-content #instance-create-thanks-page{background-color:#0088fe;}.alt-content #instance-create-thanks-page .thank-you-grid .thank-you-title{width:148px;height:30px;background:url('/static/images/altThankYouTitle.png') transparent no-repeat;background-size:148px 30px;-moz-background-size:148px 30px;-webkit-background-size:148px 30px;-o-background-size:148px 30px;}

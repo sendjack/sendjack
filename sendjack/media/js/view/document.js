@@ -28,12 +28,6 @@ var DocumentView = Backbone.View.extend({
 
     initialize: function () {
 
-        var datepicker = $('.datepicker').datepicker({minDate: '0'});
-        
-        // cancel form submissions
-        $('form button[type=submit]').click(function (event) {
-            event.preventDefault();
-        });
 
         if ($('#template').length !== 0) {
             var taskTemplateView = template.TaskTemplateView();
@@ -50,9 +44,16 @@ var DocumentView = Backbone.View.extend({
     }
 });
 
+/** Make sure DocumentView is a singleton. */
+var documentView = null;
+
 return {
     DocumentView: function () {
-        return new DocumentView();
+        if (documentView === null) {
+            documentView = new DocumentView();
+        }
+
+        return documentView;
     }
 };
 

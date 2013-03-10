@@ -18,7 +18,7 @@ define(
             'modelbinder',
 
             //modules
-            'view/base',
+            'view/object/base',
             'model/instance'
 
             //jquery ui

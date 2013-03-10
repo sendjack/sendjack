@@ -20,9 +20,17 @@ require(
 
             // modules
             'util/track',
-            'view/document'
+            'router',
+
+            // one-time instantiators
+            'jqueryui',
+            'validation'
         ],
-        function ($, track, document) {
+        function ($, track, router) {
+
+console.log($);
+console.log(track);
+console.log(router);
 
 /**
  * Initialize Object with superpowers per Crockford's recommendation.
@@ -54,7 +62,7 @@ var initializeEnvironment = (function () {
  */
 var initializeApp = (function () {
     $(document).ready(function () {
-        var my_view = document.DocumentView();
+        var appRouter = router.AppRouter();
     });
 })();
 

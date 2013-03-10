@@ -19,7 +19,7 @@ define(
 var BaseModel = base.getBaseModelClass();
 
 var CustomerModel = BaseModel.extend({
-    urlRoot: '/a/customer',
+    urlRoot: '/a/customers',
 
     onCreate: function (model, options) {
         console.log('happiness');

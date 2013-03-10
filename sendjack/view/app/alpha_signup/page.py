@@ -15,12 +15,11 @@ from components import AltSection, RightGrid
 
 class SignUpPage(Page):
 
-    SIGN_UP_PAGE = "sign-up-page"
-
+    CUSTOMER_CREATE_PAGE_ID = "customer-create-page"
 
     def __init__(self):
         super(SignUpPage, self).__init__()
-        self.append_class(self.SIGN_UP_PAGE)
+        self.set_id(self.CUSTOMER_CREATE_PAGE_ID)
 
         sign_up_section = AltSection(SignUpGrid())
 
@@ -99,12 +98,12 @@ class CustomerView(ObjectView):
 
 class NewTaskPage(Page):
 
-    NEW_TASK_PAGE = "new-task-page"
+    INSTANCE_CREATE_PAGE_ID = "instance-create-page"
 
 
     def __init__(self):
         super(NewTaskPage, self).__init__()
-        self.append_class(self.NEW_TASK_PAGE)
+        self.set_id(self.INSTANCE_CREATE_PAGE_ID)
 
         new_task_section = AltSection(NewTaskGrid())
 
@@ -217,12 +216,12 @@ class TaskInstanceView(ObjectView):
 
 class ThankYouPage(Page):
 
-    THANK_YOU_PAGE = "thank-you-page"
+    INSTANCE_CREATE_THANKS_PAGE_ID = "instance-create-thanks-page"
 
 
     def __init__(self):
         super(ThankYouPage, self).__init__()
-        self.append_class(self.THANK_YOU_PAGE)
+        self.set_id(self.INSTANCE_CREATE_THANKS_PAGE_ID)
 
         thank_you_section = AltSection(ThankYouGrid())
 

@@ -20,17 +20,13 @@ class TaskTemplateBody(MainBody):
         return [TaskTemplatePage()]
 
 
-class TaskInstancePostBody(MainBody):
-
-    """The <body> for the instance new Page."""
+class ConfirmInstanceBody(MainBody):
 
     def _construct_pages(self):
         return [TaskInstancePostPage()]
 
 
-class TaskInstanceApproveBody(MainBody):
-
-    """The <body> for the instance new Page."""
+class ApproveInstanceBody(MainBody):
 
     def _construct_pages(self):
         return [TaskInstanceApprovePage()]
