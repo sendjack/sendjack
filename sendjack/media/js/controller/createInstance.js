@@ -3,49 +3,41 @@
  *
  * @exports controller.createInstance
  *
- * @requires $
  * @requires Backbone
  *
  */
 define(
         [
             //libraries
-            'jquery',
             'backbone',
 
             //modules
             'event',
-            'util/track',
+            'model/customer',
+            'model/instance',
             'view/page/createInstance',
             'view/page/createCustomer',
-            'view/page/createInstanceThanks',
-            'view/item/customer',
-            'view/item/instance'
+            'view/page/createInstanceThanks'
 
             //jquery ui
         ],
         function (
-                $,
                 Backbone,
                 event,
-                track,
-                createInstance,
-                createCustomer,
-                createInstanceThanks,
-                customer,
-                instance) {
+                customerModel,
+                instanceModel,
+                createInstanceView,
+                createCustomerView,
+                createInstanceThanksView) {
 
 
 var CreateInstanceController = Backbone.Marionette.Controller.extend({
 
     region: null,
 
-    customerView: null,
-    instanceView: null,
     customerModel: null,
     instanceModel: null,
 
-    $currPage: null,
     createInstancePage: null,
     createCustomerPage: null,
     createInstanceThanksPage: null,
@@ -56,117 +48,63 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
             el: '.alt-content'
         });
 
-        this.initializeObjects();
+        this.initializeModels();
         this.initializePages();
+        this.initializeTransitions();
+    },
+
+    initializeModels: function () {
+        this.customerModel = customerModel.CustomerModel();
+        this.instanceModel = instanceModel.TaskInstanceModel();
+
+        // TODO: Use Backbone relational for stuff like this.
+        this.customerModel.on('change:id', function (model, value) {
+            this.instanceModel.set('customer_id', value);
+
+            if (!this.instanceModel.isNew()) {
+                this.instanceModel.save();
+            }
+        }, this);
+
+        
+    },
+
+    initializePages: function () {
+        this.createInstancePage = createInstanceView.CreateInstancePageView({
+            instanceModel: this.instanceModel
+        });
+        this.createCustomerPage = createCustomerView.CreateCustomerPageView({
+            customerModel: this.customerModel
+        });
+        this.createInstanceThanksPage = createInstanceThanksView
+                .CreateInstanceThanksPageView();
+    },
+
+    /** Catch any transition events and navigate to next page. */
+    initializeTransitions: function () {
+        this.instanceModel.once(event.SAVE, function () {
+            Backbone.history.navigate('/users/create', {trigger: true});
+        });
 
         this.customerModel.once(event.SAVE, function () {
             Backbone.history.navigate('/tasks/create/thanks', {trigger: true});
         });
-        this.instanceModel.once(event.SAVE, function () {
-            Backbone.history.navigate('/users/create', {trigger: true});
-        });
     },
 
-    initializeObjects: function () {
-        this.customerView = SignUpCustomerView();
-        this.instanceView = TaskInstanceSaveView();
-        this.customerModel = this.customerView.model;
-        this.instanceModel = this.instanceView.model;
-
-        this.customerModel.on('change:id', function (model) {
-            var id = model.get('id');
-            var email = model.get('email');
-            this.instanceModel.set('customer_id', id);
-        }, this);
-    },
-
-    initializePages: function () {
-        this.createInstancePage = createInstance.CreateInstancePageView();
-        this.createCustomerPage = createCustomer.CreateCustomerPageView();
-        this.createInstanceThanksPage = createInstanceThanks
-                .CreateInstanceThanksPageView();
-
-        var pages = [
-            this.createInstancePage,
-            this.createCustomerPage,
-            this.createInstanceThanksPage
-        ];
-
-        $.each(pages, function (index, view) {
-            // $.show() and $.fadeIn() revert to the last display state.
-            view.$el.detach().css('display', 'block');
-        });
-    },
-
-    transitionPages: function (newPage) {
-        this.region.show(newPage);
-        track.viewPage(window.location.pathname);
-
-        return newPage;
-    },
 
     loadCreateInstancePage: function () {
-        this.transitionPages(this.createInstancePage);
+        this.region.show(this.createInstancePage);
     },
 
     loadCreateCustomerPage: function () {
-        this.transitionPages(this.createCustomerPage);
+        this.region.show(this.createCustomerPage);
     },
 
     loadCreateInstanceThanksPage: function () {
-        this.transitionPages(this.createInstanceThanksPage);
+        this.region.show(this.createInstanceThanksPage);
     }
 });
 
-
-var TaskInstanceView = instance.getTaskInstanceViewClass();
-function TaskInstanceSaveView(attributes, options) {
-    var TaskInstanceSaveViewClass = TaskInstanceView.extend({
-
-        addRequiredValidationRules: function () {
-            this.$el.validate({
-                rules: {
-                    customer_title: 'required',
-                    customer_description: 'required',
-                    deadline_ts: 'required'
-                }
-            });
-        }
-
-    });
-
-    return new TaskInstanceSaveViewClass(attributes, options);
-}
-
-
-var CustomerView = customer.getCustomerViewClass();
-function SignUpCustomerView(attributes, options) {
-    var SignUpCustomerViewClass = CustomerView.extend({
-
-        initialize: function (attributes, options) {
-            CustomerView.prototype.initialize.call(this, attributes, options);
-
-            this.model.on('change:stripe_token', this.onAttributeChange, this);
-        },
-
-        addRequiredValidationRules: function () {
-            console.log(this.$el);
-            this.$el.validate({
-                rules: {
-                    first_name: 'required',
-                    last_name: 'required',
-                    email: 'required'
-                }
-            });
-        },
-
-        onAttributeChange: function (model, value, options) {
-            this.save();
-        }
-    });
-
-    return new SignUpCustomerViewClass(attributes, options);
-}
 
 /** Make sure CreateInstanceController is a singleton. */
 var createInstanceController = null;

@@ -59,5 +59,16 @@ require.config({
 });
 
 require([
-        'app'
-]);
+        // application
+        'app',
+
+        // one time libraries that modify other libraries
+        'jquery',
+        'jqueryui',
+        'validation',
+        'backbone',
+        'marionette'
+
+], function (app) {
+    app.start();
+});

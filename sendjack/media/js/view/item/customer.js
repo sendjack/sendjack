@@ -27,13 +27,13 @@ var ObjectView = base.getObjectViewClass();
 
 var CustomerView = ObjectView.extend({
 
-    initialize: function () {
-        ObjectView.prototype.initialize.call(
-                this,
-                '#customer',
-                'customer',
-                customer.CustomerModel({id: this.options.model_id}));
+    el: '#customer',
 
+    initialize: function () {
+        ObjectView.prototype.initialize.call(this);
+
+        // FIXME XXX: Check to make sure the model is correct.
+        //
         var $status = this.$el.find('[name=status]');
         if ($status.length !== 0) {
             this.model.set('status', $status.val());

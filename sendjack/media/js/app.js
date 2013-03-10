@@ -14,7 +14,11 @@
  * @exports app
  * @requires $
  */
-require(
+define([], function () {
+
+// Delay application until jQuery and Backbone plugins have been loaded
+return {
+    start: function () {require(
         [
             // libraries
             'jquery',
@@ -22,57 +26,52 @@ require(
 
             // modules
             'util/track',
-            'router',
+            'router'
+        ], function ($, Backbone, track, router) {
+                        
+            /**
+             * Initialize Object with superpowers per Crockford's recommendation.
+             * 1. Object.create: http://javascript.crockford.com/prototypal.html
+             */
+            var initializeObject = (function () {
+                if (typeof Object.create !== 'function') {
+                    Object.create = function (o) {
+                        function F() {}
+                        F.prototype = o;
+                        return new F();
+                    };
+                }
+            })();
 
-            // plugins that need to be loaded first
-            'jqueryui',
-            'validation',
-            'marionette'
-        ],
-        function ($, Backbone, track, router) {
+
+            /** Initialize Environment. */
+            var initializeEnvironment = (function () {
+                // Make sure AJAX requests are not cached.
+                $.ajaxSetup({cache: false});
+
+                // Turn off template loading for Marionette.
+                Backbone.Marionette.Renderer.render = function (template, data) {
+                    return template;
+                };
+            })();
 
 
-/**
- * Initialize Object with superpowers per Crockford's recommendation.
- * 1. Object.create: http://javascript.crockford.com/prototypal.html
- */
-var initializeObject = (function () {
-    if (typeof Object.create !== 'function') {
-        Object.create = function (o) {
-            function F() {}
-            F.prototype = o;
-            return new F();
-        };
+            var sendjack = new Backbone.Marionette.Application();
+
+
+            /** Add all the routers to the application. */
+            sendjack.addInitializer(function (options) {
+                var createInstanceRouter = router.CreateInstanceRouter();
+                //var confirmInstanceRouter = router.ConfirmInstanceRouter();
+                //var approveInstanceRouter = router.ApproveInstanceRouter();
+
+                Backbone.history.start({pushState: true});
+            });
+
+            $(document).ready(function () {sendjack.start();});
+        });
     }
-})();
+};
 
-
-/** Initialize Environment. */
-var initializeEnvironment = (function () {
-    // Make sure AJAX requests are not cached.
-    $.ajaxSetup({cache: false});
-
-    // Turn off template loading for Marionette.
-    Backbone.Marionette.Renderer.render = function (template, data) {
-        return template;
-    };
-
-})();
-
-
-var sendjack = new Backbone.Marionette.Application();
-
-
-/** Add all the routers to the application. */
-sendjack.addInitializer(function (options) {
-    var createInstanceRouter = router.CreateInstanceRouter();
-    //var confirmInstanceRouter = router.ConfirmInstanceRouter();
-    //var approveInstanceRouter = router.ApproveInstanceRouter();
-
-    Backbone.history.start({pushState: true});
-});
-
-
-$(document).ready(function () {sendjack.start();});
 
 });

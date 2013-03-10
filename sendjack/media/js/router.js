@@ -13,9 +13,9 @@ define(
             'backbone',
 
             //modules
-            'controller/createInstance',
-            'controller/confirmInstance',
-            'controller/approveInstance'
+            'controller/createInstance'
+            //'controller/confirmInstance',
+            //'controller/approveInstance'
 
             //jquery ui
         ],
@@ -24,8 +24,8 @@ define(
 
 /** Every router has a single controller. */
 var createInstanceController = createInstance.CreateInstanceController();
-var confirmInstanceController = confirmInstance.ConfirmInstanceController();
-var approveInstanceController = approveInstance.ApproveInstanceController();
+// var confirmInstanceController = confirmInstance.ConfirmInstanceController();
+//var approveInstanceController = approveInstance.ApproveInstanceController();
 
 
 var CreateInstanceRouter = Backbone.Marionette.AppRouter.extend({
@@ -40,14 +40,14 @@ var CreateInstanceRouter = Backbone.Marionette.AppRouter.extend({
 });
 
 
-var ConfirmInstanceRouter = Backbone.Marionette.AppRouter.extend({
+/** var ConfirmInstanceRouter = Backbone.Marionette.AppRouter.extend({
 
     controller: confirmInstanceController,
 
     appRoutes: {
-        'tasks/:id/confirm': '',
-        'users/:id/card': '',
-        'tasks/:id/confirm/thanks': ''
+        'tasks/:id/confirm': 'loadConfirmInstancePage',
+        'users/:id/card': 'loadCardCustomerPage',
+        'tasks/:id/confirm/thanks': 'loadConfirmInstanceThanksPage'
     }
 });
 
@@ -60,7 +60,7 @@ var ApproveInstanceRouter = Backbone.Marionette.AppRouter.extend({
         'tasks/:id/approve/thanks': ''
     }
 });
-
+ */
 /** Make sure the routers are singletons. */
 var createInstanceRouter = null;
 var confirmInstanceRouter = null;
@@ -73,11 +73,11 @@ return {
         }
 
         return createInstanceRouter;
-    },
+    }
 
-    ConfirmInstanceRouter: function () {
+    /** ConfirmInstanceRouter: function () {
         if (confirmInstanceRouter === null) {
-            confirmInstanceRouter= new ConfirmInstanceRouter();
+            confirmInstanceRouter = new ConfirmInstanceRouter();
         }
 
         return confirmInstanceRouter;
@@ -89,7 +89,7 @@ return {
         }
 
         return approveInstanceRouter;
-    }
+    } */
 };
 
 

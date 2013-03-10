@@ -10,20 +10,54 @@ define(
             'jquery',
 
             //modules
-            'view/page/base'
+            'view/page/base',
+            'view/item/customer'
             //jquery ui
         ],
-        function ($, page) {
+        function ($, pageView, customerView) {
 
 
-var PageView = page.getPageViewClass();
+var PageView = pageView.getPageViewClass();
 
 var CreateCustomerPageView = PageView.extend({
 
-    el: '#customer-create-page'
+    el: '#customer-create-page',
 
+    _initializeChildViews: function () {
+        var createCustomerObjectView = CreateCustomerObjectView({
+            model: this.options.customerModel
+        });
+    }
 });
 
+
+var CustomerView = customerView.getCustomerViewClass();
+function CreateCustomerObjectView(attributes, options) {
+    var CreateCustomerObjectViewClass = CustomerView.extend({
+
+        initialize: function () {
+            CustomerView.prototype.initialize.call(this);
+
+            this.model.on('change:stripe_token', this.onAttributeChange, this);
+        },
+
+        addRequiredValidationRules: function () {
+            this.$el.validate({
+                rules: {
+                    first_name: 'required',
+                    last_name: 'required',
+                    email: 'required'
+                }
+            });
+        },
+
+        onAttributeChange: function (model, value, options) {
+            this.save();
+        }
+    });
+
+    return new CreateCustomerObjectViewClass(attributes, options);
+}
 
 return {
     CreateCustomerPageView: function (attributes, options) {

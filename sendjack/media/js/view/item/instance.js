@@ -30,12 +30,10 @@ var TaskView = base.getTaskViewClass();
 
 var TaskInstanceView = TaskView.extend({
 
+    el: '#instance',
+
     initialize: function () {
-        TaskView.prototype.initialize.call(
-                this,
-                '#instance',
-                'task',
-                instance.TaskInstanceModel());
+        TaskView.prototype.initialize.call(this);
     },
 
     editBindings: function (bindings) {

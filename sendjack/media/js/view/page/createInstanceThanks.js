@@ -13,14 +13,14 @@ define(
             'view/page/base'
             //jquery ui
         ],
-        function ($, page) {
+        function ($, pageView) {
 
 
-var PageView = page.getPageViewClass();
+var PageView = pageView.getPageViewClass();
 
 var CreateInstanceThanksPageView = PageView.extend({
 
-    el: '#instance-create-page'
+    el: '#instance-create-thanks-page'
 
 });
 

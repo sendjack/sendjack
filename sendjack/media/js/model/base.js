@@ -34,6 +34,8 @@ var BaseModel = Backbone.Model.extend({
     dirty: false,
 
     initialize: function (attributes, options) {
+        this.on('change:id', this.fetch, this);
+
         this.on('change', this.makeDirty, this);
         this.on('sync', this.clearDirty, this);
         this.on(event.CREATE, this.onCreate, this);
@@ -73,7 +75,7 @@ var BaseModel = Backbone.Model.extend({
         updatedOptions.success = onSaveSuccess;
         updatedOptions.error = onSaveError;
 
-        console.log(this);
+        console.log("SAVING:");
         console.log(this.toJSON());
 
         Backbone.Model.prototype.save.call(this, attributes, updatedOptions);

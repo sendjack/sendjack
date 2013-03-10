@@ -26,23 +26,15 @@ define(
 
 var ObjectView = Backbone.View.extend({
 
-    urlPath: null,
-    model: null,
     modelBinder: null,
 
     /**
      * Initialize the ObjectView.
-     * @param {String} selector Define the el.
-     * @param {String} urlPath Define the url path that matches this object.
-     * @param {Object} model Bind to this model.
      */
-    initialize: function (selector, urlPath, model) {
-        this.setElement(selector);
-        this.urlPath = urlPath;
-
+    initialize: function () {
         this.$el.find('[name=id]').attr('disabled', 'disabled');
 
-        this.model = this.setupModel(model);
+        //this.model = this.setupModel(model);
         
         this.modelBinder = new Backbone.ModelBinder();
         this.modelBinder.bind(this.model, this.el, this.getBindings());
@@ -161,8 +153,8 @@ var ObjectView = Backbone.View.extend({
 
 var TaskView = ObjectView.extend({
 
-    initialize: function (selector, urlPath, model) {
-        ObjectView.prototype.initialize.call(this, selector, urlPath, model);
+    initialize: function () {
+        ObjectView.prototype.initialize.call(this);
 
         _.bindAll(this);
 
