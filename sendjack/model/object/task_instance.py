@@ -39,16 +39,20 @@ class TaskInstance(TaskInstanceModel):
                 self.location)
 
 
-    def is_saved(self):
-        return self.status == TASK_INSTANCE.SAVED
+    def is_new(self):
+        return self.status == TASK_INSTANCE.NEW
+
+
+    def is_created(self):
+        return self.status == TASK_INSTANCE.CREATED
 
 
     def is_processed(self):
         return self.status == TASK_INSTANCE.PROCESSED
 
 
-    def is_created(self):
-        return self.status == TASK_INSTANCE.CREATED
+    def is_confirmed(self):
+        return self.status == TASK_INSTANCE.CONFIRMED
 
 
     def is_posted(self):

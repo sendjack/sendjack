@@ -25,14 +25,17 @@ class TaskInstanceSyncHandler(SyncHandler):
         if self._id is not None:
             task_instance = TaskInstance.read(self._id)
 
-            if task_instance.is_saved():
-                self._transition_to_saved()
+            if task_instance.is_new():
+                self._transition_to_new()
+
+            elif task_instance.is_created():
+                self._transition_to_created()
 
             elif task_instance.is_processed():
                 self._transition_to_processed()
 
-            elif task_instance.is_created():
-                self._transition_to_created()
+            elif task_instance.is_confirmed():
+                self._transition_to_confirmed()
 
             elif task_instance.is_posted():
                 self._transition_to_posted()
@@ -53,7 +56,11 @@ class TaskInstanceSyncHandler(SyncHandler):
                 self._transition_to_canceled()
 
 
-    def _transition_to_saved(self):
+    def _transition_to_new(self):
+        pass
+
+
+    def _transition_to_created(self):
         pass
 
 
@@ -61,7 +68,7 @@ class TaskInstanceSyncHandler(SyncHandler):
         pass
 
 
-    def _transition_to_created(self):
+    def _transition_to_confirmed(self):
         pass
 
 

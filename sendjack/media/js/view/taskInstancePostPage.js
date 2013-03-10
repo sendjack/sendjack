@@ -144,7 +144,7 @@ var TaskInstancePostPage = Backbone.View.extend({
 
         track.addCreditCard(taskInstanceModel.get('price'));
 
-        taskInstanceModel.set('status', 'created');
+        taskInstanceModel.set('status', 'confirmed');
         taskInstanceModel.once(event.SAVE, this.onCreatedTask, this);
         this.taskInstanceView.save();
     },
@@ -179,7 +179,7 @@ function TaskInstancePostView(attributes, options) {
         },
 
         initializeShownControlFields: function (taskStatus) {
-            if (taskStatus !== 'saved') {
+            if (taskStatus !== 'created') {
                 this.$el.find('.template-id').hide();
 
                 // TODO: put these in a superclass TaskInstancePostView.
@@ -199,7 +199,7 @@ function TaskInstancePostView(attributes, options) {
         },
 
         initializeDisabledControlFields: function (taskStatus) {
-            if (taskStatus !== 'saved') {
+            if (taskStatus !== 'created') {
                 this.$el.find('[name=customer_title]')
                         .attr('disabled', 'disabled');
                 this.$el.find('[name=customer_description]')
@@ -215,7 +215,7 @@ function TaskInstancePostView(attributes, options) {
         },
 
         initializeShownTestFields: function (taskStatus) {
-            if (taskStatus !== 'saved') {
+            if (taskStatus !== 'created') {
                 this.$el.find('.template-id').hide();
 
                 // TODO: put these in a superclass TaskInstancePostView.
@@ -234,7 +234,7 @@ function TaskInstancePostView(attributes, options) {
         },
 
         initializeDisabledTestFields: function (taskStatus) {
-            if (taskStatus !== 'saved') {
+            if (taskStatus !== 'created') {
                 this.$el.find('[name=title]').attr('disabled', 'disabled');
                 // TODO: can hidden inputs be disabled?
                 //this.$el.find('[name=steps]').attr('disabled', 'disabled');

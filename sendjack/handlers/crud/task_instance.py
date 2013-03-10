@@ -21,14 +21,17 @@ class TaskInstanceCRUDHandler(CRUDHandler):
 
 
     def _post_process_request(self):
-        if self._model.is_saved():
-            self._trigger_saved_action()
+        if self._model.is_new():
+            self._trigger_new_action()
+
+        elif self._model.is_created():
+            self._trigger_created_action()
 
         elif self._model.is_processed():
             self._trigger_processed_action()
 
-        elif self._model.is_created():
-            self._trigger_created_action()
+        elif self._model.is_confirmed():
+            self._trigger_confirmed_action()
 
         elif self._model.is_posted():
             self._trigger_posted_action()
@@ -49,7 +52,11 @@ class TaskInstanceCRUDHandler(CRUDHandler):
             self._trigger_canceled_action()
 
 
-    def _trigger_saved_action(self):
+    def _trigger_new_action(self):
+        pass
+
+
+    def _trigger_created_action(self):
         if self._is_create_request():
             # TODO: email the customer with a canned response that mixes in the
             # message from two of our canned responses: Welcome to Jackalope;
@@ -82,7 +89,7 @@ class TaskInstanceCRUDHandler(CRUDHandler):
         pass
 
 
-    def _trigger_created_action(self):
+    def _trigger_confirmed_action(self):
         # trigger an email to our jackalope service to attempt to post the task
         # to a vendor. do not message the user.
         if not self._is_read_request():

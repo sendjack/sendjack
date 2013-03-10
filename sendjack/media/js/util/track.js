@@ -40,7 +40,7 @@ var EVENT = {
 
     UPDATE_TASK: "Update Task", // User updates a Task's properties
 
-    SUBMIT_TASK: "Submit Task", // User requests Task SAVED
+    SUBMIT_TASK: "Submit Task", // User requests Task CREATED
     POST_TASK: "Confirm Task", // User requests Task POSTED
     APPROVE_TASK: "Approve Task" // User approves Task
 };
