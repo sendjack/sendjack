@@ -8,10 +8,15 @@
 """
 from view.app.base.body import AltBody
 
-from page import SignUpPage, NewTaskPage, ThankYouPage
+from page import CreateInstancePage, CreateCustomerPage
+from page import CreateInstanceThanksPage
 
 
 class CreateInstanceBody(AltBody):
 
     def _construct_pages(self):
-        return [SignUpPage(), NewTaskPage(), ThankYouPage()]
+        return [
+                CreateInstancePage(),
+                CreateCustomerPage(),
+                CreateInstanceThanksPage()
+                ]

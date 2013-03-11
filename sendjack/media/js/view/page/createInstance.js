@@ -21,7 +21,7 @@ var PageView = pageView.getPageViewClass();
 
 var CreateInstancePageView = PageView.extend({
 
-    el: '#instance-create-page',
+    el: '#create-instance-page',
 
     _initializeChildViews: function () {
 

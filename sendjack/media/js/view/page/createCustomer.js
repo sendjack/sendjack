@@ -21,7 +21,7 @@ var PageView = pageView.getPageViewClass();
 
 var CreateCustomerPageView = PageView.extend({
 
-    el: '#customer-create-page',
+    el: '#create-customer-page',
 
     _initializeChildViews: function () {
         var createCustomerObjectView = CreateCustomerObjectView({

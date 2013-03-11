@@ -20,7 +20,7 @@ var PageView = pageView.getPageViewClass();
 
 var CreateInstanceThanksPageView = PageView.extend({
 
-    el: '#instance-create-thanks-page'
+    el: '#create-instance-thanks-page'
 
 });
 
