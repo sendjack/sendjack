@@ -25,9 +25,9 @@ class TaskModel(BaseModel):
     location = Column(Integer)
     location_radius = Column(String)
 
-    # TODO: all of the below save "steps" should be assembled outside this
-    # class in concurrent queries and wrapped up in a composite class in the
-    # model's object package.
+    # TODO: most of the below (not "instructions") should be assembled outside
+    # this class in concurrent queries and wrapped up in a composite class in
+    # the model's object package.
 
     # TODO: if/when these actually become lists, remove OutputList and use
     # SerializableStringList again instead.
@@ -35,14 +35,14 @@ class TaskModel(BaseModel):
     output_method = Column(OutputList)
     output_type = Column(OutputList)
 
-    # list of free-form text
-    steps = Column(SerializableStringList)
+    # ordered list of free-form text strings describing work
+    instructions = Column(SerializableStringList)
 
-    # dict whose keys are tags and values are annotations on the template
-    custom_properties = Column(SerializableDictList)
+    # ordered list of dicts whose keys are tags and values are task annotations
+    properties = Column(SerializableDictList)
 
     # TODO: define some default tags for each.
-    # lists whose split values can be substitutions in steps
+    # lists whose split values can be substitutions in instructions
     category_tags = Column(TagList)
     industry_tags = Column(TagList)
     skill_tags = Column(TagList)

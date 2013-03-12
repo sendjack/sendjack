@@ -142,15 +142,15 @@ class TaskInstanceCRUDHandler(CRUDHandler):
 
     def _copy_from_task_template(self):
         """Copy common TaskTemplate fields into this TaskInstance."""
-        # TODO: figure out how to skip this step when
-        # self._model.template_id was not changed by this request.
+        # TODO: figure out how to skip this when self._model.template_id was
+        # not changed by this request.
 
         task_template = TaskTemplate.read(self._model.template_id)
 
         fields = {
                 "title": task_template.title,
-                "steps": task_template.steps,
-                "custom_properties": task_template.custom_properties,
+                "instructions": task_template.instructions,
+                "properties": task_template.properties,
                 "output_type": task_template.output_type,
                 "output_method": task_template.output_method,
                 "category_tags": task_template.category_tags,

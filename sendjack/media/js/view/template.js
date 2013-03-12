@@ -37,8 +37,8 @@ var TaskTemplateView = TaskView.extend({
     editBindings: function (bindings) {
         // TODO: maybe move this to TaskView?
 
-        bindings.steps.converter = this.convertJSON;
-        bindings.custom_properties.converter = this.convertJSON;
+        bindings.instructions.converter = this.convertJSON;
+        bindings.properties.converter = this.convertJSON;
 
         return bindings;
     }

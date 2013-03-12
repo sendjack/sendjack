@@ -166,21 +166,21 @@ var TaskView = ObjectView.extend({
 
         _.bindAll(this);
 
-        this.model.on('change:steps', this.replaceSteps);
-        this.model.on('change:custom_properties', this.replaceCustomProperties);
+        this.model.on('change:instructions', this.replaceInstructions);
+        this.model.on('change:properties', this.replaceProperties);
     },
 
     /**
      * Override ObjectView.save() to silently remove from the model any named
      * attributes we don't want posted to the server on submit. The canonical
      * example here will be any fields which exist in groups that compose some
-     * aggregate field to be passed as a JSON array or object (step,
-     * custom_property, etc.).
+     * aggregate field to be passed as a JSON array or object (instruction,
+     * property, etc.).
      */
     save: function () {
-        this.model.unset('step', {silent: true});
-        this.model.unset('custom_property_key', {silent: true});
-        this.model.unset('custom_property_value', {silent: true});
+        this.model.unset('instruction', {silent: true});
+        this.model.unset('property_key', {silent: true});
+        this.model.unset('property_value', {silent: true});
 
         ObjectView.prototype.save.call(this);
     },
@@ -189,13 +189,13 @@ var TaskView = ObjectView.extend({
         //var _events = {};
         var _events = ObjectView.prototype.events.call(this);
 
-        _events['focus .step'] = 'appendInputOnFocus';
-        //_events['keydown .step'] = 'insertInputOnTab';
-        _events['change [name=step]'] = 'updateSteps';
+        _events['focus .instruction'] = 'appendInputOnFocus';
+        //_events['keydown .instruction'] = 'insertInputOnTab';
+        _events['change [name=instruction]'] = 'updateInstructions';
 
-        _events['focus .custom-property'] = 'appendInputOnFocus';
-        //_events['keydown [name=custom_property_value]'] = 'insertInputOnTab';
-        _events['change [name^=custom_property_]'] = 'updateCustomProperties';
+        _events['focus .property'] = 'appendInputOnFocus';
+        //_events['keydown [name=property_value]'] = 'insertInputOnTab';
+        _events['change [name^=property_]'] = 'updateProperties';
 
         return _events;
     },
@@ -226,7 +226,7 @@ var TaskView = ObjectView.extend({
 
         // check whether TAB was pressed
         if (event.which === 9) {
-            // insert after the step whose input has focus
+            // insert after the instruction whose input has focus
             this.insertEmptyCloneAfter($(event.currentTarget));
         }
     },
@@ -242,19 +242,19 @@ var TaskView = ObjectView.extend({
         nextEl.insertAfter(el);
     },
 
-    updateSteps: function (event) {
+    updateInstructions: function (event) {
         this.updateInputSet(
             $(event.currentTarget).parent().parent().children(),
-            '[name=steps]',
-            '[name=step]');
+            '[name=instructions]',
+            '[name=instruction]');
     },
 
-    updateCustomProperties: function (event) {
+    updateProperties: function (event) {
         this.updateInputSet(
             $(event.currentTarget).parent().parent().children(),
-            '[name=custom_properties]',
-            '[name=custom_property_value]',
-            '[name=custom_property_key]');
+            '[name=properties]',
+            '[name=property_value]',
+            '[name=property_key]');
     },
 
     updateInputSet: function (els, setSelector, valueSelector, keySelector) {
@@ -287,15 +287,15 @@ var TaskView = ObjectView.extend({
         this.$el.find(setSelector).val(JSON.stringify(set)).change();
     },
 
-    replaceSteps: function (model, value, options) {
+    replaceInstructions: function (model, value, options) {
         if (value !== null) {
-            this.replaceInputs('.step', value, false);
+            this.replaceInputs('.instruction', value, false);
         }
     },
 
-    replaceCustomProperties: function (model, value, options) {
+    replaceProperties: function (model, value, options) {
         if (value !== null) {
-            this.replaceInputs('.custom-property', value, true);
+            this.replaceInputs('.property', value, true);
         }
     },
 

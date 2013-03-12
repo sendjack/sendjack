@@ -101,7 +101,7 @@ var TaskInstancePostPage = Backbone.View.extend({
         });
 
 
-        // TODO: add support for inserting new step fields on focus.
+        // TODO: add support for inserting new instruction fields on focus.
 
         this.render();
 
@@ -183,8 +183,8 @@ function TaskInstancePostView(attributes, options) {
                 this.$el.find('.template-id').hide();
 
                 // TODO: put these in a superclass TaskInstancePostView.
-                this.$el.find('.custom-properties').hide();
-                this.$el.find('.custom-property').hide();
+                this.$el.find('.properties').hide();
+                this.$el.find('.property').hide();
                 this.$el.find('.output-type').hide();
                 this.$el.find('.output-method').hide();
                 this.$el.find('.category-tags').hide();
@@ -194,8 +194,8 @@ function TaskInstancePostView(attributes, options) {
             }
 
             this.$el.find('.field.title').hide();
-            this.$el.find('.steps').hide();
-            this.$el.find('.step').hide();
+            this.$el.find('.instructions').hide();
+            this.$el.find('.instruction').hide();
         },
 
         initializeDisabledControlFields: function (taskStatus) {
@@ -219,8 +219,8 @@ function TaskInstancePostView(attributes, options) {
                 this.$el.find('.template-id').hide();
 
                 // TODO: put these in a superclass TaskInstancePostView.
-                this.$el.find('.custom-properties').hide();
-                this.$el.find('.custom-property').hide();
+                this.$el.find('.properties').hide();
+                this.$el.find('.property').hide();
                 this.$el.find('.output-type').hide();
                 this.$el.find('.output-method').hide();
                 this.$el.find('.category-tags').hide();
@@ -237,8 +237,8 @@ function TaskInstancePostView(attributes, options) {
             if (taskStatus !== 'created') {
                 this.$el.find('[name=title]').attr('disabled', 'disabled');
                 // TODO: can hidden inputs be disabled?
-                //this.$el.find('[name=steps]').attr('disabled', 'disabled');
-                this.$el.find('[name=step]').attr('disabled', 'disabled');
+                //this.$el.find('[name=instructions]').attr('disabled', 'disabled');
+                this.$el.find('[name=instruction]').attr('disabled', 'disabled');
 
                 // TODO: put these in a superclass TaskInstancePostView.
                 this.$el.find('[name=notes]').attr('disabled', 'disabled');
