@@ -14,11 +14,13 @@ from view.app.base.components import Field, Paragraph
 
 from components import NormalSection, ContrastSection, TitledGrid
 from components import IDField, TemplateField
-#from components import CreatorField
+#from components import CreatorField, CustomerField
 from components import CustomerTitleField, CustomerDescriptionField
-from components import TitleField, InstructionsField, InstructionField, DeadlineField
-from components import PropertiesField, PropertyField, NotesField
-from components import PriceField, OutputTypeField, OutputMethodField
+from components import TitleField, SummaryField, DescriptionField
+from components import InstructionsField, InstructionField
+from components import PropertiesField, PropertyField, MoreDetailsField
+from components import DeadlineField, PriceField
+from components import OutputTypeField, OutputMethodField
 from components import CategoryTagsField, IndustryTagsField
 from components import SkillTagsField, EquipmentTagsField
 
@@ -61,12 +63,17 @@ class MainGrid(TitledGrid):
                 IDField(),
                 #CreatorField(),
                 TitleField(),
+                SummaryField(),
                 InstructionsField(),
                 InstructionField(),
                 PropertiesField(),
                 PropertyField(),
                 OutputTypeField(),
                 OutputMethodField(),
+                #CategoryTagsField(),
+                #IndustryTagsField(),
+                #SkillTagsField(),
+                #EquipmentTagsField(),
                 ]
 
         field_list = FieldList(fields)
@@ -148,15 +155,15 @@ class WorkerGrid(TitledGrid):
                 Field(
                         "Name",
                         "name",
-                        "James Marsh"),
+                        ""),
                 Field(
                         "Rating",
                         "rating",
-                        "All of Stars"),
+                        ""),
                 Field(
                         "Details / Notes",
                         "notes",
-                        "This Grid isn't hooked up to anything."),
+                        ""),
                 ]
 
         field_list = FieldList(fields)
@@ -226,16 +233,19 @@ class TaskInstanceGrid(Grid):
         welcome_div.set_text(self.WELCOME_TEXT)
         fields = [
                 TemplateField(),
+                #CustomerField(),
                 CustomerTitleField(),
                 CustomerDescriptionField(),
                 TitleField(),
+                SummaryField(),
                 InstructionsField(),
                 InstructionField(),
                 PropertiesField(),
                 PropertyField(),
                 OutputTypeField(),
                 OutputMethodField(),
-                NotesField(),
+                DescriptionField(),
+                MoreDetailsField(),
                 DeadlineField(),
                 PriceField(),
                 CategoryTagsField(),

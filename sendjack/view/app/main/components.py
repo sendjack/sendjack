@@ -78,6 +78,17 @@ class CreatorField(Field):
         self.append_class(self.CLASS)
 
 
+class CustomerField(Field):
+
+    LABEL = unicode("Customer")
+    NAME = unicode("customer_id")
+    CLASS = unicode("customer-id")
+
+    def __init__(self, value=""):
+        super(CustomerField, self).__init__(self.LABEL, self.NAME, value)
+        self.append_class(self.CLASS)
+
+
 class CustomerTitleField(Field):
 
     LABEL = unicode("Title")
@@ -111,6 +122,17 @@ class TitleField(Field):
 
     def __init__(self, value=""):
         super(TitleField, self).__init__(self.LABEL, self.NAME, value)
+        self.append_class(self.CLASS)
+
+
+class SummaryField(BigField):
+
+    LABEL = unicode("Summary")
+    NAME = unicode("summary")
+    CLASS = unicode("summary")
+
+    def __init__(self, value=""):
+        super(SummaryField, self).__init__(self.LABEL, self.NAME, value)
         self.append_class(self.CLASS)
 
 
@@ -168,15 +190,29 @@ class PropertyField(KeyedSubField):
         self.append_class(self.CLASS)
 
 
-class NotesField(BigField):
+class DescriptionField(BigField):
 
-    LABEL = unicode("Notes")
-    NAME = unicode("notes")
-    CLASS = unicode("notes")
+    LABEL = unicode("Description")
+    NAME = unicode("description")
+    CLASS = unicode("description")
+
+    def __init__(self, value=""):
+        super(CustomerDescriptionField, self).__init__(
+                self.LABEL,
+                self.NAME,
+                value)
+        self.append_class(self.CLASS)
+
+
+class MoreDetailsField(BigField):
+
+    LABEL = unicode("More Details")
+    NAME = unicode("more_details")
+    CLASS = unicode("more-details")
     NUM_ROWS = 4
 
     def __init__(self, value=""):
-        super(NotesField, self).__init__(
+        super(MoreDetailsField, self).__init__(
                 self.LABEL,
                 self.NAME,
                 value)
