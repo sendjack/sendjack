@@ -138,8 +138,8 @@ class TaskInstanceView(ObjectView):
     CUSTOMER_TITLE_NAME = "customer_title"
     CUSTOMER_DESCRIPTION_NAME = "customer_description"
     TITLE_NAME = "title"
-    STEPS_NAME = "steps"
-    CUSTOM_PROPERTIES_NAME = "custom_properties"
+    INSTRUCTIONS_NAME = "instructions"
+    PROPERTIES_NAME = "properties"
     OUTPUT_TYPE_NAME = "output_type"
     OUTPUT_METHOD_NAME = "output_method"
     DEADLINE_NAME = "deadline_ts"
@@ -178,10 +178,10 @@ class TaskInstanceView(ObjectView):
                 self.CUSTOMER_DESCRIPTION_PLACEHOLDER)
         customer_description.set_rows(self.TEXTAREA_DEFAULT_ROWS)
 
-        # assemble hidden title, steps, properties inputs
+        # assemble hidden title, instructions, properties inputs
         title = HiddenInput(self.TITLE_NAME)
-        steps = HiddenInput(self.STEPS_NAME)
-        custom_properties = HiddenInput(self.CUSTOM_PROPERTIES_NAME)
+        instructions = HiddenInput(self.INSTRUCTIONS_NAME)
+        properties = HiddenInput(self.PROPERTIES_NAME)
         output_type = HiddenInput(self.OUTPUT_TYPE_NAME)
         output_method = HiddenInput(self.OUTPUT_METHOD_NAME)
 
@@ -202,8 +202,8 @@ class TaskInstanceView(ObjectView):
         self.append_child(customer_title)
         self.append_child(customer_description)
         self.append_child(title)
-        self.append_child(steps)
-        self.append_child(custom_properties)
+        self.append_child(instructions)
+        self.append_child(properties)
         self.append_child(output_type)
         self.append_child(output_method)
         self.append_child(deadline)

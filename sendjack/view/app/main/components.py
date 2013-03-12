@@ -91,7 +91,7 @@ class CustomerTitleField(Field):
 
 class CustomerDescriptionField(BigField):
 
-    LABEL = unicode("Steps")
+    LABEL = unicode("Instructions")
     NAME = unicode("customer_description")
     CLASS = unicode("customer-description")
 
@@ -114,26 +114,26 @@ class TitleField(Field):
         self.append_class(self.CLASS)
 
 
-class StepsField(HeadField):
+class InstructionsField(HeadField):
 
-    LABEL = unicode("Steps")
-    NAME = unicode("steps")
-    CLASS = unicode("steps")
+    LABEL = unicode("Instructions")
+    NAME = unicode("instructions")
+    CLASS = unicode("instructions")
 
     def __init__(self, value=""):
-        super(StepsField, self).__init__(self.LABEL, self.NAME)
+        super(InstructionsField, self).__init__(self.LABEL, self.NAME)
         self.append_class(self.CLASS)
         self.append_child(HiddenInput(self.NAME, value))
 
 
-class StepField(SubField):
+class InstructionField(SubField):
 
-    LABEL = unicode("Step")
-    NAME = unicode("step")
-    CLASS = unicode("step")
+    LABEL = unicode("Instruction")
+    NAME = unicode("instruction")
+    CLASS = unicode("instruction")
 
     def __init__(self, value="", include_index=False):
-        super(StepField, self).__init__(
+        super(InstructionField, self).__init__(
                 self.LABEL,
                 self.NAME,
                 value,
@@ -141,26 +141,26 @@ class StepField(SubField):
         self.append_class(self.CLASS)
 
 
-class CustomPropertiesField(HeadField):
+class PropertiesField(HeadField):
 
-    LABEL = unicode("Custom Properties")
-    NAME = unicode("custom_properties")
-    CLASS = unicode("custom-properties")
+    LABEL = unicode("Properties")
+    NAME = unicode("properties")
+    CLASS = unicode("properties")
 
     def __init__(self, value=""):
-        super(CustomPropertiesField, self).__init__(self.LABEL, self.NAME)
+        super(PropertiesField, self).__init__(self.LABEL, self.NAME)
         self.append_class(self.CLASS)
         self.append_child(HiddenInput(self.NAME, value))
 
 
-class CustomPropertyField(KeyedSubField):
+class PropertyField(KeyedSubField):
 
-    KEY_NAME = unicode("custom_property_key")
-    VALUE_NAME = unicode("custom_property_value")
-    CLASS = unicode("custom-property")
+    KEY_NAME = unicode("property_key")
+    VALUE_NAME = unicode("property_value")
+    CLASS = unicode("property")
 
     def __init__(self, property_key="", property_value=""):
-        super(CustomPropertyField, self).__init__(
+        super(PropertyField, self).__init__(
                 self.KEY_NAME,
                 self.VALUE_NAME,
                 property_key,

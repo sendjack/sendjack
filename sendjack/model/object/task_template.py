@@ -60,12 +60,6 @@ class TaskTemplate(TaskTemplateModel):
     def output_str(self):
         return "{} via {}".format(self.output_type, self.output_method)
 
-    def has_custom_property(self, tag):
-        return tag in self.custom_properties
-
-    def custom_property(self, tag):
-        return self.custom_properties[tag]
-
     @property
     def category_str(self):
         return ", ".join(self.category_tags)

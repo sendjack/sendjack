@@ -82,16 +82,32 @@ TASK_INSTANCE = _TaskInstance()
 
 class TaskInstanceModel(TaskModel, CRUD):
 
+    """
+
+        customer_title       -> title
+        customer_description -> summary
+        title                -> TRTitle
+        summary              -> TRDescription
+        instructions         -> description
+        properties           -> description
+        output_type          -> description
+        output_method        -> description
+        description          -> TRPrivateDescription
+        more_details         -> TRPrivateDescription
+
+    """
     __tablename__ = TASK_INSTANCE.TABLE_NAME
 
     # TODO: figure out foreign keys.
+    template_id = Column(Integer)
     customer_id = Column(Integer, nullable=False)
     worker_id = Column(Integer)
-    template_id = Column(Integer)
 
     customer_title = Column(String)
     customer_description = Column(String)
-    notes = Column(String)
+    
+    description = Column(String)
+    more_details = Column(String)
 
     status = Column(
             Enum(
