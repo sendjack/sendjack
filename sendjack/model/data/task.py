@@ -25,6 +25,14 @@ class TaskModel(BaseModel):
     location = Column(Integer)
     location_radius = Column(String)
 
+    # string broadly describing a task, which may include substitutions from
+    # properties key/value pairs
+    summary = Column(String)
+
+    # ordered list of free-form text strings describing work, which often
+    # includes substitutions from properties key/value pairs
+    instructions = Column(SerializableStringList)
+
     # TODO: most of the below (not "instructions") should be assembled outside
     # this class in concurrent queries and wrapped up in a composite class in
     # the model's object package.
@@ -34,9 +42,6 @@ class TaskModel(BaseModel):
     # TODO: define some default tags.
     output_method = Column(OutputList)
     output_type = Column(OutputList)
-
-    # ordered list of free-form text strings describing work
-    instructions = Column(SerializableStringList)
 
     # ordered list of dicts whose keys are tags and values are task annotations
     properties = Column(SerializableDictList)
