@@ -6,13 +6,13 @@
     <body>
 
 """
-from view.app.base.body import AltBody
+from view.app.base.body import AppBody
 
 from page import CreateInstancePage, CreateCustomerPage
 from page import CreateInstanceThanksPage
 
 
-class CreateInstanceBody(AltBody):
+class CreateInstanceBody(AppBody):
 
     def _construct_pages(self):
         return [

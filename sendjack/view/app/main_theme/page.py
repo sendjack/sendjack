@@ -1,19 +1,28 @@
 """
-    Alpha Sign Up Pages
+    Main Pages
     -------------------
 
-    All the Pages for the alpha sign up series.
-    <div class="page">
+    The Standard Pages for the application.
+    <div class="page main-page">
 
 """
 from view.elementary.html import TextInput, SubmitButton, Textarea, HiddenInput
 from view.app.base.page import Page
 from view.app.base.components import Line, DatePicker, ObjectView
 
-from components import AltSection, RightGrid
+from .components import AltSection, RightGrid
 
 
-class CreateCustomerPage(Page):
+class MainPage(Page):
+
+    MAIN_PAGE_CLASS = "main-page"
+
+    def __init__(self):
+        super(MainPage, self).__init__()
+        self.append_class(self.MAIN_PAGE_CLASS)
+
+
+class CreateCustomerPage(MainPage):
 
     CREATE_CUSTOMER_PAGE_ID = "create-customer-page"
 
@@ -96,7 +105,7 @@ class CustomerView(ObjectView):
         self.append_child(submit)
 
 
-class CreateInstancePage(Page):
+class CreateInstancePage(MainPage):
 
     CREATE_INSTANCE_PAGE_ID = "create-instance-page"
 
@@ -214,7 +223,7 @@ class TaskInstanceView(ObjectView):
         self.append_child(submit)
 
 
-class CreateInstanceThanksPage(Page):
+class CreateInstanceThanksPage(MainPage):
 
     CREATE_INSTANCE_THANKS_PAGE_ID = unicode("create-instance-thanks-page")
 

@@ -5,7 +5,7 @@
     Handle all synchronous requests for a task template.
 
 """
-from view.app.main.body import TaskTemplateBody
+from view.app.alt_theme.body import TaskTemplateBody
 
 from .base import SyncHandler
 

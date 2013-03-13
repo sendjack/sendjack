@@ -25,7 +25,16 @@ from components import CategoryTagsField, IndustryTagsField
 from components import SkillTagsField, EquipmentTagsField
 
 
-class TaskTemplatePage(Page):
+class AltPage(Page):
+
+    ALT_PAGE_CLASS = "alt-page"
+
+    def __init__(self):
+        super(AltPage, self).__init__()
+        self.append_class(self.ALT_PAGE_CLASS)
+
+
+class TaskTemplatePage(AltPage):
 
     TEMPLATE_PAGE_ID = unicode("template-page")
     TEMPLATE_ID = "template"
@@ -189,7 +198,7 @@ class TagsGrid(TitledGrid):
         self.append_child(FieldList(fields))
 
 
-class ProcessInstancePage(Page):
+class ProcessInstancePage(AltPage):
 
     PROCESS_INSTANCE_PAGE_ID = unicode("process-instance-page")
 
@@ -203,7 +212,7 @@ class ProcessInstancePage(Page):
         self.append_child(contrast_section)
 
 
-class ConfirmInstancePage(Page):
+class ConfirmInstancePage(AltPage):
 
     CONFIRM_INSTANCE_PAGE_ID = unicode("confirm-instance-page")
 
@@ -268,7 +277,7 @@ class TaskInstanceGrid(Grid):
         self.append_child(task_instance_view)
 
 
-class CardCustomerPage(Page):
+class CardCustomerPage(AltPage):
 
     CARD_CUSTOMER_PAGE_ID = unicode("card-customer-page")
 
@@ -342,7 +351,7 @@ class CreditCardGrid(Grid):
         self.append_child(customer_view)
 
 
-class ConfirmInstanceThanksPage(Page):
+class ConfirmInstanceThanksPage(AltPage):
 
     CONFIRM_INSTANCE_THANKS_PAGE_ID = unicode("confirm-instance-thanks-page")
 
@@ -381,7 +390,7 @@ class ThankYouGrid(Grid):
         self.append_child(img)
 
 
-class ApproveInstancePage(Page):
+class ApproveInstancePage(AltPage):
 
     APPROVE_INSTANCE_PAGE_ID = unicode("approve-instance-page")
 

@@ -9,20 +9,24 @@
 ************************************************************/
 @import "reset";
 @import "http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css";
+@import "functions";
 
 /***********************************************************
 * COLOR DEFINITIONS
 ************************************************************/
 @white: rgb(255, 255, 255);
 @black: rgb(0, 0, 0);
+@darkGrey: rgb(67, 66, 65);
+@lightGrey: rgb(123, 121, 121);
+@blue: rgb(0, 137, 255);
 
 
 /***********************************************************
 * SIZE DEFINITIONS
 ************************************************************/
-@tinyFontSize: 8px;
-@normalFontSize: 13px;
-@bigFontSize: 25px;
+@tinyFontSize: 12px;
+@normalFontSize: 18px;
+@bigFontSize: 30px;
 
 @normalLineHeight: @normalFontSize + 3px;
 @listLineHeight: 30px;
@@ -60,9 +64,15 @@
     font-style: normal;
 }
 
-.headerFont(@fontSize: @bigFontSize) {
+.titleFont(@fontSize: @bigFontSize) {
     font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
+}
+
+.labelFont(@fontSize: @normalFontSize) {
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+    font-size: @fontSize;
+    letter-spacing: 1px;
 }
 
 .normalFont(@fontSize: @normalFontSize) {
@@ -71,142 +81,65 @@
     letter-spacing: 1px;
 }
 
-.tinyFont(@fontSize: @altTinyFontSize) {
+.tinyFont(@fontSize: @tinyFontSize) {
     font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
-    letter-spacing: 1px;
 }
-        
 
 
 /***********************************************************
 * TEXT STYLE SETS
 ************************************************************/
+.headerText() {
+    .tinyFont;
+    color: @white;
+}
+
+.titleText() {
+    .titleFont;
+    color: @darkGrey;
+}
+
+.labelText() {
+    .labelFont;
+    color: @darkGrey;
+}
+
+.normalText() {
+    .normalFont;
+    color: @lightGrey;
+}
+
+.contrastText() {
+    .normalFont;
+    color: @blue;
+}
+
 .buttonText() {
     .normalFont;
     color: @white;
 }
 
 /***********************************************************
-* REUSABLE GENERIC CLASSES
-************************************************************/
-/* Create columns with no spacing. */
-.columns (@number) {
-    column-count: @number;
-    -webkit-column-count: @number;
-    -moz-column-count: @number;
-    
-    column-rule: 0px;
-    -webkit-column-rule: 0px;
-    -moz-column-rule: 0px;
-
-    column-gap: 0px;
-    -webkit-column-gap: 0px;
-    -moz-column-gap: 0px;
-}
-
-/* Cross browser border-radius */
-.border-radius(@radius) {
-    border-radius: @radius;
-    -moz-border-radius: @radius;
-    -webkit-border-radius: @radius;
-}
-
-/* Cross browser backgorund-size */
-.background-size(@width, @height) {
-    background-size: @width @height;
-    -moz-background-size: @width @height;
-    -webkit-background-size: @width @height;
-    -o-background-size: @width @height;
-}
-
-/* Hide the content when using the background image for function. */
-.hidden-content {
-    line-height: 0px; 
-    font-size: 0px;
-    color: transparent; 
-}
-
-/* Add a box shadow. */
-.box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, @inset: ~"") {
-    -webkit-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
-        @inset;
-    -moz-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
-        @inset;
-    box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha) @inset;
-}
-
-/* Use a background-image in a consistent way. */
-.background-image-wrapper(
-        @width,
-        @height,
-        @imageSource,
-        @backgroundColor,
-        @repeat: no-repeat) {
-    width: @width;
-    height: @height;
-    background: url('/static/images/@{imageSource}') @backgroundColor @repeat;
-    // background size needs to be after the background it's sizing.
-    .background-size(@width, @height);
-}
-
-/* Center the background image in a consistent way. */
-.centered-image(@position, @width, @height) {
-    .horizontally-centered-image(@position, @width); 
-    .vertically-centered-image(@position, @height);
-}
-
-.vertically-centered-image(@position, @height) {
-    position: @position;
-    top: 50%;
-    margin-top: -(@height / 2);
-}
-
-.horizontally-centered-image(@position, @width) {
-    position: @position;
-    left: 50%;
-    margin-left: -(@width / 2);
-}
-
-.opacity(@value) {
-    /* IE 8 */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-
-    /* IE 5-7 */
-    @ieValue: @value * 100;
-    filter: alpha(opacity=@ieValue);
-
-    /* Netscape */
-    -moz-opacity: @value;
-
-    /* Safari 1.x */
-    -khtml-opacity: @value;
-
-    /* Good browsers */
-    opacity: @value;
-}
-
-
-/***********************************************************
 * REUSABLE APP-SPECIFIC CLASSES
 ************************************************************/
 /* Add a light drop shadow below a box. */
 .drop-box-shadow(
-        @hShadow: 0px, 
-        @vShadow: 2px, 
-        @blur: 2px, 
-        @spread: -1px,
-        @alpha: .8) {
+        @hShadow: 5px, 
+        @vShadow: 5px, 
+        @blur: 13px, 
+        @spread: 7px,
+        @alpha: .15) {
     .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha);
 }
 
 /* Inner drop shadow. */
 .inner-box-shadow(
-        @hShadow: 0px,
-        @vShadow: 1px,
-        @blur: 1px,
-        @spread: 0px,
-        @alpha: 0.2) {
+        @hShadow: 2px,
+        @vShadow: 3px,
+        @blur: 7px,
+        @spread: 2px,
+        @alpha: 0.1) {
     .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, inset);
 }
     
@@ -259,13 +192,18 @@ html {
 }
 
 body {
-    width: 100%;
-    height: 100%;
+    .background-pattern-wrapper(
+            100%,
+            100%,
+            60px,
+            60px,
+            'body.jpg',
+            @lightGrey,
+            repeat);
 }
 
-header, section, footer {
+/** header, section, footer {
     width: 100%;
-    text-align: center;
     float: left;
 
     .inner-wrapper {
@@ -273,20 +211,12 @@ header, section, footer {
         height: 100%;
         float: left;
     }
-}
+} */
 
-header {
-    padding: @linePadding @pagePadding;
-    height: @headerHeight;
-}
-
-section {
+/* section {
     padding: 0px @pagePadding;
     text-align: left;
-}
-
-button {
-}
+} */
 
 button {
     .buttonText;
@@ -315,48 +245,80 @@ button {
     }
 }
 
+a {
+    color: @darkGrey;
+    text-decoration: none;
+
+    &:hover {
+        color: @blue;
+    }
+}
+
 li {
     margin-bottom: @linePadding;
     line-height: @listLineHeight;
 }
 
 /***********************************************************
-* APP PAGE AND BODY AND HEADER
+* BASE BODY, PAGE, HEADER, FOOTER
 ************************************************************/
-.page {
-    width: 100%;
-    height: 100%;
+#app-header, .page, #app-footer {
+    width: 100%; 
+    float: left;
+    padding-left: @pagePadding;
+    padding-right: @pagePadding;
 }
 
-.main-header {
-    background: @black;
-    float: left;
+#app-header {
+    .headerText();
+    .background-pattern-wrapper(
+        100%,
+        @headerHeight,
+        20px,
+        @headerHeight,
+        'appHeader.jpg',
+        @black,
+        repeat-x);
 
-    .main-logo {
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    /** vertically centers text */
+    line-height: @headerHeight;
+
+    text-align: center;
+
+    a {
+        .headerText();
+    }
+
+    .app-logo {
         .background-image-wrapper(
-            42px,
-            40px,
-            'mainLogo.png',
+            187px,
+            34px,
+            'logo.png',
             transparent);
         float: left;
         height: 100%;
         background-position: center;
     }
 
-    .main-lettering {
-        .background-image-wrapper(
-            149px,
-            27px,
-            'mainLettering.png',
-            transparent);
+    #app-menu {
         float: right;
-        height: 100%;
-        background-position: center;
     }
 }
 
+.page {
+    display: none;
+    width: 100%;
+    height: 100%;
+    clear: both;
+
+    .normalText;
+}
+
 /***********************************************************
-* APP COMPONENTS
+* BASE COMPONENTS
 ************************************************************/
 .field-list {
 
@@ -391,71 +353,23 @@ li {
     }
 }
 
+
 /***********************************************************
-* CONTENT - MAIN STYLE
+* PAGE THEME: MAIN
 ************************************************************/
-.main-content {
-    /***********************************************************
-    * MAIN - COLOR DEFINITIONS
-    ************************************************************/
-    @blue: rgb(0, 146, 255);
-    @grey: rgb(151, 153, 156);
-
-    /***********************************************************
-    * MAIN - SIZE DEFINITIONS
-    ************************************************************/
-
-
-    /***********************************************************
-    * MAIN - FONTS (with help from http://fontsquirrel.com)
-    ************************************************************/
-
-    /***********************************************************
-    * MAIN - TEXT STYLE SETS
-    ************************************************************/
-    .headerText() {
-        .headerFont;
-        color: @white;
-    }
-
-    .titleText() {
-        .headerFont;
-        color: @black;
-    }
-
-    .labelText() {
-        .normalFont;
-        color: @grey;
-    }
-
-    .normalText() {
-        .normalFont;
-        color: @blue;
-    }
-
-    .contrastTitleText() {
-        .headerFont;
-        color: @white;
-    }
-
-    .contrastLabelText() {
-        .normalFont;
-        color: @black;
-    }
-
-    .contrastNormalText() {
-        .normalFont;
-        color: @white;
-    }
+.main-page {
 
     /***********************************************************
     * MAIN - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
     ************************************************************/
-    width: 100%;
-    height: 100%;
-    float: left;
     .normalText;
-    background-color: @blue;
+
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    text-align: left;
+    background-color: transparent;
+    border: 1px red solid;
 
     input, textarea {
         .form-element;
@@ -469,7 +383,7 @@ li {
     /***********************************************************
     * MAIN - COMPONENTS
     ************************************************************/
-    .normal-section {
+    .main-section {
         background: @blue;
         .normalText();
 
@@ -486,23 +400,8 @@ li {
         }
     }
 
-    .contrast-section {
-        background: @blue;
-        .contrastNormalText();
-
-        .title {
-            .contrastTitleText();
-        }
-
-        .key, .head-key, .sub-key {
-            .contrastLabelText();
-        }
-
-        .value, .sub-value {
-        }
-    }
-
     .grid {
+        width: 100%;
         float: left;
         margin-top: @boxPadding;
         margin-bottom: @boxPadding;
@@ -510,15 +409,6 @@ li {
         .title {
             padding-bottom: @boxPadding;
         }
-    }
-
-    .one-column-grid {
-        width: 100%;
-    }
-
-    /* FIXME: make thi two-column-grid */
-    .grid {
-        width: 50%;
     }
 
     /***********************************************************
@@ -529,12 +419,12 @@ li {
 
         section {
             margin-top: @buttonPadding;
-            .contrastNormalText();
+            .normalText();
             font-size: 1.1em;
         }
 
         input, textarea {
-            .contrastLabelText();
+            .labelText();
 
             &[disabled] {
                 background: transparent;
@@ -562,7 +452,7 @@ li {
         }
 
         .paragraph {
-            .contrastTitleText;
+            .titleText;
             margin-top: @buttonPadding;
             margin-bottom: @buttonPadding;
         }
@@ -574,7 +464,7 @@ li {
         }
 
         .key {
-            .contrastNormalText();
+            .normalText();
             font-size: 1.2em;
         }
 
@@ -626,11 +516,9 @@ li {
 
 
 /***********************************************************
-* CONTENT - ALPHA SIGN UP SERIES (ALT)
+* PAGE THEME: ALT
 ************************************************************/
-.alt-content {
-    width: 100%;
-    height: 100%;
+.alt-page {
 
     /***********************************************************
     * ALT - COLOR DEFINITIONS

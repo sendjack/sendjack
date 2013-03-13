@@ -49,7 +49,7 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
     initialize: function () {
         if ($(this.pagesSelector).length) {
             this.region = new Backbone.Marionette.Region({
-                el: '.alt-content'
+                el: '#page-container'
             });
 
             this.initializeModels();

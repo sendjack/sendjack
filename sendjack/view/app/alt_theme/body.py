@@ -6,7 +6,7 @@
     <body>
 
 """
-from view.app.base.body import MainBody
+from view.app.base.body import AppBody
 
 from page import ConfirmInstancePage, CardCustomerPage
 from page import ConfirmInstanceThanksPage, ProcessInstancePage
@@ -15,7 +15,7 @@ from page import TaskTemplatePage
 from page import ApproveInstancePage
 
 
-class TaskTemplateBody(MainBody):
+class TaskTemplateBody(AppBody):
 
     """The <body> for the template new Page."""
 
@@ -23,13 +23,13 @@ class TaskTemplateBody(MainBody):
         return [TaskTemplatePage()]
 
 
-class ProcessInstanceBody(MainBody):
+class ProcessInstanceBody(AppBody):
 
     def _construct_pages(self):
         return [ProcessInstancePage()]
 
 
-class ConfirmInstanceBody(MainBody):
+class ConfirmInstanceBody(AppBody):
 
     def _construct_pages(self):
         return [
@@ -39,7 +39,7 @@ class ConfirmInstanceBody(MainBody):
                 ]
 
 
-class ApproveInstanceBody(MainBody):
+class ApproveInstanceBody(AppBody):
 
     def _construct_pages(self):
         return [ApproveInstancePage()]

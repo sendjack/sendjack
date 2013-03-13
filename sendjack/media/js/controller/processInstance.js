@@ -33,7 +33,7 @@ var ProcessInstanceController = Backbone.Marionette.Controller.extend({
     initialize: function () {
         if ($(this.pagesSelector).length) {
             this.region = new Backbone.Marionette.Region({
-                el: '.content'
+                el: '#page-container'
             });
 
             this.initializeModels();

@@ -6,91 +6,111 @@
 
 """
 from view.elementary.html import Body, Div, Header
+from view.elementary.components import NonRoutingAnchor
 
-from components import InnerWrapper
 
+class AppBody(Body):
 
-class MainBody(Body):
+    """The standard <body>.
 
-    """The standard <body> layout."""
+    Attributes
+    ----------
+    page_container : Element
 
-    MAIN_CONTENT = unicode("main-content")
+    """
 
 
     def __init__(self):
-        super(MainBody, self).__init__()
+        super(AppBody, self).__init__()
 
-        header = MainHeader()
-        content = ContentDiv()
-        content.append_class(self.MAIN_CONTENT)
+        self.set_header()
 
-        for page in self._construct_pages():
-            content.append_child(page)
+        self.append_child(PageContainer(self._construct_pages()))
 
-        self.append_child(header)
-        self.append_child(content)
+        self.set_footer()
 
 
     def _construct_pages(self):
         return []
 
+    def set_header(self):
+        self.append_child(AppHeader())
 
-class MainHeader(Header):
+
+    def set_footer(self):
+        pass
+
+
+class AppHeader(Header):
 
     """The standard <header> section."""
 
-    MAIN_HEADER = unicode("main-header")
-    MAIN_LOGO = unicode("main-logo")
-    MAIN_LETTERING = unicode("main-lettering")
-
+    APP_HEADER_ID = unicode("app-header")
+    APP_LOGO_CLASS = unicode("app-logo")
 
     def __init__(self):
-        super(MainHeader, self).__init__()
-        self.append_class(self.MAIN_HEADER)
+        super(AppHeader, self).__init__()
+        self.set_id(self.APP_HEADER_ID)
 
-        inner_wrapper = InnerWrapper()
+        # inner_wrapper = InnerWrapper()
 
         main_logo = Div()
-        main_logo.append_class(self.MAIN_LOGO)
+        main_logo.append_class(self.APP_LOGO_CLASS)
 
-        main_lettering = Div()
-        main_lettering.append_class(self.MAIN_LETTERING)
+        # inner_wrapper.append_child(main_logo)
+        #inner_wrapper.append_child(contact_link)
+        # self.append_child(inner_wrapper)
+        self.append_child(main_logo)
+        self.append_child(AppMenu())
 
-        inner_wrapper.append_child(main_logo)
-        inner_wrapper.append_child(main_lettering)
-        self.append_child(inner_wrapper)
+
+class AppMenu(Div):
+
+    """A menu for the app header."""
+
+    APP_MENU_ID = unicode("app-menu")
+    CONTACT_US_LINK = unicode("mailto:contact@sendjack.com")
+    CONTACT_US_TEXT = unicode("Contact Us")
+
+    def __init__(self):
+        super(AppMenu, self).__init__()
+        self.set_id(self.APP_MENU_ID)
+
+        contact_link = NonRoutingAnchor(
+                {"href": self.CONTACT_US_LINK},
+                self.CONTACT_US_TEXT)
+
+        self.append_child(contact_link)
 
 
-class AltBody(Body):
+class PageContainer(Div):
+
+    """A generic <div id="page-container" class="content"> section.
+
+    Attributes
+    ----------
+    pages : list
+
+    """
+
+    PAGE_CONTAINER_ID = unicode("page-container")
+    CONTENT_CLASS = unicode("content")
+
+    def __init__(self, pages):
+        super(PageContainer, self).__init__()
+        self.pages = pages
+        self.set_id(self.PAGE_CONTAINER_ID)
+
+        self.append_class(self.CONTENT_CLASS)
+
+        for page in self.pages:
+            self.append_child(page)
+
+
+class HeadlessBody(Body):
 
     """The alternative <body> section."""
 
-    ALT_CONTENT = unicode("alt-content")
-
-
-    def __init__(self):
-        super(AltBody, self).__init__()
-
-        content = ContentDiv()
-        content.append_class(self.ALT_CONTENT)
-
-        for page in self._construct_pages():
-            content.append_child(page)
-
-        self.append_child(content)
-
-
-    def _construct_pages(self):
-        return []
-
-
-class ContentDiv(Div):
-
-    """A generic <div class="content"> section."""
-
-    CONTENT = unicode("content")
-
-    def __init__(self):
-        super(ContentDiv, self).__init__()
-
-        self.append_class(self.CONTENT)
+    def set_header(self):
+        # Don't use a header.
+        pass
