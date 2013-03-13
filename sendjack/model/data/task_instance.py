@@ -1,7 +1,7 @@
 """
 
-    task_instances
-    --------------
+    task_instance
+    -------------
 
     Define the task instance model's table schema.
 
