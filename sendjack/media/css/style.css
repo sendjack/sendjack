@@ -20,7 +20,7 @@ button{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18
 button[type=submit]{border:0px;width:100%;width:247px;height:30px;background:url('/static/images/signUpButton.png') transparent no-repeat;background-size:247px 30px;-moz-background-size:247px 30px;-webkit-background-size:247px 30px;-o-background-size:247px 30px;}button[type=submit]:active{width:247px;height:30px;background:url('/static/images/signUpButtonPressed.png') transparent no-repeat;background-size:247px 30px;-moz-background-size:247px 30px;-webkit-background-size:247px 30px;-o-background-size:247px 30px;}
 a{color:#434241;text-decoration:none;}a:hover{color:#0089ff;}
 li{margin-bottom:5px;line-height:30px;}
-#app-header,.page,#app-footer{width:100%;float:left;padding-left:350px;padding-right:350px;}
+#app-header,.page,#app-footer{width:100%;float:left;padding-left:250px;padding-right:250px;}
 #app-header{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:12px;color:#ffffff;width:100%;height:50px;background:url('/static/images/appHeader.jpg') #000000 repeat-x;background-size:20px 50px;-moz-background-size:20px 50px;-webkit-background-size:20px 50px;-o-background-size:20px 50px;padding-top:0px;padding-bottom:0px;line-height:50px;text-align:center;}#app-header a{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:12px;color:#ffffff;}
 #app-header .app-logo{width:187px;height:34px;background:url('/static/images/logo.png') transparent no-repeat;background-size:187px 34px;-moz-background-size:187px 34px;-webkit-background-size:187px 34px;-o-background-size:187px 34px;float:left;height:100%;background-position:center;}
 #app-header #app-menu{float:right;}
@@ -29,38 +29,21 @@ li{margin-bottom:5px;line-height:30px;}
 .field-list li .field .head-key,.field-list li .sub-field .head-key{float:left;width:100%;}
 .field-list li .field .sub-key,.field-list li .sub-field .sub-key{float:left;width:30%;text-align:right;padding-right:15px;}
 .field-list li .field .value,.field-list li .sub-field .value,.field-list li .field .sub-value,.field-list li .sub-field .sub-value{float:left;width:70%;}
-.main-page{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#7b7979;padding-top:0px;padding-bottom:0px;text-align:left;background-color:transparent;border:1px red solid;}.main-page input,.main-page textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;-moz-box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;}
+.main-page{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#7b7979;padding-top:0px;padding-bottom:0px;text-align:left;background-color:transparent;}.main-page input,.main-page textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;-moz-box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#0089ff;}.main-page input[disabled],.main-page textarea[disabled]{background:transparent;-webkit-box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;-moz-box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;padding:15px 0px;color:#000000;}
 .main-page input{height:30px;}
-.main-page .main-section{background:#0089ff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#7b7979;}.main-page .main-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:30px;color:#434241;}
+.main-page .main-section{float:left;background:#ffffff;padding:0px 0px;}.main-page .main-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:30px;color:#434241;}
 .main-page .main-section .key,.main-page .main-section .head-key,.main-page .main-section .sub-key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#434241;}
 .main-page .main-section .value,.main-page .main-section .sub-value{color:#0089ff;}
-.main-page .grid{width:100%;float:left;margin-top:15px;margin-bottom:15px;}.main-page .grid .title{padding-bottom:15px;}
-.main-page .page{display:none;}.main-page .page section{margin-top:30px;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#7b7979;font-size:1.1em;}
-.main-page .page input,.main-page .page textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#434241;}.main-page .page input[disabled],.main-page .page textarea[disabled]{background:transparent;-webkit-box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;-moz-box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;padding:15px 0px;color:#000000;}
-.main-page .page .grid{width:100%;margin-top:30px;margin-bottom:30px;}.main-page .page .grid .submit-button{margin-top:30px;margin-bottom:30px;}
-.main-page .page .paragraph{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:30px;color:#434241;margin-top:30px;margin-bottom:30px;}
-.main-page .page .field-list{margin-top:30px;margin-bottom:30px;}
-.main-page .page .key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#7b7979;font-size:1.2em;}
-.main-page .page .value{color:#000000;}
-.main-page .page .task-instance-grid .field-list .key{width:20%;}
-.main-page .page .task-instance-grid .field-list .value{width:80%;}
-.main-page .page .task-instance-grid .field-list .key,.main-page .page .task-instance-grid .field-list .value,.main-page .page .task-instance-grid .field-list .sub-value{float:none;display:block;}
-.main-page .page #thank-you-grid img{height:60%;margin-top:30px;}
+.main-page .grid{width:100%;margin-top:30px;margin-bottom:30px;float:left;}.main-page .grid .title{padding-bottom:15px;}
+.main-page .grid .submit-button{margin-top:30px;margin-bottom:30px;}
+.main-page .paragraph{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:30px;color:#434241;margin-top:30px;margin-bottom:30px;}
+.main-page #create-customer-page .customer-view input.first_name{width:47%;float:left;}
+.main-page #create-customer-page .customer-view input.last_name{width:47%;float:right;}
+.main-page #create-customer-page .customer-view input.email{width:100%;}
+.main-page #create-instance-page .create-instance-grid .field-list .key{width:20%;}
+.main-page #create-instance-page .create-instance-grid .field-list .value{width:80%;}
+.main-page #create-instance-page .create-instance-grid .field-list .key,.main-page #create-instance-page .create-instance-grid .field-list .value,.main-page #create-instance-page .create-instance-grid .field-list .sub-value{float:none;display:block;}
+.main-page #create-instance-page .task-instance-view input,.main-page #create-instance-page .task-instance-view textarea{width:100%;}
 .main-page #template-page .post-grid,.main-page #template-page .worker-grid{padding-left:25px;}
 .main-page #template-page .tags-grid{clear:both;}
-.alt-page{}.alt-page a{color:#ffffff;text-decoration:none;}.alt-page a:hover{color:#000000;}
-.alt-page input,.alt-page textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;-moz-box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;box-shadow:2px 3px 7px 2px rgba(0, 0, 0, 0.1) inset;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;margin:7px 0px;}
-.alt-page input{height:30px;}
-.alt-page button{margin:7px 0px;}
-.alt-page .page{display:none;}
-.alt-page .alt-section{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:18px;letter-spacing:1px;color:#ffffff;position:relative;top:32%;padding:0px 200px;}.alt-page .alt-section .left-grid{float:left;}.alt-page .alt-section .left-grid .computer-image{width:425px;height:323px;background:url('/static/images/computer.png') transparent no-repeat;background-size:425px 323px;-moz-background-size:425px 323px;-webkit-background-size:425px 323px;-o-background-size:425px 323px;}
-.alt-page .alt-section .right-grid{width:247px;margin-left:50px;float:left;}.alt-page .alt-section .right-grid .title{margin-bottom:15px;}
-.alt-page .alt-section .right-grid .contact-anchor{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:12px;color:#ffffff;width:100%;text-align:center;}
-.alt-page .alt-section .line{margin-bottom:16px;}
-.alt-page #create-customer-page{background-color:#25cadd;}.alt-page #create-customer-page .sign-up-grid .sign-up-title{width:247px;height:57px;background:url('/static/images/altSignUpTitle.png') transparent no-repeat;background-size:247px 57px;-moz-background-size:247px 57px;-webkit-background-size:247px 57px;-o-background-size:247px 57px;}
-.alt-page #create-customer-page .sign-up-grid .customer-view input.first_name{width:47%;float:left;}
-.alt-page #create-customer-page .sign-up-grid .customer-view input.last_name{width:47%;float:right;}
-.alt-page #create-customer-page .sign-up-grid .customer-view input.email{width:100%;}
-.alt-page #create-instance-page{background-color:#00b7e9;}.alt-page #create-instance-page .new-task-grid .new-task-title{width:225px;height:19px;background:url('/static/images/altNewTaskTitle.png') transparent no-repeat;background-size:225px 19px;-moz-background-size:225px 19px;-webkit-background-size:225px 19px;-o-background-size:225px 19px;}
-.alt-page #create-instance-page .new-task-grid .task-instance-view input,.alt-page #create-instance-page .new-task-grid .task-instance-view textarea{width:100%;}
-.alt-page #create-instance-thanks-page{background-color:#0088fe;}.alt-page #create-instance-thanks-page .thank-you-grid .thank-you-title{width:148px;height:30px;background:url('/static/images/altThankYouTitle.png') transparent no-repeat;background-size:148px 30px;-moz-background-size:148px 30px;-webkit-background-size:148px 30px;-o-background-size:148px 30px;}
+.alt-page{}

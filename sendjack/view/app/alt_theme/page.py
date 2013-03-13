@@ -10,9 +10,9 @@ from view.elementary.html import SubmitButton, Div, Img
 
 from view.app.base.page import Page
 from view.app.base.components import FieldList, Grid, ObjectView, Title
-from view.app.base.components import Field, Paragraph
+from view.app.base.components import Field, Paragraph, TitledGrid
 
-from components import NormalSection, ContrastSection, TitledGrid
+from components import NormalSection, ContrastSection
 from components import IDField, TemplateField
 #from components import CreatorField, CustomerField
 from components import CustomerTitleField, CustomerDescriptionField
@@ -68,6 +68,7 @@ class MainGrid(TitledGrid):
         super(MainGrid, self).__init__(self.MAIN_TITLE)
         self.append_class(self.MAIN_GRID_CLASS)
 
+    def _set_grid_elements(self):
         fields = [
                 IDField(),
                 #CreatorField(),
@@ -98,6 +99,7 @@ class PostGrid(Grid):
         super(PostGrid, self).__init__()
         self.append_class(self.POST_GRID_CLASS)
 
+    def _set_grid_elements(self):
         self.append_child(SubmitButton(self.CREATE_TEMPLATE))
 
 
@@ -120,6 +122,7 @@ class DetailsGrid(TitledGrid):
         super(DetailsGrid, self).__init__(self.DETAILS_TITLE)
         self.append_class(self.DETAILS_GRID_CLASS)
 
+    def _set_grid_elements(self):
         fields = [
                 Field(
                         "Min Price",
@@ -160,6 +163,7 @@ class WorkerGrid(TitledGrid):
         super(WorkerGrid, self).__init__(self.WORKER_TITLE)
         self.append_class(self.WORKER_GRID_CLASS)
 
+    def _set_grid_elements(self):
         fields = [
                 Field(
                         "Name",
@@ -188,6 +192,7 @@ class TagsGrid(TitledGrid):
         super(TagsGrid, self).__init__(self.TAGS_TITLE)
         self.append_class(self.TAGS_GRID_CLASS)
 
+    def _set_grid_elements(self):
         fields = [
                 CategoryTagsField(),
                 IndustryTagsField(),
@@ -244,6 +249,7 @@ class TaskInstanceGrid(Grid):
 
         self.set_id(self.TASK_INSTANCE_GRID_ID)
 
+    def _set_grid_elements(self):
         task_instance_view = ObjectView(self.TASK_INSTANCE_ID)
         welcome_div = Div()
         welcome_div.set_text(self.WELCOME_TEXT)
@@ -309,6 +315,7 @@ class CreditCardGrid(Grid):
 
         self.set_id(self.CREDIT_CARD_GRID_ID)
 
+    def _set_grid_elements(self):
         customer_view = ObjectView(self.CUSTOMER_ID)
         welcome_div = Div()
         welcome_div.set_text(self.WELCOME_TEXT)
@@ -378,6 +385,7 @@ class ThankYouGrid(Grid):
 
         self.set_id(self.THANK_YOU_GRID_ID)
 
+    def _set_grid_elements(self):
         main_title = Title(self.MAIN_TITLE)
 
         sub_div = Div()

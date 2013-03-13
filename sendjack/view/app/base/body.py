@@ -6,7 +6,8 @@
 
 """
 from view.elementary.html import Body, Div, Header
-from view.elementary.components import NonRoutingAnchor
+
+from view.app.base.components import ContactAnchor
 
 
 class AppBody(Body):
@@ -76,11 +77,7 @@ class AppMenu(Div):
         super(AppMenu, self).__init__()
         self.set_id(self.APP_MENU_ID)
 
-        contact_link = NonRoutingAnchor(
-                {"href": self.CONTACT_US_LINK},
-                self.CONTACT_US_TEXT)
-
-        self.append_child(contact_link)
+        self.append_child(ContactAnchor())
 
 
 class PageContainer(Div):

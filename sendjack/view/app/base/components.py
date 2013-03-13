@@ -5,37 +5,8 @@
     Components that are to be reused across styles.
 
 """
-from view.elementary.html import Section, Div, TextInput, Label, UL, Textarea
-from view.elementary.html import Form
-
-
-class InnerWrapper(Div):
-
-    """An Inner Wrapper that can we used to align margins between elements."""
-
-    INNER_WRAPPER = "inner-wrapper"
-
-    def __init__(self):
-        super(InnerWrapper, self).__init__()
-
-        self.append_class(self.INNER_WRAPPER)
-
-
-class InnerWrapperSection(Section):
-
-    """The Standard Jackalope Section, which has an inner wrapper to do
-    something clever with page margins."""
-
-    # TODO: Investigate why this is necessary.
-
-    def __init__(self, el=None):
-        super(InnerWrapperSection, self).__init__()
-
-        inner_wrapper = InnerWrapper()
-        if el:
-            inner_wrapper.append_child(el)
-
-        self.append_child(inner_wrapper)
+from view.elementary.html import Div, Form, TextInput, Label, UL, Textarea
+from view.elementary.components import NonRoutingAnchor
 
 
 class Grid(Div):
@@ -47,6 +18,39 @@ class Grid(Div):
     def __init__(self):
         super(Grid, self).__init__()
         self.append_class(self.GRID_CLASS)
+
+        self._set_grid_elements()
+
+
+    def _set_grid_elements(self):
+        raise NotImplementedError("Subclass must override.")
+
+
+class TitledGrid(Grid):
+
+    def __init__(self, title_str):
+        super(TitledGrid, self).__init__()
+        self.insert_child(Title(title_str))
+
+
+class ContactAnchor(Div):
+
+    CONTACT_ANCHOR_CLASS = unicode("contact-anchor")
+
+    # FIXME: Put this somewhere else.
+    ANCHOR_TEXT = unicode("Contact Us")
+    MAIL_TO_LINK = unicode("mailto:alpha@sendjack.com")
+
+
+    def __init__(self):
+        super(ContactAnchor, self).__init__()
+
+        self.append_class(self.CONTACT_ANCHOR_CLASS)
+
+        anchor = NonRoutingAnchor(
+                {"href": self.MAIL_TO_LINK},
+                self.ANCHOR_TEXT)
+        self.append_child(anchor)
 
 
 class Title(Div):

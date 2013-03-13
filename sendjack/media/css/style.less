@@ -38,7 +38,7 @@
 @linePadding: 5px;
 @buttonPadding: 30px;
 @boxPadding: 15px;
-@pagePadding: 350px;
+@pagePadding: 250px;
 
 @normalBorder: 2px;
 @smallRound: 2px;
@@ -369,10 +369,22 @@ li {
 
     text-align: left;
     background-color: transparent;
-    border: 1px red solid;
 
     input, textarea {
-        .form-element;
+        .form-element();
+        .contrastText();
+
+        &[disabled] {
+            background: transparent;
+            .inner-box-shadow(
+                    0px,
+                    0px,
+                    0px,
+                    0px,
+                    0);
+            padding: @textPadding 0px;
+            color: @black;
+        }
     }
 
     input {
@@ -384,8 +396,10 @@ li {
     * MAIN - COMPONENTS
     ************************************************************/
     .main-section {
-        background: @blue;
-        .normalText();
+        float: left;
+        background: @white;
+        
+        padding: 0px 0px;
 
         .title {
             .titleText();
@@ -402,78 +416,52 @@ li {
 
     .grid {
         width: 100%;
+        margin-top: @buttonPadding;
+        margin-bottom: @buttonPadding;
         float: left;
-        margin-top: @boxPadding;
-        margin-bottom: @boxPadding;
 
         .title {
             padding-bottom: @boxPadding;
         }
+
+        .submit-button {
+            margin-top: @buttonPadding;
+            margin-bottom: @buttonPadding;
+        }
+    }
+
+    .paragraph {
+        .titleText;
+        margin-top: @buttonPadding;
+        margin-bottom: @buttonPadding;
     }
 
     /***********************************************************
-    * MAIN - CONFIRM INSTANCE PAGE and APPROVE INSTANCE PAGE
+    * MAIN PAGE - CREATE CUSTOMER PAGE
     ************************************************************/
-    .page {
-        display: none;
-
-        section {
-            margin-top: @buttonPadding;
-            .normalText();
-            font-size: 1.1em;
-        }
-
-        input, textarea {
-            .labelText();
-
-            &[disabled] {
-                background: transparent;
-                .inner-box-shadow(
-                        0px,
-                        0px,
-                        0px,
-                        0px,
-                        0);
-                padding: @textPadding 0px;
-                color: @black;
-            }
-        }
-
-        .grid {
-            width: 100%;
-            margin-top: @buttonPadding;
-            margin-bottom: @buttonPadding;
-
-            .submit-button {
-                margin-top: @buttonPadding;
-                margin-bottom: @buttonPadding;
+    #create-customer-page {
+        .customer-view {
+            input.first_name {
+                width: 47%;
+                float: left;
             }
 
+            input.last_name {
+                width: 47%;
+                float: right;
+            }
+
+            input.email {
+                width: 100%;
+            }
         }
+    }
 
-        .paragraph {
-            .titleText;
-            margin-top: @buttonPadding;
-            margin-bottom: @buttonPadding;
-        }
-
-        .field-list {
-            margin-top: @buttonPadding;
-            margin-bottom: @buttonPadding;
-
-        }
-
-        .key {
-            .normalText();
-            font-size: 1.2em;
-        }
-
-        .value {
-            color: @black;
-        }
-
-
-        .task-instance-grid {
+    /***********************************************************
+    * MAIN PAGE - CREATE INSTANCE PAGE
+    ************************************************************/
+    #create-instance-page {
+        .create-instance-grid {
             .field-list {
 
                 .key {
@@ -488,17 +476,15 @@ li {
                     display: block;
                 }
             }
-
         }
 
-        #thank-you-grid {
-            img {
-                height: 60%;
-                margin-top: 30px;
+        .task-instance-view {
+            input, textarea {
+                width: 100%;
             }
         }
-
     }
+
 
     /***********************************************************
     * MAIN - TEMPLATE PAGE
@@ -519,186 +505,14 @@ li {
 * PAGE THEME: ALT
 ************************************************************/
 .alt-page {
-
-    /***********************************************************
-    * ALT - COLOR DEFINITIONS
-    ************************************************************/
-    @green: rgb(37, 202, 221);
-    @teal: rgb(0, 183, 233);
-    @blue: rgb(0, 136, 254);
-
-
-    /***********************************************************
-    * ALT - SIZE DEFINITIONS
-    ************************************************************/
-    @altFontSize: 13px;
-    @altTinyFontSize: 8px;
-    @altLineHeight: 16px;
-    
-    @altPagePadding: 200px;
-
-    /***********************************************************
-    * ALT - FONTS (with help from http://fontsquirrel.com)
-    ************************************************************/
-
-    /***********************************************************
-    * ALT - TEXT STYLE SETS
-    ************************************************************/
-    .altText() {
-        .normalFont;
-        color: @white;
-    }
-
-    .altTinyText() {
-        .tinyFont;
-        color: @white;
-    }
-
-
-    /***********************************************************
-    * ALT - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
-    ************************************************************/
-    a {
-        color: @white;
-        text-decoration: none;
-
-        &:hover {
-            color: @black;
-        }
-    }
-
-    input, textarea {
-        .form-element;
-        margin: 7px 0px;
-    }
-
-    input {
-        height: @listLineHeight;
-    }
-    
-    button {
-        margin: 7px 0px;
-    }
-
-    .page {
-        display: none;
-    }
-
-
     /***********************************************************
     * ALT - COMPONENTS
     ************************************************************/
-    .alt-section {
-        .altText;
-        position: relative;
-        top: 32%;
-        padding: 0px @altPagePadding;
-        
-        .left-grid {
-            float: left;
-            .computer-image {
-
-                .background-image-wrapper(
-                    425px,
-                    323px,
-                    'computer.png',
-                    transparent);
-            }
-        }
-
-        .right-grid {
-            width: 247px;
-            margin-left: 50px;
-            float: left;
-
-            .title {
-                margin-bottom: 15px;
-            }
-
-            .contact-anchor {
-                .altTinyText;
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        .line {
-            margin-bottom: @altLineHeight;
-        }
-
-    }
-
     /***********************************************************
-    * ALT - CREATE CUSTOMER PAGE
+    * ALT - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
     ************************************************************/
-    #create-customer-page {
-        background-color: @green;
-
-        .sign-up-grid {
-            .sign-up-title {
-                .background-image-wrapper(
-                    247px,
-                    57px,
-                    'altSignUpTitle.png',
-                    transparent);
-            }
-
-            .customer-view {
-                input.first_name {
-                    width: 47%;
-                    float: left;
-                }
-
-                input.last_name {
-                    width: 47%;
-                    float: right;
-                }
-
-                input.email {
-                    width: 100%;
-                }
-
-            }
-        }
-    }
-
     /***********************************************************
-    * ALT - CREATE INTANCE PAGE 
+    * ALT - PAGE
     ************************************************************/
-    #create-instance-page {
-        background-color: @teal;
-
-        .new-task-grid {
-            .new-task-title {
-                .background-image-wrapper(
-                    225px,
-                    19px,
-                    'altNewTaskTitle.png',
-                    transparent);
-            }
-
-            .task-instance-view {
-                input, textarea {
-                    width: 100%;
-                }
-            }
-        }
-    }
-
-    /***********************************************************
-    * ALT - CREATE INSTANCE THANKS PAGE
-    ************************************************************/
-    #create-instance-thanks-page {
-        background-color: @blue;
-
-        .thank-you-grid {
-            .thank-you-title {
-                .background-image-wrapper(
-                    148px,
-                    30px,
-                    'altThankYouTitle.png',
-                    transparent);
-            }
-        }
-    }
 }
+
