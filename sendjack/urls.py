@@ -9,6 +9,7 @@ from handlers.signup import SignUpHandler, SignUpSubmitHandler
 from handlers.logged_out import LoggedOutHandler
 
 from handlers.sync.task_instance import CreateInstanceSyncHandler
+from handlers.sync.task_instance import ProcessInstanceSyncHandler
 from handlers.sync.task_instance import ConfirmInstanceSyncHandler
 from handlers.sync.task_instance import ApproveInstanceSyncHandler
 
@@ -33,6 +34,8 @@ url_patterns = [
         (r"/tasks/([0-9]+)/confirm", ConfirmInstanceSyncHandler),
         (r"/users/([0-9]+)/card", ConfirmInstanceSyncHandler),
         (r"/tasks/([0-9]+)/confirm/thanks", ConfirmInstanceSyncHandler),
+
+        (r"/tasks/([0-9]+)/process", ProcessInstanceSyncHandler),
 
         (r"/tasks/([0-9]+)/approve", ApproveInstanceSyncHandler),
         (r"/tasks/([0-9]+)/approve/thanks", ApproveInstanceSyncHandler),

@@ -21,8 +21,6 @@ define(
             'view/page/confirmInstance',
             'view/page/cardCustomer',
             'view/page/confirmInstanceThanks'
-
-            //jquery ui
         ],
         function (
                 $,
@@ -72,20 +70,12 @@ var ConfirmInstanceController = Backbone.Marionette.Controller.extend({
             this.customerModel.resetID(value);
         }, this);
 
-        // FIXME XXX: This should be in the internal task update controller
-        this.instanceModel.on('change:price', function (model) {
-            if (!model.previous('price')) {
-                model.set('status', 'processed');
-            }
-        });
-
         // once the customer is pulled from server show the correct fields.
         this.customerModel.once(
                 'change:control_group',
                 function (model, value) {
-                    var taskStatus = this.instanceModel.get('status');
                     this.confirmInstancePage.confirmInstanceObjectView.
-                            setupControlAndTestFields(value, taskStatus);
+                            setupControlAndTestFields(value);
                 },
                 this);
 

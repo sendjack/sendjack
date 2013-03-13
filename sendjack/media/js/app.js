@@ -64,6 +64,7 @@ return {
             /** Add all the routers to the application. */
             sendjack.addInitializer(function (options) {
                 var createInstanceRouter = router.CreateInstanceRouter();
+                var processInstanceRouter = router.ProcessInstanceRouter();
                 var confirmInstanceRouter = router.ConfirmInstanceRouter();
                 //var approveInstanceRouter = router.ApproveInstanceRouter();
 

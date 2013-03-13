@@ -189,6 +189,20 @@ class TagsGrid(TitledGrid):
         self.append_child(FieldList(fields))
 
 
+class ProcessInstancePage(Page):
+
+    PROCESS_INSTANCE_PAGE_ID = unicode("process-instance-page")
+
+    def __init__(self):
+        super(ProcessInstancePage, self).__init__()
+        self.set_id(self.PROCESS_INSTANCE_PAGE_ID)
+
+        contrast_section = ContrastSection()
+        contrast_section.append_child(TaskInstanceGrid())
+
+        self.append_child(contrast_section)
+
+
 class ConfirmInstancePage(Page):
 
     CONFIRM_INSTANCE_PAGE_ID = unicode("confirm-instance-page")
@@ -201,16 +215,6 @@ class ConfirmInstancePage(Page):
         contrast_section.append_child(TaskInstanceGrid())
 
         self.append_child(contrast_section)
-
-
-class TaskInstancePostContrastSection(ContrastSection):
-
-    def __init__(self):
-        super(TaskInstancePostContrastSection, self).__init__()
-
-        self.append_child(TaskInstanceGrid())
-        self.append_child(CreditCardGrid())
-        self.append_child(ThankYouGrid())
 
 
 class TaskInstanceGrid(Grid):

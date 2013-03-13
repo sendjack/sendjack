@@ -14,16 +14,23 @@ define(
 
             //modules
             'controller/createInstance',
+            'controller/processInstance',
             'controller/confirmInstance'
             //'controller/approveInstance'
 
             //jquery ui
         ],
-        function (Backbone, createInstance, confirmInstance, approveInstance) {
+        function (
+                Backbone,
+                createInstance,
+                processInstance,
+                confirmInstance,
+                approveInstance) {
 
 
 /** Every router has a single controller. */
 var createInstanceController = createInstance.CreateInstanceController();
+var processInstanceController = processInstance.ProcessInstanceController();
 var confirmInstanceController = confirmInstance.ConfirmInstanceController();
 //var approveInstanceController = approveInstance.ApproveInstanceController();
 
@@ -36,6 +43,16 @@ var CreateInstanceRouter = Backbone.Marionette.AppRouter.extend({
         'tasks/create': 'loadCreateInstancePage',
         'users/create': 'loadCreateCustomerPage',
         'tasks/create/thanks': 'loadCreateInstanceThanksPage'
+    }
+});
+
+
+var ProcessInstanceRouter = Backbone.Marionette.AppRouter.extend({
+
+    controller: processInstanceController,
+
+    appRoutes: {
+        'tasks/:id/process': 'loadProcessInstancePage'
     }
 });
 
@@ -63,6 +80,7 @@ var ConfirmInstanceRouter = Backbone.Marionette.AppRouter.extend({
  */
 /** Make sure the routers are singletons. */
 var createInstanceRouter = null;
+var processInstanceRouter = null;
 var confirmInstanceRouter = null;
 var approveInstanceRouter = null;
 
@@ -73,6 +91,14 @@ return {
         }
 
         return createInstanceRouter;
+    },
+
+    ProcessInstanceRouter: function () {
+        if (processInstanceRouter === null) {
+            processInstanceRouter= new ProcessInstanceRouter();
+        }
+
+        return processInstanceRouter;
     },
 
    ConfirmInstanceRouter: function () {

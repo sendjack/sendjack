@@ -9,7 +9,7 @@
 from view.app.base.body import MainBody
 
 from page import ConfirmInstancePage, CardCustomerPage
-from page import ConfirmInstanceThanksPage
+from page import ConfirmInstanceThanksPage, ProcessInstancePage
 
 from page import TaskTemplatePage
 from page import ApproveInstancePage
@@ -21,6 +21,12 @@ class TaskTemplateBody(MainBody):
 
     def _construct_pages(self):
         return [TaskTemplatePage()]
+
+
+class ProcessInstanceBody(MainBody):
+
+    def _construct_pages(self):
+        return [ProcessInstancePage()]
 
 
 class ConfirmInstanceBody(MainBody):

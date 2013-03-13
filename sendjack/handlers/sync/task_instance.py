@@ -7,6 +7,7 @@
 """
 #from model.object.task_instance import TaskInstance
 from view.app.main.body import ConfirmInstanceBody, ApproveInstanceBody
+from view.app.main.body import ProcessInstanceBody
 from view.app.alpha_signup.body import CreateInstanceBody
 
 from .base import SyncHandler
@@ -22,6 +23,23 @@ class CreateInstanceSyncHandler(SyncHandler):
 
     def _set_markup_class(self):
         self._markup_class = CreateInstanceBody
+
+
+class ProcessInstanceSyncHandler(SyncHandler):
+
+    """Handle process instance series.
+
+    Note: tasks/ID/process
+
+    """
+
+    def _set_markup_class(self):
+        self._markup_class = ProcessInstanceBody
+
+    def _pre_process_request(self):
+        """Do any class specific pre processing."""
+        # check to make sure the task has an ID and is in the correct state.
+        pass
 
 
 class ConfirmInstanceSyncHandler(SyncHandler):
