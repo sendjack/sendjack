@@ -11,35 +11,45 @@ define(
 
             //modules
             'view/page/base',
-            'view/item/customer'
+            'view/item/customer',
+            'view/item/creditCard'
         ],
-        function ($, pageView, customerView) {
+        function ($, pageView, customerView, creditCardView) {
 
 
 var PageView = pageView.getPageViewClass();
 
 var CardCustomerPageView = PageView.extend({
 
-    el: '#customer-card-page',
+    el: '#card-customer-page',
+    cardCustomerObjectView: null,
+    creditCardView: null,
 
     _initializeChildViews: function () {
-        var cardCustomerObjectView = CardCustomerObjectView({
+        this.cardCustomerObjectView = CardCustomerObjectView({
             model: this.options.customerModel
         });
 
-        var creditCardView = payment.CreditCardView({
+        this.creditCardView = creditCardView.CreditCardView({
             el: '#credit-card-grid',
             model: this.options.creditCardModel
         });
 
-        // once we get a token we should save the customer
-        this.options.creditCardModel.once(
-                event.SAVE,
-                cardCustomerObjectView.save,
+    },
+
+    /** Set certain events for onShow. */
+    onShow: function () {
+
+        // Only when the user changes the token should we save the customer.
+        this.options.customerModel.on(
+                'change:stripe_token',
+                function (model, value) {
+                    if (value) {
+                        this.cardCustomerObjectView.save();
+                    }
+                },
                 this);
-
     }
-
 });
 
 
@@ -59,6 +69,10 @@ function CardCustomerObjectView(attributes, options) {
                     cvc: 'required'
                 }
             });
+        },
+
+        onSubmit: function () {
+            // do not save customer as we're waiting on the credit card.
         }
     });
 

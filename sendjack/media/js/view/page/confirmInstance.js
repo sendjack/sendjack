@@ -21,10 +21,11 @@ var PageView = pageView.getPageViewClass();
 
 var ConfirmInstancePageView = PageView.extend({
 
-    el: '#instance-confirm-page',
+    el: '#confirm-instance-page',
+    confirmInstanceObjectView: null,
 
     _initializeChildViews: function () {
-        var confirmInstanceObjectView = ConfirmInstanceObjectView({
+        this.confirmInstanceObjectView = ConfirmInstanceObjectView({
             model: this.options.instanceModel
         });
     }

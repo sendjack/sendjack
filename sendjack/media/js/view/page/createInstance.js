@@ -53,7 +53,6 @@ function CreateInstanceObjectView(attributes, options) {
 
 return {
     CreateInstancePageView: function (attributes, options) {
-        console.log(attributes);
         return new CreateInstancePageView(attributes, options);
     }
 };

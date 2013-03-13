@@ -29,6 +29,7 @@ return {
             'router'
         ], function ($, Backbone, track, router) {
                         
+
             /**
              * Initialize Object with superpowers per Crockford's recommendation.
              * 1. Object.create: http://javascript.crockford.com/prototypal.html
@@ -46,6 +47,7 @@ return {
 
             /** Initialize Environment. */
             var initializeEnvironment = (function () {
+
                 // Make sure AJAX requests are not cached.
                 $.ajaxSetup({cache: false});
 
@@ -62,7 +64,7 @@ return {
             /** Add all the routers to the application. */
             sendjack.addInitializer(function (options) {
                 var createInstanceRouter = router.CreateInstanceRouter();
-                //var confirmInstanceRouter = router.ConfirmInstanceRouter();
+                var confirmInstanceRouter = router.ConfirmInstanceRouter();
                 //var approveInstanceRouter = router.ApproveInstanceRouter();
 
                 Backbone.history.start({pushState: true});

@@ -9,6 +9,7 @@
 define(
         [
             //libraries
+            'jquery',
             'backbone',
 
             //modules
@@ -16,6 +17,7 @@ define(
             'util/track',
             'model/customer',
             'model/instance',
+            'model/creditCard',
             'view/page/confirmInstance',
             'view/page/cardCustomer',
             'view/page/confirmInstanceThanks'
@@ -23,11 +25,13 @@ define(
             //jquery ui
         ],
         function (
+                $,
                 Backbone,
                 event,
                 track,
                 customerModel,
                 instanceModel,
+                creditCardModel,
                 confirmInstanceView,
                 cardCustomerView,
                 confirmInstanceThanksView) {
@@ -44,24 +48,28 @@ var ConfirmInstanceController = Backbone.Marionette.Controller.extend({
     cardCustomerPage: null,
     confirmInstanceThanksPage: null,
 
-    initialize: function () {
-        this.region = new Backbone.Marionette.Region({
-            el: '.content'
-        });
+    pagesSelector: '#confirm-instance-page, #card-customer-page, #confirm-instance-thanks-page',
 
-        this.initializeModels();
-        this.initializePages();
-        this.initializeTransitions();
+    initialize: function () {
+        if ($(this.pagesSelector).length) {
+            this.region = new Backbone.Marionette.Region({
+                el: '.content'
+            });
+
+            this.initializeModels();
+            this.initializePages();
+            this.initializeTransitions();
+        }
     },
 
     initializeModels: function () {
         // get ID from Router
         this.instanceModel = instanceModel.TaskInstanceModel();
         this.customerModel = customerModel.CustomerModel();
-        this.creditCardModel = paymentModel.CreditCardModel();
+        this.creditCardModel = creditCardModel.CreditCardModel();
 
         this.instanceModel.on('change:customer_id', function (model, value) {
-            this.customerModel.set('id', value);
+            this.customerModel.resetID(value);
         }, this);
 
         // FIXME XXX: This should be in the internal task update controller
@@ -76,10 +84,15 @@ var ConfirmInstanceController = Backbone.Marionette.Controller.extend({
                 'change:control_group',
                 function (model, value) {
                     var taskStatus = this.instanceModel.get('status');
-                    this.createInstanceView.taskInstanceView.
+                    this.confirmInstancePage.confirmInstanceObjectView.
                             setupControlAndTestFields(value, taskStatus);
                 },
                 this);
+
+        // when the credit card is saved then update the customer
+        this.creditCardModel.on('change:stripe_token', function (model, value) {
+            this.customerModel.set('stripe_token', value);
+        }, this);
 
     },
 
@@ -109,35 +122,29 @@ var ConfirmInstanceController = Backbone.Marionette.Controller.extend({
     },
 
     loadConfirmInstancePage: function (instanceID) {
-        if (this.instanceModel.id !== instanceID) {
-            if (this.instanceModel.isNew()) {
-                this.instanceModel.set('id', instanceID);
-            } else {
-                console.log("ERROR: Trying to change a model's id.");
-            }
+        var id = parseInt(instanceID, 10);
+        if (this.instanceModel.isNew()) {
+            this.instanceModel.resetID(id);
         }
+
         this.region.show(this.confirmInstancePage);
     },
 
     loadCardCustomerPage: function (customerID) {
-        if (this.customerModel.id !== customerID) {
-            if (this.customerModel.isNew()) {
-                this.customerModel.set('id', customerID);
-            } else {
-                console.log("ERROR: Trying to change a model's id.");
-            }
+        var id = parseInt(customerID, 10 );
+        if (this.customerModel.isNew()) {
+            this.customerModel.resetID(id);
         }
+
         this.region.show(this.cardCustomerPage);
     },
 
     loadConfirmInstanceThanksPage: function (instanceID) {
-        if (this.instanceModel.id !== instanceID) {
-            if (this.instanceModel.isNew()) {
-                this.instanceModel.set('id', instanceID);
-            } else {
-                console.log("ERROR: Trying to change a model's id.");
-            }
+        var id = parseInt(instanceID, 10);
+        if (this.instanceModel.isNew()) {
+            this.instanceModel.resetID(id);
         }
+
         this.region.show(this.confirmInstanceThanksPage);
     },
 
@@ -146,7 +153,7 @@ var ConfirmInstanceController = Backbone.Marionette.Controller.extend({
 
         this.instanceModel.set('status', 'confirmed');
         this.instanceModel.once(event.SAVE, this.onConfirmedTask, this);
-        this.taskInstanceView.save();
+        this.instanceModel.save();
     },
 
     onConfirmedTask: function (model, options) {

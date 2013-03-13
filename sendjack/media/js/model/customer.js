@@ -22,7 +22,6 @@ var CustomerModel = BaseModel.extend({
     urlRoot: '/a/customers',
 
     onCreate: function (model, options) {
-        console.log('happiness');
         track.signUp(model.get('id'), model.get('email'));
     },
 

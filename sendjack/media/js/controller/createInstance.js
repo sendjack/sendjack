@@ -9,6 +9,7 @@
 define(
         [
             //libraries
+            'jquery',
             'backbone',
 
             //modules
@@ -22,6 +23,7 @@ define(
             //jquery ui
         ],
         function (
+                $,
                 Backbone,
                 event,
                 customerModel,
@@ -42,20 +44,26 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
     createCustomerPage: null,
     createInstanceThanksPage: null,
 
+    pagesSelector: '#create-instance-page, #create-customer-page, #create-instance-thanks-page',
 
     initialize: function () {
-        this.region = new Backbone.Marionette.Region({
-            el: '.alt-content'
-        });
+        if ($(this.pagesSelector).length) {
+            this.region = new Backbone.Marionette.Region({
+                el: '.alt-content'
+            });
 
-        this.initializeModels();
-        this.initializePages();
-        this.initializeTransitions();
+            this.initializeModels();
+            this.initializePages();
+            this.initializeTransitions();
+        }
     },
 
     initializeModels: function () {
         this.customerModel = customerModel.CustomerModel();
         this.instanceModel = instanceModel.TaskInstanceModel();
+
+        // TODO: Set this somewhere else.
+        this.instanceModel.set('status', 'created');
 
         // TODO: Use Backbone relational for stuff like this.
         this.customerModel.on('change:id', function (model, value) {
@@ -80,7 +88,11 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
                 .CreateInstanceThanksPageView();
     },
 
-    /** Catch any transition events and navigate to next page. */
+    /**
+     * Catch any transition events and navigate to next page.
+     *
+     * ORDER: Create Task --> Create Customer --> Thanks
+     */
     initializeTransitions: function () {
         this.instanceModel.once(event.SAVE, function () {
             Backbone.history.navigate('/users/create', {trigger: true});

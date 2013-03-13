@@ -28,17 +28,20 @@ Backbone.sync = function(method, model, options) {
 
 
 var BaseModel = Backbone.Model.extend({
-    /**
-     * True if the model has changed since a sync event.
-     */
+
+    /** True if the model has changed since a sync event. */
     dirty: false,
 
     initialize: function (attributes, options) {
-        this.on('change:id', this.fetch, this);
 
         this.on('change', this.makeDirty, this);
         this.on('sync', this.clearDirty, this);
         this.on(event.CREATE, this.onCreate, this);
+    },
+
+    resetID: function (id) {
+        this.set('id', id);
+        this.fetch();
     },
 
     makeDirty: function (model, options) {
@@ -90,5 +93,3 @@ return {
 
 
 });
-
-

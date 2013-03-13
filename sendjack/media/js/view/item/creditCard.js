@@ -1,11 +1,10 @@
 /**
  * Access the CreditCardView.
  *
- * @exports payment
+ * @exports view.creditCard
  *
  * @requires $
  * @requires Lodash
- * @requires Backbone
  *
  */
 define(
@@ -13,18 +12,20 @@ define(
             //libraries
             'jquery',
             'underscore',
-            'backbone',
 
             //modules
             'event',
-            'util/payment'
+            'view/item/base'
 
             //jquery ui
         ],
-        function ($, _, Backbone, event, payment) {
+        function ($, _, event, baseView) {
 
 
-var CreditCardView = Backbone.View.extend({
+// Get access to the superclass without instantiating an instance.
+var ItemView = baseView.getItemViewClass();
+
+var CreditCardView = ItemView.extend({
 
     required_fields: [
         "first_name",
@@ -37,8 +38,9 @@ var CreditCardView = Backbone.View.extend({
     ],
 
     initialize: function () {
+        ItemView.prototype.initialize.call(this);
+
         this.$submitButton = this.$el.find('.submit-button');
-        this.customerModel = this.options.customerModel;
         _.bindAll(this);
 
     },
@@ -55,28 +57,7 @@ var CreditCardView = Backbone.View.extend({
         if (this.validate()) {
             this.$submitButton.attr('disabled', 'disabled');
 
-            payment.saveCreditCard(
-                    this.$el.find('[name=card_number]').val(),
-                    this.$el.find('[name=card_cvc]').val(),
-                    this.$el.find('[name=card_expiry_month]').val(),
-                    this.$el.find('[name=card_expiry_year]').val(),
-                    this.onSaveResponse);
-        }
-    },
-
-    onSaveResponse: function (status, response) {
-        var token = payment.getTokenFromStripeResponse(status, response);
-
-        if (token === null) {
-            //FIXME XXX
-            //this.$el.find('.payment-errors').text(response.error.message).show();
-            this.$submitButton.removeAttr('disabled');
-
-            //var offset = $('#second-focus').offset().top;
-            //$('html, body').animate({scrollTop:offset}, 1000);
-        } else {
-            this.customerModel.set('stripe_token', token);
-            this.trigger(event.SAVE);
+            this.model.save();
         }
     },
 
@@ -89,8 +70,30 @@ var CreditCardView = Backbone.View.extend({
         }
 
         return validated;
-    }
+    },
 
+    /** TODO: This isn't currently called. */
+    addTypeCheckingValidationRules: function () {
+        this.$el.validate({
+            rules: {
+                card_number: {
+                    creditcard: true
+                },
+                card_expiry_month: {
+                    range: [0,12]
+                },
+                card_expiry_year: {
+                    number: true,
+                    minlength: 4,
+                    maxlength: 4
+                },
+                cvc: {
+                    number: true,
+                    maxlength: 5
+                }
+            }
+        });
+    }
 });
 
 return {

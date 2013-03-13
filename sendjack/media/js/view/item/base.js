@@ -24,31 +24,67 @@ define(
         function ($, _, Backbone, ModelBinder, event) {
 
 
-var ObjectView = Backbone.View.extend({
+/** A single model view. */
+var ItemView = Backbone.View.extend({
 
     modelBinder: null,
+
+    initialize: function () {
+
+        this.modelBinder = new Backbone.ModelBinder();
+        this.modelBinder.bind(this.model, this.el, this.getBindings());
+
+        this.model.on('change', function (model, value) {
+            console.log(model.toJSON());
+        });
+    },
+
+    /**
+     * If we want to handle bindings differently and/or more generically, these
+     * two links should be helpful:
+     *      https://github.com/theironcook/Backbone.ModelBinder
+     *          #quickly-create-and-modify-bindings
+     *          #the-power-of-jquery
+     */
+    getBindings: function (boundAttribute) {
+        var attribute = boundAttribute || 'name';
+
+        return this.editBindings(
+            Backbone.ModelBinder.createDefaultBindings(this.el, attribute));
+    },
+
+    /**
+     * Views extending ObjectView may override to edit default bindings.
+     *
+     * For example:
+     *
+     *      bindings['phone'].converter = this._phoneConverterFunction;
+     *      delete bindings['complicatedAttribute'];
+     */
+    editBindings: function (bindings) {
+        return bindings;
+    }
+
+});
+
+
+/** An ItemView whose Model is backed by one of our objects. */
+var ObjectView = ItemView.extend({
+
 
     /**
      * Initialize the ObjectView.
      */
     initialize: function () {
-        this.$el.find('[name=id]').attr('disabled', 'disabled');
+        ItemView.prototype.initialize.call(this);
 
-        //this.model = this.setupModel(model);
-        
-        this.modelBinder = new Backbone.ModelBinder();
-        this.modelBinder.bind(this.model, this.el, this.getBindings());
+        this.$el.find('[name=id]').attr('disabled', 'disabled');
 
         // keep these separate as the 'required' should happen in the page
         // specific subclasses and the 'type-checking' should happen at the
         // model views.
         this.addRequiredValidationRules();
         this.addTypeCheckingValidationRules();
-
-        var thatModel = this.model;
-        this.model.on('change', function () {
-            console.log(thatModel.toJSON());
-        });
 
         this.render();
     },
@@ -86,26 +122,6 @@ var ObjectView = Backbone.View.extend({
     },
 
     /**
-     * Make sure model matches URL and fetch any data if not New.
-     */
-    setupModel: function (model) {
-        // set up model and if it has an id, then fetch data from server.
-        // if the model corresponds to the url with id, then grab that info.
-        var urlArray = document.URL.split('/');
-        var model_type = urlArray[3];
-        var model_id = urlArray[4];
-        if (!model.isNew()) {
-            model.fetch();
-        } else if (model_type === this.urlPath &&
-                model_id !== undefined) {
-            model.set('id', model_id);
-            model.fetch();
-        }
-
-        return model;
-    },
-
-    /**
      * Add Type Checking validation rules.
      *
      * This should be overriden by each base subclass.
@@ -120,33 +136,8 @@ var ObjectView = Backbone.View.extend({
      * pages.
      */
     addRequiredValidationRules: function () {
-    },
-
-    /**
-     * If we want to handle bindings differently and/or more generically, these
-     * two links should be helpful:
-     *      https://github.com/theironcook/Backbone.ModelBinder
-     *          #quickly-create-and-modify-bindings
-     *          #the-power-of-jquery
-     */
-    getBindings: function (boundAttribute) {
-        var attribute = boundAttribute || 'name';
-
-        return this.editBindings(
-            Backbone.ModelBinder.createDefaultBindings(this.el, attribute));
-    },
-
-    /**
-     * Views extending ObjectView may override to edit default bindings.
-     *
-     * For example:
-     *
-     *      bindings['phone'].converter = this._phoneConverterFunction;
-     *      delete bindings['complicatedAttribute'];
-     */
-    editBindings: function (bindings) {
-        return bindings;
     }
+
 
 });
 
@@ -326,6 +317,10 @@ var TaskView = ObjectView.extend({
 });
 
 return {
+    getItemViewClass: function () {
+        return ItemView;
+    },
+
     getObjectViewClass: function () {
         return ObjectView;
     },

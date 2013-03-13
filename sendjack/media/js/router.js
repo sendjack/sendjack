@@ -13,8 +13,8 @@ define(
             'backbone',
 
             //modules
-            'controller/createInstance'
-            //'controller/confirmInstance',
+            'controller/createInstance',
+            'controller/confirmInstance'
             //'controller/approveInstance'
 
             //jquery ui
@@ -24,7 +24,7 @@ define(
 
 /** Every router has a single controller. */
 var createInstanceController = createInstance.CreateInstanceController();
-// var confirmInstanceController = confirmInstance.ConfirmInstanceController();
+var confirmInstanceController = confirmInstance.ConfirmInstanceController();
 //var approveInstanceController = approveInstance.ApproveInstanceController();
 
 
@@ -40,7 +40,7 @@ var CreateInstanceRouter = Backbone.Marionette.AppRouter.extend({
 });
 
 
-/** var ConfirmInstanceRouter = Backbone.Marionette.AppRouter.extend({
+var ConfirmInstanceRouter = Backbone.Marionette.AppRouter.extend({
 
     controller: confirmInstanceController,
 
@@ -51,7 +51,7 @@ var CreateInstanceRouter = Backbone.Marionette.AppRouter.extend({
     }
 });
 
-var ApproveInstanceRouter = Backbone.Marionette.AppRouter.extend({
+/** var ApproveInstanceRouter = Backbone.Marionette.AppRouter.extend({
 
     controller: approveInstanceController,
 
@@ -73,17 +73,17 @@ return {
         }
 
         return createInstanceRouter;
-    }
+    },
 
-    /** ConfirmInstanceRouter: function () {
+   ConfirmInstanceRouter: function () {
         if (confirmInstanceRouter === null) {
             confirmInstanceRouter = new ConfirmInstanceRouter();
         }
 
         return confirmInstanceRouter;
-    },
+    }
 
-    ApproveInstanceRouter: function () {
+    /**ApproveInstanceRouter: function () {
         if (approveInstanceRouter === null) {
             approveInstanceRouter= new ApproveInstanceRouter();
         }

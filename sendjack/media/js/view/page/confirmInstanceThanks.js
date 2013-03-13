@@ -20,7 +20,7 @@ var PageView = pageView.getPageViewClass();
 
 var ConfirmInstanceThanksPageView = PageView.extend({
 
-    el: '#instance-confirm-thanks-page'
+    el: '#confirm-instance-thanks-page'
 
 });
 

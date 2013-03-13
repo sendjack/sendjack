@@ -189,15 +189,18 @@ class TagsGrid(TitledGrid):
         self.append_child(FieldList(fields))
 
 
-class TaskInstancePostPage(Page):
+class ConfirmInstancePage(Page):
 
-    TASK_INSTANCE_POST_PAGE_CLASS = unicode("task-instance-post-page")
+    CONFIRM_INSTANCE_PAGE_ID = unicode("confirm-instance-page")
 
     def __init__(self):
-        super(TaskInstancePostPage, self).__init__()
-        self.append_class(self.TASK_INSTANCE_POST_PAGE_CLASS)
+        super(ConfirmInstancePage, self).__init__()
+        self.set_id(self.CONFIRM_INSTANCE_PAGE_ID)
 
-        self.append_child(TaskInstancePostContrastSection())
+        contrast_section = ContrastSection()
+        contrast_section.append_child(TaskInstanceGrid())
+
+        self.append_child(contrast_section)
 
 
 class TaskInstancePostContrastSection(ContrastSection):
@@ -261,6 +264,20 @@ class TaskInstanceGrid(Grid):
         self.append_child(task_instance_view)
 
 
+class CardCustomerPage(Page):
+
+    CARD_CUSTOMER_PAGE_ID = unicode("card-customer-page")
+
+    def __init__(self):
+        super(CardCustomerPage, self).__init__()
+        self.set_id(self.CARD_CUSTOMER_PAGE_ID)
+
+        contrast_section = ContrastSection()
+        contrast_section.append_child(CreditCardGrid())
+
+        self.append_child(contrast_section)
+
+
 class CreditCardGrid(Grid):
 
     CREDIT_CARD_GRID_CLASS = unicode("credit-card-grid")
@@ -321,6 +338,20 @@ class CreditCardGrid(Grid):
         self.append_child(customer_view)
 
 
+class ConfirmInstanceThanksPage(Page):
+
+    CONFIRM_INSTANCE_THANKS_PAGE_ID = unicode("confirm-instance-thanks-page")
+
+    def __init__(self):
+        super(ConfirmInstanceThanksPage, self).__init__()
+        self.set_id(self.CONFIRM_INSTANCE_THANKS_PAGE_ID)
+
+        contrast_section = ContrastSection()
+        contrast_section.append_child(ThankYouGrid())
+
+        self.append_child(contrast_section)
+
+
 class ThankYouGrid(Grid):
     THANK_YOU_GRID_CLASS = unicode("thank-you-grid")
     THANK_YOU_GRID_ID = unicode("thank-you-grid")
@@ -346,13 +377,13 @@ class ThankYouGrid(Grid):
         self.append_child(img)
 
 
-class TaskInstanceApprovePage(Page):
+class ApproveInstancePage(Page):
 
-    TASK_INSTANCE_APPROVE_PAGE_CLASS = unicode("task-instance-approve-page")
+    APPROVE_INSTANCE_PAGE_ID = unicode("approve-instance-page")
 
     def __init__(self):
-        super(TaskInstanceApprovePage, self).__init__()
-        self.append_class(self.TASK_INSTANCE_APPROVE_PAGE_CLASS)
+        super(ApproveInstancePage, self).__init__()
+        self.set_id(self.APPROVE_INSTANCE_PAGE_ID)
 
         self.append_child(TaskInstanceApproveContrastSection())
 

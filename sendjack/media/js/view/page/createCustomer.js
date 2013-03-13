@@ -52,6 +52,7 @@ function CreateCustomerObjectView(attributes, options) {
         },
 
         onAttributeChange: function (model, value, options) {
+            console.log('THIS SHOULD NEVER EVER BE CALLED.');
             this.save();
         }
     });
