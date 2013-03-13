@@ -1,0 +1,124 @@
+/***********************************************************
+*
+*   Generic Functions 
+*   
+************************************************************/
+
+/***********************************************************
+* CROSS BROWSER HELPERS 
+************************************************************/
+/* Create columns with no spacing. */
+.columns (@number) {
+    column-count: @number;
+    -webkit-column-count: @number;
+    -moz-column-count: @number;
+    
+    column-rule: 0px;
+    -webkit-column-rule: 0px;
+    -moz-column-rule: 0px;
+
+    column-gap: 0px;
+    -webkit-column-gap: 0px;
+    -moz-column-gap: 0px;
+}
+
+/* Cross browser border-radius */
+.border-radius(@radius) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+/* Cross browser backgorund-size */
+.background-size(@width, @height) {
+    background-size: @width @height;
+    -moz-background-size: @width @height;
+    -webkit-background-size: @width @height;
+    -o-background-size: @width @height;
+}
+
+/* Add a box shadow. */
+.box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, @inset: ~"") {
+    -webkit-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
+        @inset;
+    -moz-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
+        @inset;
+    box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha) @inset;
+}
+
+.opacity(@value) {
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+    /* IE 5-7 */
+    @ieValue: @value * 100;
+    filter: alpha(opacity=@ieValue);
+
+    /* Netscape */
+    -moz-opacity: @value;
+
+    /* Safari 1.x */
+    -khtml-opacity: @value;
+
+    /* Good browsers */
+    opacity: @value;
+}
+
+
+/***********************************************************
+* TOOLS
+************************************************************/
+
+/* Use a background-image in a consistent way. */
+.background-image-wrapper(
+        @width,
+        @height,
+        @imageSource,
+        @backgroundColor,
+        @repeat: no-repeat) {
+    width: @width;
+    height: @height;
+    background: url('/static/images/@{imageSource}') @backgroundColor @repeat;
+    // background size needs to be after the background it's sizing.
+    .background-size(@width, @height);
+}
+
+.background-pattern-wrapper(
+        @elemWidth,
+        @elemHeight,
+        @patternWidth,
+        @patternHeight,
+        @imageSource,
+        @backgroundColor,
+        @repeat: repeat-x) {
+    width: @elemWidth;
+    height: @elemHeight;
+    background: url('/static/images/@{imageSource}') @backgroundColor @repeat;
+    // background size needs to be after the background it's sizing.
+    .background-size(@patternWidth, @patternHeight);
+}
+
+/* Center the background image in a consistent way. */
+.centered-image(@position, @width, @height) {
+    .horizontally-centered-image(@position, @width); 
+    .vertically-centered-image(@position, @height);
+}
+
+.vertically-centered-image(@position, @height) {
+    position: @position;
+    top: 50%;
+    margin-top: -(@height / 2);
+}
+
+.horizontally-centered-image(@position, @width) {
+    position: @position;
+    left: 50%;
+    margin-left: -(@width / 2);
+}
+
+/* Hide the content when using the background image for function. */
+.hidden-content {
+    line-height: 0px; 
+    font-size: 0px;
+    color: transparent; 
+}

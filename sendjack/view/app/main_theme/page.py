@@ -1,19 +1,35 @@
 """
-    Alpha Sign Up Pages
-    -------------------
+    Pages for Main Theme
+    --------------------
 
-    All the Pages for the alpha sign up series.
-    <div class="page">
+    The Standard Pages for the application.
+    <div class="page main-page">
 
 """
 from view.elementary.html import TextInput, SubmitButton, Textarea, HiddenInput
 from view.app.base.page import Page
 from view.app.base.components import Line, DatePicker, ObjectView
 
-from components import AltSection, RightGrid
+from .components import MainSection, MainGrid
 
 
-class CreateCustomerPage(Page):
+class MainPage(Page):
+
+    MAIN_PAGE_CLASS = "main-page"
+
+    def __init__(self):
+        super(MainPage, self).__init__()
+        self.append_class(self.MAIN_PAGE_CLASS)
+
+        main_section = MainSection(self._construct_grids())
+        self.append_child(main_section)
+
+
+    def _construct_grids(self):
+        return []
+
+
+class CreateCustomerPage(MainPage):
 
     CREATE_CUSTOMER_PAGE_ID = "create-customer-page"
 
@@ -21,15 +37,15 @@ class CreateCustomerPage(Page):
         super(CreateCustomerPage, self).__init__()
         self.set_id(self.CREATE_CUSTOMER_PAGE_ID)
 
-        sign_up_section = AltSection(SignUpGrid())
 
-        self.append_child(sign_up_section)
+    def _construct_grids(self):
+        return [CreateCustomerGrid()]
 
 
-class SignUpGrid(RightGrid):
+class CreateCustomerGrid(MainGrid):
 
-    SIGN_UP_GRID = "sign-up-grid"
-    SIGN_UP_TITLE = "sign-up-title"
+    CREATE_CUSTOMER_GRID_CLASS = "create-customer-grid"
+    CREATE_CUSTOMER_TITLE = "Sign Up"
 
     LINES = [
             "Jackalope is the easiest way to outsource work.",
@@ -39,12 +55,8 @@ class SignUpGrid(RightGrid):
 
 
     def __init__(self):
-        super(SignUpGrid, self).__init__()
-        self.append_class(self.SIGN_UP_GRID)
-
-
-    def _set_title_image_class(self, title_image_div):
-        title_image_div.append_class(self.SIGN_UP_TITLE)
+        super(CreateCustomerGrid, self).__init__(self.CREATE_CUSTOMER_TITLE)
+        self.append_class(self.CREATE_CUSTOMER_GRID_CLASS)
 
 
     def _set_grid_elements(self):
@@ -96,32 +108,27 @@ class CustomerView(ObjectView):
         self.append_child(submit)
 
 
-class CreateInstancePage(Page):
+class CreateInstancePage(MainPage):
 
-    CREATE_INSTANCE_PAGE_ID = "create-instance-page"
-
+    CREATE_INSTANCE_PAGE_ID = unicode("create-instance-page")
 
     def __init__(self):
         super(CreateInstancePage, self).__init__()
         self.set_id(self.CREATE_INSTANCE_PAGE_ID)
 
-        new_task_section = AltSection(NewTaskGrid())
 
-        self.append_child(new_task_section)
+    def _construct_grids(self):
+        return [CreateInstanceGrid()]
 
 
-class NewTaskGrid(RightGrid):
+class CreateInstanceGrid(MainGrid):
 
-    NEW_TASK_GRID = "new-task-grid"
-    NEW_TASK_TITLE = "new-task-title"
+    CREATE_INSTANCE_GRID_CLASS = unicode("create-instance-grid")
+    CREATE_INSTANCE_TITLE = unicode("New Task")
 
     def __init__(self):
-        super(NewTaskGrid, self).__init__()
-        self.append_class(self.NEW_TASK_GRID)
-
-
-    def _set_title_image_class(self, title_image_div):
-        title_image_div.append_class(self.NEW_TASK_TITLE)
+        super(CreateInstanceGrid, self).__init__(self.CREATE_INSTANCE_TITLE)
+        self.append_class(self.CREATE_INSTANCE_GRID_CLASS)
 
 
     def _set_grid_elements(self):
@@ -214,7 +221,7 @@ class TaskInstanceView(ObjectView):
         self.append_child(submit)
 
 
-class CreateInstanceThanksPage(Page):
+class CreateInstanceThanksPage(MainPage):
 
     CREATE_INSTANCE_THANKS_PAGE_ID = unicode("create-instance-thanks-page")
 
@@ -222,15 +229,15 @@ class CreateInstanceThanksPage(Page):
         super(CreateInstanceThanksPage, self).__init__()
         self.set_id(self.CREATE_INSTANCE_THANKS_PAGE_ID)
 
-        thank_you_section = AltSection(ThankYouGrid())
 
-        self.append_child(thank_you_section)
+    def _construct_grids(self):
+        return [CreateInstanceThanksGrid()]
 
 
-class ThankYouGrid(RightGrid):
+class CreateInstanceThanksGrid(MainGrid):
 
-    THANK_YOU_GRID = "thank-you-grid"
-    THANK_YOU_TITLE = "thank-you-title"
+    CREATE_INSTANCE_THANKS_GRID_CLASS = "create-intance-thanks-grid"
+    CREATE_INSTANCE_THANKS_TITLE = "Next Steps"
 
     # TODO: Put somewhere else
     LINES = [
@@ -242,12 +249,9 @@ class ThankYouGrid(RightGrid):
 
 
     def __init__(self):
-        super(ThankYouGrid, self).__init__()
-        self.append_class(self.THANK_YOU_GRID)
-
-
-    def _set_title_image_class(self, title_image_div):
-        title_image_div.append_class(self.THANK_YOU_TITLE)
+        super(CreateInstanceThanksGrid, self).__init__(
+                self.CREATE_INSTANCE_THANKS_TITLE)
+        self.append_class(self.CREATE_INSTANCE_THANKS_GRID_CLASS)
 
 
     def _set_grid_elements(self):

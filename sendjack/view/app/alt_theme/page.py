@@ -10,9 +10,9 @@ from view.elementary.html import SubmitButton, Div, Img
 
 from view.app.base.page import Page
 from view.app.base.components import FieldList, Grid, ObjectView, Title
-from view.app.base.components import Field, Paragraph
+from view.app.base.components import Field, Paragraph, TitledGrid
 
-from components import NormalSection, ContrastSection, TitledGrid
+from components import NormalSection, ContrastSection
 from components import IDField, TemplateField
 #from components import CreatorField, CustomerField
 from components import CustomerTitleField, CustomerDescriptionField
@@ -25,7 +25,16 @@ from components import CategoryTagsField, IndustryTagsField
 from components import SkillTagsField, EquipmentTagsField
 
 
-class TaskTemplatePage(Page):
+class AltPage(Page):
+
+    ALT_PAGE_CLASS = "alt-page"
+
+    def __init__(self):
+        super(AltPage, self).__init__()
+        self.append_class(self.ALT_PAGE_CLASS)
+
+
+class TaskTemplatePage(AltPage):
 
     TEMPLATE_PAGE_ID = unicode("template-page")
     TEMPLATE_ID = "template"
@@ -59,6 +68,7 @@ class MainGrid(TitledGrid):
         super(MainGrid, self).__init__(self.MAIN_TITLE)
         self.append_class(self.MAIN_GRID_CLASS)
 
+    def _set_grid_elements(self):
         fields = [
                 IDField(),
                 #CreatorField(),
@@ -89,6 +99,7 @@ class PostGrid(Grid):
         super(PostGrid, self).__init__()
         self.append_class(self.POST_GRID_CLASS)
 
+    def _set_grid_elements(self):
         self.append_child(SubmitButton(self.CREATE_TEMPLATE))
 
 
@@ -111,6 +122,7 @@ class DetailsGrid(TitledGrid):
         super(DetailsGrid, self).__init__(self.DETAILS_TITLE)
         self.append_class(self.DETAILS_GRID_CLASS)
 
+    def _set_grid_elements(self):
         fields = [
                 Field(
                         "Min Price",
@@ -151,6 +163,7 @@ class WorkerGrid(TitledGrid):
         super(WorkerGrid, self).__init__(self.WORKER_TITLE)
         self.append_class(self.WORKER_GRID_CLASS)
 
+    def _set_grid_elements(self):
         fields = [
                 Field(
                         "Name",
@@ -179,6 +192,7 @@ class TagsGrid(TitledGrid):
         super(TagsGrid, self).__init__(self.TAGS_TITLE)
         self.append_class(self.TAGS_GRID_CLASS)
 
+    def _set_grid_elements(self):
         fields = [
                 CategoryTagsField(),
                 IndustryTagsField(),
@@ -189,7 +203,7 @@ class TagsGrid(TitledGrid):
         self.append_child(FieldList(fields))
 
 
-class ProcessInstancePage(Page):
+class ProcessInstancePage(AltPage):
 
     PROCESS_INSTANCE_PAGE_ID = unicode("process-instance-page")
 
@@ -203,7 +217,7 @@ class ProcessInstancePage(Page):
         self.append_child(contrast_section)
 
 
-class ConfirmInstancePage(Page):
+class ConfirmInstancePage(AltPage):
 
     CONFIRM_INSTANCE_PAGE_ID = unicode("confirm-instance-page")
 
@@ -235,6 +249,7 @@ class TaskInstanceGrid(Grid):
 
         self.set_id(self.TASK_INSTANCE_GRID_ID)
 
+    def _set_grid_elements(self):
         task_instance_view = ObjectView(self.TASK_INSTANCE_ID)
         welcome_div = Div()
         welcome_div.set_text(self.WELCOME_TEXT)
@@ -268,7 +283,7 @@ class TaskInstanceGrid(Grid):
         self.append_child(task_instance_view)
 
 
-class CardCustomerPage(Page):
+class CardCustomerPage(AltPage):
 
     CARD_CUSTOMER_PAGE_ID = unicode("card-customer-page")
 
@@ -300,6 +315,7 @@ class CreditCardGrid(Grid):
 
         self.set_id(self.CREDIT_CARD_GRID_ID)
 
+    def _set_grid_elements(self):
         customer_view = ObjectView(self.CUSTOMER_ID)
         welcome_div = Div()
         welcome_div.set_text(self.WELCOME_TEXT)
@@ -342,7 +358,7 @@ class CreditCardGrid(Grid):
         self.append_child(customer_view)
 
 
-class ConfirmInstanceThanksPage(Page):
+class ConfirmInstanceThanksPage(AltPage):
 
     CONFIRM_INSTANCE_THANKS_PAGE_ID = unicode("confirm-instance-thanks-page")
 
@@ -369,6 +385,7 @@ class ThankYouGrid(Grid):
 
         self.set_id(self.THANK_YOU_GRID_ID)
 
+    def _set_grid_elements(self):
         main_title = Title(self.MAIN_TITLE)
 
         sub_div = Div()
@@ -381,7 +398,7 @@ class ThankYouGrid(Grid):
         self.append_child(img)
 
 
-class ApproveInstancePage(Page):
+class ApproveInstancePage(AltPage):
 
     APPROVE_INSTANCE_PAGE_ID = unicode("approve-instance-page")
 

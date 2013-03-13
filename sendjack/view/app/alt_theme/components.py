@@ -7,7 +7,6 @@
 """
 from view.elementary.html import Section, HiddenInput
 
-from view.app.base.components import Grid, Title
 from view.app.base.components import Field, HeadField, BigField
 from view.app.base.components import SubField, KeyedSubField
 
@@ -34,15 +33,6 @@ class ContrastSection(Section):
 
         if el:
             self.append_child(el)
-
-
-class TitledGrid(Grid):
-
-    """A Grid with a Title at the top."""
-
-    def __init__(self, title_str):
-        super(TitledGrid, self).__init__()
-        self.append_child(Title(title_str))
 
 
 class IDField(Field):
