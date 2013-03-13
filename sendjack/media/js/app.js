@@ -67,6 +67,8 @@ return {
                 var processInstanceRouter = router.ProcessInstanceRouter();
                 var confirmInstanceRouter = router.ConfirmInstanceRouter();
                 //var approveInstanceRouter = router.ApproveInstanceRouter();
+                
+                var templateRouter = router.TemplateRouter();
 
                 Backbone.history.start({pushState: true});
             });

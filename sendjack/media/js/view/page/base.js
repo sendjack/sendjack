@@ -22,6 +22,7 @@ var PageView = Backbone.Marionette.CompositeView.extend({
     initialize: function () {
 
         // This bypasses Marionette's templates.
+        console.log(this);
         this.template = this.el.html;
 
         // Setup page DOM

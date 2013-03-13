@@ -32,10 +32,6 @@ var TaskInstanceView = TaskView.extend({
 
     el: '#instance',
 
-    initialize: function () {
-        TaskView.prototype.initialize.call(this);
-    },
-
     editBindings: function (bindings) {
         // TODO: maybe move this to TaskView?
 

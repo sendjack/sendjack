@@ -15,8 +15,9 @@ define(
             //modules
             'controller/createInstance',
             'controller/processInstance',
-            'controller/confirmInstance'
+            'controller/confirmInstance',
             //'controller/approveInstance'
+            'controller/template'
 
             //jquery ui
         ],
@@ -25,7 +26,8 @@ define(
                 createInstance,
                 processInstance,
                 confirmInstance,
-                approveInstance) {
+                //approveInstance,
+                template) {
 
 
 /** Every router has a single controller. */
@@ -33,6 +35,7 @@ var createInstanceController = createInstance.CreateInstanceController();
 var processInstanceController = processInstance.ProcessInstanceController();
 var confirmInstanceController = confirmInstance.ConfirmInstanceController();
 //var approveInstanceController = approveInstance.ApproveInstanceController();
+var templateController = template.TemplateController();
 
 
 var CreateInstanceRouter = Backbone.Marionette.AppRouter.extend({
@@ -77,12 +80,26 @@ var ConfirmInstanceRouter = Backbone.Marionette.AppRouter.extend({
         'tasks/:id/approve/thanks': ''
     }
 });
- */
+*/
+
+
+var TemplateRouter = Backbone.Marionette.AppRouter.extend({
+
+    controller: templateController,
+
+    appRoutes: {
+        'templates': 'loadTemplatePage',
+        'templates/:id': 'loadTemplatePage'
+    }
+});
+
+
 /** Make sure the routers are singletons. */
 var createInstanceRouter = null;
 var processInstanceRouter = null;
 var confirmInstanceRouter = null;
 var approveInstanceRouter = null;
+var templateRouter = null;
 
 return {
     CreateInstanceRouter: function () {
@@ -107,7 +124,7 @@ return {
         }
 
         return confirmInstanceRouter;
-    }
+    },
 
     /**ApproveInstanceRouter: function () {
         if (approveInstanceRouter === null) {
@@ -116,6 +133,15 @@ return {
 
         return approveInstanceRouter;
     } */
+
+   TemplateRouter: function () {
+        if (templateRouter === null) {
+            templateRouter = new TemplateRouter();
+        }
+
+        return templateRouter;
+    }
+
 };
 
 

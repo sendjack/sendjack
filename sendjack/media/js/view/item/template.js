@@ -28,10 +28,6 @@ var TaskTemplateView = TaskView.extend({
 
     el: '#template',
 
-    initialize: function () {
-        TaskView.prototype.initialize.call(this);
-    },
-
     editBindings: function (bindings) {
         // TODO: maybe move this to TaskView?
 
@@ -44,8 +40,8 @@ var TaskTemplateView = TaskView.extend({
 });
 
 return {
-    TaskTemplateView: function () {
-        return new TaskTemplateView();
+    TaskTemplateView: function (attributes, options) {
+        return new TaskTemplateView(attributes, options);
     }
 };
 

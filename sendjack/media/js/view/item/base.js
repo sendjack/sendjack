@@ -54,12 +54,12 @@ var ItemView = Backbone.View.extend({
     },
 
     /**
-     * Views extending ObjectView may override to edit default bindings.
+     * Views extending ItemView may override to edit default bindings.
      *
      * For example:
      *
      *      bindings['phone'].converter = this._phoneConverterFunction;
-     *      delete bindings['complicatedAttribute'];
+     *      delete bindings.complicatedAttribute;
      */
     editBindings: function (bindings) {
         return bindings;

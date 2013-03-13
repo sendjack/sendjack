@@ -1,5 +1,4 @@
 @import "http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css";
-input,textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;-moz-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;}
 html,body,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend{margin:0;padding:0;border:0;outline:0;font-weight:normal;font-style:normal;font-size:100%;vertical-align:baseline;}
 :focus{outline:0;}
 body{line-height:1.2;color:black;background:white;}
@@ -32,7 +31,7 @@ li{margin-bottom:5px;line-height:30px;}
 .field-list li .field .value,.field-list li .sub-field .value,.field-list li .field .sub-value,.field-list li .sub-field .sub-value{float:left;width:70%;}
 .main-content{width:100%;height:100%;float:left;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#0092ff;background-color:#0092ff;}.main-content input,.main-content textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;-moz-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;}
 .main-content input{height:30px;}
-.main-content .normal-section{background:#ffffff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#0092ff;}.main-content .normal-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;color:#000000;}
+.main-content .normal-section{background:#0092ff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#0092ff;}.main-content .normal-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;color:#000000;}
 .main-content .normal-section .key,.main-content .normal-section .head-key,.main-content .normal-section .sub-key{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#97999c;}
 .main-content .normal-section .value,.main-content .normal-section .sub-value{color:#0092ff;}
 .main-content .contrast-section{background:#0092ff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;color:#ffffff;}.main-content .contrast-section .title{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:25px;color:#ffffff;}
@@ -51,8 +50,8 @@ li{margin-bottom:5px;line-height:30px;}
 .main-content .page .task-instance-grid .field-list .value{width:80%;}
 .main-content .page .task-instance-grid .field-list .key,.main-content .page .task-instance-grid .field-list .value,.main-content .page .task-instance-grid .field-list .sub-value{float:none;display:block;}
 .main-content .page #thank-you-grid img{height:60%;margin-top:30px;}
-.main-content .template-new-page .post-grid,.main-content .template-new-page .worker-grid{padding-left:25px;}
-.main-content .template-new-page .tags-grid{clear:both;}
+.main-content #template-page .post-grid,.main-content #template-page .worker-grid{padding-left:25px;}
+.main-content #template-page .tags-grid{clear:both;}
 .alt-content{width:100%;height:100%;}.alt-content a{color:#ffffff;text-decoration:none;}.alt-content a:hover{color:#000000;}
 .alt-content input,.alt-content textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:13px;letter-spacing:1px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;-webkit-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;-moz-box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;box-shadow:0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;border:0px;padding:15px 15px;background-color:#ffffff;color:#000000;margin:7px 0px;}
 .alt-content input{height:30px;}

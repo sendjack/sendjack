@@ -27,12 +27,12 @@ from components import SkillTagsField, EquipmentTagsField
 
 class TaskTemplatePage(Page):
 
-    TEMPLATE_NEW_PAGE_CLASS = unicode("template-new-page")
+    TEMPLATE_PAGE_ID = unicode("template-page")
     TEMPLATE_ID = "template"
 
     def __init__(self):
         super(TaskTemplatePage, self).__init__()
-        self.append_class(self.TEMPLATE_NEW_PAGE_CLASS)
+        self.set_id(self.TEMPLATE_PAGE_ID)
 
         template_view = ObjectView(self.TEMPLATE_ID)
         template_view.append_child(TaskTemplateNormalSection())
