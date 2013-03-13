@@ -14,26 +14,25 @@ define(
             'jquery',
 
             //modules
-            'view/base',
-            'model/customer'
+            'view/item/base'
 
             //jquery ui
         ],
-        function ($, base, customer) {
+        function ($, baseView) {
 
 
 // Get access to the superclass without instantiating an instance.
-var ObjectView = base.getObjectViewClass();
+var ObjectView = baseView.getObjectViewClass();
 
 var CustomerView = ObjectView.extend({
 
-    initialize: function () {
-        ObjectView.prototype.initialize.call(
-                this,
-                '#customer',
-                'customer',
-                customer.CustomerModel({id: this.options.model_id}));
+    el: '#customer',
 
+    initialize: function () {
+        ObjectView.prototype.initialize.call(this);
+
+        // FIXME XXX: Check to make sure the model is correct.
+        //
         var $status = this.$el.find('[name=status]');
         if ($status.length !== 0) {
             this.model.set('status', $status.val());
@@ -54,24 +53,20 @@ var CustomerView = ObjectView.extend({
             rules: {
                 email: {
                     email: true
-                },
-                card_number: {
-                    creditcard: true
-                },
-                card_expiry_month: {
-                    range: [0,12]
-                },
-                card_expiry_year: {
-                    number: true,
-                    minlength: 4,
-                    maxlength: 4
-                },
-                cvc: {
-                    number: true,
-                    maxlength: 5
                 }
             }
         });
+    },
+
+    editBindings: function (bindings) {
+
+        // We send this to Stripe but don't want it on our servers.
+        delete bindings.card_cvc;
+        delete bindings.card_expiry_month;
+        delete bindings.card_expiry_year;
+        delete bindings.card_number;
+
+        return bindings;
     }
 
 });

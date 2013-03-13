@@ -21,7 +21,7 @@ define(
 var BaseModel = base.getBaseModelClass();
 
 var TaskTemplateModel = BaseModel.extend({
-    urlRoot: '/a/template'
+    urlRoot: '/a/templates'
 });
 
 return {

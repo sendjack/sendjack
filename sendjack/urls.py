@@ -8,8 +8,11 @@
 from handlers.signup import SignUpHandler, SignUpSubmitHandler
 from handlers.logged_out import LoggedOutHandler
 
-from handlers.sync.alpha import SignUpSeriesHandler
-from handlers.sync.task_instance import TaskInstanceSyncHandler
+from handlers.sync.task_instance import CreateInstanceSyncHandler
+from handlers.sync.task_instance import ProcessInstanceSyncHandler
+from handlers.sync.task_instance import ConfirmInstanceSyncHandler
+from handlers.sync.task_instance import ApproveInstanceSyncHandler
+
 from handlers.sync.task_template import TaskTemplateSyncHandler
 
 from handlers.crud.customer import CustomerCRUDHandler
@@ -21,16 +24,26 @@ from handlers.crud.comment import CommentCRUDHandler
 url_patterns = [
         (r"/signup", SignUpHandler),
         (r"/thankyou", SignUpSubmitHandler),
-
-        (r"/posting/signup", SignUpSeriesHandler),
-
         (r"/", LoggedOutHandler),
 
-        (r"/task/?([0-9]+)?", TaskInstanceSyncHandler),
-        (r"/template/?([0-9]+)?", TaskTemplateSyncHandler),
+        #(r"/search", CreateTaskSyncHandler),
+        (r"/tasks/create", CreateInstanceSyncHandler),
+        (r"/users/create", CreateInstanceSyncHandler),
+        (r"/tasks/create/thanks", CreateInstanceSyncHandler),
 
-        (r"/a/customer/?([0-9]+)?", CustomerCRUDHandler),
-        (r"/a/task/?([0-9]+)?", TaskInstanceCRUDHandler),
-        (r"/a/template/?([0-9]+)?", TaskTemplateCRUDHandler),
-        (r"/a/comment/?([0-9]+)?", CommentCRUDHandler),
+        (r"/tasks/([0-9]+)/confirm", ConfirmInstanceSyncHandler),
+        (r"/users/([0-9]+)/card", ConfirmInstanceSyncHandler),
+        (r"/tasks/([0-9]+)/confirm/thanks", ConfirmInstanceSyncHandler),
+
+        (r"/tasks/([0-9]+)/process", ProcessInstanceSyncHandler),
+
+        (r"/tasks/([0-9]+)/approve", ApproveInstanceSyncHandler),
+        (r"/tasks/([0-9]+)/approve/thanks", ApproveInstanceSyncHandler),
+
+        (r"/templates/?([0-9]+)?", TaskTemplateSyncHandler),
+
+        (r"/a/customers/?([0-9]+)?", CustomerCRUDHandler),
+        (r"/a/instances/?([0-9]+)?", TaskInstanceCRUDHandler),
+        (r"/a/templates/?([0-9]+)?", TaskTemplateCRUDHandler),
+        (r"/a/comments/?([0-9]+)?", CommentCRUDHandler),
         ]

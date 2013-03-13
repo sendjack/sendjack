@@ -28,15 +28,20 @@ Backbone.sync = function(method, model, options) {
 
 
 var BaseModel = Backbone.Model.extend({
-    /**
-     * True if the model has changed since a sync event.
-     */
+
+    /** True if the model has changed since a sync event. */
     dirty: false,
 
     initialize: function (attributes, options) {
+
         this.on('change', this.makeDirty, this);
         this.on('sync', this.clearDirty, this);
         this.on(event.CREATE, this.onCreate, this);
+    },
+
+    resetID: function (id) {
+        this.set('id', id);
+        this.fetch();
     },
 
     makeDirty: function (model, options) {
@@ -73,7 +78,7 @@ var BaseModel = Backbone.Model.extend({
         updatedOptions.success = onSaveSuccess;
         updatedOptions.error = onSaveError;
 
-        console.log(this);
+        console.log("SAVING:");
         console.log(this.toJSON());
 
         Backbone.Model.prototype.save.call(this, attributes, updatedOptions);
@@ -88,5 +93,3 @@ return {
 
 
 });
-
-

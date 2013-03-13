@@ -197,7 +197,7 @@ class DescriptionField(BigField):
     CLASS = unicode("description")
 
     def __init__(self, value=""):
-        super(CustomerDescriptionField, self).__init__(
+        super(DescriptionField, self).__init__(
                 self.LABEL,
                 self.NAME,
                 value)

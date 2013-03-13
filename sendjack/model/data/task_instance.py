@@ -100,12 +100,12 @@ class TaskInstanceModel(TaskModel, CRUD):
 
     # TODO: figure out foreign keys.
     template_id = Column(Integer)
-    customer_id = Column(Integer, nullable=False)
+    customer_id = Column(Integer)
     worker_id = Column(Integer)
 
     customer_title = Column(String)
     customer_description = Column(String)
-    
+
     description = Column(String)
     more_details = Column(String)
 

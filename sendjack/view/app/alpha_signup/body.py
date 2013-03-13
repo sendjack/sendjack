@@ -8,13 +8,15 @@
 """
 from view.app.base.body import AltBody
 
-from page import SignUpPage, NewTaskPage, ThankYouPage
+from page import CreateInstancePage, CreateCustomerPage
+from page import CreateInstanceThanksPage
 
 
-class SignUpSeriesBody(AltBody):
-
-    """The <body> with a sign up pages."""
-
+class CreateInstanceBody(AltBody):
 
     def _construct_pages(self):
-        return [SignUpPage(), NewTaskPage(), ThankYouPage()]
+        return [
+                CreateInstancePage(),
+                CreateCustomerPage(),
+                CreateInstanceThanksPage()
+                ]

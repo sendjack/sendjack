@@ -13,14 +13,13 @@ from view.app.base.components import Line, DatePicker, ObjectView
 from components import AltSection, RightGrid
 
 
-class SignUpPage(Page):
+class CreateCustomerPage(Page):
 
-    SIGN_UP_PAGE = "sign-up-page"
-
+    CREATE_CUSTOMER_PAGE_ID = "create-customer-page"
 
     def __init__(self):
-        super(SignUpPage, self).__init__()
-        self.append_class(self.SIGN_UP_PAGE)
+        super(CreateCustomerPage, self).__init__()
+        self.set_id(self.CREATE_CUSTOMER_PAGE_ID)
 
         sign_up_section = AltSection(SignUpGrid())
 
@@ -97,14 +96,14 @@ class CustomerView(ObjectView):
         self.append_child(submit)
 
 
-class NewTaskPage(Page):
+class CreateInstancePage(Page):
 
-    NEW_TASK_PAGE = "new-task-page"
+    CREATE_INSTANCE_PAGE_ID = "create-instance-page"
 
 
     def __init__(self):
-        super(NewTaskPage, self).__init__()
-        self.append_class(self.NEW_TASK_PAGE)
+        super(CreateInstancePage, self).__init__()
+        self.set_id(self.CREATE_INSTANCE_PAGE_ID)
 
         new_task_section = AltSection(NewTaskGrid())
 
@@ -215,14 +214,13 @@ class TaskInstanceView(ObjectView):
         self.append_child(submit)
 
 
-class ThankYouPage(Page):
+class CreateInstanceThanksPage(Page):
 
-    THANK_YOU_PAGE = "thank-you-page"
-
+    CREATE_INSTANCE_THANKS_PAGE_ID = unicode("create-instance-thanks-page")
 
     def __init__(self):
-        super(ThankYouPage, self).__init__()
-        self.append_class(self.THANK_YOU_PAGE)
+        super(CreateInstanceThanksPage, self).__init__()
+        self.set_id(self.CREATE_INSTANCE_THANKS_PAGE_ID)
 
         thank_you_section = AltSection(ThankYouGrid())
 
