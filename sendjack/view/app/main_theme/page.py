@@ -48,9 +48,7 @@ class CreateCustomerGrid(MainGrid):
     CREATE_CUSTOMER_TITLE = "Sign Up"
 
     LINES = [
-            "Jackalope is the easiest way to outsource work.",
-            ("Send us a task you need done. "
-            "We'll source and price it for you for free.")
+            "Great! Now we just need your contact details. We'll holler."
             ]
 
 
@@ -70,7 +68,7 @@ class CreateCustomerGrid(MainGrid):
 class CustomerView(ObjectView):
 
     CUSTOMER_VIEW_CLASS = "customer-view"
-    SUBMIT_TEXT = "Take Jack for a Test Drive"
+    SUBMIT_TEXT = "Post Task"
     CUSTOMER_ID = "customer"
 
     FIRST_NAME_PLACEHOLDER = "First Name"

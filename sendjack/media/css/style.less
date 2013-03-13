@@ -17,7 +17,8 @@
 @white: rgb(255, 255, 255);
 @black: rgb(0, 0, 0);
 @darkGrey: rgb(67, 66, 65);
-@lightGrey: rgb(123, 121, 121);
+@grey: rgb(123, 121, 121);
+@lightGrey: rgb(200, 200, 200);
 @blue: rgb(0, 137, 255);
 
 
@@ -34,15 +35,16 @@
 
 @headerHeight: 50px;
 
-@textPadding: 15px;
-@linePadding: 5px;
-@buttonPadding: 30px;
-@boxPadding: 15px;
+@bigLinePadding: 25px;
+@innerPadding: 20px;
+@outerPadding: 10px;
+
+@bigBoxPadding: 100px;
+@smallBoxPadding: 50px;
 @pagePadding: 250px;
 
 @normalBorder: 2px;
-@smallRound: 2px;
-@normalRound: 3px;
+@normalRound: 4px;
 
 
 /***********************************************************
@@ -107,7 +109,7 @@
 
 .normalText() {
     .normalFont;
-    color: @lightGrey;
+    color: @grey;
 }
 
 .contrastText() {
@@ -156,14 +158,14 @@
 
 .form-element {
     .normalFont;
-    .border-radius(@smallRound);
+    .border-radius(@normalRound);
     .inner-box-shadow();
 
     //height: @listLineHeight;
-    border: 0px;
-    padding: @textPadding @textPadding;
+    border: 1px @lightGrey solid;
+    padding: @innerPadding;
+    margin: @outerPadding 0px;
     background-color: @white;
-    color: @black;
 
 }
 
@@ -198,25 +200,9 @@ body {
             60px,
             60px,
             'body.jpg',
-            @lightGrey,
+            @grey,
             repeat);
 }
-
-/** header, section, footer {
-    width: 100%;
-    float: left;
-
-    .inner-wrapper {
-        width: 100%;
-        height: 100%;
-        float: left;
-    }
-} */
-
-/* section {
-    padding: 0px @pagePadding;
-    text-align: left;
-} */
 
 button {
     .buttonText;
@@ -230,16 +216,16 @@ button {
         border: 0px;
         width: 100%;
         .background-image-wrapper(
-            247px,
-            30px,
-            'signUpButton.png',
+            226px,
+            39px,
+            'submitButton.png',
             transparent);
 
         &:active {
             .background-image-wrapper(
-                247px,
-                30px,
-                'signUpButtonPressed.png',
+                226px,
+                39px,
+                'submitButtonPressed.png',
                 transparent);
         }
     }
@@ -255,7 +241,7 @@ a {
 }
 
 li {
-    margin-bottom: @linePadding;
+    margin-bottom: @outerPadding;
     line-height: @listLineHeight;
 }
 
@@ -320,6 +306,10 @@ li {
 /***********************************************************
 * BASE COMPONENTS
 ************************************************************/
+.title {
+    .titleText();
+}
+
 .field-list {
 
     li {
@@ -342,7 +332,7 @@ li {
                 float: left;
                 width: 30%;
                 text-align: right;
-                padding-right: @textPadding;
+                padding-right: @bigLinePadding;
             }
 
             .value, .sub-value {
@@ -370,9 +360,13 @@ li {
     text-align: left;
     background-color: transparent;
 
+    .object-view {
+        margin-top: @bigLinePadding;
+    }
     input, textarea {
         .form-element();
         .contrastText();
+        width: 100%;
 
         &[disabled] {
             background: transparent;
@@ -382,7 +376,7 @@ li {
                     0px,
                     0px,
                     0);
-            padding: @textPadding 0px;
+            padding: @bigLinePadding 0px;
             color: @black;
         }
     }
@@ -396,14 +390,13 @@ li {
     * MAIN - COMPONENTS
     ************************************************************/
     .main-section {
+        .border-radius(@normalRound);
+        .drop-box-shadow();
         float: left;
         background: @white;
         
-        padding: 0px 0px;
+        padding: @smallBoxPadding @bigBoxPadding;
 
-        .title {
-            .titleText();
-        }
 
         .key, .head-key, .sub-key {
             .labelText();
@@ -416,38 +409,35 @@ li {
 
     .grid {
         width: 100%;
-        margin-top: @buttonPadding;
-        margin-bottom: @buttonPadding;
         float: left;
 
         .title {
-            padding-bottom: @boxPadding;
+            padding-bottom: @bigLinePadding;
+            border-bottom: 1px solid @lightGrey;
         }
 
         .submit-button {
-            margin-top: @buttonPadding;
-            margin-bottom: @buttonPadding;
+            margin-top: @bigLinePadding;
         }
+
     }
 
-    .paragraph {
-        .titleText;
-        margin-top: @buttonPadding;
-        margin-bottom: @buttonPadding;
+    .line {
+        margin-top: @bigLinePadding;
     }
 
     /***********************************************************
     * MAIN PAGE - CREATE CUSTOMER PAGE
     ************************************************************/
-    #create-customer-page {
+    &#create-customer-page {
         .customer-view {
             input.first_name {
-                width: 47%;
+                width: 48%;
                 float: left;
             }
 
             input.last_name {
-                width: 47%;
+                width: 48%;
                 float: right;
             }
 
@@ -460,7 +450,7 @@ li {
     /***********************************************************
     * MAIN PAGE - CREATE INSTANCE PAGE
     ************************************************************/
-    #create-instance-page {
+    &#create-instance-page {
         .create-instance-grid {
             .field-list {
 
@@ -489,7 +479,7 @@ li {
     /***********************************************************
     * MAIN - TEMPLATE PAGE
     ************************************************************/
-    #template-page {
+    &#template-page {
         .post-grid, .worker-grid {
             padding-left: 25px;
         }
