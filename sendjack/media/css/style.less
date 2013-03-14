@@ -228,6 +228,15 @@ button {
                 'submitButtonPressed.png',
                 transparent);
         }
+
+        &:disabled {
+            .background-image-wrapper(
+                226px,
+                39px,
+                'submitButtonDisabled.png',
+                transparent);
+            cursor: default;
+        }
     }
 }
 
@@ -369,15 +378,9 @@ li {
         width: 100%;
 
         &[disabled] {
-            background: transparent;
-            .inner-box-shadow(
-                    0px,
-                    0px,
-                    0px,
-                    0px,
-                    0);
-            padding: @bigLinePadding 0px;
+            background: @lightGrey;
             color: @black;
+            cursor: default;
         }
     }
 

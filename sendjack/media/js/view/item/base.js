@@ -31,6 +31,7 @@ var ItemView = Backbone.View.extend({
 
     initialize: function () {
 
+        console.log(this);
         this.modelBinder = new Backbone.ModelBinder();
         this.modelBinder.bind(this.model, this.el, this.getBindings());
 

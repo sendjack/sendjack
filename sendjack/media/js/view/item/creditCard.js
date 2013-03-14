@@ -39,7 +39,6 @@ var CreditCardView = ItemView.extend({
 
     initialize: function () {
         ItemView.prototype.initialize.call(this);
-
         this.$submitButton = this.$el.find('.submit-button');
         _.bindAll(this);
 
