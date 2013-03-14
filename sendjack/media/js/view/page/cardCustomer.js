@@ -31,7 +31,7 @@ var CardCustomerPageView = PageView.extend({
         });
 
         this.creditCardView = creditCardView.CreditCardView({
-            el: '#credit-card-grid',
+            el: '.card-customer-grid',
             model: this.options.creditCardModel
         });
 

@@ -8,11 +8,7 @@
 """
 from view.app.base.body import AppBody
 
-from page import ConfirmInstancePage, CardCustomerPage
-from page import ConfirmInstanceThanksPage, ProcessInstancePage
-
-from page import TaskTemplatePage
-from page import ApproveInstancePage
+from page import ProcessInstancePage, TaskTemplatePage
 
 
 class TaskTemplateBody(AppBody):
@@ -27,19 +23,3 @@ class ProcessInstanceBody(AppBody):
 
     def _construct_pages(self):
         return [ProcessInstancePage()]
-
-
-class ConfirmInstanceBody(AppBody):
-
-    def _construct_pages(self):
-        return [
-                ConfirmInstancePage(),
-                CardCustomerPage(),
-                ConfirmInstanceThanksPage()
-                ]
-
-
-class ApproveInstanceBody(AppBody):
-
-    def _construct_pages(self):
-        return [ApproveInstancePage()]

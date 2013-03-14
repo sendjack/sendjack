@@ -8,7 +8,9 @@
 """
 from view.elementary.html import TextInput, SubmitButton, Textarea, HiddenInput
 from view.app.base.page import Page
-from view.app.base.components import Line, DatePicker, ObjectView
+from view.app.base.field import FieldList, Field
+from view.app.base.components import Line, DatePicker
+from view.app.base.object import ObjectView, CustomerView
 
 from .components import MainSection, MainGrid
 
@@ -48,9 +50,7 @@ class CreateCustomerGrid(MainGrid):
     CREATE_CUSTOMER_TITLE = "Sign Up"
 
     LINES = [
-            "Jackalope is the easiest way to outsource work.",
-            ("Send us a task you need done. "
-            "We'll source and price it for you for free.")
+            "Great! Now we just need your contact details. We'll holler."
             ]
 
 
@@ -67,45 +67,6 @@ class CreateCustomerGrid(MainGrid):
         self.append_child(CustomerView())
 
 
-class CustomerView(ObjectView):
-
-    CUSTOMER_VIEW_CLASS = "customer-view"
-    SUBMIT_TEXT = "Take Jack for a Test Drive"
-    CUSTOMER_ID = "customer"
-
-    FIRST_NAME_PLACEHOLDER = "First Name"
-    LAST_NAME_PLACEHOLDER = "Last Name"
-    EMAIL_PLACEHOLDER = "Email"
-
-    FIRST_NAME = "first_name"
-    LAST_NAME = "last_name"
-    EMAIL = "email"
-    STATUS = "status"
-    STATUS_REQUESTED = "requested"
-
-    def __init__(self):
-        super(CustomerView, self).__init__(self.CUSTOMER_ID)
-        self.append_class(self.CUSTOMER_VIEW_CLASS)
-
-        first_name = TextInput(self.FIRST_NAME)
-        last_name = TextInput(self.LAST_NAME)
-        email = TextInput(self.EMAIL)
-        status = HiddenInput(self.STATUS, self.STATUS_REQUESTED)
-        submit = SubmitButton(self.SUBMIT_TEXT)
-
-        first_name.append_class(self.FIRST_NAME)
-        last_name.append_class(self.LAST_NAME)
-        email.append_class(self.EMAIL)
-
-        first_name.set_placeholder(self.FIRST_NAME_PLACEHOLDER)
-        last_name.set_placeholder(self.LAST_NAME_PLACEHOLDER)
-        email.set_placeholder(self.EMAIL_PLACEHOLDER)
-
-        self.append_child(first_name)
-        self.append_child(last_name)
-        self.append_child(email)
-        self.append_child(status)
-        self.append_child(submit)
 
 
 class CreateInstancePage(MainPage):
@@ -258,3 +219,179 @@ class CreateInstanceThanksGrid(MainGrid):
         for line in self.LINES:
             line_el = Line(line)
             self.append_child(line_el)
+
+
+class ConfirmInstancePage(MainPage):
+
+    CONFIRM_INSTANCE_PAGE_ID = unicode("confirm-instance-page")
+
+    def __init__(self):
+        super(ConfirmInstancePage, self).__init__()
+        self.set_id(self.CONFIRM_INSTANCE_PAGE_ID)
+
+
+    def _construct_grids(self):
+        return [ConfirmInstanceGrid()]
+
+
+class ConfirmInstanceGrid(MainGrid):
+
+    CONFIRM_INSTANCE_GRID_CLASS = unicode("confirm-instance-grid")
+
+    WELCOME_TEXT = unicode(
+            "We checked out a number of tasks like yours that went "
+            "well, and fine-tuned your description. We've also suggested a "
+            "price below.")
+    CONFIRM_INSTANCE_GRID_TITLE = unicode("Task Details")
+
+    def __init__(self):
+        super(ConfirmInstanceGrid, self).__init__(
+                self.CONFIRM_INSTANCE_GRID_TITLE)
+        self.append_class(self.CONFIRM_INSTANCE_GRID_CLASS)
+
+
+    def _set_grid_elements(self):
+        self.append_child(Line(self.WELCOME_TEXT))
+        self.append_child(TaskInstanceView())
+
+
+class CardCustomerPage(MainPage):
+
+    CARD_CUSTOMER_PAGE_ID = unicode("card-customer-page")
+
+    def __init__(self):
+        super(CardCustomerPage, self).__init__()
+        self.set_id(self.CARD_CUSTOMER_PAGE_ID)
+
+
+    def _construct_grids(self):
+        return [CardCustomerGrid()]
+
+
+class CardCustomerGrid(MainGrid):
+
+    CARD_CUSTOMER_GRID_CLASS = unicode("card-customer-grid")
+    CARD_CUSTOMER_TITLE = unicode("Payment")
+
+    CUSTOMER_ID = "customer"
+    WELCOME_TEXT = unicode(
+            "Great! Now all we need is your payment details. You'll never be "
+            "charged until your task is done and you have approved the work.")
+    POST_TASK_TEXT = unicode("Post Task")
+
+    def __init__(self):
+        super(CardCustomerGrid, self).__init__(self.CARD_CUSTOMER_TITLE)
+        self.append_class(self.CARD_CUSTOMER_GRID_CLASS)
+
+
+    def _set_grid_elements(self):
+        customer_view = ObjectView(self.CUSTOMER_ID)
+        welcome_line = Line(self.WELCOME_TEXT)
+
+        fields = [
+                Field(
+                        "First Name:",
+                        "first_name",
+                        ""),
+                Field(
+                        "Last Name:",
+                        "last_name",
+                        ""),
+                Field(
+                        "Email:",
+                        "email",
+                        ""),
+                Field(
+                        "Credit Card:",
+                        "card_number",
+                        ""),
+                Field(
+                        "Exp Month",
+                        "card_expiry_month",
+                        ""),
+                Field(
+                        "Exp Year",
+                        "card_expiry_year",
+                        ""),
+                Field(
+                        "CVC:",
+                        "card_cvc",
+                        "")
+                ]
+
+        customer_view.append_child(welcome_line)
+        customer_view.append_child(FieldList(fields))
+        customer_view.append_child(SubmitButton(self.POST_TASK_TEXT))
+        self.append_child(customer_view)
+
+
+class ConfirmInstanceThanksPage(MainPage):
+
+    CONFIRM_INSTANCE_THANKS_PAGE_ID = unicode("confirm-instance-thanks-page")
+
+    def __init__(self):
+        super(ConfirmInstanceThanksPage, self).__init__()
+        self.set_id(self.CONFIRM_INSTANCE_THANKS_PAGE_ID)
+
+    def _construct_grids(self):
+        return [ConfirmInstanceThanksGrid()]
+
+
+class ConfirmInstanceThanksGrid(MainGrid):
+
+    CONFIRM_INSTANCE_THANKS_GRID_CLASS = unicode(
+            "confirm-instance-thanks-grid")
+
+    CONFIRM_INSTANCE_THANKS_TITLE = unicode("Fill this in.")
+    TEXT = unicode("We're on it. We'll let you know when it's done.")
+
+    def __init__(self):
+        super(ConfirmInstanceThanksGrid, self).__init__(
+                self.CONFIRM_INSTANCE_THANKS_TITLE)
+        self.append_class(self.CONFIRM_INSTANCE_THANKS_GRID_CLASS)
+
+
+    def _set_grid_elements(self):
+        self.append_child(Line(self.TEXT))
+
+
+class ApproveInstancePage(MainPage):
+
+    APPROVE_INSTANCE_PAGE_ID = unicode("approve-instance-page")
+
+    def __init__(self):
+        super(ApproveInstancePage, self).__init__()
+        self.set_id(self.APPROVE_INSTANCE_PAGE_ID)
+
+    def _construct_grids(self):
+        return [ApproveTaskGrid()]
+
+
+class ApproveTaskGrid(MainGrid):
+
+    APPROVE_TASK_GRID_CLASS = unicode("approve-task-grid")
+
+    TASK_INSTANCE_ID = unicode("instance")
+    LINES = [
+            unicode("Your Task Is Complete!"),
+            unicode("Hi, your task has been completed and your file is in "
+                    "your email inbox."),
+            unicode("Once you review your work, please approve the work below "
+                    "so that we can pay your worker."),
+            unicode("Thanks!")
+            ]
+
+    APPROVE_TASK_TEXT = unicode("Approve Work")
+
+    def __init__(self):
+        super(ApproveTaskGrid, self).__init__()
+        self.append_class(self.APPROVE_TASK_GRID_CLASS)
+
+        self.set_id(self.APPROVE_TASK_GRID_ID)
+
+        for line in self.LINES:
+            self.append_child(Line(line))
+
+        task_instance_view = ObjectView(self.TASK_INSTANCE_ID)
+        task_instance_view.append_child(SubmitButton(self.APPROVE_TASK_TEXT))
+        self.append_child(task_instance_view)
