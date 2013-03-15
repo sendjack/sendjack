@@ -25,7 +25,7 @@ var PageView = Backbone.Marionette.CompositeView.extend({
         this.template = this.el.html;
 
         // Setup page DOM
-        var datepicker = this.$('.datepicker').datepicker({minDate: '0'});
+        var datepicker = this.$('.date-picker').datepicker({minDate: '0'});
         
         // cancel form submissions
         this.$('form button[type=submit]').click(function (event) {

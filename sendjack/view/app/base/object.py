@@ -74,14 +74,14 @@ class CustomerView(ObjectView):
         self.append_child(submit)
 
 
-class TaskInstanceView(ObjectView):
+class TaskInstanceInternalView(ObjectView):
 
     TASK_INSTANCE_VIEW_CLASS = "instance-view"
     SUBMIT_TEXT = "Save"
     TASK_INSTANCE_ID = unicode("instance")
 
     def __init__(self):
-        super(TaskInstanceView, self).__init__(self.TASK_INSTANCE_ID)
+        super(TaskInstanceInternalView, self).__init__(self.TASK_INSTANCE_ID)
         self.append_class(self.TASK_INSTANCE_VIEW_CLASS)
 
         fields = [
