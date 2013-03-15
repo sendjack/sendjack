@@ -28,51 +28,54 @@ class Grid(Div):
 
 class TitledGrid(Grid):
 
-    def __init__(self, title_str):
+    def __init__(self, title, text=""):
         super(TitledGrid, self).__init__()
-        self.insert_child(Title(title_str))
+        self.append_child(GridTitle(title))
+        self.append_child(GridText(text))
 
 
 class ContactAnchor(Div):
 
     CONTACT_ANCHOR_CLASS = unicode("contact-anchor")
 
-    # FIXME: Put this somewhere else.
+    # TODO: Put this somewhere else.
     ANCHOR_TEXT = unicode("Contact Us")
     MAIL_TO_LINK = unicode("mailto:alpha@sendjack.com")
 
 
     def __init__(self):
         super(ContactAnchor, self).__init__()
-
         self.append_class(self.CONTACT_ANCHOR_CLASS)
 
+        # TODO: create subclass MailToAnchor
         anchor = NonRoutingAnchor(
                 {"href": self.MAIL_TO_LINK},
                 self.ANCHOR_TEXT)
         self.append_child(anchor)
 
 
-class Title(Div):
+class GridTitle(Div):
 
-    TITLE_CLASS = unicode("title")
+    # TODO: change this to grid-title
+    _GRID_TITLE_CLASS = unicode("title")
 
-    def __init__(self, title_str):
-        super(Title, self).__init__()
-        self.append_class(self.TITLE_CLASS)
+    def __init__(self, text):
+        super(GridTitle, self).__init__()
+        self.append_class(self._GRID_TITLE_CLASS)
 
-        self.set_text(title_str)
+        self.set_text(text)
 
 
-class Line(Div):
+class GridText(Div):
 
-    LINE_CLASS = unicode("line")
+    # TODO: change this to grid-text
+    _GRID_TEXT_CLASS = unicode("line")
 
-    def __init__(self, line_str):
-        super(Line, self).__init__()
-        self.append_class(self.LINE_CLASS)
+    def __init__(self, text):
+        super(GridText, self).__init__()
+        self.append_class(self._GRID_TEXT_CLASS)
 
-        self.set_text(line_str)
+        self.set_text(text)
 
 
 class DatePicker(TextInput):

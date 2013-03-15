@@ -9,14 +9,15 @@
 from view.elementary.html import SubmitButton
 
 from view.app.base.page import Page
-from view.app.base.components import TitledGrid, Grid, Line
-from view.app.base.field import Field, FieldList, InstructionsField
+from view.app.base.components import TitledGrid, Grid, GridText
+from view.app.base.field import Field, FieldList
 from view.app.base.field import IDField, TitleField, SummaryField
-from view.app.base.field import InstructionField, PropertiesField
-from view.app.base.field import PropertyField, OutputTypeField
-from view.app.base.field import OutputMethodField, CategoryTagsField
-from view.app.base.field import IndustryTagsField, SkillTagsField
-from view.app.base.field import EquipmentTagsField
+#from components import CreatorField
+from view.app.base.field import InstructionsField, InstructionField
+from view.app.base.field import PropertiesField, PropertyField
+from view.app.base.field import OutputTypeField, OutputMethodField
+from view.app.base.field import CategoryTagsField, IndustryTagsField
+from view.app.base.field import SkillTagsField, EquipmentTagsField
 from view.app.base.object import ObjectView, TaskInstanceView
 
 from .components import NormalSection, ContrastSection
@@ -230,5 +231,5 @@ class ProcessInstanceGrid(Grid):
 
 
     def _set_grid_elements(self):
-        self.append_child(Line(self.WELCOME_TEXT))
+        self.append_child(GridText(self.WELCOME_TEXT))
         self.append_child(TaskInstanceView())

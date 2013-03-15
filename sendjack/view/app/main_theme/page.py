@@ -9,7 +9,7 @@
 from view.elementary.html import TextInput, SubmitButton, Textarea, HiddenInput
 from view.app.base.page import Page
 from view.app.base.field import FieldList, Field
-from view.app.base.components import Line, DatePicker
+from view.app.base.components import GridText, DatePicker
 from view.app.base.object import ObjectView, CustomerView
 
 from .components import MainSection, MainGrid
@@ -49,7 +49,7 @@ class CreateCustomerGrid(MainGrid):
     CREATE_CUSTOMER_GRID_CLASS = "create-customer-grid"
     CREATE_CUSTOMER_TITLE = "Sign Up"
 
-    LINES = [
+    _TEXTS = [
             "Great! Now we just need your contact details. We'll holler."
             ]
 
@@ -60,9 +60,8 @@ class CreateCustomerGrid(MainGrid):
 
 
     def _set_grid_elements(self):
-        for line in self.LINES:
-            line_el = Line(line)
-            self.append_child(line_el)
+        for text in self._TEXTS:
+            self.append_child(GridText(text))
 
         self.append_child(CustomerView())
 
@@ -83,10 +82,11 @@ class CreateInstancePage(MainPage):
 class CreateInstanceGrid(MainGrid):
 
     CREATE_INSTANCE_GRID_CLASS = unicode("create-instance-grid")
-    CREATE_INSTANCE_TITLE = unicode("New Task")
+    _HEADER_TEXT = unicode("Create A Task")
+    _TEXT = unicode("")
 
     def __init__(self):
-        super(CreateInstanceGrid, self).__init__(self.CREATE_INSTANCE_TITLE)
+        super(CreateInstanceGrid, self).__init__(self._HEADER_TEXT, self._TEXT)
         self.append_class(self.CREATE_INSTANCE_GRID_CLASS)
 
 
@@ -122,12 +122,13 @@ class TaskInstanceView(ObjectView):
     _DEADLINE_CLASS = unicode("deadline")
 
     # placeholder values
-    _CUSTOMER_TITLE_PLACEHOLDER = unicode("Task Title")
-    _CUSTOMER_DESCRIPTION_PLACEHOLDER = unicode("Enter Your Task Description")
+    _CUSTOMER_TITLE_PLACEHOLDER = unicode("Enter a title for your task...")
+    _CUSTOMER_DESCRIPTION_PLACEHOLDER = unicode("Describe your task...")
     _DEADLINE_PLACEHOLDER = unicode("06/31/2013")
 
     _TEXTAREA_DEFAULT_ROWS = 4
     _SUBMIT_TEXT = unicode("Create")
+
 
     def __init__(self):
         super(TaskInstanceView, self).__init__(self._TASK_INSTANCE_ID)
@@ -185,11 +186,11 @@ class CreateInstanceThanksPage(MainPage):
 
 class CreateInstanceThanksGrid(MainGrid):
 
-    CREATE_INSTANCE_THANKS_GRID_CLASS = "create-intance-thanks-grid"
+    CREATE_INSTANCE_THANKS_GRID_CLASS = "create-instance-thanks-grid"
     CREATE_INSTANCE_THANKS_TITLE = "Next Steps"
 
     # TODO: Put somewhere else
-    LINES = [
+    _TEXTS = [
             "Jackalope is on it.",
             "We're processing your task and making sure it looks great.",
             ("Then we'll email you to confirm all the details. "
@@ -204,9 +205,8 @@ class CreateInstanceThanksGrid(MainGrid):
 
 
     def _set_grid_elements(self):
-        for line in self.LINES:
-            line_el = Line(line)
-            self.append_child(line_el)
+        for text in self._TEXTS:
+            self.append_child(GridText(text))
 
 
 class ConfirmInstancePage(MainPage):
