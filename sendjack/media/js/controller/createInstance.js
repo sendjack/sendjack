@@ -65,6 +65,18 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
         // TODO: Set this somewhere else.
         this.instanceModel.set('status', 'created');
 
+        this.instanceModel.on(
+            'change:customer_title',
+            function (model, value) {
+                this.instanceModel.set('title', value);
+            }, this);
+
+        this.instanceModel.on(
+            'change:customer_description',
+            function (model, value) {
+                this.instanceModel.set('summary', value);
+            }, this);
+
         // TODO: Use Backbone relational for stuff like this.
         this.customerModel.on('change:id', function (model, value) {
             this.instanceModel.set('customer_id', value);

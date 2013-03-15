@@ -67,8 +67,6 @@ class CreateCustomerGrid(MainGrid):
         self.append_child(CustomerView())
 
 
-
-
 class CreateInstancePage(MainPage):
 
     CREATE_INSTANCE_PAGE_ID = unicode("create-instance-page")
@@ -98,88 +96,78 @@ class CreateInstanceGrid(MainGrid):
 
 class TaskInstanceView(ObjectView):
 
-    TASK_INSTANCE_VIEW = "task-instance-view"
-    TASK_INSTANCE_ID = "instance"
+    _TASK_INSTANCE_VIEW = unicode("task-instance-view")
+    _TASK_INSTANCE_ID = unicode("instance")
 
     # names
-    CUSTOMER_TITLE_NAME = "customer_title"
-    CUSTOMER_DESCRIPTION_NAME = "customer_description"
-    TITLE_NAME = "title"
-    INSTRUCTIONS_NAME = "instructions"
-    PROPERTIES_NAME = "properties"
-    OUTPUT_TYPE_NAME = "output_type"
-    OUTPUT_METHOD_NAME = "output_method"
-    DEADLINE_NAME = "deadline_ts"
-    PRICE_NAME = "price"
-    CATEGORY_TAGS_NAME = "category_tags"
-    INDUSTRY_TAGS_NAME = "industry_tags"
-    SKILL_TAGS_NAME = "skill_tags"
-    EQUIPMENT_TAGS_NAME = "equipment_tags"
+    _CUSTOMER_TITLE_NAME = unicode("customer_title")
+    _CUSTOMER_DESCRIPTION_NAME = unicode("customer_description")
+    _TITLE_NAME = unicode("title")
+    _SUMMARY_NAME = unicode("summary")
+    _DEADLINE_NAME = unicode("deadline_ts")
+
+    _INSTRUCTIONS_NAME = unicode("instructions")
+    _PROPERTIES_NAME = unicode("properties")
+    _OUTPUT_TYPE_NAME = unicode("output_type")
+    _OUTPUT_METHOD_NAME = unicode("output_method")
+    _PRICE_NAME = unicode("price")
+    _CATEGORY_TAGS_NAME = unicode("category_tags")
+    _INDUSTRY_TAGS_NAME = unicode("industry_tags")
+    _SKILL_TAGS_NAME = unicode("skill_tags")
+    _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
 
     # classes
-    CUSTOMER_TITLE_CLASS = "customer-title"
-    CUSTOMER_DESCRIPTION_CLASS = "customer-description"
-    DEADLINE_CLASS = "deadline"
+    _CUSTOMER_TITLE_CLASS = unicode("customer-title")
+    _CUSTOMER_DESCRIPTION_CLASS = unicode("customer-description")
+    _DEADLINE_CLASS = unicode("deadline")
 
     # placeholder values
-    CUSTOMER_TITLE_PLACEHOLDER = "Task Title"
-    CUSTOMER_DESCRIPTION_PLACEHOLDER = "Enter Your Task Description"
-    DEADLINE_PLACEHOLDER = "06/31/2013"
+    _CUSTOMER_TITLE_PLACEHOLDER = unicode("Task Title")
+    _CUSTOMER_DESCRIPTION_PLACEHOLDER = unicode("Enter Your Task Description")
+    _DEADLINE_PLACEHOLDER = unicode("06/31/2013")
 
-    TEXTAREA_DEFAULT_ROWS = 4
-    SUBMIT_TEXT = "Post Task"
+    _TEXTAREA_DEFAULT_ROWS = 4
+    _SUBMIT_TEXT = unicode("Create")
 
     def __init__(self):
-        super(TaskInstanceView, self).__init__(self.TASK_INSTANCE_ID)
-        self.append_class(self.TASK_INSTANCE_VIEW)
+        super(TaskInstanceView, self).__init__(self._TASK_INSTANCE_ID)
+        self.append_class(self._TASK_INSTANCE_VIEW)
 
         # assemble customer title
-        customer_title = TextInput(self.CUSTOMER_TITLE_NAME)
-        customer_title.append_class(self.CUSTOMER_TITLE_CLASS)
-        customer_title.set_placeholder(self.CUSTOMER_TITLE_PLACEHOLDER)
+        customer_title = TextInput(self._CUSTOMER_TITLE_NAME)
+        customer_title.append_class(self._CUSTOMER_TITLE_CLASS)
+        customer_title.set_placeholder(self._CUSTOMER_TITLE_PLACEHOLDER)
 
         # assemble customer description
-        customer_description = Textarea(self.CUSTOMER_DESCRIPTION_NAME)
-        customer_description.append_class(self.CUSTOMER_DESCRIPTION_CLASS)
+        customer_description = Textarea(self._CUSTOMER_DESCRIPTION_NAME)
+        customer_description.append_class(self._CUSTOMER_DESCRIPTION_CLASS)
         customer_description.set_placeholder(
-                self.CUSTOMER_DESCRIPTION_PLACEHOLDER)
-        customer_description.set_rows(self.TEXTAREA_DEFAULT_ROWS)
-
-        # assemble hidden title, instructions, properties inputs
-        title = HiddenInput(self.TITLE_NAME)
-        instructions = HiddenInput(self.INSTRUCTIONS_NAME)
-        properties = HiddenInput(self.PROPERTIES_NAME)
-        output_type = HiddenInput(self.OUTPUT_TYPE_NAME)
-        output_method = HiddenInput(self.OUTPUT_METHOD_NAME)
+                self._CUSTOMER_DESCRIPTION_PLACEHOLDER)
+        customer_description.set_rows(self._TEXTAREA_DEFAULT_ROWS)
 
         # assemble deadline
-        deadline = DatePicker(self.DEADLINE_NAME)
-        deadline.append_class(self.DEADLINE_CLASS)
-        deadline.set_placeholder(self.DEADLINE_PLACEHOLDER)
-
-        # assemble hidden price, tags inputs
-        price = HiddenInput(self.PRICE_NAME)
-        category_tags = HiddenInput(self.CATEGORY_TAGS_NAME)
-        industry_tags = HiddenInput(self.INDUSTRY_TAGS_NAME)
-        skill_tags = HiddenInput(self.SKILL_TAGS_NAME)
-        equipment_tags = HiddenInput(self.EQUIPMENT_TAGS_NAME)
-
-        submit = SubmitButton(self.SUBMIT_TEXT)
+        deadline = DatePicker(self._DEADLINE_NAME)
+        deadline.append_class(self._DEADLINE_CLASS)
+        deadline.set_placeholder(self._DEADLINE_PLACEHOLDER)
 
         self.append_child(customer_title)
         self.append_child(customer_description)
-        self.append_child(title)
-        self.append_child(instructions)
-        self.append_child(properties)
-        self.append_child(output_type)
-        self.append_child(output_method)
         self.append_child(deadline)
-        self.append_child(price)
-        self.append_child(category_tags)
-        self.append_child(industry_tags)
-        self.append_child(skill_tags)
-        self.append_child(equipment_tags)
-        self.append_child(submit)
+
+        self.append_child(HiddenInput(self._TITLE_NAME))
+        self.append_child(HiddenInput(self._SUMMARY_NAME))
+
+        self.append_child(HiddenInput(self._INSTRUCTIONS_NAME))
+        self.append_child(HiddenInput(self._PROPERTIES_NAME))
+        self.append_child(HiddenInput(self._OUTPUT_TYPE_NAME))
+        self.append_child(HiddenInput(self._OUTPUT_METHOD_NAME))
+        self.append_child(HiddenInput(self._PRICE_NAME))
+        self.append_child(HiddenInput(self._CATEGORY_TAGS_NAME))
+        self.append_child(HiddenInput(self._INDUSTRY_TAGS_NAME))
+        self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
+        self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
+
+        self.append_child(SubmitButton(self._SUBMIT_TEXT))
 
 
 class CreateInstanceThanksPage(MainPage):
