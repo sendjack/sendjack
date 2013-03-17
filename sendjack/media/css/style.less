@@ -66,15 +66,46 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('fonts/helvetica-neue-webfont.eot'); //ie9
+    src:
+        url('fonts/helvetica-neue-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/helvetica-neue-webfont.woff')
+            format('woff'), // modern
+        url('fonts/helvetica-neue-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/helvetica-neue-webfont.svg#HeleveticaNeue')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue Bold';
+    src: url('fonts/helvetica-neue-bold-webfont.eot'); //ie9
+    src:
+        url('fonts/helvetica-neue-bold-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/helvetica-neue-bold-webfont.woff')
+            format('woff'), // modern
+        url('fonts/helvetica-neue-bold-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/helvetica-neue-bold-webfont.svg#HeleveticaNeueBold')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
 .titleFont(@fontSize: @bigFontSize) {
-    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+    font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
     font-size: @fontSize;
 }
 
 .labelFont(@fontSize: @normalFontSize) {
-    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+    font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
     font-size: @fontSize;
-    letter-spacing: 1px;
 }
 
 .normalFont(@fontSize: @normalFontSize) {
