@@ -5,7 +5,7 @@
     All object views. Subclass if you need to make use specific modifications.
 
 """
-from view.elementary.html import Form, TextInput, HiddenInput, SubmitButton
+from view.elementary.html import Form, HiddenInput, SubmitButton
 
 from .field import FieldList, TemplateField
 #from components import CreatorField, CustomerField
@@ -16,7 +16,7 @@ from .field import PropertiesField, PropertyField, MoreDetailsField
 from .field import DeadlineField, PriceField
 from .field import OutputTypeField, OutputMethodField
 from .field import CategoryTagsField, IndustryTagsField
-from .field import SkillTagsField, EquipmentTagsField
+from .field import SkillTagsField, EquipmentTagsField, EmailField
 
 
 class ObjectView(Form):
@@ -53,9 +53,9 @@ class CustomerView(ObjectView):
         super(CustomerView, self).__init__(self.CUSTOMER_ID)
         self.append_class(self.CUSTOMER_VIEW_CLASS)
 
-        first_name = TextInput(self.FIRST_NAME)
-        last_name = TextInput(self.LAST_NAME)
-        email = TextInput(self.EMAIL)
+        first_name = HiddenInput(self.FIRST_NAME)
+        last_name = HiddenInput(self.LAST_NAME)
+        email = EmailField()
         status = HiddenInput(self.STATUS, self.STATUS_REQUESTED)
         submit = SubmitButton(self.SUBMIT_TEXT)
 

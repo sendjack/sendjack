@@ -64,6 +64,7 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
 
         // TODO: Set this somewhere else.
         this.instanceModel.set('status', 'created');
+        this.customerModel.set('status', 'registered');
 
         this.instanceModel.on(
             'change:customer_title',

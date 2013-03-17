@@ -423,3 +423,14 @@ class EquipmentTagsField(Field):
     def __init__(self, value=""):
         super(EquipmentTagsField, self).__init__(self.LABEL, self.NAME, value)
         self.append_class(self.CLASS)
+
+
+class EmailField(Field):
+
+    LABEL = unicode("Email")
+    NAME = unicode("email")
+    CLASS = unicode("email")
+
+    def __init__(self, value=""):
+        super(EmailField, self).__init__(self.LABEL, self.NAME, value)
+        self.append_class(self.CLASS)
