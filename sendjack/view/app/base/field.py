@@ -8,6 +8,7 @@
 """
 from view.elementary.html import Div, UL
 from view.elementary.html import HiddenInput, TextInput, Label, Textarea
+from view.app.base.components import DatePicker
 
 
 class Field(Div):
@@ -23,45 +24,50 @@ class Field(Div):
         super(Field, self).__init__()
         self.append_class(self.FIELD_CLASS)
 
-        # assemble label
-        self._label_el = Label(label, name)
+        self._label_el = self._construct_label(label, name)
         self._label_el.append_class(self.KEY_CLASS)
-
-        # assemble input
-        self._input_el = TextInput(name, value)
-        self._input_el.append_class(self.VALUE_CLASS)
-
         self.append_child(self._label_el)
+
+        self._input_el = self._construct_input(name, value)
+        self._input_el.append_class(self.VALUE_CLASS)
         self.append_child(self._input_el)
 
 
-class BigField(Div):
+    def _construct_label(self, label, name):
+        return Label(label, name)
+
+
+    def _construct_input(self, name, value):
+        return TextInput(name, value)
+
+
+    def set_placeholder(self, placeholder):
+        # Override Element's set_placeholder to act on child input.
+        self._input_el.set_placeholder(placeholder)
+
+
+class BigField(Field):
 
     BIG_FIELD_CLASS = unicode("big-field")
-    FIELD_CLASS = unicode("field")
-    KEY_CLASS = unicode("key")
-    VALUE_CLASS = unicode("value")
-    DEFAULT_NUM_ROWS = 7
+    DEFAULT_NUM_ROWS = 9
 
     _label_el = None
     _input_el = None
 
     def __init__(self, label, name, value=""):
-        super(BigField, self).__init__()
-        self.append_class(self.FIELD_CLASS)
+        super(BigField, self).__init__(label, name, value)
         self.append_class(self.BIG_FIELD_CLASS)
 
-        # assemble label
-        self._label_el = Label(label, name)
-        self._label_el.append_class(self.KEY_CLASS)
 
-        # assemble input
-        self._input_el = Textarea(name, value)
-        self._input_el.append_class(self.VALUE_CLASS)
-        self._input_el.set_rows(self.DEFAULT_NUM_ROWS)
+    def _construct_input(self, name, value):
+        input_el = Textarea(name, value)
+        input_el.set_rows(self.DEFAULT_NUM_ROWS)
+        return input_el
 
-        self.append_child(self._label_el)
-        self.append_child(self._input_el)
+
+    def set_rows(self, num_of_rows):
+        # Override Element's set_rows to act on child input.
+        self._input_el.set_rows(num_of_rows)
 
 
 class HeadField(Div):
@@ -335,6 +341,11 @@ class DeadlineField(Field):
     def __init__(self, value=""):
         super(DeadlineField, self).__init__(self.LABEL, self.NAME, value)
         self.append_class(self.CLASS)
+
+
+    def _construct_input(self, name, value):
+        # Overwrite Field's _set_input to use DatePicker.
+        return DatePicker(name, value)
 
 
 class PriceField(Field):

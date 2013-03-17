@@ -26,8 +26,8 @@
 * SIZE DEFINITIONS
 ************************************************************/
 @tinyFontSize: 12px;
-@normalFontSize: 18px;
-@bigFontSize: 30px;
+@normalFontSize: 16px;
+@bigFontSize: 26px;
 
 @normalLineHeight: @normalFontSize + 3px;
 @listLineHeight: 30px;
@@ -35,12 +35,12 @@
 
 @headerHeight: 50px;
 
-@bigLinePadding: 25px;
+@bigLinePadding: 22px;
 @innerPadding: 20px;
-@outerPadding: 10px;
+@outerPadding: 8px;
 
 @bigBoxPadding: 100px;
-@smallBoxPadding: 50px;
+@smallBoxPadding: 40px;
 @pagePadding: 250px;
 
 @normalBorder: 2px;
@@ -168,10 +168,10 @@
 
 /* Inner drop shadow. */
 .inner-box-shadow(
-        @hShadow: 2px,
-        @vShadow: 3px,
-        @blur: 7px,
-        @spread: 2px,
+        @hShadow: 1px,
+        @vShadow: 2px,
+        @blur: 3px,
+        @spread: 1px,
         @alpha: 0.1) {
     .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, inset);
 }
@@ -426,6 +426,7 @@ li {
     .main-section {
         .border-radius(@normalRound);
         .drop-box-shadow();
+        width: 100%;
         float: left;
         background: @white;
         

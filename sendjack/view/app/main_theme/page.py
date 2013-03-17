@@ -6,10 +6,12 @@
     <div class="page main-page">
 
 """
-from view.elementary.html import TextInput, SubmitButton, Textarea, HiddenInput
+from view.elementary.html import SubmitButton, HiddenInput
 from view.app.base.page import Page
 from view.app.base.field import FieldList, Field
-from view.app.base.components import TitledGrid, DatePicker
+from view.app.base.components import TitledGrid
+from view.app.base.field import CustomerTitleField, CustomerDescriptionField
+from view.app.base.field import DeadlineField
 from view.app.base.object import ObjectView, CustomerView
 
 from .components import MainSection, MainGrid
@@ -148,20 +150,16 @@ class TaskInstanceView(ObjectView):
         self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
 
         # assemble customer title
-        customer_title = TextInput(self._CUSTOMER_TITLE_NAME)
-        customer_title.append_class(self._CUSTOMER_TITLE_CLASS)
+        customer_title = CustomerTitleField()
         customer_title.set_placeholder(self._CUSTOMER_TITLE_PLACEHOLDER)
 
         # assemble customer description
-        customer_description = Textarea(self._CUSTOMER_DESCRIPTION_NAME)
-        customer_description.append_class(self._CUSTOMER_DESCRIPTION_CLASS)
+        customer_description = CustomerDescriptionField()
         customer_description.set_placeholder(
                 self._CUSTOMER_DESCRIPTION_PLACEHOLDER)
-        customer_description.set_rows(self._TEXTAREA_DEFAULT_ROWS)
 
         # assemble deadline
-        deadline = DatePicker(self._DEADLINE_NAME)
-        deadline.append_class(self._DEADLINE_CLASS)
+        deadline = DeadlineField()
         deadline.set_placeholder(self._DEADLINE_PLACEHOLDER)
 
         self.append_child(customer_title)
