@@ -51,10 +51,11 @@ class CreateCustomerGrid(MainGrid):
 
     _GRID_TITLE = unicode("Sign Up")
     _GRID_SUBTITLES = [
-            unicode((
-                    "Great! Now we just need your contact details. We'll"
-                    "holler."
-                    )),
+            unicode("Thank you for using Jackalope to get your work done!"),
+            unicode("We've started looking into your task. Now we just need "
+                    "to know how to get in touch with you to confirm the "
+                    "details, like description and price. It won't be long."
+                    ),
             ]
 
 
@@ -84,16 +85,18 @@ class CreateInstanceGrid(MainGrid):
 
     _CREATE_INSTANCE_GRID_CLASS = unicode("create-instance-grid")
 
-    _GRID_TITLE = unicode("Create A Task")
+    _GRID_TITLE = unicode("Finish Creating A Task")
     _GRID_SUBTITLES = [
-            unicode((
-                    "I'll find something to put here that makes lots of sense."
-                    )),
-            unicode((
-                    "This proves there can be more than one of me!"
-                    )),
+            unicode("We're excited to get started on your task. Let's dig a "
+                    "little deeper...tell us more about the work you need "
+                    "done."
+                    ),
+            unicode("Your task will be matched with similar work that has "
+                    "gone well in the past to make sure we write clear "
+                    "instructions, set the right price, and find the best "
+                    "worker to get it done on time."
+                    ),
             ]
-
 
     def __init__(self):
         super(CreateInstanceGrid, self).__init__(self._GRID_TITLE)
@@ -198,19 +201,19 @@ class CreateInstanceThanksGrid(TitledGrid):
 
     _CREATE_INSTANCE_THANKS_GRID_CLASS = unicode("create-instance-thanks-grid")
 
-    _GRID_TITLE = unicode("Next Steps")
+    _GRID_TITLE = unicode("Best. Decision. Ever.")
     _GRID_SUBTITLES = [
-            unicode((
-                    "Jackalope is on it.",
-                    )),
-            unicode((
-                    "We're processing your task to make sure it looks great.",
-                    )),
-            unicode((
-                    "Then we'll email you to confirm all the details. Thanks "
-                    "for trying us out!"
-                    )),
+            unicode("You're about to be a whole lot more productive. And "
+                    "awesome. Tell your friends."
+                    ),
+            unicode("Watch your inbox. Soon you will get an email with a link "
+                    "to confirm the details. It shouldn't be long."
+                    ),
+            unicode("In the meantime, maybe read about the mythical jackalope "
+                    "for fun. Or do other work. You're very important!"
+                    ),
             ]
+
 
     def __init__(self):
         super(CreateInstanceThanksGrid, self).__init__(self._GRID_TITLE)
@@ -234,13 +237,19 @@ class ConfirmInstanceGrid(MainGrid):
 
     _CONFIRM_INSTANCE_GRID_CLASS = unicode("confirm-instance-grid")
 
-    _GRID_TITLE = unicode("Task Details")
+    _GRID_TITLE = unicode("Confirm the Details")
     _GRID_SUBTITLES = [
-            unicode((
-                    "We checked out a number of tasks like yours that went "
-                    "well, and fine-tuned your description. We've also "
-                    "suggested a price below."
-                    )),
+            unicode("We're almost ready to get to work on your task, but we "
+                    "need you to confirm a few things."
+                    ),
+            unicode("Jackalope turns every successful task into a reusable "
+                    "recipe for getting work done. We checked out tasks just "
+                    "like yours that went really well in order to fine-tune "
+                    "the description and suggest a price."
+                    ),
+            unicode("Our suggestions are included below. Edit and confirm the "
+                    "details of the task, and we'll get to work right away."
+                    ),
             ]
 
     def __init__(self):
@@ -269,13 +278,18 @@ class CardCustomerGrid(MainGrid):
 
     _CARD_CUSTOMER_GRID_CLASS = unicode("card-customer-grid")
 
-    _GRID_TITLE = unicode("Payment")
+    _GRID_TITLE = unicode("One More Thing...")
     _GRID_SUBTITLES = [
-            unicode((
-                    "Great! Now all we need is your payment details. You'll "
-                    "never be charged until your task is done and you have "
-                    "approved the work."
-                    )),
+            unicode("Before we get to work, please enter your credit card "
+                    "details so that we know how to charge you when all is "
+                    "said and done."
+                    ),
+            unicode("To be clear, you will not be charged until the work is "
+                    "done and you've had an opportunity to review it."
+                    ),
+            unicode("Jackalope processes credit card information securely "
+                    "using Stripe."
+                    ),
             ]
 
     def __init__(self):
@@ -318,7 +332,7 @@ class CardCustomerView(ObjectView):
                     unicode("Exp Year"),
                     unicode("card_expiry_year")),
                 Field(
-                    unicode("CVC:"),
+                    unicode("CVC"),
                     unicode("card_cvc")),
                 ]
 
@@ -343,11 +357,22 @@ class ConfirmInstanceThanksGrid(TitledGrid):
     _CONFIRM_INSTANCE_THANKS_GRID_CLASS = unicode(
             "confirm-instance-thanks-grid")
 
-    _GRID_TITLE = unicode("Fill this in.")
+    _GRID_TITLE = unicode("We're On It!")
     _GRID_SUBTITLES = [
-            unicode((
-                    "We're on it. We'll let you know when it's done."
-                    )),
+            unicode("Thank you for using Jackalope to get your work done."),
+            unicode("We got this. You relax. Take a beat. Kick back a "
+                    "minute."
+                    ),
+            unicode("While you're doing that, we're getting started on your "
+                    "task. We'll let you know when it's finished by sending "
+                    "you an email with a link to approve the work. We won't "
+                    "charge your card until the task is approved."
+                    ),
+            unicode("Remember, once you have been notified the task is done, "
+                    "if we don't hear from you for two days, we will assume "
+                    "you approve and automatically charge your card."
+                    ),
+            unicode("Email ask@sendjack.com with questions."),
             ]
 
     def __init__(self):
@@ -373,12 +398,17 @@ class ApproveInstanceGrid(MainGrid):
 
     _GRID_TITLE = unicode("Approve Work")
     _GRID_SUBTITLES = [
-            unicode("Your Task Is Complete!"),
-            unicode("Hi, your task has been completed and your file is in "
-                    "your email inbox."),
-            unicode("Once you review your work, please approve the work below "
-                    "so that we can pay your worker."),
-            unicode("Thanks!"),
+            unicode("All done!"),
+            unicode("Now it's up to you to check out the results (files "
+                    "attached, content posted, packages delivered, etc.)."
+                    ),
+            unicode("If you are satisfied, simply give the work your stamp of "
+                    "approval. If you do nothing for two days, we will assume "
+                    "you approve. Once this is done, your card will be "
+                    "charged."
+                    ),
+            unicode("If you are not satisfied, please let us know by "
+                    "rejecting the work."),
             ]
 
     def __init__(self):
@@ -402,3 +432,43 @@ class ApproveInstanceView(ObjectView):
         self.append_class(self._APPROVE_INSTANCE_VIEW_CLASS)
 
         self.append_child(SubmitButton(self._SUBMIT_TEXT))
+
+
+class ApproveInstanceThanksPage(MainPage):
+
+    _APPROVE_INSTANCE_THANKS_PAGE_ID = unicode("approve-instance-thanks-page")
+
+    def __init__(self):
+        super(ApproveInstanceThanksPage, self).__init__()
+        self.set_id(self._APPROVE_INSTANCE_THANKS_PAGE_ID)
+
+    def _construct_grids(self):
+        return [ApproveInstanceThanksGrid()]
+
+
+class ApproveInstanceThanksGrid(TitledGrid):
+
+    _APPROVE_INSTANCE_THANKS_GRID_CLASS = unicode(
+            "approve-instance-thanks-grid")
+
+    _GRID_TITLE = unicode("Thank You!")
+    _GRID_SUBTITLES = [
+            unicode("Bitte! Arigato! Prego! Ha mea iki! If you're happy, "
+                    "we're happy."
+                    ),
+            unicode("Now that your task is done and you're satisfied with the "
+                    "results, it's time for us to charge your card. You "
+                    "should be receiving an email receipt shortly. We hope "
+                    "you will continue using Jackalope to get your work done."
+                    ),
+            unicode("Jackalope gets better with your help. Please fill out a "
+                    "short survey if you have a free minute. We're pretty "
+                    "sure you do, since you just saved all that time "
+                    "outsourcing your work. That's not working hard, that's "
+                    "working smart!"
+                    ),
+            ]
+
+    def __init__(self):
+        super(ApproveInstanceThanksGrid, self).__init__(self._GRID_TITLE)
+        self.append_class(self._APPROVE_INSTANCE_THANKS_GRID_CLASS)
