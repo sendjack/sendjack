@@ -41,14 +41,14 @@ function CreateCustomerObjectView(attributes, options) {
             this.model.on('change:stripe_token', this.onAttributeChange, this);
         },
 
-        addRequiredValidationRules: function () {
-            this.$el.validate({
+        getRequiredValidationRules: function () {
+            return {
                 rules: {
-                    first_name: 'required',
-                    last_name: 'required',
-                    email: 'required'
+                    email: {
+                        required: true
+                    }
                 }
-            });
+            };
         },
 
         onAttributeChange: function (model, value, options) {

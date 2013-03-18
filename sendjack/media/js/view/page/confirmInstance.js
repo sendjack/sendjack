@@ -38,82 +38,45 @@ function ConfirmInstanceObjectView(attributes, options) {
 
         setupControlAndTestFields: function (isControlGroup) {
             if (isControlGroup) {
-                this.initializeControlFields();
+                this.initializeShownControlFields();
             } else {
-                this.initializeTestFields();
+                this.initializeShownTestFields();
             }
         },
 
-        initializeControlFields: function () {
-            this.initializeShownControlFields();
-            this.initializeDisabledControlFields();
-        },
-
-        initializeTestFields: function () {
-            this.initializeShownTestFields();
-            this.initializeDisabledTestFields();
-        },
-
         initializeShownControlFields: function () {
-            this.$el.find('.template-id').hide();
+            this.initializeShownFields();
 
-            // TODO: put these in a superclass TaskInstancePostView.
-            this.$el.find('.properties').hide();
-            this.$el.find('.property').hide();
-            this.$el.find('.output-type').hide();
-            this.$el.find('.output-method').hide();
-            this.$el.find('.category-tags').hide();
-            this.$el.find('.industry-tags').hide();
-            this.$el.find('.skill-tags').hide();
-            this.$el.find('.equipment-tags').hide();
+            var fields = this.$el.find('.field');
 
-            this.$el.find('.field.title').hide();
-            this.$el.find('.instructions').hide();
-            this.$el.find('.instruction').hide();
+            fields.has('[name=description]').hide();
+            fields.has('[name=more_details]').hide();
         },
 
-        initializeDisabledControlFields: function (taskStatus) {
-            this.$el.find('[name=customer_title]')
-                    .attr('disabled', 'disabled');
-            this.$el.find('[name=customer_description]')
-                    .attr('disabled', 'disabled');
+        initializeShownTestFields: function () {
+            this.initializeShownFields();
 
-            // TODO: put these in a superclass TaskInstancePostView.
-            this.$el.find('[name=notes]').attr('disabled', 'disabled');
-            this.$el.find('[name=deadline_ts]')
-                    .attr('disabled', 'disabled');
-
-            this.$el.find('[name=price]').attr('disabled', 'disabled');
+            var fields = this.$el.find('.field');
         },
 
-        initializeShownTestFields: function (taskStatus) {
-            this.$el.find('.template-id').hide();
+        initializeShownFields: function () {
+            var fields = this.$el.find('.field');
 
-            // TODO: put these in a superclass TaskInstancePostView.
-            this.$el.find('.properties').hide();
-            this.$el.find('.property').hide();
-            this.$el.find('.output-type').hide();
-            this.$el.find('.output-method').hide();
-            this.$el.find('.category-tags').hide();
-            this.$el.find('.industry-tags').hide();
-            this.$el.find('.skill-tags').hide();
-            this.$el.find('.equipment-tags').hide();
+            fields.has('[name=customer_title]').hide();
+            fields.has('[name=customer_description]').hide();
 
-            this.$el.find('.customer-title').hide();
-            this.$el.find('.customer-description').hide();
-        },
+            fields.has('[name=template_id]').hide();
 
-        initializeDisabledTestFields: function (taskStatus) {
-            this.$el.find('[name=title]').attr('disabled', 'disabled');
-            // TODO: can hidden inputs be disabled?
-            //this.$el.find('[name=instructions]').attr('disabled', 'disabled');
-            this.$el.find('[name=instruction]').attr('disabled', 'disabled');
-
-            // TODO: put these in a superclass TaskInstancePostView.
-            this.$el.find('[name=notes]').attr('disabled', 'disabled');
-            this.$el.find('[name=deadline_ts]').attr('disabled', 'disabled');
-
-            this.$el.find('[name=price]').attr('disabled', 'disabled');
+            fields.has('[name=properties]').hide();
+            fields.has('[name=property]').hide();
+            fields.has('[name=output_type]').hide();
+            fields.has('[name=output_method]').hide();
+            fields.has('[name=category_tags]').hide();
+            fields.has('[name=industry_tags]').hide();
+            fields.has('[name=skill_tags]').hide();
+            fields.has('[name=equipment_tags]').hide();
+            fields.has('[name=instructions]').hide();
+            fields.has('[name=instruction]').hide();
         }
 
     });

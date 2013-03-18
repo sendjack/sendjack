@@ -39,13 +39,12 @@ li{margin-bottom:8px;line-height:30px;}
 .main-page .grid{width:100%;float:left;}.main-page .grid .grid-title{padding-bottom:22px;border-bottom:1px solid #c8c8c8;}
 .main-page .grid .submit-button{margin-top:22px;}
 .main-page .grid-text{margin-top:22px;}
-.main-page#create-customer-page .customer-view input.first_name{width:48%;float:left;}
-.main-page#create-customer-page .customer-view input.last_name{width:48%;float:right;}
-.main-page#create-customer-page .customer-view input.email{width:100%;}
 .main-page#create-instance-page .create-instance-grid .field-list .key{width:20%;}
 .main-page#create-instance-page .create-instance-grid .field-list .value{width:80%;}
 .main-page#create-instance-page .create-instance-grid .field-list .key,.main-page#create-instance-page .create-instance-grid .field-list .value,.main-page#create-instance-page .create-instance-grid .field-list .sub-value{float:none;display:block;}
 .main-page#create-instance-page .task-instance-view input,.main-page#create-instance-page .task-instance-view textarea{width:100%;}
+.main-page#confirm-instance-page .task-instance-view .field-deadline-ts{float:left;width:47%;}
+.main-page#confirm-instance-page .task-instance-view .field-price{float:right;width:47%;}
 .main-page#template-page .post-grid,.main-page#template-page .worker-grid{padding-left:25px;}
 .main-page#template-page .tags-grid{clear:both;}
 .alt-page{}

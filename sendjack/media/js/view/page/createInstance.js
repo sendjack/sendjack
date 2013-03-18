@@ -36,14 +36,20 @@ var TaskInstanceView = instanceView.getTaskInstanceViewClass();
 function CreateInstanceObjectView(attributes, options) {
     var CreateInstanceObjectViewClass = TaskInstanceView.extend({
 
-        addRequiredValidationRules: function () {
-            this.$el.validate({
+        getRequiredValidationRules: function () {
+            return {
                 rules: {
-                    customer_title: 'required',
-                    customer_description: 'required',
-                    deadline_ts: 'required'
+                    customer_title: {
+                        required: true
+                    },
+                    customer_description: {
+                        required: true
+                    },
+                    deadline_ts: {
+                        required: true
+                    }
                 }
-            });
+            };
         }
     });
 

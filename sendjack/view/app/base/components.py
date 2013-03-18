@@ -93,8 +93,17 @@ class GridText(Div):
 
 class DatePicker(TextInput):
 
-    _DATE_PICKER_CLASS = "date-picker"
+    _DATE_PICKER_CLASS = unicode("date-picker")
 
     def __init__(self, name, value=""):
         super(DatePicker, self).__init__(name, value)
         self.append_class(self._DATE_PICKER_CLASS)
+
+
+class CurrencyInput(TextInput):
+
+    _CURRENCY_CLASS = unicode("currency")
+
+    def __init__(self, name, value=""):
+        super(CurrencyInput, self).__init__(name, value)
+        self.append_class(self._CURRENCY_CLASS)

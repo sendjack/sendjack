@@ -57,18 +57,32 @@ var CustomerView = customerView.getCustomerViewClass();
 function CardCustomerObjectView(attributes, options) {
     var CardCustomerObjectViewClass = CustomerView.extend({
         
-        addRequiredValidationRules: function () {
-            this.$el.validate({
+        getRequiredValidationRules: function () {
+            return {
                 rules: {
-                    first_name: 'required',
-                    last_name: 'required',
-                    email: 'required',
-                    card_number: 'required',
-                    card_expiry_month: 'required',
-                    card_expiry_year: 'required',
-                    cvc: 'required'
+                    first_name: {
+                        required: true
+                    },
+                    last_name: {
+                        required: true
+                    },
+                    email: {
+                        required: true
+                    },
+                    card_number: {
+                        required: true
+                    },
+                    card_expiry_month: {
+                        required: true
+                    },
+                    card_expiry_year: {
+                        required: true
+                    },
+                    cvc: {
+                        required: true
+                    }
                 }
-            });
+            };
         },
 
         onSubmit: function () {

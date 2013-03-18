@@ -72,8 +72,8 @@ var CreditCardView = ItemView.extend({
     },
 
     /** TODO: This isn't currently called. */
-    addTypeCheckingValidationRules: function () {
-        this.$el.validate({
+    getTypeCheckingValidationRules: function () {
+        return {
             rules: {
                 card_number: {
                     creditcard: true
@@ -91,7 +91,7 @@ var CreditCardView = ItemView.extend({
                     maxlength: 5
                 }
             }
-        });
+        };
     }
 });
 
