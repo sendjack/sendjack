@@ -6,10 +6,14 @@
     <div class="page main-page">
 
 """
-from view.elementary.html import TextInput, SubmitButton, Textarea, HiddenInput
+from view.elementary.html import SubmitButton, HiddenInput
 from view.app.base.page import Page
 from view.app.base.field import FieldList, Field
-from view.app.base.components import TitledGrid, DatePicker
+from view.app.base.components import TitledGrid
+from view.app.base.field import CustomerTitleField, CustomerDescriptionField
+from view.app.base.field import DeadlineField, PriceField, TitleField
+from view.app.base.field import DescriptionField, MoreDetailsField
+from view.app.base.field import SummaryField
 from view.app.base.object import ObjectView, CustomerView
 
 from .components import MainSection, MainGrid
@@ -104,10 +108,10 @@ class CreateInstanceGrid(MainGrid):
 
 
     def _construct_form(self):
-        return TaskInstanceView()
+        return CreateInstanceView()
 
 
-class TaskInstanceView(ObjectView):
+class CreateInstanceView(ObjectView):
 
     _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
     _TASK_INSTANCE_ID = unicode("instance")
@@ -129,11 +133,6 @@ class TaskInstanceView(ObjectView):
     _SKILL_TAGS_NAME = unicode("skill_tags")
     _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
 
-    # classes
-    _CUSTOMER_TITLE_CLASS = unicode("customer-title")
-    _CUSTOMER_DESCRIPTION_CLASS = unicode("customer-description")
-    _DEADLINE_CLASS = unicode("deadline")
-
     # placeholder values
     _CUSTOMER_TITLE_PLACEHOLDER = unicode("Enter a title for your task...")
     _CUSTOMER_DESCRIPTION_PLACEHOLDER = unicode("Describe your task...")
@@ -144,24 +143,20 @@ class TaskInstanceView(ObjectView):
 
 
     def __init__(self):
-        super(TaskInstanceView, self).__init__(self._TASK_INSTANCE_ID)
+        super(CreateInstanceView, self).__init__(self._TASK_INSTANCE_ID)
         self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
 
         # assemble customer title
-        customer_title = TextInput(self._CUSTOMER_TITLE_NAME)
-        customer_title.append_class(self._CUSTOMER_TITLE_CLASS)
+        customer_title = CustomerTitleField()
         customer_title.set_placeholder(self._CUSTOMER_TITLE_PLACEHOLDER)
 
         # assemble customer description
-        customer_description = Textarea(self._CUSTOMER_DESCRIPTION_NAME)
-        customer_description.append_class(self._CUSTOMER_DESCRIPTION_CLASS)
+        customer_description = CustomerDescriptionField()
         customer_description.set_placeholder(
                 self._CUSTOMER_DESCRIPTION_PLACEHOLDER)
-        customer_description.set_rows(self._TEXTAREA_DEFAULT_ROWS)
 
         # assemble deadline
-        deadline = DatePicker(self._DEADLINE_NAME)
-        deadline.append_class(self._DEADLINE_CLASS)
+        deadline = DeadlineField()
         deadline.set_placeholder(self._DEADLINE_PLACEHOLDER)
 
         self.append_child(customer_title)
@@ -180,6 +175,7 @@ class TaskInstanceView(ObjectView):
         self.append_child(HiddenInput(self._INDUSTRY_TAGS_NAME))
         self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
         self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
+
 
         self.append_child(SubmitButton(self._SUBMIT_TEXT))
 
@@ -258,7 +254,65 @@ class ConfirmInstanceGrid(MainGrid):
 
 
     def _construct_form(self):
-        self.append_child(TaskInstanceView())
+        return ConfirmInstanceView()
+
+
+class ConfirmInstanceView(ObjectView):
+
+    _TASK_INSTANCE_VIEW = unicode("task-instance-view")
+    _TASK_INSTANCE_ID = unicode("instance")
+
+    # names
+    _CUSTOMER_TITLE_NAME = unicode("customer_title")
+    _CUSTOMER_DESCRIPTION_NAME = unicode("customer_description")
+    _TITLE_NAME = unicode("title")
+    _SUMMARY_NAME = unicode("summary")
+    _DEADLINE_NAME = unicode("deadline_ts")
+
+    _INSTRUCTIONS_NAME = unicode("instructions")
+    _PROPERTIES_NAME = unicode("properties")
+    _OUTPUT_TYPE_NAME = unicode("output_type")
+    _OUTPUT_METHOD_NAME = unicode("output_method")
+    _PRICE_NAME = unicode("price")
+    _CATEGORY_TAGS_NAME = unicode("category_tags")
+    _INDUSTRY_TAGS_NAME = unicode("industry_tags")
+    _SKILL_TAGS_NAME = unicode("skill_tags")
+    _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
+
+    _TEXTAREA_DEFAULT_ROWS = 4
+    _SUBMIT_TEXT = unicode("Create")
+
+    def __init__(self):
+        super(ConfirmInstanceView, self).__init__(self._TASK_INSTANCE_ID)
+        self.append_class(self._TASK_INSTANCE_VIEW)
+
+        title = TitleField()
+        summary = SummaryField()
+        description = DescriptionField()
+        more_details = MoreDetailsField()
+        deadline = DeadlineField()
+        price = PriceField()
+
+        self.append_child(title)
+        self.append_child(summary)
+        self.append_child(description)
+        self.append_child(more_details)
+        self.append_child(deadline)
+        self.append_child(price)
+
+        self.append_child(HiddenInput(self._CUSTOMER_TITLE_NAME))
+        self.append_child(HiddenInput(self._CUSTOMER_DESCRIPTION_NAME))
+
+        self.append_child(HiddenInput(self._INSTRUCTIONS_NAME))
+        self.append_child(HiddenInput(self._PROPERTIES_NAME))
+        self.append_child(HiddenInput(self._OUTPUT_TYPE_NAME))
+        self.append_child(HiddenInput(self._OUTPUT_METHOD_NAME))
+        self.append_child(HiddenInput(self._CATEGORY_TAGS_NAME))
+        self.append_child(HiddenInput(self._INDUSTRY_TAGS_NAME))
+        self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
+        self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
+
+        self.append_child(SubmitButton(self._SUBMIT_TEXT))
 
 
 class CardCustomerPage(MainPage):
@@ -422,14 +476,58 @@ class ApproveInstanceGrid(MainGrid):
 
 class ApproveInstanceView(ObjectView):
 
-    _APPROVE_INSTANCE_VIEW_CLASS = unicode("approve-instance-view")
-    _APPROVE_INSTANCE_ID = unicode("instance")
+    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
+    _TASK_INSTANCE_ID = unicode("instance")
 
+    # names
+    _CUSTOMER_TITLE_NAME = unicode("customer_title")
+    _CUSTOMER_DESCRIPTION_NAME = unicode("customer_description")
+    _TITLE_NAME = unicode("title")
+    _SUMMARY_NAME = unicode("summary")
+    _DEADLINE_NAME = unicode("deadline_ts")
+
+    _INSTRUCTIONS_NAME = unicode("instructions")
+    _PROPERTIES_NAME = unicode("properties")
+    _OUTPUT_TYPE_NAME = unicode("output_type")
+    _OUTPUT_METHOD_NAME = unicode("output_method")
+    _PRICE_NAME = unicode("price")
+    _CATEGORY_TAGS_NAME = unicode("category_tags")
+    _INDUSTRY_TAGS_NAME = unicode("industry_tags")
+    _SKILL_TAGS_NAME = unicode("skill_tags")
+    _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
+
+    _TEXTAREA_DEFAULT_ROWS = 4
     _SUBMIT_TEXT = unicode("Approve")
 
     def __init__(self):
-        super(ApproveInstanceView, self).__init__(self._APPROVE_INSTANCE_ID)
-        self.append_class(self._APPROVE_INSTANCE_VIEW_CLASS)
+        super(ApproveInstanceView, self).__init__(self._TASK_INSTANCE_ID)
+        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
+
+        title = TitleField()
+        summary = SummaryField()
+        description = DescriptionField()
+        more_details = MoreDetailsField()
+        deadline = DeadlineField()
+        price = PriceField()
+
+        self.append_child(title)
+        self.append_child(summary)
+        self.append_child(description)
+        self.append_child(more_details)
+        self.append_child(deadline)
+        self.append_child(price)
+
+        self.append_child(HiddenInput(self._CUSTOMER_TITLE_NAME))
+        self.append_child(HiddenInput(self._CUSTOMER_DESCRIPTION_NAME))
+
+        self.append_child(HiddenInput(self._INSTRUCTIONS_NAME))
+        self.append_child(HiddenInput(self._PROPERTIES_NAME))
+        self.append_child(HiddenInput(self._OUTPUT_TYPE_NAME))
+        self.append_child(HiddenInput(self._OUTPUT_METHOD_NAME))
+        self.append_child(HiddenInput(self._CATEGORY_TAGS_NAME))
+        self.append_child(HiddenInput(self._INDUSTRY_TAGS_NAME))
+        self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
+        self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
 
         self.append_child(SubmitButton(self._SUBMIT_TEXT))
 
@@ -441,6 +539,7 @@ class ApproveInstanceThanksPage(MainPage):
     def __init__(self):
         super(ApproveInstanceThanksPage, self).__init__()
         self.set_id(self._APPROVE_INSTANCE_THANKS_PAGE_ID)
+
 
     def _construct_grids(self):
         return [ApproveInstanceThanksGrid()]

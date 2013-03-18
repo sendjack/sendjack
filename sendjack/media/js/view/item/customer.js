@@ -48,14 +48,14 @@ var CustomerView = ObjectView.extend({
         }
     },
 
-    addTypeCheckingValidationRules: function () {
-        this.$el.validate({
+    getTypeCheckingValidationRules: function () {
+        return {
             rules: {
                 email: {
                     email: true
                 }
             }
-        });
+        };
     },
 
     editBindings: function (bindings) {

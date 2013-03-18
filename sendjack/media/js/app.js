@@ -66,7 +66,7 @@ return {
                 var createInstanceRouter = router.CreateInstanceRouter();
                 var processInstanceRouter = router.ProcessInstanceRouter();
                 var confirmInstanceRouter = router.ConfirmInstanceRouter();
-                //var approveInstanceRouter = router.ApproveInstanceRouter();
+                var approveInstanceRouter = router.ApproveInstanceRouter();
                 
                 var templateRouter = router.TemplateRouter();
 

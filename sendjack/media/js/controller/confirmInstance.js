@@ -108,7 +108,6 @@ var ConfirmInstanceController = Backbone.Marionette.Controller.extend({
             var path = '/users/' + id + '/card';
             Backbone.history.navigate(path, {trigger:true});
         }, this);
-
     },
 
     loadConfirmInstancePage: function (instanceID) {

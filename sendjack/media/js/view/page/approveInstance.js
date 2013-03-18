@@ -1,7 +1,7 @@
 /**
- * Provide the Confirm Instance Page.
+ * Provide the Approve Instance Page.
  *
- * @exports view.page.confirmInstance
+ * @exports view.page.approveInstance
  *
  */
 define(
@@ -19,13 +19,13 @@ define(
 
 var PageView = pageView.getPageViewClass();
 
-var ConfirmInstancePageView = PageView.extend({
+var ApproveInstancePageView = PageView.extend({
 
-    el: '#confirm-instance-page',
-    confirmInstanceObjectView: null,
+    el: '#approve-instance-page',
+    approveInstanceObjectView: null,
 
     _initializeChildViews: function () {
-        this.confirmInstanceObjectView = ConfirmInstanceObjectView({
+        this.approveInstanceObjectView = ApproveInstanceObjectView({
             model: this.options.instanceModel
         });
     }
@@ -33,8 +33,8 @@ var ConfirmInstancePageView = PageView.extend({
 
 
 var TaskInstanceView = instanceView.getTaskInstanceViewClass();
-function ConfirmInstanceObjectView(attributes, options) {
-    var ConfirmInstanceObjectViewClass = TaskInstanceView.extend({
+function ApproveInstanceObjectView(attributes, options) {
+    var ApproveInstanceObjectViewClass = TaskInstanceView.extend({
 
         setupControlAndTestFields: function (isControlGroup) {
             if (isControlGroup) {
@@ -42,6 +42,8 @@ function ConfirmInstanceObjectView(attributes, options) {
             } else {
                 this.initializeShownTestFields();
             }
+
+            this.$el.find('input, textarea').attr('disabled', 'disabled');
         },
 
         initializeShownControlFields: function () {
@@ -77,17 +79,24 @@ function ConfirmInstanceObjectView(attributes, options) {
             fields.has('[name=equipment_tags]').hide();
             fields.has('[name=instructions]').hide();
             fields.has('[name=instruction]').hide();
-        }
+        },
 
+        save: function (attributes, options) {
+            var approved_status_attribute = {status: 'approved'};
+            TaskInstanceView.prototype.save.call(
+                    this,
+                    $.extend(approved_status_attribute, attributes),
+                    options);
+        }
     });
 
-    return new ConfirmInstanceObjectViewClass(attributes, options);
+    return new ApproveInstanceObjectViewClass(attributes, options);
 }
 
 
 return {
-    ConfirmInstancePageView: function (attributes, options) {
-        return new ConfirmInstancePageView(attributes, options);
+    ApproveInstancePageView: function (attributes, options) {
+        return new ApproveInstancePageView(attributes, options);
     }
 };
 

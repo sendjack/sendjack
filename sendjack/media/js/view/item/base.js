@@ -84,8 +84,10 @@ var ObjectView = ItemView.extend({
         // keep these separate as the 'required' should happen in the page
         // specific subclasses and the 'type-checking' should happen at the
         // model views.
-        this.addRequiredValidationRules();
-        this.addTypeCheckingValidationRules();
+        var requiredRules = this.getRequiredValidationRules();
+        var typeCheckingRules = this.getTypeCheckingValidationRules();
+        var combinedRules = $.extend(true, {} , requiredRules, typeCheckingRules);
+        this.$el.validate(combinedRules);
 
         this.render();
     },
@@ -123,20 +125,22 @@ var ObjectView = ItemView.extend({
     },
 
     /**
-     * Add Type Checking validation rules.
+     * Return Type Checking validation rules.
      *
      * This should be overriden by each base subclass.
      */
-    addTypeCheckingValidationRules: function () {
+    getTypeCheckingValidationRules: function () {
+        return {};
     },
 
     /**
-     * Add Required validation rules.
+     * Return  Required validation rules.
      *
      * This should be overriden by the subclasses associated with specific
      * pages.
      */
-    addRequiredValidationRules: function () {
+    getRequiredValidationRules: function () {
+        return {};
     }
 
 
@@ -161,12 +165,12 @@ var TaskView = ObjectView.extend({
      * aggregate field to be passed as a JSON array or object (instruction,
      * property, etc.).
      */
-    save: function () {
+    save: function (attributes, options) {
         this.model.unset('instruction', {silent: true});
         this.model.unset('property_key', {silent: true});
         this.model.unset('property_value', {silent: true});
 
-        ObjectView.prototype.save.call(this);
+        ObjectView.prototype.save.call(this, attributes, options);
     },
 
     events: function () {

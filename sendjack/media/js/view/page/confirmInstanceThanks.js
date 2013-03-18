@@ -11,7 +11,6 @@ define(
 
             //modules
             'view/page/base'
-            //jquery ui
         ],
         function ($, pageView) {
 

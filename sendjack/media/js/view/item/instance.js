@@ -35,6 +35,9 @@ var TaskInstanceView = TaskView.extend({
     editBindings: function (bindings) {
         // TODO: maybe move this to TaskView?
 
+        console.log('bindings');
+        console.log(bindings);
+
         bindings.instructions.converter = this.convertJSON;
         bindings.properties.converter = this.convertJSON;
         bindings.deadline_ts.converter = this.convertDeadline;
