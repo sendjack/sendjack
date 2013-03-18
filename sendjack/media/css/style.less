@@ -350,7 +350,7 @@ li {
     .titleText();
 }
 
-.field-list {
+/** .field-list {
 
     li {
         float: left;
@@ -381,7 +381,7 @@ li {
             }
         }
     }
-}
+} */
 
 
 /***********************************************************
@@ -452,6 +452,8 @@ li {
         }
 
         .submit-button {
+            float: left;
+            clear: both;
             margin-top: @bigLinePadding;
         }
 
@@ -509,6 +511,40 @@ li {
                 float: right;
                 width: 47%;
             }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - CONFIRM INSTANCE PAGE
+    ************************************************************/
+    &#card-customer-page {
+        .field-first-name{
+            float: left;
+            width: 47%;
+        }
+
+        .field-last-name{
+            float: right;
+            width: 47%;
+        }
+
+        .field-card-expiry-month {
+            float: left;
+            width: 100px;
+            margin-right: @outerPadding;
+        }
+
+        .field-card-expiry-year {
+            float: left;
+            width: 100px;
+            margin-right: @outerPadding;
+            margin-left: @outerPadding;
+        }
+
+        .field-card-cvc {
+            float: left;
+            width: 100px;
+            margin-left: @outerPadding;
         }
     }
 

@@ -27,17 +27,13 @@ li{margin-bottom:8px;line-height:30px;}
 #app-header #app-menu{float:right;}
 .page{display:none;width:100%;height:100%;clear:both;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#7b7979;}
 .grid-title{font-family:'Helvetica Neue Bold','Arial Bold',sans-serif;font-size:26px;color:#434241;}
-.field-list li{float:left;width:100%;clear:both;}.field-list li .field .key,.field-list li .sub-field .key{float:left;width:30%;}
-.field-list li .field .head-key,.field-list li .sub-field .head-key{float:left;width:100%;}
-.field-list li .field .sub-key,.field-list li .sub-field .sub-key{float:left;width:30%;text-align:right;padding-right:22px;}
-.field-list li .field .value,.field-list li .sub-field .value,.field-list li .field .sub-value,.field-list li .sub-field .sub-value{float:left;width:70%;}
 .main-page{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#7b7979;padding-top:0px;padding-bottom:40px;text-align:left;background-color:transparent;}.main-page .object-view{margin-top:22px;}
 .main-page input,.main-page textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;-webkit-box-shadow:1px 2px 3px 1px rgba(0, 0, 0, 0.1) inset;-moz-box-shadow:1px 2px 3px 1px rgba(0, 0, 0, 0.1) inset;box-shadow:1px 2px 3px 1px rgba(0, 0, 0, 0.1) inset;border:1px #c8c8c8 solid;padding:20px;margin:8px 0px;background-color:#ffffff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#0089ff;width:100%;}.main-page input[disabled],.main-page textarea[disabled]{background:#c8c8c8;color:#000000;cursor:default;}
 .main-page input{height:30px;}
 .main-page .main-section{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;-webkit-box-shadow:5px 5px 13px 7px rgba(0, 0, 0, 0.15) ;-moz-box-shadow:5px 5px 13px 7px rgba(0, 0, 0, 0.15) ;box-shadow:5px 5px 13px 7px rgba(0, 0, 0, 0.15) ;width:100%;float:left;background:#ffffff;padding:40px 100px;}.main-page .main-section .key,.main-page .main-section .head-key,.main-page .main-section .sub-key{font-family:'Helvetica Neue Bold','Arial Bold',sans-serif;font-size:16px;color:#434241;}
 .main-page .main-section .value,.main-page .main-section .sub-value{color:#0089ff;}
 .main-page .grid{width:100%;float:left;}.main-page .grid .grid-title{padding-bottom:22px;border-bottom:1px solid #c8c8c8;}
-.main-page .grid .submit-button{margin-top:22px;}
+.main-page .grid .submit-button{float:left;clear:both;margin-top:22px;}
 .main-page .grid-text{margin-top:22px;}
 .main-page#create-instance-page .create-instance-grid .field-list .key{width:20%;}
 .main-page#create-instance-page .create-instance-grid .field-list .value{width:80%;}
@@ -45,6 +41,11 @@ li{margin-bottom:8px;line-height:30px;}
 .main-page#create-instance-page .task-instance-view input,.main-page#create-instance-page .task-instance-view textarea{width:100%;}
 .main-page#confirm-instance-page .task-instance-view .field-deadline-ts{float:left;width:47%;}
 .main-page#confirm-instance-page .task-instance-view .field-price{float:right;width:47%;}
+.main-page#card-customer-page .field-first-name{float:left;width:47%;}
+.main-page#card-customer-page .field-last-name{float:right;width:47%;}
+.main-page#card-customer-page .field-card-expiry-month{float:left;width:100px;margin-right:8px;}
+.main-page#card-customer-page .field-card-expiry-year{float:left;width:100px;margin-right:8px;margin-left:8px;}
+.main-page#card-customer-page .field-card-cvc{float:left;width:100px;margin-left:8px;}
 .main-page#template-page .post-grid,.main-page#template-page .worker-grid{padding-left:25px;}
 .main-page#template-page .tags-grid{clear:both;}
 .alt-page{}
