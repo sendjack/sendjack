@@ -16,7 +16,7 @@ define(
             'controller/createInstance',
             'controller/processInstance',
             'controller/confirmInstance',
-            //'controller/approveInstance'
+            'controller/approveInstance',
             'controller/template'
 
             //jquery ui
@@ -26,7 +26,7 @@ define(
                 createInstance,
                 processInstance,
                 confirmInstance,
-                //approveInstance,
+                approveInstance,
                 template) {
 
 
@@ -34,7 +34,7 @@ define(
 var createInstanceController = createInstance.CreateInstanceController();
 var processInstanceController = processInstance.ProcessInstanceController();
 var confirmInstanceController = confirmInstance.ConfirmInstanceController();
-//var approveInstanceController = approveInstance.ApproveInstanceController();
+var approveInstanceController = approveInstance.ApproveInstanceController();
 var templateController = template.TemplateController();
 
 
@@ -71,16 +71,16 @@ var ConfirmInstanceRouter = Backbone.Marionette.AppRouter.extend({
     }
 });
 
-/** var ApproveInstanceRouter = Backbone.Marionette.AppRouter.extend({
+
+var ApproveInstanceRouter = Backbone.Marionette.AppRouter.extend({
 
     controller: approveInstanceController,
 
     appRoutes: {
-        'tasks/:id/approve': '',
-        'tasks/:id/approve/thanks': ''
+        'tasks/:id/approve': 'loadApproveInstancePage',
+        'tasks/:id/approve/thanks': 'loadApproveInstanceThanksPage'
     }
 });
-*/
 
 
 var TemplateRouter = Backbone.Marionette.AppRouter.extend({
@@ -126,13 +126,13 @@ return {
         return confirmInstanceRouter;
     },
 
-    /**ApproveInstanceRouter: function () {
+    ApproveInstanceRouter: function () {
         if (approveInstanceRouter === null) {
             approveInstanceRouter= new ApproveInstanceRouter();
         }
 
         return approveInstanceRouter;
-    } */
+    },
 
    TemplateRouter: function () {
         if (templateRouter === null) {

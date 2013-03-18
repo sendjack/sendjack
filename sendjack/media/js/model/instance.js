@@ -26,6 +26,10 @@ var TaskInstanceModel = BaseModel.extend({
 
     onCreate: function (model, options) {
         track.submitTask(model.get('id'));
+    },
+    
+    save: function (attributes, options) {
+        BaseModel.prototype.save.call(this, attributes, options);
     }
 });
 

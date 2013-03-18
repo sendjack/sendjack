@@ -165,12 +165,12 @@ var TaskView = ObjectView.extend({
      * aggregate field to be passed as a JSON array or object (instruction,
      * property, etc.).
      */
-    save: function () {
+    save: function (attributes, options) {
         this.model.unset('instruction', {silent: true});
         this.model.unset('property_key', {silent: true});
         this.model.unset('property_value', {silent: true});
 
-        ObjectView.prototype.save.call(this);
+        ObjectView.prototype.save.call(this, attributes, options);
     },
 
     events: function () {

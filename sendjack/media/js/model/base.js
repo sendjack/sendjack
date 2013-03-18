@@ -80,7 +80,8 @@ var BaseModel = Backbone.Model.extend({
 
         console.log("SAVING:");
         console.log(this.toJSON());
-
+        console.log(attributes);
+        console.log(updatedOptions);
         Backbone.Model.prototype.save.call(this, attributes, updatedOptions);
     }
 });

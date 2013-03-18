@@ -476,14 +476,58 @@ class ApproveInstanceGrid(MainGrid):
 
 class ApproveInstanceView(ObjectView):
 
-    _APPROVE_INSTANCE_VIEW_CLASS = unicode("approve-instance-view")
-    _APPROVE_INSTANCE_ID = unicode("instance")
+    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
+    _TASK_INSTANCE_ID = unicode("instance")
 
+    # names
+    _CUSTOMER_TITLE_NAME = unicode("customer_title")
+    _CUSTOMER_DESCRIPTION_NAME = unicode("customer_description")
+    _TITLE_NAME = unicode("title")
+    _SUMMARY_NAME = unicode("summary")
+    _DEADLINE_NAME = unicode("deadline_ts")
+
+    _INSTRUCTIONS_NAME = unicode("instructions")
+    _PROPERTIES_NAME = unicode("properties")
+    _OUTPUT_TYPE_NAME = unicode("output_type")
+    _OUTPUT_METHOD_NAME = unicode("output_method")
+    _PRICE_NAME = unicode("price")
+    _CATEGORY_TAGS_NAME = unicode("category_tags")
+    _INDUSTRY_TAGS_NAME = unicode("industry_tags")
+    _SKILL_TAGS_NAME = unicode("skill_tags")
+    _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
+
+    _TEXTAREA_DEFAULT_ROWS = 4
     _SUBMIT_TEXT = unicode("Approve")
 
     def __init__(self):
-        super(ApproveInstanceView, self).__init__(self._APPROVE_INSTANCE_ID)
-        self.append_class(self._APPROVE_INSTANCE_VIEW_CLASS)
+        super(ApproveInstanceView, self).__init__(self._TASK_INSTANCE_ID)
+        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
+
+        title = TitleField()
+        summary = SummaryField()
+        description = DescriptionField()
+        more_details = MoreDetailsField()
+        deadline = DeadlineField()
+        price = PriceField()
+
+        self.append_child(title)
+        self.append_child(summary)
+        self.append_child(description)
+        self.append_child(more_details)
+        self.append_child(deadline)
+        self.append_child(price)
+
+        self.append_child(HiddenInput(self._CUSTOMER_TITLE_NAME))
+        self.append_child(HiddenInput(self._CUSTOMER_DESCRIPTION_NAME))
+
+        self.append_child(HiddenInput(self._INSTRUCTIONS_NAME))
+        self.append_child(HiddenInput(self._PROPERTIES_NAME))
+        self.append_child(HiddenInput(self._OUTPUT_TYPE_NAME))
+        self.append_child(HiddenInput(self._OUTPUT_METHOD_NAME))
+        self.append_child(HiddenInput(self._CATEGORY_TAGS_NAME))
+        self.append_child(HiddenInput(self._INDUSTRY_TAGS_NAME))
+        self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
+        self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
 
         self.append_child(SubmitButton(self._SUBMIT_TEXT))
 
@@ -495,6 +539,7 @@ class ApproveInstanceThanksPage(MainPage):
     def __init__(self):
         super(ApproveInstanceThanksPage, self).__init__()
         self.set_id(self._APPROVE_INSTANCE_THANKS_PAGE_ID)
+
 
     def _construct_grids(self):
         return [ApproveInstanceThanksGrid()]

@@ -14,7 +14,7 @@ from page import CreateInstanceThanksPage
 from page import ConfirmInstancePage, CardCustomerPage
 from page import ConfirmInstanceThanksPage
 
-from page import ApproveInstancePage
+from page import ApproveInstancePage, ApproveInstanceThanksPage
 
 
 class CreateInstanceBody(AppBody):
@@ -40,4 +40,4 @@ class ConfirmInstanceBody(AppBody):
 class ApproveInstanceBody(AppBody):
 
     def _construct_pages(self):
-        return [ApproveInstancePage()]
+        return [ApproveInstancePage(), ApproveInstanceThanksPage()]

@@ -409,8 +409,9 @@ li {
         width: 100%;
 
         &[disabled] {
-            background: @lightGrey;
-            color: @black;
+            .inner-box-shadow(0px, 0px, 0px, 0px, 0);
+            //border: 0px;
+
             cursor: default;
         }
     }
@@ -501,6 +502,23 @@ li {
     * MAIN PAGE - CONFIRM INSTANCE PAGE
     ************************************************************/
     &#confirm-instance-page {
+        .task-instance-view {
+            .field-deadline-ts {
+                float: left;
+                width: 47%;
+            }
+
+            .field-price {
+                float: right;
+                width: 47%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - APPROVE INSTANCE PAGE
+    ************************************************************/
+    &#approve-instance-page {
         .task-instance-view {
             .field-deadline-ts {
                 float: left;
