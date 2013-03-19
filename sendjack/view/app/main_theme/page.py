@@ -36,42 +36,6 @@ class MainPage(Page):
         return []
 
 
-class CreateCustomerPage(MainPage):
-
-    CREATE_CUSTOMER_PAGE_ID = "create-customer-page"
-
-    def __init__(self):
-        super(CreateCustomerPage, self).__init__()
-        self.set_id(self.CREATE_CUSTOMER_PAGE_ID)
-
-
-    def _construct_grids(self):
-        return [CreateCustomerGrid()]
-
-
-class CreateCustomerGrid(MainGrid):
-
-    _CREATE_CUSTOMER_GRID_CLASS = unicode("create-customer-grid")
-
-    _GRID_TITLE = unicode("Sign Up")
-    _GRID_SUBTITLES = [
-            unicode("Thank you for using Jackalope to get your work done!"),
-            unicode("We've started looking into your task. Now we just need "
-                    "to know how to get in touch with you to confirm the "
-                    "details, like description and price. It won't be long."
-                    ),
-            ]
-
-
-    def __init__(self):
-        super(CreateCustomerGrid, self).__init__(self._GRID_TITLE)
-        self.append_class(self._CREATE_CUSTOMER_GRID_CLASS)
-
-
-    def _construct_form(self):
-        return CustomerView()
-
-
 class CreateInstancePage(MainPage):
 
     _CREATE_INSTANCE_PAGE_ID = unicode("create-instance-page")
@@ -89,7 +53,7 @@ class CreateInstanceGrid(MainGrid):
 
     _CREATE_INSTANCE_GRID_CLASS = unicode("create-instance-grid")
 
-    _GRID_TITLE = unicode("Finish Creating A Task")
+    _GRID_TITLE = unicode("Add Task Details")
     _GRID_SUBTITLES = [
             unicode("We're excited to get started on your task. Let's dig a "
                     "little deeper...tell us more about the work you need "
@@ -176,8 +140,43 @@ class CreateInstanceView(ObjectView):
         self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
         self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
 
-
         self.append_child(SubmitButton(self._SUBMIT_TEXT))
+
+
+class CreateCustomerPage(MainPage):
+
+    _CREATE_CUSTOMER_PAGE_ID = unicode("create-customer-page")
+
+    def __init__(self):
+        super(CreateCustomerPage, self).__init__()
+        self.set_id(self._CREATE_CUSTOMER_PAGE_ID)
+
+
+    def _construct_grids(self):
+        return [CreateCustomerGrid()]
+
+
+class CreateCustomerGrid(MainGrid):
+
+    _CREATE_CUSTOMER_GRID_CLASS = unicode("create-customer-grid")
+
+    _GRID_TITLE = unicode("Add Contact Information")
+    _GRID_SUBTITLES = [
+            unicode("Thank you for using Jackalope to get your work done!"),
+            unicode("We've started looking into your task. Now we just need "
+                    "to know how to get in touch with you to confirm the "
+                    "details, like description and price. It won't be long."
+                    ),
+            ]
+
+
+    def __init__(self):
+        super(CreateCustomerGrid, self).__init__(self._GRID_TITLE)
+        self.append_class(self._CREATE_CUSTOMER_GRID_CLASS)
+
+
+    def _construct_form(self):
+        return CustomerView()
 
 
 class CreateInstanceThanksPage(MainPage):
