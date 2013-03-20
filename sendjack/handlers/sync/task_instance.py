@@ -7,8 +7,7 @@
 """
 #from model.object.task_instance import TaskInstance
 from view.app.main_theme.body import ConfirmInstanceBody, ApproveInstanceBody
-from view.app.main_theme.body import CreateInstanceBody
-from view.app.alt_theme.body import ProcessInstanceBody
+from view.app.main_theme.body import CreateInstanceBody, ProcessInstanceBody
 
 from .base import SyncHandler
 

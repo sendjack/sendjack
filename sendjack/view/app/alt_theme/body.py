@@ -8,7 +8,7 @@
 """
 from view.app.base.body import AppBody
 
-from page import ProcessInstancePage, TaskTemplatePage
+from page import TaskTemplatePage
 
 
 class TaskTemplateBody(AppBody):
@@ -17,9 +17,3 @@ class TaskTemplateBody(AppBody):
 
     def _construct_pages(self):
         return [TaskTemplatePage()]
-
-
-class ProcessInstanceBody(AppBody):
-
-    def _construct_pages(self):
-        return [ProcessInstancePage()]

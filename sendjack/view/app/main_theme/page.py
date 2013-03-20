@@ -14,7 +14,7 @@ from view.app.base.field import CustomerTitleField, CustomerDescriptionField
 from view.app.base.field import DeadlineField, PriceField, TitleField
 from view.app.base.field import DescriptionField, MoreDetailsField
 from view.app.base.field import SummaryField
-from view.app.base.object import ObjectView, CustomerView
+from view.app.base.object import ObjectView, CustomerView, ProcessInstanceView
 
 from .components import MainSection, MainGrid
 
@@ -97,11 +97,6 @@ class CreateInstanceView(ObjectView):
     _SKILL_TAGS_NAME = unicode("skill_tags")
     _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
 
-    # placeholder values
-    _CUSTOMER_TITLE_PLACEHOLDER = unicode("Enter a title for your task...")
-    _CUSTOMER_DESCRIPTION_PLACEHOLDER = unicode("Describe your task...")
-    _DEADLINE_PLACEHOLDER = unicode("06/31/2013")
-
     _TEXTAREA_DEFAULT_ROWS = 4
     _SUBMIT_TEXT = unicode("Create")
 
@@ -110,22 +105,9 @@ class CreateInstanceView(ObjectView):
         super(CreateInstanceView, self).__init__(self._TASK_INSTANCE_ID)
         self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
 
-        # assemble customer title
-        customer_title = CustomerTitleField()
-        customer_title.set_placeholder(self._CUSTOMER_TITLE_PLACEHOLDER)
-
-        # assemble customer description
-        customer_description = CustomerDescriptionField()
-        customer_description.set_placeholder(
-                self._CUSTOMER_DESCRIPTION_PLACEHOLDER)
-
-        # assemble deadline
-        deadline = DeadlineField()
-        deadline.set_placeholder(self._DEADLINE_PLACEHOLDER)
-
-        self.append_child(customer_title)
-        self.append_child(customer_description)
-        self.append_child(deadline)
+        self.append_child(CustomerTitleField())
+        self.append_child(CustomerDescriptionField())
+        self.append_child(DeadlineField())
 
         self.append_child(HiddenInput(self._TITLE_NAME))
         self.append_child(HiddenInput(self._SUMMARY_NAME))
@@ -215,6 +197,44 @@ class CreateInstanceThanksGrid(TitledGrid):
         self.append_class(self._CREATE_INSTANCE_THANKS_GRID_CLASS)
 
 
+class ProcessInstancePage(MainPage):
+
+    _PROCESS_INSTANCE_PAGE_ID = unicode("process-instance-page")
+
+    def __init__(self):
+        super(ProcessInstancePage, self).__init__()
+        self.set_id(self._PROCESS_INSTANCE_PAGE_ID)
+
+
+    def _construct_grids(self):
+        return [ProcessInstanceGrid()]
+
+
+class ProcessInstanceGrid(MainGrid):
+
+    _PROCESS_INSTANCE_GRID_CLASS = unicode("process-instance-grid")
+
+    _GRID_TITLE = unicode("Process A Task")
+    _GRID_SUBTITLES = [
+            unicode("Enter a Template ID and copy overlapping fields from "
+                    "that Template into this task."
+                    ),
+            unicode("Title = Vendor Title"),
+            unicode("Summary = Vendor Description"),
+            unicode("Description + More Details = Vendor Private Description"),
+            unicode("Deadline = Vendor Deadline"),
+            unicode("Price = Vendor Price"),
+            ]
+
+    def __init__(self):
+        super(ProcessInstanceGrid, self).__init__(self._GRID_TITLE)
+        self.append_class(self._PROCESS_INSTANCE_GRID_CLASS)
+
+
+    def _construct_form(self):
+        return ProcessInstanceView()
+
+
 class ConfirmInstancePage(MainPage):
 
     _CONFIRM_INSTANCE_PAGE_ID = unicode("confirm-instance-page")
@@ -258,7 +278,7 @@ class ConfirmInstanceGrid(MainGrid):
 
 class ConfirmInstanceView(ObjectView):
 
-    _TASK_INSTANCE_VIEW = unicode("task-instance-view")
+    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
     _TASK_INSTANCE_ID = unicode("instance")
 
     # names
@@ -283,7 +303,7 @@ class ConfirmInstanceView(ObjectView):
 
     def __init__(self):
         super(ConfirmInstanceView, self).__init__(self._TASK_INSTANCE_ID)
-        self.append_class(self._TASK_INSTANCE_VIEW)
+        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
 
         title = TitleField()
         summary = SummaryField()
