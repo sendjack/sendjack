@@ -97,11 +97,6 @@ class CreateInstanceView(ObjectView):
     _SKILL_TAGS_NAME = unicode("skill_tags")
     _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
 
-    # placeholder values
-    _CUSTOMER_TITLE_PLACEHOLDER = unicode("Enter a title for your task...")
-    _CUSTOMER_DESCRIPTION_PLACEHOLDER = unicode("Describe your task...")
-    _DEADLINE_PLACEHOLDER = unicode("06/31/2013")
-
     _TEXTAREA_DEFAULT_ROWS = 4
     _SUBMIT_TEXT = unicode("Create")
 
@@ -110,22 +105,9 @@ class CreateInstanceView(ObjectView):
         super(CreateInstanceView, self).__init__(self._TASK_INSTANCE_ID)
         self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
 
-        # assemble customer title
-        customer_title = CustomerTitleField()
-        customer_title.set_placeholder(self._CUSTOMER_TITLE_PLACEHOLDER)
-
-        # assemble customer description
-        customer_description = CustomerDescriptionField()
-        customer_description.set_placeholder(
-                self._CUSTOMER_DESCRIPTION_PLACEHOLDER)
-
-        # assemble deadline
-        deadline = DeadlineField()
-        deadline.set_placeholder(self._DEADLINE_PLACEHOLDER)
-
-        self.append_child(customer_title)
-        self.append_child(customer_description)
-        self.append_child(deadline)
+        self.append_child(CustomerTitleField())
+        self.append_child(CustomerDescriptionField())
+        self.append_child(DeadlineField())
 
         self.append_child(HiddenInput(self._TITLE_NAME))
         self.append_child(HiddenInput(self._SUMMARY_NAME))

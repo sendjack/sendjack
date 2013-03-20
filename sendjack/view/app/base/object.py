@@ -39,10 +39,6 @@ class CustomerView(ObjectView):
     _SUBMIT_TEXT = unicode("Sign Up and Continue")
     _CUSTOMER_ID = unicode("customer")
 
-    #_FIRST_NAME_PLACEHOLDER = unicode("First Name")
-    #_LAST_NAME_PLACEHOLDER = unicode("Last Name")
-    _EMAIL_PLACEHOLDER = unicode("Enter your email address")
-
     _FIRST_NAME = unicode("first_name")
     _LAST_NAME = unicode("last_name")
     _EMAIL = unicode("email")
@@ -62,10 +58,6 @@ class CustomerView(ObjectView):
         first_name.append_class(self._FIRST_NAME)
         last_name.append_class(self._LAST_NAME)
         email.append_class(self._EMAIL)
-
-        #first_name.set_placeholder(self._FIRST_NAME_PLACEHOLDER)
-        #last_name.set_placeholder(self._LAST_NAME_PLACEHOLDER)
-        email.set_placeholder(self._EMAIL_PLACEHOLDER)
 
         self.append_child(first_name)
         self.append_child(last_name)
@@ -88,18 +80,18 @@ class ProcessInstanceView(ObjectView):
         self.append_child(FieldList([
                 TemplateField(),
                 #CustomerField(),
-                CustomerTitleField(),
-                CustomerDescriptionField(),
-                TitleField(),
-                SummaryField(),
-                InstructionsField(),
+                CustomerTitleField(True),
+                CustomerDescriptionField(True),
+                TitleField(True),
+                SummaryField(True),
+                InstructionsField(True),
                 InstructionField(),
-                PropertiesField(),
+                PropertiesField(True),
                 PropertyField(),
                 OutputTypeField(),
                 OutputMethodField(),
-                DescriptionField(),
-                MoreDetailsField(),
+                DescriptionField(True),
+                MoreDetailsField(True),
                 DeadlineField(),
                 PriceField(),
                 CategoryTagsField(),
