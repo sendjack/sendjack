@@ -18,7 +18,7 @@ from view.app.base.field import PropertiesField, PropertyField
 from view.app.base.field import OutputTypeField, OutputMethodField
 from view.app.base.field import CategoryTagsField, IndustryTagsField
 from view.app.base.field import SkillTagsField, EquipmentTagsField
-from view.app.base.object import ObjectView, TaskInstanceInternalView
+from view.app.base.object import ObjectView
 
 from .components import NormalSection, ContrastSection
 
@@ -202,39 +202,3 @@ class TagsGrid(TitledGrid):
                 SkillTagsField(),
                 EquipmentTagsField(),
                 ])
-
-
-class ProcessInstancePage(AltPage):
-
-    _PROCESS_INSTANCE_PAGE_ID = unicode("process-instance-page")
-
-    def __init__(self):
-        super(ProcessInstancePage, self).__init__()
-        self.set_id(self._PROCESS_INSTANCE_PAGE_ID)
-
-        contrast_section = ContrastSection()
-        contrast_section.append_child(ProcessInstanceGrid())
-
-        self.append_child(contrast_section)
-
-
-class ProcessInstanceGrid(TitledGrid):
-
-    _TASK_INSTANCE_GRID_CLASS = unicode("task-instance-grid")
-
-    _GRID_TITLE = unicode("Post Your Task")
-    _GRID_SUBTITLES = [
-            unicode(
-                    "We checked out a number of tasks like yours that went "
-                    "well, and fine-tuned your description. We've also "
-                    "suggested a price below."),
-            ]
-
-    def __init__(self):
-        super(ProcessInstanceGrid, self).__init__()
-        self.append_class(self._TASK_INSTANCE_GRID_CLASS)
-
-
-    def _append_grid_elements(self):
-        self._append_subtitles()
-        self.append_child(TaskInstanceInternalView())

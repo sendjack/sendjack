@@ -11,6 +11,8 @@ from view.app.base.body import AppBody
 from page import CreateInstancePage, CreateCustomerPage
 from page import CreateInstanceThanksPage
 
+from page import ProcessInstancePage
+
 from page import ConfirmInstancePage, CardCustomerPage
 from page import ConfirmInstanceThanksPage
 
@@ -23,8 +25,14 @@ class CreateInstanceBody(AppBody):
         return [
                 CreateInstancePage(),
                 CreateCustomerPage(),
-                CreateInstanceThanksPage()
+                CreateInstanceThanksPage(),
                 ]
+
+
+class ProcessInstanceBody(AppBody):
+
+    def _construct_pages(self):
+        return [ProcessInstancePage()]
 
 
 class ConfirmInstanceBody(AppBody):
@@ -33,11 +41,14 @@ class ConfirmInstanceBody(AppBody):
         return [
                 ConfirmInstancePage(),
                 CardCustomerPage(),
-                ConfirmInstanceThanksPage()
+                ConfirmInstanceThanksPage(),
                 ]
 
 
 class ApproveInstanceBody(AppBody):
 
     def _construct_pages(self):
-        return [ApproveInstancePage(), ApproveInstanceThanksPage()]
+        return [
+                ApproveInstancePage(),
+                ApproveInstanceThanksPage(),
+                ]

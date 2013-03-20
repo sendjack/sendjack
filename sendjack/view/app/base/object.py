@@ -74,17 +74,18 @@ class CustomerView(ObjectView):
         self.append_child(submit)
 
 
-class TaskInstanceInternalView(ObjectView):
+class ProcessInstanceView(ObjectView):
 
-    _TASK_INSTANCE_VIEW_CLASS = unicode("instance-view")
+    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
     _TASK_INSTANCE_ID = unicode("instance")
+
     _SUBMIT_TEXT = unicode("Process")
 
     def __init__(self):
-        super(TaskInstanceInternalView, self).__init__(self._TASK_INSTANCE_ID)
+        super(ProcessInstanceView, self).__init__(self._TASK_INSTANCE_ID)
         self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
 
-        fields = [
+        self.append_child(FieldList([
                 TemplateField(),
                 #CustomerField(),
                 CustomerTitleField(),
@@ -105,6 +106,6 @@ class TaskInstanceInternalView(ObjectView):
                 IndustryTagsField(),
                 SkillTagsField(),
                 EquipmentTagsField(),
-                ]
-        self.append_child(FieldList(fields))
+                ]))
+
         self.append_child(SubmitButton(self._SUBMIT_TEXT))
