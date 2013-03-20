@@ -14,6 +14,9 @@ from model.object.task_template import TaskTemplate
 from .base import CRUDHandler
 
 
+# TODO: should we create a factory to churn out subclasses of
+# TaskInstanceCRUDHandler, or is this giant if/elif block sufficient?
+
 class TaskInstanceCRUDHandler(CRUDHandler):
 
     def _set_model_class(self):
@@ -21,6 +24,8 @@ class TaskInstanceCRUDHandler(CRUDHandler):
 
 
     def _post_process_request(self):
+        # the client already advanced the task status for the current request
+
         if self._model.is_new():
             self._trigger_new_action()
 
@@ -164,3 +169,20 @@ class TaskInstanceCRUDHandler(CRUDHandler):
 
     def _change_state(self, to_status):
         return TaskInstance.update(self._model.id, {"status": to_status})
+
+
+    def _trigger_customer_email(self, task, customer):
+        self._trigger_email(
+                customer.email,
+                task.status_message.subject,
+                task.status_message.body)
+
+    def _trigger_monitoring_email(self, task):
+        # TODO: get the to-address from somewhere not hardcoded.
+        self._trigger_email(
+                "tasks@sendjack.com",
+                "[task][{}][action][{}]".format(task.id, task.status),
+                task.str())
+
+    def _trigger_email(self, to, subject, body):
+        redflag.send_email_from_jack(to, subject, body)
