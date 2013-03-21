@@ -6,10 +6,10 @@
     <div class="page main-page">
 
 """
-from view.elementary.html import SubmitButton, HiddenInput
+from view.elementary.html import SubmitButton, HiddenInput, TextInput
 from view.app.base.page import Page
 from view.app.base.field import FieldList, Field
-from view.app.base.components import TitledGrid
+from view.app.base.components import TitledGrid, Grid
 from view.app.base.field import CustomerTitleField, CustomerDescriptionField
 from view.app.base.field import DeadlineField, PriceField, TitleField
 from view.app.base.field import DescriptionField, MoreDetailsField
@@ -590,3 +590,61 @@ class ApproveInstanceThanksGrid(TitledGrid):
     def __init__(self):
         super(ApproveInstanceThanksGrid, self).__init__(self._GRID_TITLE)
         self.append_class(self._APPROVE_INSTANCE_THANKS_GRID_CLASS)
+
+
+class SearchPage(MainPage):
+
+    # TODO: Make this page link to a different theme
+    _SEARCH_PAGE_ID = unicode("search-page")
+
+    def __init__(self):
+        super(SearchPage, self).__init__()
+        self.set_id(self._SEARCH_PAGE_ID)
+
+    def _construct_grids(self):
+        return [SearchGrid()]
+
+
+class SearchGrid(Grid):
+
+    _SEARCH_GRID_CLASS = unicode("search-grid")
+
+    def __init__(self):
+        super(SearchGrid, self).__init__()
+        self.append_class(self._SEARCH_GRID_CLASS)
+
+
+    def _append_grid_elements(self):
+        self.append_child(SearchInstanceView())
+
+
+class SearchInstanceView(ObjectView):
+
+    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
+    _TASK_INSTANCE_ID = unicode("instance")
+
+    _SUBMIT_TEXT = unicode("Search")
+
+    _CUSTOMER_TITLE_NAME = unicode("customer_title")
+    _DEADLINE_NAME = unicode("deadline_ts")
+    _INSTRUCTIONS_NAME = unicode("instructions")
+    _PROPERTIES_NAME = unicode("properties")
+
+    _CUSTOMER_TITLE_PLACEHOLDER = unicode("What do you want to do today?")
+
+    def __init__(self):
+        super(SearchInstanceView, self).__init__(self._TASK_INSTANCE_ID)
+        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
+
+        customer_title = TextInput(self._CUSTOMER_TITLE_NAME)
+        customer_title.set_placeholder(self._CUSTOMER_TITLE_PLACEHOLDER)
+
+        deadline = HiddenInput(self._DEADLINE_NAME)
+        instructions = HiddenInput(self._INSTRUCTIONS_NAME)
+        properties = HiddenInput(self._PROPERTIES_NAME)
+
+        self.append_child(customer_title)
+        self.append_child(deadline)
+        self.append_child(instructions)
+        self.append_child(properties)
+        self.append_child(SubmitButton(self._SUBMIT_TEXT))

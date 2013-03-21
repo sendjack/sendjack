@@ -19,7 +19,6 @@ define(
 
             //modules
             'event'
-            //jquery ui
         ],
         function ($, _, Backbone, ModelBinder, event) {
 

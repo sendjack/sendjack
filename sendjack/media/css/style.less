@@ -289,6 +289,7 @@ li {
 * BASE BODY, PAGE, HEADER, FOOTER
 ************************************************************/
 #app-header, .page, #app-footer {
+    position: relative;
     width: 100%; 
     float: left;
     padding-left: @pagePadding;
@@ -336,6 +337,7 @@ li {
 
 .page {
     display: none;
+    position: relative; // Helps with positioning.
     width: 100%;
     height: 100%;
     clear: both;
@@ -382,6 +384,17 @@ li {
         }
     }
 } */
+
+/***********************************************************
+* Z-INDEX
+************************************************************/
+#app-header {
+    z-index: 15;
+}
+
+.page {
+    z-index: 10;
+}
 
 
 /***********************************************************

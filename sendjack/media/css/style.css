@@ -21,12 +21,14 @@ button[type=submit]{border:0px;width:100%;width:226px;height:39px;background:url
 button[type=submit]:disabled{width:226px;height:39px;background:url('/static/images/submitButtonDisabled.png') transparent no-repeat;background-size:226px 39px;-moz-background-size:226px 39px;-webkit-background-size:226px 39px;-o-background-size:226px 39px;cursor:default;}
 a{color:#434241;text-decoration:none;}a:hover{color:#0089ff;}
 li{margin-bottom:8px;line-height:30px;}
-#app-header,.page,#app-footer{width:100%;float:left;padding-left:250px;padding-right:250px;}
+#app-header,.page,#app-footer{position:relative;width:100%;float:left;padding-left:250px;padding-right:250px;}
 #app-header{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:12px;color:#ffffff;width:100%;height:50px;background:url('/static/images/appHeader.jpg') #000000 repeat-x;background-size:20px 50px;-moz-background-size:20px 50px;-webkit-background-size:20px 50px;-o-background-size:20px 50px;padding-top:0px;padding-bottom:0px;line-height:50px;text-align:center;}#app-header a{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:12px;color:#ffffff;}
 #app-header .app-logo{width:187px;height:34px;background:url('/static/images/logo.png') transparent no-repeat;background-size:187px 34px;-moz-background-size:187px 34px;-webkit-background-size:187px 34px;-o-background-size:187px 34px;float:left;height:100%;background-position:center;}
 #app-header #app-menu{float:right;}
-.page{display:none;width:100%;height:100%;clear:both;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#7b7979;}
+.page{display:none;position:relative;width:100%;height:100%;clear:both;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#7b7979;}
 .grid-title{font-family:'Helvetica Neue Bold','Arial Bold',sans-serif;font-size:26px;color:#434241;}
+#app-header{z-index:15;}
+.page{z-index:10;}
 .main-page{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#7b7979;padding-top:0px;padding-bottom:40px;text-align:left;background-color:transparent;}.main-page .object-view{margin-top:22px;}
 .main-page input,.main-page textarea{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;-webkit-box-shadow:1px 2px 3px 1px rgba(0, 0, 0, 0.1) inset;-moz-box-shadow:1px 2px 3px 1px rgba(0, 0, 0, 0.1) inset;box-shadow:1px 2px 3px 1px rgba(0, 0, 0, 0.1) inset;border:1px #c8c8c8 solid;padding:20px;margin:8px 0px;background-color:#ffffff;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#0089ff;width:100%;}.main-page input[disabled],.main-page textarea[disabled]{-webkit-box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;-moz-box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;box-shadow:0px 0px 0px 0px rgba(0, 0, 0, 0) inset;cursor:default;}
 .main-page input{height:30px;}

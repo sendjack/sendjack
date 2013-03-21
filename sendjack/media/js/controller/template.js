@@ -12,12 +12,14 @@ define(
 
             //modules
             'model/template',
+            'view/region',
             'view/page/template'
         ],
         function (
                 $,
                 Backbone,
                 templateModel,
+                region,
                 templateView) {
 
 var TemplateController = Backbone.Marionette.Controller.extend({
@@ -32,7 +34,7 @@ var TemplateController = Backbone.Marionette.Controller.extend({
 
     initialize: function () {
         if ($(this.pagesSelector).length) {
-            this.region = new Backbone.Marionette.Region({
+            this.region = region.AppRegion({
                 el: '#page-container'
             });
 

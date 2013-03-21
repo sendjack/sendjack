@@ -18,6 +18,7 @@ define(
             'util/track',
             'model/customer',
             'model/instance',
+            'view/region',
             'view/page/approveInstance',
             'view/page/approveInstanceThanks'
         ],
@@ -28,6 +29,7 @@ define(
                 track,
                 customerModel,
                 instanceModel,
+                region,
                 approveInstanceView,
                 approveInstanceThanksView) {
 
@@ -46,7 +48,7 @@ var ApproveInstanceController = Backbone.Marionette.Controller.extend({
 
     initialize: function () {
         if ($(this.pagesSelector).length) {
-            this.region = new Backbone.Marionette.Region({
+            this.region = region.AppRegion({
                 el: '#page-container'
             });
 

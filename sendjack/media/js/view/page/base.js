@@ -44,6 +44,38 @@ var PageView = Backbone.Marionette.CompositeView.extend({
     _initializeChildViews: function () {
     },
 
+    show: function (callback) {
+        // non-displayed page should be hidden and shown to get page height
+        this.$el.css('visibility', 'hidden');
+        this.$el.show();
+
+        // slide page up
+        var negativePageHeight = parseInt(-(this.$el.height()), 10) + 'px';
+        this.$el.css('top', negativePageHeight);
+
+        // make it visible (though occluded)
+        this.$el.css('visibility', 'visible');
+
+        // slide page down
+        this.$el.animate({top: '0px'}, {
+            duration: 1000,
+            complete: callback
+        });
+    },
+
+    /** Define a hide transition. */
+    hide: function (callback) {
+        var pageHeight = this.$el.height();
+        var pageHeightStr = parseInt(-pageHeight, 10) + 'px';
+
+        this.$el.animate({top: pageHeightStr}, {
+            duration: 'fast',
+            complete: callback
+        });
+
+
+    },
+
     /** Called by Marionette when the View is shown. */
     onShow: function () {
         track.viewPage(window.location.pathname);

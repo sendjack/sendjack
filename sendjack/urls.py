@@ -26,7 +26,7 @@ url_patterns = [
         (r"/thankyou", SignUpSubmitHandler),
         (r"/", LoggedOutHandler),
 
-        #(r"/search", CreateTaskSyncHandler),
+        (r"/search", CreateInstanceSyncHandler),
         (r"/tasks/create", CreateInstanceSyncHandler),
         (r"/users/create", CreateInstanceSyncHandler),
         (r"/tasks/create/thanks", CreateInstanceSyncHandler),

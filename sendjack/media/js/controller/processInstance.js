@@ -12,12 +12,14 @@ define(
 
             //modules
             'model/instance',
+            'view/region',
             'view/page/processInstance'
         ],
         function (
                 $,
                 Backbone,
                 instanceModel,
+                region,
                 processInstanceView) {
 
 var ProcessInstanceController = Backbone.Marionette.Controller.extend({
@@ -32,7 +34,7 @@ var ProcessInstanceController = Backbone.Marionette.Controller.extend({
 
     initialize: function () {
         if ($(this.pagesSelector).length) {
-            this.region = new Backbone.Marionette.Region({
+            this.region = region.AppRegion({
                 el: '#page-container'
             });
 

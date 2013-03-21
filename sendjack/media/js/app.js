@@ -55,6 +55,7 @@ return {
                 Backbone.Marionette.Renderer.render = function (template, data) {
                     return template;
                 };
+                
             })();
 
 
