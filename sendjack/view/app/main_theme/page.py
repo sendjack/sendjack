@@ -9,7 +9,7 @@
 from view.elementary.html import SubmitButton, HiddenInput, TextInput
 from view.app.base.page import Page
 from view.app.base.field import FieldList, Field
-from view.app.base.components import TitledGrid, Grid
+from view.app.base.components import TitledGrid, GridText
 from view.app.base.field import CustomerTitleField, CustomerDescriptionField
 from view.app.base.field import DeadlineField, PriceField, TitleField
 from view.app.base.field import DescriptionField, MoreDetailsField
@@ -605,17 +605,30 @@ class SearchPage(MainPage):
         return [SearchGrid()]
 
 
-class SearchGrid(Grid):
+class SearchGrid(MainGrid):
 
     _SEARCH_GRID_CLASS = unicode("search-grid")
+    _SEARCH_TEXT_CLASS = unicode("search-text")
+    _SEARCH_TEXT = unicode(
+            "Just start typing a task and we'll handle the rest.")
+
+    _GRID_TITLE = unicode("Jackalope Beta")
+    _GRID_SUBTITLES = [
+            unicode("The most reliable way to find contact information.")
+            ]
+
 
     def __init__(self):
-        super(SearchGrid, self).__init__()
+        super(SearchGrid, self).__init__(self._GRID_TITLE)
         self.append_class(self._SEARCH_GRID_CLASS)
 
+        grid_text = GridText(self._SEARCH_TEXT)
+        grid_text.append_class(self._SEARCH_TEXT_CLASS)
+        self.append_child(grid_text)
 
-    def _append_grid_elements(self):
-        self.append_child(SearchInstanceView())
+
+    def _construct_form(self):
+        return SearchInstanceView()
 
 
 class SearchInstanceView(ObjectView):
@@ -630,7 +643,9 @@ class SearchInstanceView(ObjectView):
     _INSTRUCTIONS_NAME = unicode("instructions")
     _PROPERTIES_NAME = unicode("properties")
 
-    _CUSTOMER_TITLE_PLACEHOLDER = unicode("What do you want to do today?")
+    _CUSTOMER_TITLE_PLACEHOLDER = unicode(
+            "What type of task do you need to get done today?")
+
 
     def __init__(self):
         super(SearchInstanceView, self).__init__(self._TASK_INSTANCE_ID)
