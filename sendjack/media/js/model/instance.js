@@ -22,10 +22,14 @@ define(
 var BaseModel = base.getBaseModelClass();
 
 var TaskInstanceModel = BaseModel.extend({
-    urlRoot: '/a/task',
+    urlRoot: '/a/instances',
 
     onCreate: function (model, options) {
         track.submitTask(model.get('id'));
+    },
+    
+    save: function (attributes, options) {
+        BaseModel.prototype.save.call(this, attributes, options);
     }
 });
 

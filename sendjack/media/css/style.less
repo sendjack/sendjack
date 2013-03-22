@@ -1,0 +1,725 @@
+/***********************************************************
+*
+*   App: Jackalope 
+*   
+************************************************************/
+
+/***********************************************************
+* IMPORTS
+************************************************************/
+@import "reset";
+@import "http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css";
+@import "functions";
+
+/***********************************************************
+* COLOR DEFINITIONS
+************************************************************/
+@white: rgb(255, 255, 255);
+@black: rgb(0, 0, 0);
+@darkGrey: rgb(67, 66, 65);
+@grey: rgb(123, 121, 121);
+@lightGrey: rgb(200, 200, 200);
+@blue: rgb(0, 137, 255);
+
+
+/***********************************************************
+* SIZE DEFINITIONS
+************************************************************/
+@tinyFontSize: 12px;
+@normalFontSize: 16px;
+@bigFontSize: 26px;
+
+@normalLineHeight: @normalFontSize + 3px;
+@listLineHeight: 30px;
+@bigLineHeight: @bigFontSize + 8px;
+
+@headerHeight: 50px;
+
+@bigLinePadding: 22px;
+@innerPadding: 20px;
+@outerPadding: 8px;
+
+@bigBoxPadding: 100px;
+@smallBoxPadding: 40px;
+@pagePadding: 23%;
+
+@normalBorder: 2px;
+@normalRound: 4px;
+
+
+/***********************************************************
+* FONTS (with help from http://fontsquirrel.com)
+************************************************************/
+@font-face {
+    font-family: 'Helvetica Neue Light';
+    src: url('fonts/helvetica-neue-light-webfont.eot'); //ie9
+    src:
+        url('fonts/helvetica-neue-light-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/helvetica-neue-light-webfont.woff')
+            format('woff'), // modern
+        url('fonts/helvetica-neue-light-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/helvetica-neue-light-webfont.svg#HeleveticaNeueLight')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('fonts/helvetica-neue-webfont.eot'); //ie9
+    src:
+        url('fonts/helvetica-neue-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/helvetica-neue-webfont.woff')
+            format('woff'), // modern
+        url('fonts/helvetica-neue-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/helvetica-neue-webfont.svg#HeleveticaNeue')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue Bold';
+    src: url('fonts/helvetica-neue-bold-webfont.eot'); //ie9
+    src:
+        url('fonts/helvetica-neue-bold-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/helvetica-neue-bold-webfont.woff')
+            format('woff'), // modern
+        url('fonts/helvetica-neue-bold-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/helvetica-neue-bold-webfont.svg#HeleveticaNeueBold')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
+.titleFont(@fontSize: @bigFontSize) {
+    font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+    font-size: @fontSize;
+}
+
+.labelFont(@fontSize: @normalFontSize) {
+    font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+    font-size: @fontSize;
+}
+
+.normalFont(@fontSize: @normalFontSize) {
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+    font-size: @fontSize;
+    letter-spacing: 1px;
+}
+
+.tinyFont(@fontSize: @tinyFontSize) {
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+    font-size: @fontSize;
+}
+
+
+/***********************************************************
+* TEXT STYLE SETS
+************************************************************/
+.headerText() {
+    .tinyFont;
+    color: @white;
+}
+
+.titleText() {
+    .titleFont;
+    color: @darkGrey;
+}
+
+.labelText() {
+    .labelFont;
+    color: @darkGrey;
+}
+
+.normalText() {
+    .normalFont;
+    color: @grey;
+}
+
+.contrastText() {
+    .normalFont;
+    color: @blue;
+}
+
+.buttonText() {
+    .normalFont;
+    color: @white;
+}
+
+.searchTitleText() {
+    .titleFont;
+    color: @blue;
+}
+
+/***********************************************************
+* REUSABLE APP-SPECIFIC CLASSES
+************************************************************/
+/* Add a light drop shadow below a box. */
+.drop-box-shadow(
+        @hShadow: 5px, 
+        @vShadow: 5px, 
+        @blur: 13px, 
+        @spread: 7px,
+        @alpha: .15) {
+    .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha);
+}
+
+/* Inner drop shadow. */
+.inner-box-shadow(
+        @hShadow: 1px,
+        @vShadow: 2px,
+        @blur: 3px,
+        @spread: 1px,
+        @alpha: 0.1) {
+    .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, inset);
+}
+    
+
+/* Emboss text slightly. */
+.emboss-text {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Header section needs to cut off long text. */
+.header-section {
+    overflow-y: hidden;
+}
+
+.form-element {
+    .normalFont;
+    .border-radius(@normalRound);
+    .inner-box-shadow();
+
+    //height: @listLineHeight;
+    border: 1px @lightGrey solid;
+    padding: @innerPadding;
+    margin: @outerPadding 0px;
+    background-color: @white;
+
+}
+
+.icon(@picture_file) {
+    .background-image-wrapper(
+        48px,
+        48px,
+        @picture_file,
+        transparent);
+}
+
+
+/***********************************************************
+* ELEMENTARY
+************************************************************/
+/* I like this box model better so deal with it. */
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    .background-pattern-wrapper(
+            100%,
+            100%,
+            60px,
+            60px,
+            'body.jpg',
+            @grey,
+            repeat);
+    min-width: 980px;
+}
+
+button {
+    .buttonText;
+    .border-radius(@normalRound);
+
+    &:hover {
+     cursor: pointer;
+    }
+
+    &[type=submit] {
+        border: 0px;
+        width: 100%;
+        .background-image-wrapper(
+            226px,
+            39px,
+            'submitButton.png',
+            transparent);
+
+        &:active {
+            .background-image-wrapper(
+                226px,
+                39px,
+                'submitButtonPressed.png',
+                transparent);
+        }
+
+        &:disabled {
+            .background-image-wrapper(
+                226px,
+                39px,
+                'submitButtonDisabled.png',
+                transparent);
+            cursor: default;
+        }
+    }
+}
+
+a {
+    color: @darkGrey;
+    text-decoration: none;
+
+    &:hover {
+        color: @blue;
+    }
+}
+
+li {
+    margin-bottom: @outerPadding;
+    line-height: @listLineHeight;
+}
+
+/***********************************************************
+* BASE BODY, PAGE, HEADER, FOOTER
+************************************************************/
+#app-header, .page, #app-footer {
+    position: relative;
+    width: 100%; 
+    float: left;
+    padding-left: @pagePadding;
+    padding-right: @pagePadding;
+}
+
+#app-header {
+    .headerText();
+    .background-pattern-wrapper(
+        100%,
+        @headerHeight,
+        20px,
+        @headerHeight,
+        'appHeader.jpg',
+        @black,
+        repeat-x);
+
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    /** vertically centers text */
+    line-height: @headerHeight;
+
+    text-align: center;
+
+    a {
+        .headerText();
+    }
+
+    .app-logo {
+        .background-image-wrapper(
+            187px,
+            34px,
+            'logo.png',
+            transparent);
+        float: left;
+        height: 100%;
+        background-position: center;
+    }
+
+    #app-menu {
+        float: right;
+    }
+}
+
+.page {
+    display: none;
+    position: relative; // Helps with positioning.
+    width: 100%;
+    height: 100%;
+    clear: both;
+
+    .normalText;
+}
+
+/***********************************************************
+* BASE COMPONENTS
+************************************************************/
+.grid-title {
+    .titleText();
+}
+
+/** .field-list {
+
+    li {
+        float: left;
+        width: 100%;
+        clear: both;
+
+        .field, .sub-field {
+            .key {
+                float: left;
+                width: 30%;
+            }
+
+            .head-key {
+                float: left;
+                width: 100%;
+            }
+
+            .sub-key {
+                float: left;
+                width: 30%;
+                text-align: right;
+                padding-right: @bigLinePadding;
+            }
+
+            .value, .sub-value {
+                float: left;
+                width: 70%;
+            }
+        }
+    }
+} */
+
+/***********************************************************
+* Z-INDEX
+************************************************************/
+#app-header {
+    z-index: 15;
+}
+
+.page {
+    z-index: 10;
+}
+
+
+/***********************************************************
+* PAGE THEME: MAIN
+************************************************************/
+.main-page {
+
+    /***********************************************************
+    * MAIN - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
+    ************************************************************/
+    .normalText;
+
+    padding-top: 0px;
+    padding-bottom: @smallBoxPadding; 
+
+    text-align: left;
+    background-color: transparent;
+
+    .object-view {
+        margin-top: @bigLinePadding;
+    }
+    input, textarea {
+        .form-element();
+        .contrastText();
+        width: 100%;
+
+        &[disabled] {
+            .inner-box-shadow(0px, 0px, 0px, 0px, 0);
+            //border: 0px;
+
+            cursor: default;
+        }
+
+        &:focus {
+            border: 1px solid @blue;
+        }
+    }
+
+    input {
+        height: @listLineHeight;
+    }
+
+
+    /***********************************************************
+    * MAIN - COMPONENTS
+    ************************************************************/
+    .main-section {
+        .border-radius(@normalRound);
+        .drop-box-shadow();
+        position: relative;
+        width: 100%;
+        float: left;
+        background: @white;
+         
+        padding: @smallBoxPadding @bigBoxPadding;
+
+
+        .key, .head-key, .sub-key {
+            .labelText();
+        }
+
+        .value, .sub-value {
+            color: @blue;
+        }
+    }
+
+    .grid {
+        width: 100%;
+        float: left;
+
+        .grid-title {
+            padding-bottom: @bigLinePadding;
+            border-bottom: 1px solid @lightGrey;
+        }
+
+        .submit-button {
+            float: left;
+            clear: both;
+            margin-top: @bigLinePadding;
+        }
+
+    }
+
+    .grid-text {
+        margin-top: @bigLinePadding;
+    }
+
+    /***********************************************************
+    * MAIN PAGE - SEACH PAGE
+    ************************************************************/
+    &#search-page {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: @white;
+        padding-top: @headerHeight;
+        padding-bottom: 0px;
+
+        .main-section {
+            .border-radius(0px);
+            .drop-box-shadow(0px, 0px, 0px, 0px, 0);
+
+            padding: @smallBoxPadding 0px;
+
+            .grid-title {
+                .searchTitleText();
+                padding-bottom: 0px;
+                border-bottom: 0px;
+            }
+
+            .grid-text {
+                .titleText();
+                margin-top: 0px;
+                width: 60%;
+            }
+
+            .object-view {
+                width: 100%;
+                margin-top: @smallBoxPadding;
+                margin-bottom: @smallBoxPadding;
+
+                .search-button {
+                    .form-element();
+                    .contrastText();
+                    height: 44px;
+                    padding: 0px;
+                    padding-left: @innerPadding;
+
+                    // This wrapper makes the overflow: hidden magic work.
+                    div {
+                        overflow: hidden;
+                        height: 100%;
+
+                        input {
+                            .inner-box-shadow(0px, 0px, 0px, 0px, 0);
+                            background-color: transparent;
+                            border: 0px;
+                            margin: 0px;
+                            padding: 0px;
+                            height: 100%;
+                        }
+                    }
+
+                    .submit-button {
+                        float: right;
+                        width: 38px;
+                        height: 38px;
+                        margin: 2px;
+                    }
+                }
+            }
+
+            .search-text {
+                .normalText();
+
+                width: 30%;
+                float: right;
+                clear: both;
+                text-align: right;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - CREATE CUSTOMER PAGE
+    ************************************************************/
+    &#create-customer-page {
+    }
+
+    /***********************************************************
+    * MAIN PAGE - CREATE INSTANCE PAGE
+    ************************************************************/
+    &#create-instance-page {
+        .create-instance-grid {
+            .field-list {
+
+                .key {
+                    width: 20%;
+                }
+                .value {
+                    width: 80%;
+                }
+
+                .key, .value, .sub-value {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+
+        .task-instance-view {
+            input, textarea {
+                width: 100%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - PROCESS INSTANCE PAGE
+    ************************************************************/
+    &#process-instance-page {
+        .process-instance-grid {
+            .field-list {
+
+                .key {
+                    width: 20%;
+                }
+                .value {
+                    width: 80%;
+                }
+
+                .key, .value, .sub-value {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+
+        .task-instance-view {
+            input, textarea {
+                width: 100%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - CONFIRM INSTANCE PAGE
+    ************************************************************/
+    &#confirm-instance-page {
+        .task-instance-view {
+            .field-deadline-ts {
+                float: left;
+                width: 47%;
+            }
+
+            .field-price {
+                float: right;
+                width: 47%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - APPROVE INSTANCE PAGE
+    ************************************************************/
+    &#approve-instance-page {
+        .task-instance-view {
+            .field-deadline-ts {
+                float: left;
+                width: 47%;
+            }
+
+            .field-price {
+                float: right;
+                width: 47%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - CARD CUSTOMER PAGE
+    ************************************************************/
+    &#card-customer-page {
+        .field-first-name{
+            float: left;
+            width: 47%;
+        }
+
+        .field-last-name{
+            float: right;
+            width: 47%;
+        }
+
+        .field-card-expiry-month {
+            float: left;
+            width: 100px;
+            margin-right: @outerPadding;
+        }
+
+        .field-card-expiry-year {
+            float: left;
+            width: 100px;
+            margin-right: @outerPadding;
+            margin-left: @outerPadding;
+        }
+
+        .field-card-cvc {
+            float: left;
+            width: 100px;
+            margin-left: @outerPadding;
+        }
+    }
+
+    /***********************************************************
+    * MAIN - TEMPLATE PAGE
+    ************************************************************/
+    &#template-page {
+        .post-grid, .worker-grid {
+            padding-left: 25px;
+        }
+
+        .tags-grid {
+            clear: both;
+        }
+    }
+}
+
+
+/***********************************************************
+* PAGE THEME: ALT
+************************************************************/
+.alt-page {
+    /***********************************************************
+    * ALT - COMPONENTS
+    ************************************************************/
+    /***********************************************************
+    * ALT - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
+    ************************************************************/
+    /***********************************************************
+    * ALT - PAGE
+    ************************************************************/
+}
