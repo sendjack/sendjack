@@ -6,7 +6,7 @@
     <div class="page main-page">
 
 """
-from view.elementary.html import SubmitButton, HiddenInput, TextInput
+from view.elementary.html import SubmitButton, HiddenInput, TextInput, Div
 from view.app.base.page import Page
 from view.app.base.field import FieldList, Field
 from view.app.base.components import TitledGrid, GridText
@@ -636,8 +636,6 @@ class SearchInstanceView(ObjectView):
     _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
     _TASK_INSTANCE_ID = unicode("instance")
 
-    _SUBMIT_TEXT = unicode("Search")
-
     _CUSTOMER_TITLE_NAME = unicode("customer_title")
     _DEADLINE_NAME = unicode("deadline_ts")
     _INSTRUCTIONS_NAME = unicode("instructions")
@@ -658,8 +656,29 @@ class SearchInstanceView(ObjectView):
         instructions = HiddenInput(self._INSTRUCTIONS_NAME)
         properties = HiddenInput(self._PROPERTIES_NAME)
 
-        self.append_child(customer_title)
         self.append_child(deadline)
         self.append_child(instructions)
         self.append_child(properties)
-        self.append_child(SubmitButton(self._SUBMIT_TEXT))
+        self.append_child(SearchButton(customer_title))
+
+
+class SearchButton(Div):
+
+    _SEARCH_BUTTON_CLASS = unicode("search-button")
+    _SUBMIT_TEXT = unicode("j")
+
+    def __init__(self, input_el):
+        super(SearchButton, self).__init__()
+        self.append_class(self._SEARCH_BUTTON_CLASS)
+
+        submit_button = SubmitButton(self._SUBMIT_TEXT)
+
+        input_div = Div()
+        input_div.append_child(input_el)
+
+        input_el.set_tabindex(1)
+        submit_button.set_tabindex(2)
+
+        # Needs to be in this order for overflow: hidden in CSS
+        self.append_child(submit_button)
+        self.append_child(input_div)
