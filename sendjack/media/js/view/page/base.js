@@ -49,15 +49,16 @@ var PageView = Backbone.Marionette.CompositeView.extend({
         this.$el.css('visibility', 'hidden');
         this.$el.show();
 
-        // slide page up
-        var negativePageHeight = parseInt(-(this.$el.height()), 10) + 'px';
-        this.$el.css('top', negativePageHeight);
+        // slide section up
+        var $section = this.$el.find('.main-section');
+        var negativeSectionHeight = parseInt(-($section.outerHeight()), 10) + 'px';
+        $section.css('top', negativeSectionHeight);
 
         // make it visible (though occluded)
         this.$el.css('visibility', 'visible');
 
-        // slide page down
-        this.$el.animate({top: '0px'}, {
+        // slide section down
+        $section.animate({top: '0px'}, {
             duration: 1000,
             complete: callback
         });
@@ -65,11 +66,12 @@ var PageView = Backbone.Marionette.CompositeView.extend({
 
     /** Define a hide transition. */
     hide: function (callback) {
-        var pageHeight = this.$el.height();
-        var pageHeightStr = parseInt(-pageHeight, 10) + 'px';
+        var $section = this.$el.find('.main-section');
+        var sectionHeight = $section.outerHeight();
+        var sectionHeightStr = parseInt(-sectionHeight, 10) + 'px';
 
-        this.$el.animate({top: pageHeightStr}, {
-            duration: 'fast',
+        $section.animate({top: sectionHeightStr}, {
+            duration: 'slow',
             complete: callback
         });
 

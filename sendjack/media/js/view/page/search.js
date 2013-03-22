@@ -27,8 +27,24 @@ var SearchPageView = PageView.extend({
         var searchObjectView = SearchObjectView({
             model: this.options.instanceModel
         });
-    }
+    },
 
+    show: function (callback) {
+        this.$el.fadeIn({
+            duration: 'fast',
+            complete: callback
+        });
+    },
+
+    hide: function (callback) {
+        var that = this;
+        this.$el.fadeOut({
+            duration: 'slow',
+            complete: function () {
+                setTimeout(callback, 1000);
+            }
+        });
+    }
 });
 
 
