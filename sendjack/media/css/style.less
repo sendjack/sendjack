@@ -41,7 +41,7 @@
 
 @bigBoxPadding: 100px;
 @smallBoxPadding: 40px;
-@pagePadding: 250px;
+@pagePadding: 23%;
 
 @normalBorder: 2px;
 @normalRound: 4px;
@@ -153,6 +153,11 @@
     color: @white;
 }
 
+.searchTitleText() {
+    .titleFont;
+    color: @blue;
+}
+
 /***********************************************************
 * REUSABLE APP-SPECIFIC CLASSES
 ************************************************************/
@@ -233,6 +238,7 @@ body {
             'body.jpg',
             @grey,
             repeat);
+    min-width: 980px;
 }
 
 button {
@@ -289,6 +295,7 @@ li {
 * BASE BODY, PAGE, HEADER, FOOTER
 ************************************************************/
 #app-header, .page, #app-footer {
+    position: relative;
     width: 100%; 
     float: left;
     padding-left: @pagePadding;
@@ -336,6 +343,7 @@ li {
 
 .page {
     display: none;
+    position: relative; // Helps with positioning.
     width: 100%;
     height: 100%;
     clear: both;
@@ -383,6 +391,17 @@ li {
     }
 } */
 
+/***********************************************************
+* Z-INDEX
+************************************************************/
+#app-header {
+    z-index: 15;
+}
+
+.page {
+    z-index: 10;
+}
+
 
 /***********************************************************
 * PAGE THEME: MAIN
@@ -414,6 +433,10 @@ li {
 
             cursor: default;
         }
+
+        &:focus {
+            border: 1px solid @blue;
+        }
     }
 
     input {
@@ -427,6 +450,7 @@ li {
     .main-section {
         .border-radius(@normalRound);
         .drop-box-shadow();
+        position: relative;
         width: 100%;
         float: left;
         background: @white;
@@ -462,6 +486,82 @@ li {
 
     .grid-text {
         margin-top: @bigLinePadding;
+    }
+
+    /***********************************************************
+    * MAIN PAGE - SEACH PAGE
+    ************************************************************/
+    &#search-page {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: @white;
+        padding-top: @headerHeight;
+        padding-bottom: 0px;
+
+        .main-section {
+            .border-radius(0px);
+            .drop-box-shadow(0px, 0px, 0px, 0px, 0);
+
+            padding: @smallBoxPadding 0px;
+
+            .grid-title {
+                .searchTitleText();
+                padding-bottom: 0px;
+                border-bottom: 0px;
+            }
+
+            .grid-text {
+                .titleText();
+                margin-top: 0px;
+                width: 60%;
+            }
+
+            .object-view {
+                width: 100%;
+                margin-top: @smallBoxPadding;
+                margin-bottom: @smallBoxPadding;
+
+                .search-button {
+                    .form-element();
+                    .contrastText();
+                    height: 44px;
+                    padding: 0px;
+                    padding-left: @innerPadding;
+
+                    // This wrapper makes the overflow: hidden magic work.
+                    div {
+                        overflow: hidden;
+                        height: 100%;
+
+                        input {
+                            .inner-box-shadow(0px, 0px, 0px, 0px, 0);
+                            background-color: transparent;
+                            border: 0px;
+                            margin: 0px;
+                            padding: 0px;
+                            height: 100%;
+                        }
+                    }
+
+                    .submit-button {
+                        float: right;
+                        width: 38px;
+                        height: 38px;
+                        margin: 2px;
+                    }
+                }
+            }
+
+            .search-text {
+                .normalText();
+
+                width: 30%;
+                float: right;
+                clear: both;
+                text-align: right;
+            }
+        }
     }
 
     /***********************************************************

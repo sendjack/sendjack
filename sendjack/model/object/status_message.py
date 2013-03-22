@@ -25,7 +25,7 @@ class StatusMessage(object):
         raise OverrideRequiredError()
 
 
-class TaskStatus(StatusMessage):
+class TaskStatusMessage(StatusMessage):
 
     @property
     def subject(self):

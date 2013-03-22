@@ -58,8 +58,13 @@ class SQLAlchemy(Database):
                 url,
                 #echo=True,
                 #echo_pool=True,
+                # As we have a lot of clients connecting to a 20 connection DB
+                # simulataneously.
                 pool_size=2,
-                max_overflow=1)
+                max_overflow=1,
+                # As we are getting an EOF OperationalError after long breaks
+                # without queries.
+                pool_recycle=120)
 
         # create_all must be called after the objects are imported.
         DeclarativeModel.metadata.create_all(engine)

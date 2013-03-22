@@ -12,7 +12,6 @@ define(
             //modules
             'view/page/base',
             'view/item/instance'
-            //jquery ui
         ],
         function ($, pageView, instanceView) {
 

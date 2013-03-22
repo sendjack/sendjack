@@ -18,6 +18,7 @@ define(
             'model/customer',
             'model/instance',
             'model/creditCard',
+            'view/region',
             'view/page/confirmInstance',
             'view/page/cardCustomer',
             'view/page/confirmInstanceThanks'
@@ -30,6 +31,7 @@ define(
                 customerModel,
                 instanceModel,
                 creditCardModel,
+                region,
                 confirmInstanceView,
                 cardCustomerView,
                 confirmInstanceThanksView) {
@@ -50,7 +52,7 @@ var ConfirmInstanceController = Backbone.Marionette.Controller.extend({
 
     initialize: function () {
         if ($(this.pagesSelector).length) {
-            this.region = new Backbone.Marionette.Region({
+            this.region = region.AppRegion({
                 el: '#page-container'
             });
 

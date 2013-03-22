@@ -16,6 +16,8 @@ define(
             'event',
             'model/customer',
             'model/instance',
+            'view/region',
+            'view/page/search',
             'view/page/createInstance',
             'view/page/createCustomer',
             'view/page/createInstanceThanks'
@@ -28,6 +30,8 @@ define(
                 event,
                 customerModel,
                 instanceModel,
+                region,
+                searchView,
                 createInstanceView,
                 createCustomerView,
                 createInstanceThanksView) {
@@ -40,15 +44,16 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
     customerModel: null,
     instanceModel: null,
 
+    searchPage: null,
     createInstancePage: null,
     createCustomerPage: null,
     createInstanceThanksPage: null,
 
-    pagesSelector: '#create-instance-page, #create-customer-page, #create-instance-thanks-page',
+    pagesSelector: '#search-page, #create-instance-page, #create-customer-page, #create-instance-thanks-page',
 
     initialize: function () {
         if ($(this.pagesSelector).length) {
-            this.region = new Backbone.Marionette.Region({
+            this.region = region.AppRegion({
                 el: '#page-container'
             });
 
@@ -91,6 +96,9 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
     },
 
     initializePages: function () {
+        this.searchPage = searchView.SearchPageView({
+            instanceModel: this.instanceModel
+        });
         this.createInstancePage = createInstanceView.CreateInstancePageView({
             instanceModel: this.instanceModel
         });
@@ -104,7 +112,7 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
     /**
      * Catch any transition events and navigate to next page.
      *
-     * ORDER: Create Task --> Create Customer --> Thanks
+     * ORDER: Search --> Create Task --> Create Customer --> Thanks
      */
     initializeTransitions: function () {
         this.instanceModel.once(event.SAVE, function () {
@@ -116,6 +124,9 @@ var CreateInstanceController = Backbone.Marionette.Controller.extend({
         });
     },
 
+    loadSearchPage: function () {
+        this.region.show(this.searchPage);
+    },
 
     loadCreateInstancePage: function () {
         this.region.show(this.createInstancePage);

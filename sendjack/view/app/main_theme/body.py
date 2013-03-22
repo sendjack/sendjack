@@ -8,7 +8,7 @@
 """
 from view.app.base.body import AppBody
 
-from page import CreateInstancePage, CreateCustomerPage
+from page import SearchPage, CreateInstancePage, CreateCustomerPage
 from page import CreateInstanceThanksPage
 
 from page import ProcessInstancePage
@@ -23,6 +23,7 @@ class CreateInstanceBody(AppBody):
 
     def _construct_pages(self):
         return [
+                SearchPage(),
                 CreateInstancePage(),
                 CreateCustomerPage(),
                 CreateInstanceThanksPage(),
