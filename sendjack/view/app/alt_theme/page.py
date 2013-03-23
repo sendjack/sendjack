@@ -41,6 +41,8 @@ class TaskTemplatePage(AltPage):
         super(TaskTemplatePage, self).__init__()
         self.set_id(self._TEMPLATE_PAGE_ID)
 
+        # TODO: To move TemplateView to base package will need to introduce the
+        # concept of mixins and layouts.
         template_view = ObjectView(self._TEMPLATE_ID)
         template_view.append_child(TaskTemplateNormalSection())
         template_view.append_child(TaskTemplateContrastSection())

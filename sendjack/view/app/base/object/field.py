@@ -213,13 +213,13 @@ class IDField(Field):
         super(IDField, self).__init__(self.LABEL, self.NAME)
 
 
-class TemplateField(Field):
+class TemplateIDField(Field):
 
-    LABEL = unicode("Template")
+    LABEL = unicode("Template ID")
     NAME = unicode("template_id")
 
     def __init__(self):
-        super(TemplateField, self).__init__(self.LABEL, self.NAME)
+        super(TemplateIDField, self).__init__(self.LABEL, self.NAME)
 
 
 class CreatorField(Field):
