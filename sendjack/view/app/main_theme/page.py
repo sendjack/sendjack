@@ -329,7 +329,7 @@ class ConfirmInstanceView(InstanceView):
     def _construct_fields(self):
         return [
                 TitleField(),
-                SummaryField,
+                SummaryField(),
                 DescriptionField(),
                 MoreDetailsField(),
                 DeadlineField(),
