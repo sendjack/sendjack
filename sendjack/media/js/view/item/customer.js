@@ -26,7 +26,7 @@ var ObjectView = baseView.getObjectViewClass();
 
 var CustomerView = ObjectView.extend({
 
-    el: '#customer',
+    el: '.customer-view',
 
     initialize: function () {
         ObjectView.prototype.initialize.call(this);
@@ -61,10 +61,10 @@ var CustomerView = ObjectView.extend({
     editBindings: function (bindings) {
 
         // We send this to Stripe but don't want it on our servers.
-        delete bindings.card_cvc;
+        delete bindings.card_number;
         delete bindings.card_expiry_month;
         delete bindings.card_expiry_year;
-        delete bindings.card_number;
+        delete bindings.card_cvc;
 
         return bindings;
     }

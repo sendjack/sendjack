@@ -37,48 +37,13 @@ function ConfirmInstanceObjectView(attributes, options) {
     var ConfirmInstanceObjectViewClass = TaskInstanceView.extend({
 
         setupControlAndTestFields: function (isControlGroup) {
+            var fields = this.$el.find('.field');
+
             if (isControlGroup) {
-                this.initializeShownControlFields();
-            } else {
-                this.initializeShownTestFields();
+                fields.has('[name=description]').hide();
+                fields.has('[name=more_details]').hide();
             }
-        },
-
-        initializeShownControlFields: function () {
-            this.initializeShownFields();
-
-            var fields = this.$el.find('.field');
-
-            fields.has('[name=description]').hide();
-            fields.has('[name=more_details]').hide();
-        },
-
-        initializeShownTestFields: function () {
-            this.initializeShownFields();
-
-            var fields = this.$el.find('.field');
-        },
-
-        initializeShownFields: function () {
-            var fields = this.$el.find('.field');
-
-            fields.has('[name=customer_title]').hide();
-            fields.has('[name=customer_description]').hide();
-
-            fields.has('[name=template_id]').hide();
-
-            fields.has('[name=properties]').hide();
-            fields.has('[name=property]').hide();
-            fields.has('[name=output_type]').hide();
-            fields.has('[name=output_method]').hide();
-            fields.has('[name=category_tags]').hide();
-            fields.has('[name=industry_tags]').hide();
-            fields.has('[name=skill_tags]').hide();
-            fields.has('[name=equipment_tags]').hide();
-            fields.has('[name=instructions]').hide();
-            fields.has('[name=instruction]').hide();
         }
-
     });
 
     return new ConfirmInstanceObjectViewClass(attributes, options);

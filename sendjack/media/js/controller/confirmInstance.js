@@ -148,8 +148,10 @@ var ConfirmInstanceController = Backbone.Marionette.Controller.extend({
     },
 
     onConfirmedTask: function (model, options) {
-        track.postTask(model.get('id'), model.get('price'));
-        var id = this.instanceModel.id;
+        var id = model.id;
+
+        track.postTask(id, model.get('price'));
+
         var path = '/tasks/' + id + '/confirm/thanks';
         Backbone.history.navigate(path, {trigger: true});
     }

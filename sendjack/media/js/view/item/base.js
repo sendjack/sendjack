@@ -30,7 +30,6 @@ var ItemView = Backbone.View.extend({
 
     initialize: function () {
 
-        console.log(this);
         this.modelBinder = new Backbone.ModelBinder();
         this.modelBinder.bind(this.model, this.el, this.getBindings());
 
@@ -49,8 +48,9 @@ var ItemView = Backbone.View.extend({
     getBindings: function (boundAttribute) {
         var attribute = boundAttribute || 'name';
 
-        return this.editBindings(
-            Backbone.ModelBinder.createDefaultBindings(this.el, attribute));
+        var defaultBindings = Backbone.ModelBinder.createDefaultBindings(
+                this.el, attribute);
+        return this.editBindings(defaultBindings);
     },
 
     /**
@@ -63,8 +63,14 @@ var ItemView = Backbone.View.extend({
      */
     editBindings: function (bindings) {
         return bindings;
-    }
+    },
 
+    /** Set a binding's converter if that binding exists. */
+    _setBindingConverter: function (binding, converter) {
+        if (typeof binding !== 'undefined') {
+            binding.converter = converter;
+        }
+    }
 });
 
 
@@ -108,7 +114,7 @@ var ObjectView = ItemView.extend({
     },
 
     isValidAndSynced: function () {
-        return (this.isValid() && this.model.isDirty());
+        return (this.isValid() && !this.model.isDirty());
     },
 
     onSubmit: function (event) {

@@ -146,7 +146,6 @@ var track = (function () {
      */
     that.approveTask = function (taskID, price) {
         console.log("TRACK post task", taskID, price);
-        // FIXME XXX add this function to approve js.
         var properties = {};
         properties[PROPERTY.TASK_ID] = taskID;
         properties[PROPERTY.PRICE] = price;
