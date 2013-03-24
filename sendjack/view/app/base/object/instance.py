@@ -3,51 +3,54 @@
     --------------------
 
 """
-from view.elementary.html import SubmitButton
-
 from .base import ObjectView
-from .field import TemplateIDField, CustomerTitleField
+from .field import TemplateIDField, CustomerIDField, CustomerTitleField
 from .field import CustomerDescriptionField, TitleField, SummaryField
 from .field import InstructionsField, InstructionField, PropertiesField
 from .field import PropertyField, OutputTypeField, OutputMethodField
 from .field import DescriptionField, MoreDetailsField, DeadlineField
 from .field import PriceField, CategoryTagsField, IndustryTagsField
-from .field import SkillTagsField, EquipmentTagsField
+from .field import IDField, SkillTagsField, EquipmentTagsField
 
 
 class InstanceView(ObjectView):
 
-    _TASK_INSTANCE_VIEW_CLASS = unicode("instance-view")
-    _TASK_INSTANCE_ID = unicode("instance")
+    _OBJECT_VIEW_ID = unicode("instance")
+    _OBJECT_TYPE_CLASS = unicode("instance-view")
 
-    _SUBMIT_TEXT = unicode("Process")
+    allowed_fields = [
+            IDField,
+            TitleField,
+            SummaryField,
+            InstructionsField,
+            InstructionField,
+            OutputTypeField,
+            OutputMethodField,
+            PropertiesField,
+            PropertyField,
+            CategoryTagsField,
+            IndustryTagsField,
+            SkillTagsField,
+            EquipmentTagsField,
+            TemplateIDField,
+            CustomerIDField,
+            #WorkerIDField,
+            CustomerTitleField,
+            CustomerDescriptionField,
+            DescriptionField,
+            MoreDetailsField,
+            #StatusField,
+            DeadlineField,
+            #IsUrgentField,
+            PriceField,
+            #OverheadField,
+            #InteractionsField,
+            #ScoreField
+            ]
 
-    def __init__(self):
-        super(ProcessInstanceView, self).__init__(self._TASK_INSTANCE_ID)
-        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
 
-        self.append_child(FieldList([
-                TemplateIDField(),
-                #CustomerField(),
-                CustomerTitleField(True),
-                CustomerDescriptionField(True),
-                TitleField(True),
-                SummaryField(True),
-                InstructionsField(True),
-                InstructionField(),
-                PropertiesField(True),
-                PropertyField(),
-                OutputTypeField(),
-                OutputMethodField(),
-                DescriptionField(True),
-                MoreDetailsField(True),
-                DeadlineField(),
-                PriceField(),
-                CategoryTagsField(),
-                IndustryTagsField(),
-                SkillTagsField(),
-                EquipmentTagsField(),
-                ]))
-
-        self.append_child(SubmitButton(self._SUBMIT_TEXT))
-
+    def __init__(self, object_view_id=None, submit_text=None):
+        super(InstanceView, self).__init__(
+                self._OBJECT_TYPE_CLASS,
+                self._get_object_view_id(object_view_id),
+                self._SUBMIT_TEXT)

@@ -10,15 +10,17 @@ from view.elementary.html import SubmitButton
 
 from view.app.base.page import Page
 from view.app.base.components import TitledGrid, Grid
-from view.app.base.field import Field, FieldList
-from view.app.base.field import IDField, TitleField, SummaryField
+
+# template fields (TODO: make this model instance and customer)
+from view.app.base.object.base import ObjectView
+from view.app.base.object.field import Field, FieldList
+from view.app.base.object.field import IDField, TitleField, SummaryField
 #from components import CreatorField
-from view.app.base.field import InstructionsField, InstructionField
-from view.app.base.field import PropertiesField, PropertyField
-from view.app.base.field import OutputTypeField, OutputMethodField
-from view.app.base.field import CategoryTagsField, IndustryTagsField
-from view.app.base.field import SkillTagsField, EquipmentTagsField
-from view.app.base.object import ObjectView
+from view.app.base.object.field import InstructionsField, InstructionField
+from view.app.base.object.field import PropertiesField, PropertyField
+from view.app.base.object.field import OutputTypeField, OutputMethodField
+from view.app.base.object.field import CategoryTagsField, IndustryTagsField
+from view.app.base.object.field import SkillTagsField, EquipmentTagsField
 
 from .components import NormalSection, ContrastSection
 

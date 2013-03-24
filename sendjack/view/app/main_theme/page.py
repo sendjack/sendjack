@@ -6,15 +6,30 @@
     <div class="page main-page">
 
 """
-from view.elementary.html import SubmitButton, HiddenInput, TextInput, Div
+from view.elementary.html import TextInput, SubmitButton, Div
+
 from view.app.base.page import Page
-from view.app.base.field import FieldList, Field
 from view.app.base.components import TitledGrid, GridText
-from view.app.base.field import CustomerTitleField, CustomerDescriptionField
-from view.app.base.field import DeadlineField, PriceField, TitleField
-from view.app.base.field import DescriptionField, MoreDetailsField
-from view.app.base.field import SummaryField
-from view.app.base.object import ObjectView, CustomerView, ProcessInstanceView
+
+# instance fields
+from view.app.base.object.instance import InstanceView
+from view.app.base.object.field import TitleField, SummaryField
+from view.app.base.object.field import CustomerTitleField
+from view.app.base.object.field import CustomerDescriptionField
+from view.app.base.object.field import DeadlineField, PriceField
+from view.app.base.object.field import DescriptionField, MoreDetailsField
+from view.app.base.object.field import TemplateIDField
+from view.app.base.object.field import InstructionsField, InstructionField
+from view.app.base.object.field import PropertiesField, PropertyField
+from view.app.base.object.field import OutputTypeField, OutputMethodField
+from view.app.base.object.field import CategoryTagsField, IndustryTagsField
+from view.app.base.object.field import SkillTagsField, EquipmentTagsField
+
+# customer fields
+from view.app.base.object.customer import CustomerView
+from view.app.base.object.field import FirstNameField, LastNameField
+from view.app.base.object.field import EmailField, CreditCardField, CVCField
+from view.app.base.object.field import ExpiryMonthField, ExpiryYearField
 
 from .components import MainSection, MainGrid
 
@@ -75,54 +90,24 @@ class CreateInstanceGrid(MainGrid):
         return CreateInstanceView()
 
 
-class CreateInstanceView(ObjectView):
+class CreateInstanceView(InstanceView):
 
-    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
-    _TASK_INSTANCE_ID = unicode("instance")
-
-    # names
-    _CUSTOMER_TITLE_NAME = unicode("customer_title")
-    _CUSTOMER_DESCRIPTION_NAME = unicode("customer_description")
-    _TITLE_NAME = unicode("title")
-    _SUMMARY_NAME = unicode("summary")
-    _DEADLINE_NAME = unicode("deadline_ts")
-
-    _INSTRUCTIONS_NAME = unicode("instructions")
-    _PROPERTIES_NAME = unicode("properties")
-    _OUTPUT_TYPE_NAME = unicode("output_type")
-    _OUTPUT_METHOD_NAME = unicode("output_method")
-    _PRICE_NAME = unicode("price")
-    _CATEGORY_TAGS_NAME = unicode("category_tags")
-    _INDUSTRY_TAGS_NAME = unicode("industry_tags")
-    _SKILL_TAGS_NAME = unicode("skill_tags")
-    _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
-
-    _TEXTAREA_DEFAULT_ROWS = 4
+    _OBJECT_VIEW_ID = unicode("create-instance")
     _SUBMIT_TEXT = unicode("Create")
 
 
     def __init__(self):
-        super(CreateInstanceView, self).__init__(self._TASK_INSTANCE_ID)
-        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
+        super(CreateInstanceView, self).__init__(
+                self._OBJECT_VIEW_ID,
+                self._SUBMIT_TEXT)
 
-        self.append_child(CustomerTitleField())
-        self.append_child(CustomerDescriptionField())
-        self.append_child(DeadlineField())
 
-        self.append_child(HiddenInput(self._TITLE_NAME))
-        self.append_child(HiddenInput(self._SUMMARY_NAME))
-
-        self.append_child(HiddenInput(self._INSTRUCTIONS_NAME))
-        self.append_child(HiddenInput(self._PROPERTIES_NAME))
-        self.append_child(HiddenInput(self._OUTPUT_TYPE_NAME))
-        self.append_child(HiddenInput(self._OUTPUT_METHOD_NAME))
-        self.append_child(HiddenInput(self._PRICE_NAME))
-        self.append_child(HiddenInput(self._CATEGORY_TAGS_NAME))
-        self.append_child(HiddenInput(self._INDUSTRY_TAGS_NAME))
-        self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
-        self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
-
-        self.append_child(SubmitButton(self._SUBMIT_TEXT))
+    def _construct_fields(self):
+        return [
+                CustomerTitleField(),
+                CustomerDescriptionField(),
+                DeadlineField(),
+                ]
 
 
 class CreateCustomerPage(MainPage):
@@ -158,7 +143,24 @@ class CreateCustomerGrid(MainGrid):
 
 
     def _construct_form(self):
-        return CustomerView()
+        return CreateCustomerView()
+
+
+class CreateCustomerView(CustomerView):
+
+    _OBJECT_VIEW_ID = unicode("create-customer")
+    _SUBMIT_TEXT = unicode("Sign Up and Continue")
+
+    def __init__(self):
+        super(CreateCustomerView, self).__init__(
+                self._OBJECT_VIEW_ID,
+                self._SUBMIT_TEXT)
+
+
+    def _construct_fields(self):
+        return [
+                EmailField()
+                ]
 
 
 class CreateInstanceThanksPage(MainPage):
@@ -235,6 +237,42 @@ class ProcessInstanceGrid(MainGrid):
         return ProcessInstanceView()
 
 
+class ProcessInstanceView(InstanceView):
+
+    _OBJECT_VIEW_ID = unicode("process-instance")
+    _SUBMIT_TEXT = unicode("Process")
+
+    def __init__(self):
+        super(ProcessInstanceView, self).__init__(
+                self._OBJECT_VIEW_ID,
+                self._SUBMIT_TEXT)
+
+
+    def _construct_fields(self):
+        return [
+                TemplateIDField(),
+                #CustomerField(),
+                CustomerTitleField(True),
+                CustomerDescriptionField(True),
+                TitleField(True),
+                SummaryField(True),
+                InstructionsField(True),
+                InstructionField(),
+                PropertiesField(True),
+                PropertyField(),
+                OutputTypeField(),
+                OutputMethodField(),
+                DescriptionField(True),
+                MoreDetailsField(True),
+                DeadlineField(),
+                PriceField(),
+                CategoryTagsField(),
+                IndustryTagsField(),
+                SkillTagsField(),
+                EquipmentTagsField(),
+                ]
+
+
 class ConfirmInstancePage(MainPage):
 
     _CONFIRM_INSTANCE_PAGE_ID = unicode("confirm-instance-page")
@@ -276,62 +314,27 @@ class ConfirmInstanceGrid(MainGrid):
         return ConfirmInstanceView()
 
 
-class ConfirmInstanceView(ObjectView):
+class ConfirmInstanceView(InstanceView):
 
-    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
-    _TASK_INSTANCE_ID = unicode("instance")
-
-    # names
-    _CUSTOMER_TITLE_NAME = unicode("customer_title")
-    _CUSTOMER_DESCRIPTION_NAME = unicode("customer_description")
-    _TITLE_NAME = unicode("title")
-    _SUMMARY_NAME = unicode("summary")
-    _DEADLINE_NAME = unicode("deadline_ts")
-
-    _INSTRUCTIONS_NAME = unicode("instructions")
-    _PROPERTIES_NAME = unicode("properties")
-    _OUTPUT_TYPE_NAME = unicode("output_type")
-    _OUTPUT_METHOD_NAME = unicode("output_method")
-    _PRICE_NAME = unicode("price")
-    _CATEGORY_TAGS_NAME = unicode("category_tags")
-    _INDUSTRY_TAGS_NAME = unicode("industry_tags")
-    _SKILL_TAGS_NAME = unicode("skill_tags")
-    _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
-
-    _TEXTAREA_DEFAULT_ROWS = 4
+    _OBJECT_VIEW_ID = unicode("confirm-instance")
     _SUBMIT_TEXT = unicode("Create")
 
+
     def __init__(self):
-        super(ConfirmInstanceView, self).__init__(self._TASK_INSTANCE_ID)
-        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
+        super(ConfirmInstanceView, self).__init__(
+                self._OBJECT_VIEW_ID,
+                self._SUBMIT_TEXT)
 
-        title = TitleField()
-        summary = SummaryField()
-        description = DescriptionField()
-        more_details = MoreDetailsField()
-        deadline = DeadlineField()
-        price = PriceField()
 
-        self.append_child(title)
-        self.append_child(summary)
-        self.append_child(description)
-        self.append_child(more_details)
-        self.append_child(deadline)
-        self.append_child(price)
-
-        self.append_child(HiddenInput(self._CUSTOMER_TITLE_NAME))
-        self.append_child(HiddenInput(self._CUSTOMER_DESCRIPTION_NAME))
-
-        self.append_child(HiddenInput(self._INSTRUCTIONS_NAME))
-        self.append_child(HiddenInput(self._PROPERTIES_NAME))
-        self.append_child(HiddenInput(self._OUTPUT_TYPE_NAME))
-        self.append_child(HiddenInput(self._OUTPUT_METHOD_NAME))
-        self.append_child(HiddenInput(self._CATEGORY_TAGS_NAME))
-        self.append_child(HiddenInput(self._INDUSTRY_TAGS_NAME))
-        self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
-        self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
-
-        self.append_child(SubmitButton(self._SUBMIT_TEXT))
+    def _construct_fields(self):
+        return [
+                TitleField(),
+                SummaryField,
+                DescriptionField(),
+                MoreDetailsField(),
+                DeadlineField(),
+                PriceField(),
+                ]
 
 
 class CardCustomerPage(MainPage):
@@ -374,43 +377,27 @@ class CardCustomerGrid(MainGrid):
         return CardCustomerView()
 
 
-class CardCustomerView(ObjectView):
+class CardCustomerView(CustomerView):
 
-    _CARD_CUSTOMER_VIEW_CLASS = unicode("card-customer-view")
-    _CARD_CUSTOMER_ID = unicode("customer")
-
+    _OBJECT_VIEW_ID = unicode("card-customer")
     _SUBMIT_TEXT = unicode("Save")
 
     def __init__(self):
-        super(CardCustomerView, self).__init__(self._CARD_CUSTOMER_ID)
-        self.append_class(self._CARD_CUSTOMER_VIEW_CLASS)
+        super(CardCustomerView, self).__init__(
+                self._OBJECT_VIEW_ID,
+                self._SUBMIT_TEXT)
 
-        fields = [
-                Field(
-                    unicode("First Name"),
-                    unicode("first_name")),
-                Field(
-                    unicode("Last Name"),
-                    unicode("last_name")),
-                Field(
-                    unicode("Email"),
-                    unicode("email")),
-                Field(
-                    unicode("Credit Card"),
-                    unicode("card_number")),
-                Field(
-                    unicode("Exp Month"),
-                    unicode("card_expiry_month")),
-                Field(
-                    unicode("Exp Year"),
-                    unicode("card_expiry_year")),
-                Field(
-                    unicode("CVC"),
-                    unicode("card_cvc")),
+
+    def _construct_fields(self):
+        return [
+                FirstNameField(),
+                LastNameField(),
+                EmailField(),
+                CreditCardField(),
+                ExpiryMonthField(),
+                ExpiryYearField(),
+                CVCField(),
                 ]
-
-        self.append_child(FieldList(fields))
-        self.append_child(SubmitButton(self._SUBMIT_TEXT))
 
 
 class ConfirmInstanceThanksPage(MainPage):
@@ -493,62 +480,27 @@ class ApproveInstanceGrid(MainGrid):
         return ApproveInstanceView()
 
 
-class ApproveInstanceView(ObjectView):
+class ApproveInstanceView(InstanceView):
 
-    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
-    _TASK_INSTANCE_ID = unicode("instance")
-
-    # names
-    _CUSTOMER_TITLE_NAME = unicode("customer_title")
-    _CUSTOMER_DESCRIPTION_NAME = unicode("customer_description")
-    _TITLE_NAME = unicode("title")
-    _SUMMARY_NAME = unicode("summary")
-    _DEADLINE_NAME = unicode("deadline_ts")
-
-    _INSTRUCTIONS_NAME = unicode("instructions")
-    _PROPERTIES_NAME = unicode("properties")
-    _OUTPUT_TYPE_NAME = unicode("output_type")
-    _OUTPUT_METHOD_NAME = unicode("output_method")
-    _PRICE_NAME = unicode("price")
-    _CATEGORY_TAGS_NAME = unicode("category_tags")
-    _INDUSTRY_TAGS_NAME = unicode("industry_tags")
-    _SKILL_TAGS_NAME = unicode("skill_tags")
-    _EQUIPMENT_TAGS_NAME = unicode("equipment_tags")
-
-    _TEXTAREA_DEFAULT_ROWS = 4
+    _OBJECT_VIEW_ID = unicode("approve-instance")
     _SUBMIT_TEXT = unicode("Approve")
 
+
     def __init__(self):
-        super(ApproveInstanceView, self).__init__(self._TASK_INSTANCE_ID)
-        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
+        super(ApproveInstanceView, self).__init__(
+                self._OBJECT_VIEW_ID,
+                self._SUBMIT_TEXT)
 
-        title = TitleField()
-        summary = SummaryField()
-        description = DescriptionField()
-        more_details = MoreDetailsField()
-        deadline = DeadlineField()
-        price = PriceField()
 
-        self.append_child(title)
-        self.append_child(summary)
-        self.append_child(description)
-        self.append_child(more_details)
-        self.append_child(deadline)
-        self.append_child(price)
-
-        self.append_child(HiddenInput(self._CUSTOMER_TITLE_NAME))
-        self.append_child(HiddenInput(self._CUSTOMER_DESCRIPTION_NAME))
-
-        self.append_child(HiddenInput(self._INSTRUCTIONS_NAME))
-        self.append_child(HiddenInput(self._PROPERTIES_NAME))
-        self.append_child(HiddenInput(self._OUTPUT_TYPE_NAME))
-        self.append_child(HiddenInput(self._OUTPUT_METHOD_NAME))
-        self.append_child(HiddenInput(self._CATEGORY_TAGS_NAME))
-        self.append_child(HiddenInput(self._INDUSTRY_TAGS_NAME))
-        self.append_child(HiddenInput(self._SKILL_TAGS_NAME))
-        self.append_child(HiddenInput(self._EQUIPMENT_TAGS_NAME))
-
-        self.append_child(SubmitButton(self._SUBMIT_TEXT))
+    def _construct_fields(self):
+        return [
+                TitleField(),
+                SummaryField(),
+                DescriptionField(),
+                MoreDetailsField(),
+                DeadlineField(),
+                PriceField()
+                ]
 
 
 class ApproveInstanceThanksPage(MainPage):
@@ -631,35 +583,24 @@ class SearchGrid(MainGrid):
         return SearchInstanceView()
 
 
-class SearchInstanceView(ObjectView):
+class SearchInstanceView(InstanceView):
 
-    _TASK_INSTANCE_VIEW_CLASS = unicode("task-instance-view")
-    _TASK_INSTANCE_ID = unicode("instance")
-
-    _CUSTOMER_TITLE_NAME = unicode("customer_title")
-    _DEADLINE_NAME = unicode("deadline_ts")
-    _INSTRUCTIONS_NAME = unicode("instructions")
-    _PROPERTIES_NAME = unicode("properties")
-
+    _OBJECT_VIEW_ID = unicode("search-instance")
     _CUSTOMER_TITLE_PLACEHOLDER = unicode(
             "What type of task do you need to get done today?")
 
 
     def __init__(self):
-        super(SearchInstanceView, self).__init__(self._TASK_INSTANCE_ID)
-        self.append_class(self._TASK_INSTANCE_VIEW_CLASS)
+        super(SearchInstanceView, self).__init__(self._OBJECT_VIEW_ID)
 
-        customer_title = TextInput(self._CUSTOMER_TITLE_NAME)
-        customer_title.set_placeholder(self._CUSTOMER_TITLE_PLACEHOLDER)
 
-        deadline = HiddenInput(self._DEADLINE_NAME)
-        instructions = HiddenInput(self._INSTRUCTIONS_NAME)
-        properties = HiddenInput(self._PROPERTIES_NAME)
+    def _construct_fields(self):
+        return []
 
-        self.append_child(deadline)
-        self.append_child(instructions)
-        self.append_child(properties)
-        self.append_child(SearchButton(customer_title))
+    def _construct_submit_button(self, submit_text):
+        customer_title_input = TextInput(CustomerTitleField.NAME)
+        customer_title_input.set_placeholder(self._CUSTOMER_TITLE_PLACEHOLDER)
+        return SearchButton(customer_title_input)
 
 
 class SearchButton(Div):
