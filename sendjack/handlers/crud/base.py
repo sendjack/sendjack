@@ -11,6 +11,7 @@ import json
 
 from jutil.errors import OverrideRequiredError
 from jutil.decorators import constant
+from redflag import redflag
 
 from handlers.base import BaseHandler
 
@@ -149,3 +150,21 @@ class CRUDHandler(BaseHandler):
 
     def _is_delete_request(self):
         return self._request_type == REQUEST_TYPE.DELETE
+
+
+    def _trigger_customer_email(self, customer, status_message):
+        recipient = unicode("{} <{}>").format(
+                customer.full_name,
+                customer.email)
+        redflag.send_email_from_jack(
+                recipient,
+                status_message.subject,
+                status_message.body_text)
+
+
+    def _trigger_monitoring_email(self, task):
+        # TODO: get the to-address from somewhere not hardcoded.
+        redflag.send_email_from_jack(
+                "tasks@sendjack.com",
+                "[task][{}][action][{}]".format(task.id, task.status),
+                task.str())
