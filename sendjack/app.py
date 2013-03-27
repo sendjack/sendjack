@@ -15,6 +15,7 @@ from redflag import redflag
 
 import settings
 from urls import url_patterns
+from event import event
 
 
 class SendJackApp(tornado.web.Application):
@@ -28,7 +29,7 @@ class SendJackApp(tornado.web.Application):
         tornado.web.Application.__init__(self, url_patterns, **settings_dict)
 
         self.initialize_mailer()
-
+        event.initialize()
 
     def initialize_mailer(self):
         redflag.initialize(

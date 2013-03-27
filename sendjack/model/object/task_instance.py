@@ -10,6 +10,7 @@ from model.data.task_instance import TaskInstanceModel, TASK_INSTANCE
 
 class TaskInstance(TaskInstanceModel):
 
+    # TODO: pretty sure we should be using __repr__ here
     def __str__(self):
         fields = {
                 "id": self.id,
