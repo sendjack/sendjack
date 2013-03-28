@@ -37,7 +37,9 @@ class AltPage(Page):
 class TaskTemplatePage(AltPage):
 
     _TEMPLATE_PAGE_ID = unicode("template-page")
-    _TEMPLATE_ID = unicode("template")
+
+    _OBJECT_VIEW_ID = unicode("template")
+    _OBJECT_TYPE_CLASS = unicode("template-view")
 
     def __init__(self):
         super(TaskTemplatePage, self).__init__()
@@ -45,7 +47,10 @@ class TaskTemplatePage(AltPage):
 
         # TODO: To move TemplateView to base package will need to introduce the
         # concept of mixins and layouts.
-        template_view = ObjectView(self._TEMPLATE_ID)
+        template_view = ObjectView(
+                self._OBJECT_TYPE_CLASS,
+                self._OBJECT_VIEW_ID)
+
         template_view.append_child(TaskTemplateNormalSection())
         template_view.append_child(TaskTemplateContrastSection())
 
