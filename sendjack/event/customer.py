@@ -10,7 +10,8 @@ from redflag import redflag
 import settings
 from model.data.customer import CUSTOMER
 from model.object.customer import Customer
-from view.emails.customer_status.created import CreatedCustomerMessage
+from view.emails.customer_status.created import ControlCreatedCustomerMessage
+from view.emails.customer_status.created import TestCreatedCustomerMessage
 
 from .base import EventFactory, AttributeChangeEvent
 
@@ -49,7 +50,9 @@ class CustomerEventFactory(EventFactory):
 
     def _on_registered_status(self, customer):
         domain = settings.EMBEDDABLE_DOMAIN
-        status_message = CreatedCustomerMessage(domain, customer)
+        status_message = TestCreatedCustomerMessage(domain, customer)
+        if customer.control_group:
+            status_message = ControlCreatedCustomerMessage(domain, customer)
         redflag.send_email_to_customer(
                 customer,
                 status_message.subject,
