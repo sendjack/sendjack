@@ -13,6 +13,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 
 from jutil import environment
+from jutil.errors import OverrideRequiredError
 
 
 class Database(object):
@@ -23,8 +24,7 @@ class Database(object):
 
 
     def _init_db(self):
-        print 'OverrideRequiredError'
-        # raise OverrideRequiredError()
+        raise OverrideRequiredError()
 
 
 # SQLAlchemy classes for managing database access in this package

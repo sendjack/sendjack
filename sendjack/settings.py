@@ -24,6 +24,7 @@ define("debug", default=True, help="debug mode")
 tornado.options.parse_command_line()
 MEDIA_ROOT = path(ROOT, 'media')
 TEMPLATE_ROOT = path(ROOT, 'view/templates')
+EMBEDDABLE_DOMAIN = environment.get_unicode(unicode("EMBEDDABLE_DOMAIN"))
 
 # settings dictionary
 settings = {}

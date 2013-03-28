@@ -7,7 +7,7 @@
 
 """
 from functools import wraps
-from sqlalchemy.exc import DatabaseError, OperationalError
+from sqlalchemy.exc import DatabaseError, OperationalError, ResourceClosedError
 from sqlalchemy.orm.exc import NoResultFound
 
 from database import db
@@ -40,9 +40,8 @@ class CRUD(object):
         session = db().session()
         object_ = class_(**object_dict)
         session.add(object_)
-
-        # the next line is where the OperationalError is happening.
         session.commit()
+
         return object_
 
 
@@ -51,9 +50,7 @@ class CRUD(object):
     def read(class_, id):
         """Return an instance of `class_`."""
         session = db().session()
-        # the next line is where the OperationalError is happening.
         object_ = session.query(class_).get(id)
-
         session.commit()
 
         if object_ is None:
@@ -68,16 +65,31 @@ class CRUD(object):
     def update(class_, id, updated_dict):
         """Return an updated instance of `class_`."""
         session = db().session()
-
-        # TODO: this seems inefficient. we should probably be doing something
-        # like INSERT...ON DUPLICATE KEY UPDATE....
         object_ = class_.read(id)
         session.add(object_)
 
+        # update the object with the new attributes
         for k, v in updated_dict.items():
-            setattr(object_, k, v)
+            # only update attributes that have changed
+            try:
+                if getattr(object_, k) != v:
+                    setattr(object_, k, v)
+            except AttributeError:
+                setattr(object_, k, v)
 
-        session.commit()
+        # TODO: Fix this error.
+        # Currently there are no effects from it.
+        # the events are first on 'after_flush' and the returned object_
+        # works.
+        # TODO: Check if all the flush events fire, which object this occurs
+        # on, and when it happens.
+        try:
+            session.commit()
+        except ResourceClosedError as e:
+            print "The ResourceError was introduced with after_flush events."
+            print "but doesn't cause any noticable problems right now."
+            print e
+
         return object_
 
 

@@ -5,7 +5,7 @@
     Base ObjectView and Field for subclassing.
 
 """
-from jutil.errors import OverrideRequiredError
+#from jutil.errors import OverrideRequiredError
 from view.elementary.html import Form, SubmitButton
 
 from .field import FieldList, Field
@@ -46,7 +46,9 @@ class ObjectView(Form):
 
     def _construct_fields(self):
         """Return list of Fields."""
-        raise OverrideRequiredError()
+        # TODO: Should be force override but Template is not in the system yet.
+        # raise OverrideRequiredError()
+        return []
 
 
     def _construct_submit_button(self, submit_text):
