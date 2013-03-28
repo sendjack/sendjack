@@ -10,6 +10,7 @@ from redflag import redflag
 import settings
 from model.data.task_instance import TASK_INSTANCE
 from model.object.task_instance import TaskInstance
+from model.object.task_template import TaskTemplate
 from model.object.customer import Customer
 from view.emails.instance_status.completed import CompletedInstanceMessage
 from view.emails.instance_status.processed import ProcessedInstanceMessage
@@ -23,9 +24,16 @@ class InstanceEventFactory(EventFactory):
     def __init__(self, manager):
         super(InstanceEventFactory, self).__init__(manager)
 
+        # TaskInstance.status change event
         event = AttributeChangeEvent(
                 TaskInstance.status,
                 self.on_status_change)
+        self._event_manager.add_attribute_change_handler(event)
+
+        # TaskInstance.template_id change event
+        event = AttributeChangeEvent(
+                TaskInstance.template_id,
+                self.on_template_id_change)
         self._event_manager.add_attribute_change_handler(event)
 
 
@@ -46,6 +54,34 @@ class InstanceEventFactory(EventFactory):
         handler = status_change_handlers.get(value)
         if handler:
             handler(object_)
+
+
+    def on_template_id_change(self, object_, value, old_value):
+        # TODO: get the diff and check that instead of self._model.
+
+        # TODO: write copy() into model.data.crud or
+        # model.data.task_instance. if this isn't the right call, then
+        # at least programmatically get the common columns to construct
+        # the fields dict below.
+
+        #if self._model.price:
+        #    # TODO: add a second button to be more clear about this.
+        #    self._change_state("processed")
+        task_template = TaskTemplate.read(value)
+
+        fields = {
+                "title": task_template.title,
+                "instructions": task_template.instructions,
+                "properties": task_template.properties,
+                "output_type": task_template.output_type,
+                "output_method": task_template.output_method,
+                "category_tags": task_template.category_tags,
+                "industry_tags": task_template.industry_tags,
+                "skill_tags": task_template.skill_tags,
+                "equipment_tags": task_template.equipment_tags,
+                }
+
+        TaskInstance.update(object_.id, fields)
 
 
     def _on_new_status(self, instance):
