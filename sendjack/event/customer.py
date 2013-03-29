@@ -49,6 +49,7 @@ class CustomerEventFactory(EventFactory):
 
 
     def _on_registered_status(self, customer):
+        # send email to customer
         domain = settings.EMBEDDABLE_DOMAIN
         status_message = TestCreatedCustomerMessage(domain, customer)
         if customer.control_group:
@@ -57,6 +58,14 @@ class CustomerEventFactory(EventFactory):
                 customer,
                 status_message.subject,
                 status_message.body_text)
+
+        # send notification email to us
+        # TODO: Pull subject and body_test from a StatusMesage
+        redflag.send_email_to_notification_account(
+                unicode("Customer Created"),
+                customer.email,
+                unicode("Somebody just signed up and sent us a task. Body "
+                        "text required."))
 
 
     def _on_unverified_status(self, customer):

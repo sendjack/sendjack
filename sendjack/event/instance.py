@@ -57,6 +57,7 @@ class InstanceEventFactory(EventFactory):
 
 
     def on_template_id_change(self, object_, value, old_value):
+        pass
         # TODO: get the diff and check that instead of self._model.
 
         # TODO: write copy() into model.data.crud or
@@ -89,7 +90,12 @@ class InstanceEventFactory(EventFactory):
 
 
     def _on_created_status(self, instance):
-        pass
+        # send notification email to us
+        # TODO: Pull subject and body_test from a StatusMesage
+        redflag.send_email_to_notification_account(
+                unicode("Task Created"),
+                instance.title,
+                instance.summary)
 
 
     def _on_processed_status(self, instance):
