@@ -85,12 +85,7 @@ var ApproveInstanceController = Backbone.Marionette.Controller.extend({
     },
 
     initializeTransitions: function () {
-        // when instnace view is saved then navigate
-        this.instanceModel.once(event.SAVE, function () {
-            var id = this.instanceModel.id;
-            var path = '/tasks/' + id + '/approve/thanks';
-            Backbone.history.navigate(path, {trigger: true});
-        }, this);
+        this.instanceModel.once(event.SAVE, this.onApprovedInstance, this);
     },
 
     loadApproveInstancePage: function (instanceID) {
@@ -109,6 +104,15 @@ var ApproveInstanceController = Backbone.Marionette.Controller.extend({
         }
 
         this.region.show(this.approveInstanceThanksPage);
+    },
+
+    onApprovedInstance: function (model, options) {
+        var id = model.id;
+
+        track.approveTask(id, model.get('price'));
+
+        var path = '/tasks/' + id + '/approve/thanks';
+        Backbone.history.navigate(path, {trigger: true});
     }
 });
 

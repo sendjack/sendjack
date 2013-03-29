@@ -11,7 +11,8 @@ from sqlalchemy import Column
 from sqlalchemy.types import Integer, String
 
 from base import BaseModel
-from types import SerializableStringList, SerializableDictList, OutputList, TagList
+from types import SerializableStringList, SerializableDictList, OutputList
+from types import TagList
 
 
 class TaskModel(BaseModel):

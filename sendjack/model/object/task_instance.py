@@ -6,11 +6,11 @@
 
 """
 from model.data.task_instance import TaskInstanceModel, TASK_INSTANCE
-from model.object.status_message import TaskStatusMessage
 
 
 class TaskInstance(TaskInstanceModel):
 
+    # TODO: pretty sure we should be using __repr__ here
     def __str__(self):
         fields = {
                 "id": self.id,
@@ -69,9 +69,6 @@ class TaskInstance(TaskInstanceModel):
                 self.location_radius,
                 self.location)
 
-    @property
-    def status_message(self):
-        return TaskStatusMessage(self.status, self)
 
     def is_new(self):
         return self.status == TASK_INSTANCE.NEW

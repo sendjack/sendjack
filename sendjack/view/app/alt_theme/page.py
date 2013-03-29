@@ -10,15 +10,17 @@ from view.elementary.html import SubmitButton
 
 from view.app.base.page import Page
 from view.app.base.components import TitledGrid, Grid
-from view.app.base.field import Field, FieldList
-from view.app.base.field import IDField, TitleField, SummaryField
+
+# template fields (TODO: make this model instance and customer)
+from view.app.base.object.base import ObjectView
+from view.app.base.object.field import Field, FieldList
+from view.app.base.object.field import IDField, TitleField, SummaryField
 #from components import CreatorField
-from view.app.base.field import InstructionsField, InstructionField
-from view.app.base.field import PropertiesField, PropertyField
-from view.app.base.field import OutputTypeField, OutputMethodField
-from view.app.base.field import CategoryTagsField, IndustryTagsField
-from view.app.base.field import SkillTagsField, EquipmentTagsField
-from view.app.base.object import ObjectView
+from view.app.base.object.field import InstructionsField, InstructionField
+from view.app.base.object.field import PropertiesField, PropertyField
+from view.app.base.object.field import OutputTypeField, OutputMethodField
+from view.app.base.object.field import CategoryTagsField, IndustryTagsField
+from view.app.base.object.field import SkillTagsField, EquipmentTagsField
 
 from .components import NormalSection, ContrastSection
 
@@ -35,13 +37,20 @@ class AltPage(Page):
 class TaskTemplatePage(AltPage):
 
     _TEMPLATE_PAGE_ID = unicode("template-page")
-    _TEMPLATE_ID = unicode("template")
+
+    _OBJECT_VIEW_ID = unicode("template")
+    _OBJECT_TYPE_CLASS = unicode("template-view")
 
     def __init__(self):
         super(TaskTemplatePage, self).__init__()
         self.set_id(self._TEMPLATE_PAGE_ID)
 
-        template_view = ObjectView(self._TEMPLATE_ID)
+        # TODO: To move TemplateView to base package will need to introduce the
+        # concept of mixins and layouts.
+        template_view = ObjectView(
+                self._OBJECT_TYPE_CLASS,
+                self._OBJECT_VIEW_ID)
+
         template_view.append_child(TaskTemplateNormalSection())
         template_view.append_child(TaskTemplateContrastSection())
 

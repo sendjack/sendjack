@@ -73,7 +73,13 @@ class Field(DataDiv):
 
 
     def set_placeholder(self, value):
-        raise OverrideNotAllowedError("Not callable on this Element subclass.")
+        # So we don't need to make a subclass everytime we want to override the
+        # value input's placeholder.
+        self._value_el.set_placeholder(value)
+
+
+    def get_key_name(self):
+        return self.KEY_NAME
 
 
 class BigField(Field):
@@ -83,8 +89,7 @@ class BigField(Field):
 
     def __init__(self, key, name, value="", is_explained=False):
         super(BigField, self).__init__(key, name, value, is_explained)
-        # TODO: this sets a class in addition to the analog in the super class,
-        # not instead of it. is that the intent? if not, override _FIELD_CLASS.
+
         self.append_class(self._BIG_FIELD_CLASS)
 
 
@@ -92,10 +97,6 @@ class BigField(Field):
         input_el = Textarea(name, value)
         input_el.set_rows(self._DEFAULT_NUM_ROWS)
         return input_el
-
-
-    def _set_rows(self, num_of_rows):
-        self.set_rows(num_of_rows)
 
 
     def set_rows(self, num_of_rows):
@@ -192,7 +193,9 @@ class KeyedSubField(DataDiv):
 
 
     def set_placeholder(self, value):
-        raise OverrideNotAllowedError("Not callable on this Element subclass.")
+        # So we don't need to make a subclass everytime we want to override the
+        # value input's placeholder.
+        self._value_el.set_placeholder(value)
 
 
 class FieldList(UL):
@@ -206,20 +209,20 @@ class FieldList(UL):
 
 class IDField(Field):
 
-    LABEL = unicode("Task ID")
+    LABEL = unicode("ID")
     NAME = unicode("id")
 
     def __init__(self):
         super(IDField, self).__init__(self.LABEL, self.NAME)
 
 
-class TemplateField(Field):
+class TemplateIDField(Field):
 
-    LABEL = unicode("Template")
+    LABEL = unicode("Template ID")
     NAME = unicode("template_id")
 
     def __init__(self):
-        super(TemplateField, self).__init__(self.LABEL, self.NAME)
+        super(TemplateIDField, self).__init__(self.LABEL, self.NAME)
 
 
 class CreatorField(Field):
@@ -231,13 +234,13 @@ class CreatorField(Field):
         super(CreatorField, self).__init__(self.LABEL, self.NAME)
 
 
-class CustomerField(Field):
+class CustomerIDField(Field):
 
     LABEL = unicode("Customer")
     NAME = unicode("customer_id")
 
     def __init__(self):
-        super(CustomerField, self).__init__(self.LABEL, self.NAME)
+        super(CustomerIDField, self).__init__(self.LABEL, self.NAME)
 
 
 class CustomerTitleField(Field):
@@ -383,9 +386,11 @@ class MoreDetailsField(BigField):
                 self.NAME,
                 "",
                 is_explained)
+
         # XXX: does this work? if so, explanation can probably be set some
-        # other simpler way
-        self._set_rows(self._DEFAULT_NUM_ROWS)
+        # other simpler way [ebh: by 'this' do you mean num rows or
+        # 'is_explained'?]
+        self.set_rows(self._DEFAULT_NUM_ROWS)
 
 
 class DeadlineField(Field):
@@ -474,6 +479,24 @@ class EquipmentTagsField(Field):
         super(EquipmentTagsField, self).__init__(self.LABEL, self.NAME)
 
 
+class FirstNameField(Field):
+
+    LABEL = unicode("First Name")
+    NAME = unicode("first_name")
+
+    def __init__(self):
+        super(FirstNameField, self).__init__(self.LABEL, self.NAME)
+
+
+class LastNameField(Field):
+
+    LABEL = unicode("Last Name")
+    NAME = unicode("last_name")
+
+    def __init__(self):
+        super(LastNameField, self).__init__(self.LABEL, self.NAME)
+
+
 class EmailField(Field):
 
     LABEL = unicode("Email")
@@ -483,3 +506,39 @@ class EmailField(Field):
 
     def __init__(self):
         super(EmailField, self).__init__(self.LABEL, self.NAME)
+
+
+class CreditCardField(Field):
+
+    LABEL = unicode("Credit Card")
+    NAME = unicode("card_number")
+
+    def __init__(self):
+        super(CreditCardField, self).__init__(self.LABEL, self.NAME)
+
+
+class ExpiryMonthField(Field):
+
+    LABEL = unicode("Exp Month")
+    NAME = unicode("card_expiry_month")
+
+    def __init__(self):
+        super(ExpiryMonthField, self).__init__(self.LABEL, self.NAME)
+
+
+class ExpiryYearField(Field):
+
+    LABEL = unicode("Exp Year")
+    NAME = unicode("card_expiry_year")
+
+    def __init__(self):
+        super(ExpiryYearField, self).__init__(self.LABEL, self.NAME)
+
+
+class CVCField(Field):
+
+    LABEL = unicode("CVC")
+    NAME = unicode("card_cvc")
+
+    def __init__(self):
+        super(CVCField, self).__init__(self.LABEL, self.NAME)

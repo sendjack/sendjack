@@ -26,13 +26,13 @@ var TaskView = base.getTaskViewClass();
 
 var TaskTemplateView = TaskView.extend({
 
-    el: '#template',
+    el: '.template-view',
 
     editBindings: function (bindings) {
         // TODO: maybe move this to TaskView?
-
-        bindings.instructions.converter = this.convertJSON;
-        bindings.properties.converter = this.convertJSON;
+    
+        this._setBindingConverter(bindings.instructions, this.convertJSON);
+        this._setBindingConverter(bindings.properties, this.convertJSON);
 
         return bindings;
     }

@@ -153,10 +153,6 @@
     color: @white;
 }
 
-.searchTitleText() {
-    .titleFont;
-    color: @blue;
-}
 
 /***********************************************************
 * REUSABLE APP-SPECIFIC CLASSES
@@ -492,6 +488,35 @@ li {
     * MAIN PAGE - SEACH PAGE
     ************************************************************/
     &#search-page {
+        @landingNormalFontSize: 32px;
+        @landingBigFontSize: 52px;
+        .landingTitleFont(@fontSize: @landingBigFontSize) {
+            font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+            font-size: @fontSize;
+        }
+        .landingSubtitleFont(@fontSize: @landingNormalFontSize) {
+            font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+            font-size: @fontSize;
+        }
+        .landingNormalFont(@fontSize: @landingNormalFontSize) {
+            font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+            font-size: @fontSize;
+            letter-spacing: 1px;
+        }
+        .landingTitleText() {
+            .landingTitleFont();
+            color: @blue;
+        }
+        .landingSubtitleText() {
+            .landingSubtitleFont();
+            color: @darkGrey;
+        }
+        .landingNormalText() {
+            .landingNormalFont();
+            color: @grey;
+        }
+
+
         position: absolute;
         width: 100%;
         height: 100%;
@@ -506,15 +531,15 @@ li {
             padding: @smallBoxPadding 0px;
 
             .grid-title {
-                .searchTitleText();
+                .landingTitleText();
                 padding-bottom: 0px;
                 border-bottom: 0px;
             }
 
             .grid-text {
-                .titleText();
+                .landingSubtitleText();
                 margin-top: 0px;
-                width: 60%;
+                width: 70%;
             }
 
             .object-view {
@@ -554,9 +579,9 @@ li {
             }
 
             .search-text {
-                .normalText();
+                .landingNormalText();
 
-                width: 30%;
+                width: 60%;
                 float: right;
                 clear: both;
                 text-align: right;
