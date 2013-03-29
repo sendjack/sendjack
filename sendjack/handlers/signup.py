@@ -22,10 +22,9 @@ class SignUpRedirectHandler(RedirectHandler):
         from pprint import pprint
         if Deployment.is_dev():
             pprint("DEPLOYMENT IS DEV!")
-            self._url = "/signup"
+            self._url = "/search"
         else:
-            pprint("DEPLOYMENT IS NOT DEV!")
-            self._url = "https://secure.sendjack.com/signup"
+            self._url = "https://secure.sendjack.com/search"
 
         self._permanent = True
 

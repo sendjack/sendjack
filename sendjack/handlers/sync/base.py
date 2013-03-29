@@ -55,3 +55,15 @@ class SyncHandler(BaseHandler):
     def _pre_process_request(self):
         """Do any class specific pre processing."""
         pass
+
+
+class SecureSyncHandler(SyncHandler):
+
+    """Provide an abstract superclass for synchronous requests requiring https.
+
+    Attributes
+    ----------
+    _markup_class : class
+    _id : id
+    """
+    pass
