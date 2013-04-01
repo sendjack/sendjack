@@ -9,7 +9,7 @@
 from view.app.main_theme.body import ConfirmInstanceBody, ApproveInstanceBody
 from view.app.main_theme.body import CreateInstanceBody, ProcessInstanceBody
 
-from .base import SyncHandler
+from .base import SyncHandler, SecureSyncHandler
 
 
 class CreateInstanceSyncHandler(SyncHandler):
@@ -41,7 +41,7 @@ class ProcessInstanceSyncHandler(SyncHandler):
         pass
 
 
-class ConfirmInstanceSyncHandler(SyncHandler):
+class ConfirmInstanceSyncHandler(SecureSyncHandler):
 
     """Handle confirm instance series.
 
