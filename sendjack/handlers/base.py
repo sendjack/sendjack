@@ -26,6 +26,32 @@ from jutil.errors import OverrideRequiredError
 import settings
 
 
+class _PROTOCOL(object):
+
+    @constant
+    def HTTP(self):
+        return "http"
+
+    @constant
+    def HTTPS(self):
+        return "https"
+
+PROTOCOL = _PROTOCOL()
+
+
+class _HOST(object):
+
+    @constant
+    def BASE(self):
+        return "sendjack.com"
+
+    @constant
+    def SECURE(self):
+        return "secure.sendjack.com"
+
+HOST = _HOST()
+
+
 class _COOKIE(object):
 
     @constant
@@ -72,15 +98,6 @@ class BaseHandler(tornado.web.RequestHandler):
     def _process_request(self):
         """Execute a request and send a response as JSON or markup."""
         raise OverrideRequiredError()
-
-
-    def _get_request_arguments(self):
-        """Return the request arguments from the URL as a dict."""
-        arguments = {}
-        print self.request.arguments
-        for k, v in self.request.arguments.items():
-            arguments[k] = v[0]
-        return arguments
 
 
     def _get_request_body(self):
