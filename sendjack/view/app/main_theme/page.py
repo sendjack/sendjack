@@ -562,11 +562,11 @@ class SearchGrid(MainGrid):
     _SEARCH_GRID_CLASS = unicode("search-grid")
     _SEARCH_TEXT_CLASS = unicode("search-text")
     _SEARCH_TEXT = unicode(
-            "Just start typing a task and we'll handle the rest.")
+            "Getting your work done is as simple as search.")
 
     _GRID_TITLE = unicode("Jackalope Beta")
     _GRID_SUBTITLES = [
-            unicode("The most reliable way to find contact information.")
+            unicode("The most reliable way to find contact information."),
             ]
 
 
@@ -587,7 +587,7 @@ class SearchInstanceView(InstanceView):
 
     _OBJECT_VIEW_ID = unicode("search-instance")
     _CUSTOMER_TITLE_PLACEHOLDER = unicode(
-            "What type of task do you need to get done today?")
+            "Enter your task to find contact information...")
 
 
     def __init__(self):
