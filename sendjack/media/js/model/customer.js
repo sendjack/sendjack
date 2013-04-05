@@ -22,7 +22,10 @@ var CustomerModel = BaseModel.extend({
     urlRoot: '/a/customers',
 
     onCreate: function (model, options) {
-        track.signUp(model.get('id'), model.get('email'));
+        track.signUp(
+                model.get('id'),
+                model.get('email'),
+                model.get('control_group'))
     },
 
     save: function (attributes, options) {
