@@ -61,6 +61,7 @@ class EventManager(object):
 
         # TODO: Do certain properties need active_history=True?
 
+
     def _initialize_registries(self):
         self._attribute_change_registry = {}
 
