@@ -432,7 +432,7 @@ class ConfirmInstanceThanksGrid(TitledGrid):
                     "if we don't hear from you for two days, we will assume "
                     "you approve and automatically charge your card."
                     ),
-            unicode("Email ask@sendjack.com with questions."),
+            unicode("Email jack@sendjack.com with questions."),
             ]
 
     def __init__(self):
