@@ -18,14 +18,26 @@ class PostedInstanceMessage(InstanceStatusMessage):
     @property
     def paragraphs(self):
         paragraphs = []
-        paragraphs.append(unicode("We'll take it from here."))
         paragraphs.append(unicode(
-                "The awesome worker we've found for you will reach out "
-                "shortly. And we'll get back in touch when the work is "
-                "completed."
+                "We got this. You relax. take a beat. Kick back a minute."
                 ))
         paragraphs.append(unicode(
-                "If you have any questions, feel free to write back."
+                "While you're doing that, we're getting started on your task. "
+                "The worker we found to get it done will reach out to you "
+                "shortly."
+                ))
+        paragraphs.append(unicode(
+                "We'll get back in touch when it's completed by sending you "
+                "an email with a link to approve the work. We won't charge "
+                "your card until the task is approved."
+                ))
+        paragraphs.append(unicode(
+                "Remember, once you have been notified the task is done, if "
+                "we don't hear from you for two days we will assume you "
+                "approve and automatically charge your card."
+                ))
+        paragraphs.append(unicode(
+                "Thank you for using Jackalope to get your work done!"
                 ))
 
         return paragraphs
