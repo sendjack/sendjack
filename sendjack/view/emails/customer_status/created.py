@@ -28,16 +28,22 @@ class ControlCreatedCustomerMessage(CreatedCustomerMessage):
     def paragraphs(self):
         paragraphs = []
         paragraphs.append(unicode(
-                "Thank you for signing up to use Jackalope to get your work "
-                "done!"
+                "Best. Decision. Ever."
                 ))
         paragraphs.append(unicode(
-                "We're looking into your task. We'll email you when it's "
-                "ready to post."
+                "Thank you for using Jackalope to get your work done!"
                 ))
         paragraphs.append(unicode(
-                "If you have questions, comments, or concerns about this "
-                "task, just reply to this email thread. Jack will do the same."
+                "We're checking out tasks just like yours that went really "
+                "well in order to suggest a price and find the right worker."
+                ))
+        paragraphs.append(unicode(
+                "Watch your inbox. Soon we will send you an email with a link "
+                "to confirm the details. It shouldn't be long."
+                ))
+        paragraphs.append(unicode(
+                "You're about to be a whole lot more productive. And awesome. "
+                "Tell your friends."
                 ))
 
         return paragraphs
@@ -49,17 +55,23 @@ class TestCreatedCustomerMessage(CreatedCustomerMessage):
     def paragraphs(self):
         paragraphs = []
         paragraphs.append(unicode(
-                "Thank you for signing up to use Jackalope to get your work "
-                "done!"
+                "Best. Decision. Ever."
                 ))
         paragraphs.append(unicode(
-                "We're looking into your task. We'll provide proven "
-                "instructions and a recommend price for your task in our next "
-                "email."
+                "Thank you for using Jackalope to get your work done!"
                 ))
         paragraphs.append(unicode(
-                "If you have questions, comments, or concerns about this "
-                "task, just reply to this email thread. Jack will do the same."
+                "We're checking out tasks just like yours that went really "
+                "well in order to fine-tune the description and suggest a "
+                "price."
+                ))
+        paragraphs.append(unicode(
+                "Watch your inbox. Soon we will send you an email with a link "
+                "to confirm the details. It shouldn't be long."
+                ))
+        paragraphs.append(unicode(
+                "You're about to be a whole lot more productive. And awesome. "
+                "Tell your friends."
                 ))
 
         return paragraphs

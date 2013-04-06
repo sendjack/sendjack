@@ -419,12 +419,14 @@ class ConfirmInstanceThanksGrid(TitledGrid):
 
     _GRID_TITLE = unicode("We're On It!")
     _GRID_SUBTITLES = [
-            unicode("Thank you for using Jackalope to get your work done."),
             unicode("We got this. You relax. Take a beat. Kick back a "
                     "minute."
                     ),
             unicode("While you're doing that, we're getting started on your "
-                    "task. We'll let you know when it's finished by sending "
+                    "task. The worker we found to get it done will reach out "
+                    "to you shortly."
+                    ),
+            unicode("We'll get back in touch when it's completed by sending "
                     "you an email with a link to approve the work. We won't "
                     "charge your card until the task is approved."
                     ),
@@ -432,7 +434,7 @@ class ConfirmInstanceThanksGrid(TitledGrid):
                     "if we don't hear from you for two days, we will assume "
                     "you approve and automatically charge your card."
                     ),
-            unicode("Email jack@sendjack.com with questions."),
+            unicode("Thank you for using Jackalope to get your work done."),
             ]
 
     def __init__(self):
