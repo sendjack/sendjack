@@ -70,14 +70,13 @@ class CreateInstanceGrid(MainGrid):
 
     _GRID_TITLE = unicode("Add Task Details")
     _GRID_SUBTITLES = [
-            unicode("We're excited to get started on your task. Let's dig a "
-                    "little deeper...tell us more about the work you need "
-                    "done."
+            unicode("We're excited to get to work. Tell us more about what "
+                    "you need done."
                     ),
-            unicode("Your task will be matched with similar work that has "
-                    "gone well in the past to make sure we write clear "
-                    "instructions, set the right price, and find the best "
-                    "worker to get it done on time."
+            unicode("Jackalope examines tasks just like yours that went "
+                    "really well in order to fine-tune the description, "
+                    "suggest a price, and find the best worker to get the "
+                    "work done on time."
                     ),
             ]
 
