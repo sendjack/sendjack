@@ -19,7 +19,7 @@ class PostedInstanceMessage(InstanceStatusMessage):
     def paragraphs(self):
         paragraphs = []
         paragraphs.append(unicode(
-                "We got this. You relax. take a beat. Kick back a minute."
+                "We got this. You relax. Take a beat. Kick back a minute."
                 ))
         paragraphs.append(unicode(
                 "While you're doing that, we're getting started on your task. "
