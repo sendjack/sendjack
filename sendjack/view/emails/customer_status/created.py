@@ -34,10 +34,6 @@ class ControlCreatedCustomerMessage(CreatedCustomerMessage):
                 "Thank you for using Jackalope to get your work done!"
                 ))
         paragraphs.append(unicode(
-                "We're checking out tasks just like yours that went really "
-                "well in order to suggest a price and find the right worker."
-                ))
-        paragraphs.append(unicode(
                 "Watch your inbox. Soon we will send you an email with a link "
                 "to confirm the details. It shouldn't be long."
                 ))
