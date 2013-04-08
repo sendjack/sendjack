@@ -51,9 +51,14 @@ class CustomerEventFactory(EventFactory):
     def _on_registered_status(self, customer):
         # send email to customer
         domain = settings.EMBEDDABLE_DOMAIN
-        status_message = TestCreatedCustomerMessage(domain, customer)
+
+        # TODO: create a factory or static wrapper that chooses test or control
+        # based on the parameters passed to instantiate it (ex: customer).
         if customer.control_group:
             status_message = ControlCreatedCustomerMessage(domain, customer)
+        else:
+            status_message = TestCreatedCustomerMessage(domain, customer)
+
         redflag.send_email_to_customer(
                 customer,
                 status_message.subject,

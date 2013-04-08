@@ -13,7 +13,9 @@ from model.object.task_instance import TaskInstance
 from model.object.task_template import TaskTemplate
 from model.object.customer import Customer
 from view.emails.instance_status.completed import CompletedInstanceMessage
-from view.emails.instance_status.processed import ProcessedInstanceMessage
+from view.emails.instance_status.processed import (
+        ControlProcessedInstanceMessage,
+        TestProcessedInstanceMessage)
 from view.emails.instance_status.posted import PostedInstanceMessage
 
 from .base import EventFactory, AttributeChangeEvent
@@ -101,7 +103,20 @@ class InstanceEventFactory(EventFactory):
     def _on_processed_status(self, instance):
         domain = settings.EMBEDDABLE_DOMAIN
         customer = Customer.read(instance.customer_id)
-        status_message = ProcessedInstanceMessage(domain, customer, instance)
+
+        # TODO: create a factory or static wrapper that chooses test or control
+        # based on the parameters passed to instantiate it (ex: customer).
+        if customer.control_group:
+            status_message = ControlProcessedInstanceMessage(
+                    domain,
+                    customer,
+                    instance)
+        else:
+            status_message = TestProcessedInstanceMessage(
+                    domain,
+                    customer,
+                    instance)
+
         redflag.send_email_to_customer(
                 customer,
                 status_message.subject,
