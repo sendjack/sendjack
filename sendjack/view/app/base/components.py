@@ -55,7 +55,7 @@ class ContactAnchor(Div):
 
     # TODO: Put this somewhere else.
     _ANCHOR_TEXT = unicode("Contact Us")
-    _MAIL_TO_LINK = unicode("mailto:alpha@sendjack.com")
+    _MAIL_TO_LINK = unicode("mailto:contact@sendjack.com")
 
 
     def __init__(self):

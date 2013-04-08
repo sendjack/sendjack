@@ -5,6 +5,8 @@
     Email customer that their task has been processed and is ready to confirm.
 
 """
+from jutil.errors import OverrideRequiredError
+
 from .base import InstanceStatusMessage
 
 
@@ -13,24 +15,54 @@ class ProcessedInstanceMessage(InstanceStatusMessage):
 
     @property
     def subject(self):
-        return unicode("Your task is prepared and ready to post.")
+        return unicode("Confirm Your Task Details")
+
+
+    @property
+    def paragraphs(self):
+        raise OverrideRequiredError()
+
+
+class ControlProcessedInstanceMessage(ProcessedInstanceMessage):
 
 
     @property
     def paragraphs(self):
         paragraphs = []
         paragraphs.append(unicode(
-                "We checked out a number of tasks like yours that went well, "
-                "and Jack is ready to get started."
+                "We're almost ready to get to work on your task, but we need "
+                "you to confirm a few things."
                 ))
         paragraphs.append(unicode(
-                "We've also fine-tuned your description to fit a format that "
-                "has worked well for similar tasks. This should help Jack get "
-                "your work done better and faster, but let us know if "
-                "anything is off."
+                "Please confirm the task details, including price, so we can "
+                "get to work right away."
+                ))
+        paragraphs.append(unicode("http://{}/tasks/{}/confirm").format(
+                self._domain,
+                self._instance_id))
+
+        return paragraphs
+
+
+class TestProcessedInstanceMessage(ProcessedInstanceMessage):
+
+
+    @property
+    def paragraphs(self):
+        paragraphs = []
+        paragraphs.append(unicode(
+                "We're almost ready to get to work on your task, but we need "
+                "you to confirm a few things."
                 ))
         paragraphs.append(unicode(
-                "Please check out our write up and confirm the price:"
+                "Jackalope turns every successful task into a reusable recipe "
+                "for getting work done. We checked out tasks just like yours "
+                "that went really well in order to fine-tune the description "
+                "and suggest a price."
+                ))
+        paragraphs.append(unicode(
+                "Please check out our suggestions, make necessary edits, and "
+                "confirm the task details so we can get to work right away."
                 ))
         paragraphs.append(unicode("http://{}/tasks/{}/confirm").format(
                 self._domain,

@@ -36,9 +36,11 @@ class StatusMessage(object):
                 self.construct_body_text_blob(),
                 self.signature)
 
+
     #@property
-    #@def body_html(self):
+    #def body_html(self):
     #    return unicode("")
+
 
     @property
     def salutation(self):
@@ -52,13 +54,16 @@ class StatusMessage(object):
     def valediction(self):
         return unicode("Let's get to work,")
 
+
     @property
     def signature(self):
         return unicode("{}\nJack\njack@sendjack.com").format(self.valediction)
 
+
     @property
     def paragraphs(self):
         raise OverrideRequiredError()
+
 
     def construct_body_text_blob(self):
         return unicode("\n\n").join(self.paragraphs)

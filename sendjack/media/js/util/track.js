@@ -48,7 +48,7 @@ var EVENT = {
 // MixPanel properties
 var PROPERTY = {
     PAGE: "page",
-    TEST_COHORT: "test cohort",
+    CONTROL_GROUP: "control group",
     TASK_ID: "task id",
     PRICE: "price",
     FIRST_TASK_PRICE: "price"
@@ -67,23 +67,24 @@ var track = (function () {
     /**
      * Initialize customer with Jackalope ID and persistent properties.
      */
-    that.initCustomer = function (customerID, email) {
+    that.initCustomer = function (customerID, email, controlGroup) {
         mixpanel.alias(customerID);
         if (email) {
             mixpanel.name_tag(email);
         }
 
         var superProperties = {};
-        superProperties[PROPERTY.TEST_COHORT] = 'dev';
+        console.log(controlGroup);
+        superProperties[PROPERTY.CONTROL_GROUP] = controlGroup;
         mixpanel.register(superProperties);
     };
 
     /**
      * Sign up user with one time SIGN_UP.
      */
-    that.signUp = function (customerID, email) {
+    that.signUp = function (customerID, email, controlGroup) {
         console.log("TRACK sign up", customerID, email);
-        that.initCustomer(customerID, email);
+        that.initCustomer(customerID, email, controlGroup);
 
         
         var properties = {};

@@ -70,14 +70,13 @@ class CreateInstanceGrid(MainGrid):
 
     _GRID_TITLE = unicode("Add Task Details")
     _GRID_SUBTITLES = [
-            unicode("We're excited to get started on your task. Let's dig a "
-                    "little deeper...tell us more about the work you need "
-                    "done."
+            unicode("We're excited to get to work. Tell us more about what "
+                    "you need done."
                     ),
-            unicode("Your task will be matched with similar work that has "
-                    "gone well in the past to make sure we write clear "
-                    "instructions, set the right price, and find the best "
-                    "worker to get it done on time."
+            unicode("Jackalope examines tasks just like yours that went "
+                    "really well in order to fine-tune the description, "
+                    "suggest a price, and find the best worker to get the "
+                    "work done on time."
                     ),
             ]
 
@@ -419,12 +418,14 @@ class ConfirmInstanceThanksGrid(TitledGrid):
 
     _GRID_TITLE = unicode("We're On It!")
     _GRID_SUBTITLES = [
-            unicode("Thank you for using Jackalope to get your work done."),
             unicode("We got this. You relax. Take a beat. Kick back a "
                     "minute."
                     ),
             unicode("While you're doing that, we're getting started on your "
-                    "task. We'll let you know when it's finished by sending "
+                    "task. The worker we found to get it done will reach out "
+                    "to you shortly."
+                    ),
+            unicode("We'll get back in touch when it's completed by sending "
                     "you an email with a link to approve the work. We won't "
                     "charge your card until the task is approved."
                     ),
@@ -432,7 +433,7 @@ class ConfirmInstanceThanksGrid(TitledGrid):
                     "if we don't hear from you for two days, we will assume "
                     "you approve and automatically charge your card."
                     ),
-            unicode("Email ask@sendjack.com with questions."),
+            unicode("Thank you for using Jackalope to get your work done."),
             ]
 
     def __init__(self):
@@ -562,11 +563,11 @@ class SearchGrid(MainGrid):
     _SEARCH_GRID_CLASS = unicode("search-grid")
     _SEARCH_TEXT_CLASS = unicode("search-text")
     _SEARCH_TEXT = unicode(
-            "Just start typing a task and we'll handle the rest.")
+            "Getting your work done is as simple as search.")
 
     _GRID_TITLE = unicode("Jackalope Beta")
     _GRID_SUBTITLES = [
-            unicode("The most reliable way to find contact information.")
+            unicode("The most reliable way to find contact information."),
             ]
 
 
@@ -587,7 +588,7 @@ class SearchInstanceView(InstanceView):
 
     _OBJECT_VIEW_ID = unicode("search-instance")
     _CUSTOMER_TITLE_PLACEHOLDER = unicode(
-            "What type of task do you need to get done today?")
+            "Enter your task to find contact information...")
 
 
     def __init__(self):
