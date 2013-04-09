@@ -5,28 +5,9 @@
 A handler for the signup page.
 
 """
-from tornado.web import RedirectHandler
-
-from jutil.environment import Deployment
-
 from base import BaseHandler
 
 from model.object.user import User
-
-
-class SignUpRedirectHandler(RedirectHandler):
-
-    """ Redirect to SignUp Page (securely if not in dev). """
-
-    def initialize(self):
-        from pprint import pprint
-        if Deployment.is_dev():
-            pprint("DEPLOYMENT IS DEV!")
-            self._url = "/search"
-        else:
-            self._url = "https://secure.sendjack.com/search"
-
-        self._permanent = True
 
 
 class SignUpHandler(BaseHandler):

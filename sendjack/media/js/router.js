@@ -43,6 +43,7 @@ var CreateInstanceRouter = Backbone.Marionette.AppRouter.extend({
     controller: createInstanceController,
 
     appRoutes: {
+        '': 'loadSearchPage',
         'search': 'loadSearchPage',
         'tasks/create': 'loadCreateInstancePage',
         'users/create': 'loadCreateCustomerPage',

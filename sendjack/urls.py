@@ -6,26 +6,25 @@
 
 """
 from handlers.signup import SignUpHandler, SignUpSubmitHandler
-from handlers.logged_out import LoggedOutHandler
-
-from handlers.sync.task_instance import CreateInstanceSyncHandler
-from handlers.sync.task_instance import ProcessInstanceSyncHandler
-from handlers.sync.task_instance import ConfirmInstanceSyncHandler
-from handlers.sync.task_instance import ApproveInstanceSyncHandler
 
 from handlers.sync.task_template import TaskTemplateSyncHandler
+from handlers.sync.task_instance import (
+        CreateInstanceSyncHandler,
+        ProcessInstanceSyncHandler,
+        ConfirmInstanceSyncHandler,
+        ApproveInstanceSyncHandler)
 
-from handlers.crud.customer import CustomerCRUDHandler
-from handlers.crud.task_instance import TaskInstanceCRUDHandler
 from handlers.crud.task_template import TaskTemplateCRUDHandler
+from handlers.crud.task_instance import TaskInstanceCRUDHandler
+from handlers.crud.customer import CustomerCRUDHandler
 from handlers.crud.comment import CommentCRUDHandler
 
 
 url_patterns = [
         (r"/signup", SignUpHandler),
         (r"/thankyou", SignUpSubmitHandler),
-        (r"/", LoggedOutHandler),
 
+        (r"/", CreateInstanceSyncHandler),
         (r"/search", CreateInstanceSyncHandler),
         (r"/tasks/create", CreateInstanceSyncHandler),
         (r"/users/create", CreateInstanceSyncHandler),
