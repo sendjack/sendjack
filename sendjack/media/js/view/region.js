@@ -19,8 +19,8 @@ define(
 var AppRegion = Backbone.Marionette.Region.extend({
 
     // show, open, and close reference these examples for transitions:
-    // https://github.com/marionettejs/backbone.marionette/blob/master/src/marionette.region.js
-    // https://github.com/marionettejs/backbone.marionette/issues/320#issuecomment-9746319
+    // github.com/marionettejs/backbone.marionette/blob/master/src/marionette.region.js
+    // github.com/marionettejs/backbone.marionette/issues/320#issuecomment-9746319
     show: function (view) {
         this.ensureEl();
         view.render();

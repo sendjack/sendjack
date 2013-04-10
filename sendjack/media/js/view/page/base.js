@@ -70,9 +70,16 @@ var PageView = Backbone.Marionette.CompositeView.extend({
         var sectionHeight = $section.outerHeight();
         var sectionHeightStr = parseInt(-sectionHeight, 10) + 'px';
 
+        // hide page
         $section.animate({top: sectionHeightStr}, {
             duration: 'slow',
-            complete: callback
+            complete: function () {
+                // after hide scroll to top
+                $('html, body').animate({scrollTop: 0}, {
+                    duration: 'slow',
+                    complete: callback
+                });
+            }
         });
 
 
