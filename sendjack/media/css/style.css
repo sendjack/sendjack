@@ -55,6 +55,7 @@ li{margin-bottom:8px;line-height:30px;}
 .main-page#confirm-instance-page .task-instance-view .field-price{float:right;width:47%;}
 .main-page#approve-instance-page .task-instance-view .field-deadline-ts{float:left;width:47%;}
 .main-page#approve-instance-page .task-instance-view .field-price{float:right;width:47%;}
+.main-page#approve-instance-page .reject-button{background:transparent;position:relative;float:left;margin-left:22px;}.main-page#approve-instance-page .reject-button .submit-button{text-align:left;background:transparent;color:#7b7979;width:auto;}
 .main-page#card-customer-page .field-first-name{float:left;width:47%;}
 .main-page#card-customer-page .field-last-name{float:right;width:47%;}
 .main-page#card-customer-page .field-card-expiry-month{float:left;width:100px;margin-right:8px;}

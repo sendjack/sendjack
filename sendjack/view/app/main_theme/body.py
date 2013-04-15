@@ -8,15 +8,18 @@
 """
 from view.app.base.body import AppBody
 
-from page import SearchPage, CreateInstancePage, CreateCustomerPage
-from page import CreateInstanceThanksPage
-
-from page import ProcessInstancePage
-
-from page import ConfirmInstancePage, CardCustomerPage
-from page import ConfirmInstanceThanksPage
-
-from page import ApproveInstancePage, ApproveInstanceThanksPage
+from .page import (
+        SearchPage,
+        CreateInstancePage,
+        CreateCustomerPage,
+        CreateInstanceThanksPage,
+        ProcessInstancePage,
+        ConfirmInstancePage,
+        CardCustomerPage,
+        ConfirmInstanceThanksPage,
+        ApproveInstancePage,
+        ApproveInstanceThanksPage,
+        RejectInstanceThanksPage)
 
 
 class CreateInstanceBody(AppBody):
@@ -52,4 +55,5 @@ class ApproveInstanceBody(AppBody):
         return [
                 ApproveInstancePage(),
                 ApproveInstanceThanksPage(),
+                RejectInstanceThanksPage(),
                 ]
