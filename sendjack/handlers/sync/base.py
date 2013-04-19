@@ -26,8 +26,6 @@ class SyncHandler(BaseHandler):
     """
 
     def initialize(self):
-        from pprint import pprint
-        pprint(self.request.headers)
         self._set_markup_class()
 
 
