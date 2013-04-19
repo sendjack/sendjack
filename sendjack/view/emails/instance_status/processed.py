@@ -7,6 +7,8 @@
 """
 from jutil.errors import OverrideRequiredError
 
+from url.absolute import ConfirmTaskURL
+
 from .base import InstanceStatusMessage
 
 
@@ -37,9 +39,7 @@ class ControlProcessedInstanceMessage(ProcessedInstanceMessage):
                 "Please confirm the task details, including price, so we can "
                 "get to work right away."
                 ))
-        paragraphs.append(unicode("http://{}/tasks/{}/confirm").format(
-                self._domain,
-                self._instance_id))
+        paragraphs.append(ConfirmTaskURL(self._instance_id))
 
         return paragraphs
 
@@ -64,8 +64,6 @@ class TestProcessedInstanceMessage(ProcessedInstanceMessage):
                 "Please check out our suggestions, make necessary edits, and "
                 "confirm the task details so we can get to work right away."
                 ))
-        paragraphs.append(unicode("http://{}/tasks/{}/confirm").format(
-                self._domain,
-                self._instance_id))
+        paragraphs.append(ConfirmTaskURL(self._instance_id))
 
         return paragraphs
