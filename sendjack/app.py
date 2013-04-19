@@ -42,8 +42,10 @@ class SendJackApp(tornado.web.Application):
 def main():
     """ main loop for Python script. """
     app = SendJackApp()
-    http_server = tornado.httpserver.HTTPServer(app)
+
+    http_server = tornado.httpserver.HTTPServer(app, xheaders=True)
     http_server.listen(options.port)
+
     tornado.ioloop.IOLoop.instance().start()
 
 
