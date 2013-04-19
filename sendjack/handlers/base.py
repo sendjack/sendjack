@@ -26,32 +26,6 @@ from jutil.errors import OverrideRequiredError
 import settings
 
 
-class _PROTOCOL(object):
-
-    @constant
-    def HTTP(self):
-        return "http"
-
-    @constant
-    def HTTPS(self):
-        return "https"
-
-PROTOCOL = _PROTOCOL()
-
-
-class _HOST(object):
-
-    @constant
-    def BASE(self):
-        return "sendjack.com"
-
-    @constant
-    def SECURE(self):
-        return "secure.sendjack.com"
-
-HOST = _HOST()
-
-
 class _COOKIE(object):
 
     @constant

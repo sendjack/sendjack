@@ -5,14 +5,13 @@
     Define a base synchronous handler for subclassing.
 
 """
-from urlparse import parse_qs, urlunsplit
-from urllib import urlencode
-
-from jutil.environment import Deployment
 from jutil.errors import OverrideNotAllowedError, OverrideRequiredError
 from view.elementary.html import Element
 
-from handlers.base import BaseHandler, HOST, PROTOCOL
+from url.base import URL
+from url.absolute import SecureEmbeddableURL
+
+from handlers.base import BaseHandler
 
 
 class SyncHandler(BaseHandler):
@@ -27,6 +26,8 @@ class SyncHandler(BaseHandler):
     """
 
     def initialize(self):
+        from pprint import pprint
+        pprint(self.request.headers)
         self._set_markup_class()
 
 
@@ -87,28 +88,11 @@ class SecureSyncHandler(SyncHandler):
         For dev and staging, keep http and keep the host but add a GET argument
         to prove we are functionally secure. When we have an SSL certificate
         for a wildcard subdomain, we can drop the GET argument hack."""
-        protocol = PROTOCOL.HTTPS
-        host = HOST.SECURE
-        path = self.request.path
-        query = self.request.query
-        fragment = ""
-
-        if not Deployment.is_prod():
-            protocol = self.request.protocol
-            host = self.request.host
-
-            # keep_blank_values=True allows for boolean query strings with keys
-            # and no values, like http://sendjack.com/tasks/1/confirm?secure.
-            query_dict = parse_qs(self.request.query, True)
-            query_dict.update({PROTOCOL.HTTPS: ''})
-            # doseq=True ensures query parameters from the original url are
-            # preserved correctly after parse_qs returns them as tuples.
-            query = urlencode(query_dict, True)
-
-        new_url = urlunsplit([protocol, host, path, query, fragment])
+        # build an absolute url to redirect internally to https.
+        url = SecureEmbeddableURL(self.request.path, self.request.query)
 
         # permanent=True also implicitly means status=301.
-        self.redirect(new_url, True)
+        self.redirect(url.render(), True)
 
 
     def _is_request_secure(self):
@@ -117,9 +101,4 @@ class SecureSyncHandler(SyncHandler):
         environments, rely instead on a GET argument for testing purposes. When
         we have an SSL certificate for a wildcard subdomain, we can drop the
         GET argument hack."""
-        if not Deployment.is_prod():
-            # keep_blank_values=True allows for boolean query strings with keys
-            # and no values, like http://sendjack.com/tasks/1/confirm?secure.
-            return PROTOCOL.HTTPS in parse_qs(self.request.query, True)
-
-        return self.request.protocol == PROTOCOL.HTTPS
+        return URL(base=self.request.uri).is_secure()
