@@ -14,7 +14,7 @@ from tornado.options import options
 from redflag import redflag
 
 import settings
-from urls import url_patterns
+from url.patterns import url_patterns
 from event import event
 
 
