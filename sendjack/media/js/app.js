@@ -1,30 +1,83 @@
 /**
- * Sign up application.
+ * The entire Jackalope client side application.
+ *
+ * DEPENDENCIES:
+ * 1. RequireJS: http://requirejs.org
+ * 2. Backbone: http://backbonejs.org
+ * 3. Marionette: http://marionettejs.org
+ *
+ * CONVENTIONS:
+ * 1. Douglas Crockford: http://javascript.crockford.com/code.html
+ * 2. JSDocs
+ * 3. $NAME: jQuery variable
  *
  * @exports app
- *
  * @requires $
- * @requires Stripe
- **/
+ */
+define([], function () {
 
-var jackalope = jackalope || {};
-jackalope.app = (function () {
+// Delay application until jQuery and Backbone plugins have been loaded
+return {
+    start: function () {require(
+        [
+            // libraries
+            'jquery',
+            'backbone',
 
-    // remove imported libraries from global
-    jQuery.noConflict();
-    var stripeNoConflict = Stripe;
-    delete Stripe;
+            // modules
+            'util/track',
+            'router'
+        ], function ($, Backbone, track, router) {
+                        
 
-    this.init = (function ($) {
-        $(document).ready(function() {
-            jackalope.payment($, stripeNoConflict);
+            /**
+             * Initialize Object with superpowers per Crockford's recommendation.
+             * 1. Object.create: http://javascript.crockford.com/prototypal.html
+             */
+            var initializeObject = (function () {
+                if (typeof Object.create !== 'function') {
+                    Object.create = function (o) {
+                        function F() {}
+                        F.prototype = o;
+                        return new F();
+                    };
+                }
+            })();
 
-            $('.scroll').click(function (event) {
-                event.preventDefault();
-                var offset = $($(this).attr('href')).offset().top;
-                $('html, body').animate({scrollTop:offset}, 1000);
+
+            /** Initialize Environment. */
+            var initializeEnvironment = (function () {
+
+                // Make sure AJAX requests are not cached.
+                $.ajaxSetup({cache: false});
+
+                // Turn off template loading for Marionette.
+                Backbone.Marionette.Renderer.render = function (template, data) {
+                    return template;
+                };
+                
+            })();
+
+
+            var sendjack = new Backbone.Marionette.Application();
+
+
+            /** Add all the routers to the application. */
+            sendjack.addInitializer(function (options) {
+                var createInstanceRouter = router.CreateInstanceRouter();
+                var processInstanceRouter = router.ProcessInstanceRouter();
+                var confirmInstanceRouter = router.ConfirmInstanceRouter();
+                var approveInstanceRouter = router.ApproveInstanceRouter();
+                
+                var templateRouter = router.TemplateRouter();
+
+                Backbone.history.start({pushState: true});
             });
-        });
-    }(jQuery));
 
-}());
+            $(document).ready(function () {sendjack.start();});
+        });
+    }
+};
+
+
+});

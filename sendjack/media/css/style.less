@@ -1,7 +1,6 @@
 /***********************************************************
 *
-*   App: SendJack
-*   Version: 00.01
+*   App: Jackalope 
 *   
 ************************************************************/
 
@@ -9,82 +8,114 @@
 * IMPORTS
 ************************************************************/
 @import "reset";
-
+@import "http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css";
+@import "functions";
 
 /***********************************************************
 * COLOR DEFINITIONS
 ************************************************************/
 @white: rgb(255, 255, 255);
-@black: rgb(35, 31, 32);
-@grey: rgb(167, 169, 172);
-@blue: rgb(28, 117, 188);
-
-@boxOpacity: 40%;
+@black: rgb(0, 0, 0);
+@darkGrey: rgb(67, 66, 65);
+@grey: rgb(123, 121, 121);
+@lightGrey: rgb(200, 200, 200);
+@blue: rgb(0, 137, 255);
 
 
 /***********************************************************
 * SIZE DEFINITIONS
 ************************************************************/
-@smallFontSize: 25px;
-@bodyFontSize: 30px;
-@bigFontSize: 45px;
+@tinyFontSize: 12px;
+@normalFontSize: 16px;
+@bigFontSize: 26px;
 
-@smallLineHeight: @smallFontSize;
-@normalLineHeight: 55px;
+@normalLineHeight: @normalFontSize + 3px;
+@listLineHeight: 30px;
+@bigLineHeight: @bigFontSize + 8px;
 
-@textPadding: 4px;
-@linePadding: 15px;
-@buttonPadding: 30px;
-@boxPadding: 50px;
-@pagePadding: 225px;
+@headerHeight: 50px;
+
+@bigLinePadding: 22px;
+@innerPadding: 20px;
+@outerPadding: 8px;
+
+@bigBoxPadding: 100px;
+@smallBoxPadding: 40px;
+@pagePadding: 23%;
 
 @normalBorder: 2px;
-@smallRound: 2px;
-@normalRound: 8px;
+@normalRound: 4px;
 
 
 /***********************************************************
 * FONTS (with help from http://fontsquirrel.com)
 ************************************************************/
 @font-face {
-    font-family: 'GothamThin';
-    src: url('fonts/gotham-thin-webfont.eot'); //ie9
+    font-family: 'Helvetica Neue Light';
+    src: url('fonts/helvetica-neue-light-webfont.eot'); //ie9
     src:
-        url('fonts/gotham-thin-webfont.eot?#iefix')
+        url('fonts/helvetica-neue-light-webfont.eot?#iefix')
             format('embedded-opentype'), // ie6-8
-        url('fonts/gotham-thin-webfont.woff')
+        url('fonts/helvetica-neue-light-webfont.woff')
             format('woff'), // modern
-        url('fonts/gotham-thin-webfont.ttf')
+        url('fonts/helvetica-neue-light-webfont.ttf')
             format('truetype'), // safari, android, ios
-        url('fonts/gotham-thin-webfont.svg#GothamThin')
+        url('fonts/helvetica-neue-light-webfont.svg#HeleveticaNeueLight')
             format('svg'); // old ios
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'GothamLight';
-    src: url('fonts/gotham-light-webfont.eot'); //ie9
+    font-family: 'Helvetica Neue';
+    src: url('fonts/helvetica-neue-webfont.eot'); //ie9
     src:
-        url('fonts/gotham-light-webfont.eot?#iefix')
+        url('fonts/helvetica-neue-webfont.eot?#iefix')
             format('embedded-opentype'), // ie6-8
-        url('fonts/gotham-light-webfont.woff')
+        url('fonts/helvetica-neue-webfont.woff')
             format('woff'), // modern
-        url('fonts/gotham-light-webfont.ttf')
+        url('fonts/helvetica-neue-webfont.ttf')
             format('truetype'), // safari, android, ios
-        url('fonts/gotham-light-webfont.svg#GothamLight')
+        url('fonts/helvetica-neue-webfont.svg#HeleveticaNeue')
             format('svg'); // old ios
     font-weight: normal;
     font-style: normal;
 }
 
-.headerFont(@fontSize: @smallFontSize) {
-    font-family: 'GothamThin', sans-serif;
+@font-face {
+    font-family: 'Helvetica Neue Bold';
+    src: url('fonts/helvetica-neue-bold-webfont.eot'); //ie9
+    src:
+        url('fonts/helvetica-neue-bold-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/helvetica-neue-bold-webfont.woff')
+            format('woff'), // modern
+        url('fonts/helvetica-neue-bold-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/helvetica-neue-bold-webfont.svg#HeleveticaNeueBold')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
+.titleFont(@fontSize: @bigFontSize) {
+    font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
     font-size: @fontSize;
 }
 
-.normalFont(@fontSize: @bodyFontSize) {
-    font-family: 'GothamLight', sans-serif;
+.labelFont(@fontSize: @normalFontSize) {
+    font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+    font-size: @fontSize;
+}
+
+.normalFont(@fontSize: @normalFontSize) {
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+    font-size: @fontSize;
+    letter-spacing: 1px;
+}
+
+.tinyFont(@fontSize: @tinyFontSize) {
+    font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
     font-size: @fontSize;
 }
 
@@ -93,132 +124,33 @@
 * TEXT STYLE SETS
 ************************************************************/
 .headerText() {
-    .headerFont;
+    .tinyFont;
     color: @white;
 }
 
-.subheaderText() {
-    .normalFont(@smallFontSize);
-    color: @black;
-    text-transform: uppercase;
+.titleText() {
+    .titleFont;
+    color: @darkGrey;
+}
+
+.labelText() {
+    .labelFont;
+    color: @darkGrey;
 }
 
 .normalText() {
     .normalFont;
-    color: @black;
+    color: @grey;
+}
+
+.contrastText() {
+    .normalFont;
+    color: @blue;
 }
 
 .buttonText() {
-    .normalFont(@bigFontSize);
+    .normalFont;
     color: @white;
-    text-decoration: underline;
-    text-transform: uppercase;
-}
-
-.anchorText() {
-    .normalFont(@smallFontSize);
-    color: @grey;
-    text-decoration: none;
-}
-
-
-/***********************************************************
-* REUSABLE GENERIC CLASSES
-************************************************************/
-/* Create columns with no spacing. */
-.columns (@number) {
-    column-count: @number;
-    -webkit-column-count: @number;
-    -moz-column-count: @number;
-    
-    column-rule: 0px;
-    -webkit-column-rule: 0px;
-    -moz-column-rule: 0px;
-
-    column-gap: 0px;
-    -webkit-column-gap: 0px;
-    -moz-column-gap: 0px;
-}
-
-/* Cross browser border-radius */
-.border-radius(@radius) {
-    border-radius: @radius;
-    -moz-border-radius: @radius;
-    -webkit-border-radius: @radius;
-}
-
-/* Cross browser backgorund-size */
-.background-size(@width, @height) {
-    background-size: @width @height;
-    -moz-background-size: @width @height;
-    -webkit-background-size: @width @height;
-    -o-background-size: @width @height;
-}
-
-/* Hide the content when using the background image for function. */
-.hidden-content {
-    line-height: 0px; 
-    font-size: 0px;
-    color: transparent; 
-}
-
-/* Add a box shadow. */
-.box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, @inset: ~"") {
-    -webkit-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
-        @inset;
-    -moz-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
-        @inset;
-    box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha) @inset;
-}
-
-/* Use a background-image in a consistent way. */
-.background-image-wrapper(
-        @width,
-        @height,
-        @imageSource,
-        @backgroundColor,
-        @repeat: no-repeat) {
-    width: @width;
-    height: @height;
-    background: url('/static/images/@{imageSource}') @backgroundColor @repeat;
-    // background size needs to be after the background it's sizing.
-    .background-size(@width, @height);
-}
-
-/* Center the background image in a consistent way. */
-.centered-image(@position, @width, @height) {
-    .horizontally-centered-image(@position, @width); 
-    .vertically-centered-image(@position, @height);
-}
-
-.vertically-centered-image(@position, @height) {
-    position: @position;
-    top: 50%;
-    margin-top: -(@height / 2);
-}
-
-.horizontally-centered-image(@position, @width) {
-    position: @position;
-    left: 50%;
-    margin-left: -(@width / 2);
-}
-
-.opacity(@value) {
-    /* IE 8 */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-
-    /* IE 5-7 */
-    @ieValue: @value * 100;
-    filter: alpha(opacity=@ieValue);
-
-    /* Netscape */
-    -moz-opacity: @value;
-
-    /* Safari 1.x */
-    -khtml-opacity: @value;
-
-    /* Good browsers */
-    opacity: @value;
 }
 
 
@@ -227,21 +159,21 @@
 ************************************************************/
 /* Add a light drop shadow below a box. */
 .drop-box-shadow(
-        @hShadow: 0px, 
-        @vShadow: 2px, 
-        @blur: 2px, 
-        @spread: -1px,
-        @alpha: .8) {
+        @hShadow: 5px, 
+        @vShadow: 5px, 
+        @blur: 13px, 
+        @spread: 7px,
+        @alpha: .15) {
     .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha);
 }
 
 /* Inner drop shadow. */
 .inner-box-shadow(
-        @hShadow: 0px,
+        @hShadow: 1px,
         @vShadow: 2px,
-        @blur: 1px,
-        @spread: 0px,
-        @alpha: 0.2) {
+        @blur: 3px,
+        @spread: 1px,
+        @alpha: 0.1) {
     .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, inset);
 }
     
@@ -257,13 +189,16 @@
 }
 
 .form-element {
-    .normalText;
-    .border-radius(@smallRound);
-    height: @normalLineHeight;
-    border: @normalBorder fadeout(@black, 40%) solid;
-    padding: @textPadding @textPadding * 3;
+    .normalFont;
+    .border-radius(@normalRound);
+    .inner-box-shadow();
 
+    //height: @listLineHeight;
+    border: 1px @lightGrey solid;
+    padding: @innerPadding;
+    margin: @outerPadding 0px;
     background-color: @white;
+
 }
 
 .icon(@picture_file) {
@@ -276,7 +211,7 @@
 
 
 /***********************************************************
-* FRAMEWORK
+* ELEMENTARY
 ************************************************************/
 /* I like this box model better so deal with it. */
 * {
@@ -291,150 +226,525 @@ html {
 }
 
 body {
-    .normalText;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-}
-
-a {
-    .anchorText;
-
-    &:active {
-        color: darken(@grey, 20%);
-    }
-}
-
-header, section, footer {
-    clear: both;
-    width: 100%;
-    text-align: center;
-    padding: @boxPadding 0px;
-}
-
-section {
-    border-bottom: @normalBorder @grey solid;
-}
-
-footer {
-    float: left;
-    padding: @linePadding @pagePadding;
-
-    .email-section {
-        float: left;
-    }
-
-    .link-section {
-        float: right;
-
-        .facebook-icon {
-            .icon('iconFacebook.png');
-            float: right;
-        }
-
-        .twitter-icon {
-            .icon('iconTwitter.png');
-            float: right;
-        }
-    }
-}
-
-input {
-    .form-element;
+    .background-pattern-wrapper(
+            100%,
+            100%,
+            60px,
+            60px,
+            'body.jpg',
+            @grey,
+            repeat);
+    min-width: 980px;
 }
 
 button {
-    .border-radius(@normalRound);
     .buttonText;
-    width: 100%;
-    height: @normalLineHeight * 2;
-
-    border: 0px;
-    padding: @buttonPadding;
-
-    background-color: @blue;
+    .border-radius(@normalRound);
 
     &:hover {
-        cursor: pointer;
+     cursor: pointer;
     }
 
-    &:active {
-        color: darken(@white, 20%);
-        background-color: darken(@blue, 20%);
-    }
+    &[type=submit] {
+        border: 0px;
+        width: 100%;
+        .background-image-wrapper(
+            226px,
+            39px,
+            'submitButton.png',
+            transparent);
 
-    &[disabled]  {
-        color: darken(@white, 30%);
-        background-color: fadeout(@blue, 30%);
-        cursor: default;
+        &:active {
+            .background-image-wrapper(
+                226px,
+                39px,
+                'submitButtonPressed.png',
+                transparent);
+        }
+
+        &:disabled {
+            .background-image-wrapper(
+                226px,
+                39px,
+                'submitButtonDisabled.png',
+                transparent);
+            cursor: default;
+        }
     }
+}
+
+a {
+    color: @darkGrey;
+    text-decoration: none;
+
+    &:hover {
+        color: @blue;
+    }
+}
+
+li {
+    margin-bottom: @outerPadding;
+    line-height: @listLineHeight;
 }
 
 /***********************************************************
-* COMPONENTS 
+* BASE BODY, PAGE, HEADER, FOOTER
 ************************************************************/
-
-#main-logo {
-    .background-image-wrapper(
-        236px,
-        33px,
-        'logo.png',
-        transparent);
-    width: 100%;
-    background-position: center;
-}
-
-.focus-section {
-    margin: 0px;
-    border: 0px;
-    padding: 0px;
-
-    #focus {
-        width: 100%;
-        height: auto;
-    }
-}
-
-.subheader-section {
-    .subheaderText;
-}
-
-.signup-section {
+#app-header, .page, #app-footer {
+    position: relative;
+    width: 100%; 
     float: left;
-    width: 100%;
-    padding: @boxPadding @pagePadding;
+    padding-left: @pagePadding;
+    padding-right: @pagePadding;
+}
 
-    .payment-errors {
-        display: none;
-        background-color: lighten(@blue, 40%);
-        margin-bottom: @buttonPadding;
+#app-header {
+    .headerText();
+    .background-pattern-wrapper(
+        100%,
+        @headerHeight,
+        20px,
+        @headerHeight,
+        'appHeader.jpg',
+        @black,
+        repeat-x);
+
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    /** vertically centers text */
+    line-height: @headerHeight;
+
+    text-align: center;
+
+    a {
+        .headerText();
     }
 
-    form {
+    .app-logo {
+        .background-image-wrapper(
+            187px,
+            34px,
+            'logo.png',
+            transparent);
+        float: left;
+        height: 100%;
+        background-position: center;
+    }
+
+    #app-menu {
+        float: right;
+    }
+}
+
+.page {
+    display: none;
+    position: relative; // Helps with positioning.
+    width: 100%;
+    height: 100%;
+    clear: both;
+
+    .normalText;
+}
+
+/***********************************************************
+* BASE COMPONENTS
+************************************************************/
+.grid-title {
+    .titleText();
+}
+
+/** .field-list {
+
+    li {
         float: left;
         width: 100%;
+        clear: both;
 
-        .form-row {
-            float: left;
-            clear: both;
-            width: 100%;
-
-            margin-bottom: @linePadding;
-            line-height: @normalLineHeight;
-
-            label {
+        .field, .sub-field {
+            .key {
                 float: left;
+                width: 30%;
             }
 
-            input {
-                float: right;
-                width: 65%;
-                text-align: left;
+            .head-key {
+                float: left;
+                width: 100%;
             }
+
+            .sub-key {
+                float: left;
+                width: 30%;
+                text-align: right;
+                padding-right: @bigLinePadding;
+            }
+
+            .value, .sub-value {
+                float: left;
+                width: 70%;
+            }
+        }
+    }
+} */
+
+/***********************************************************
+* Z-INDEX
+************************************************************/
+#app-header {
+    z-index: 15;
+}
+
+.page {
+    z-index: 10;
+}
+
+
+/***********************************************************
+* PAGE THEME: MAIN
+************************************************************/
+.main-page {
+
+    /***********************************************************
+    * MAIN - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
+    ************************************************************/
+    .normalText;
+
+    padding-top: 0px;
+    padding-bottom: @smallBoxPadding; 
+
+    text-align: left;
+    background-color: transparent;
+
+    .object-view {
+        margin-top: @bigLinePadding;
+    }
+    input, textarea {
+        .form-element();
+        .contrastText();
+        width: 100%;
+
+        &[disabled] {
+            .inner-box-shadow(0px, 0px, 0px, 0px, 0);
+            //border: 0px;
+
+            cursor: default;
+        }
+
+        &:focus {
+            border: 1px solid @blue;
+        }
+    }
+
+    input {
+        height: @listLineHeight;
+    }
+
+
+    /***********************************************************
+    * MAIN - COMPONENTS
+    ************************************************************/
+    .main-section {
+        .border-radius(@normalRound);
+        .drop-box-shadow();
+        position: relative;
+        width: 100%;
+        float: left;
+        background: @white;
+         
+        padding: @smallBoxPadding @bigBoxPadding;
+
+
+        .key, .head-key, .sub-key {
+            .labelText();
+        }
+
+        .value, .sub-value {
+            color: @blue;
+        }
+    }
+
+    .grid {
+        width: 100%;
+        float: left;
+
+        .grid-title {
+            padding-bottom: @bigLinePadding;
+            border-bottom: 1px solid @lightGrey;
         }
 
         .submit-button {
-            margin-top: @boxPadding;
+            float: left;
+            clear: both;
+            margin-top: @bigLinePadding;
+        }
+
+    }
+
+    .grid-text {
+        margin-top: @bigLinePadding;
+    }
+
+    /***********************************************************
+    * MAIN PAGE - SEACH PAGE
+    ************************************************************/
+    &#search-page {
+        @landingNormalFontSize: 32px;
+        @landingBigFontSize: 52px;
+        .landingTitleFont(@fontSize: @landingBigFontSize) {
+            font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+            font-size: @fontSize;
+        }
+        .landingSubtitleFont(@fontSize: @landingNormalFontSize) {
+            font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+            font-size: @fontSize;
+        }
+        .landingNormalFont(@fontSize: @landingNormalFontSize) {
+            font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+            font-size: @fontSize;
+            letter-spacing: 1px;
+        }
+        .landingTitleText() {
+            .landingTitleFont();
+            color: @blue;
+        }
+        .landingSubtitleText() {
+            .landingSubtitleFont();
+            color: @darkGrey;
+        }
+        .landingNormalText() {
+            .landingNormalFont();
+            color: @grey;
+        }
+
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: @white;
+        padding-top: @headerHeight;
+        padding-bottom: 0px;
+
+        .main-section {
+            .border-radius(0px);
+            .drop-box-shadow(0px, 0px, 0px, 0px, 0);
+
+            padding: @smallBoxPadding 0px;
+
+            .grid-title {
+                .landingTitleText();
+                padding-bottom: 0px;
+                border-bottom: 0px;
+            }
+
+            .grid-text {
+                .landingSubtitleText();
+                margin-top: 0px;
+                width: 70%;
+            }
+
+            .object-view {
+                width: 100%;
+                margin-top: @smallBoxPadding;
+                margin-bottom: @smallBoxPadding;
+
+                .search-button {
+                    .form-element();
+                    .contrastText();
+                    height: 44px;
+                    padding: 0px;
+                    padding-left: @innerPadding;
+
+                    // This wrapper makes the overflow: hidden magic work.
+                    div {
+                        overflow: hidden;
+                        height: 100%;
+
+                        input {
+                            .inner-box-shadow(0px, 0px, 0px, 0px, 0);
+                            background-color: transparent;
+                            border: 0px;
+                            margin: 0px;
+                            padding: 0px;
+                            height: 100%;
+                        }
+                    }
+
+                    .submit-button {
+                        float: right;
+                        width: 38px;
+                        height: 38px;
+                        margin: 2px;
+                    }
+                }
+            }
+
+            .search-text {
+                .landingNormalText();
+
+                width: 60%;
+                float: right;
+                clear: both;
+                text-align: right;
+            }
         }
     }
+
+    /***********************************************************
+    * MAIN PAGE - CREATE CUSTOMER PAGE
+    ************************************************************/
+    &#create-customer-page {
+    }
+
+    /***********************************************************
+    * MAIN PAGE - CREATE INSTANCE PAGE
+    ************************************************************/
+    &#create-instance-page {
+        .create-instance-grid {
+            .field-list {
+
+                .key {
+                    width: 20%;
+                }
+                .value {
+                    width: 80%;
+                }
+
+                .key, .value, .sub-value {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+
+        .task-instance-view {
+            input, textarea {
+                width: 100%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - PROCESS INSTANCE PAGE
+    ************************************************************/
+    &#process-instance-page {
+        .process-instance-grid {
+            .field-list {
+
+                .key {
+                    width: 20%;
+                }
+                .value {
+                    width: 80%;
+                }
+
+                .key, .value, .sub-value {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+
+        .task-instance-view {
+            input, textarea {
+                width: 100%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - CONFIRM INSTANCE PAGE
+    ************************************************************/
+    &#confirm-instance-page {
+        .task-instance-view {
+            .field-deadline-ts {
+                float: left;
+                width: 47%;
+            }
+
+            .field-price {
+                float: right;
+                width: 47%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - APPROVE INSTANCE PAGE
+    ************************************************************/
+    &#approve-instance-page {
+        .task-instance-view {
+            .field-deadline-ts {
+                float: left;
+                width: 47%;
+            }
+
+            .field-price {
+                float: right;
+                width: 47%;
+            }
+        }
+    }
+
+    /***********************************************************
+    * MAIN PAGE - CARD CUSTOMER PAGE
+    ************************************************************/
+    &#card-customer-page {
+        .field-first-name{
+            float: left;
+            width: 47%;
+        }
+
+        .field-last-name{
+            float: right;
+            width: 47%;
+        }
+
+        .field-card-expiry-month {
+            float: left;
+            width: 100px;
+            margin-right: @outerPadding;
+        }
+
+        .field-card-expiry-year {
+            float: left;
+            width: 100px;
+            margin-right: @outerPadding;
+            margin-left: @outerPadding;
+        }
+
+        .field-card-cvc {
+            float: left;
+            width: 100px;
+            margin-left: @outerPadding;
+        }
+    }
+
+    /***********************************************************
+    * MAIN - TEMPLATE PAGE
+    ************************************************************/
+    &#template-page {
+        .post-grid, .worker-grid {
+            padding-left: 25px;
+        }
+
+        .tags-grid {
+            clear: both;
+        }
+    }
+}
+
+
+/***********************************************************
+* PAGE THEME: ALT
+************************************************************/
+.alt-page {
+    /***********************************************************
+    * ALT - COMPONENTS
+    ************************************************************/
+    /***********************************************************
+    * ALT - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
+    ************************************************************/
+    /***********************************************************
+    * ALT - PAGE
+    ************************************************************/
 }

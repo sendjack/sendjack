@@ -1,0 +1,440 @@
+/***********************************************************
+*
+*   App: SendJack
+*   Version: 00.01
+*   
+************************************************************/
+
+/***********************************************************
+* IMPORTS
+************************************************************/
+@import "reset";
+
+
+/***********************************************************
+* COLOR DEFINITIONS
+************************************************************/
+@white: rgb(255, 255, 255);
+@black: rgb(35, 31, 32);
+@grey: rgb(167, 169, 172);
+@blue: rgb(28, 117, 188);
+
+@boxOpacity: 40%;
+
+
+/***********************************************************
+* SIZE DEFINITIONS
+************************************************************/
+@smallFontSize: 25px;
+@bodyFontSize: 30px;
+@bigFontSize: 45px;
+
+@smallLineHeight: @smallFontSize;
+@normalLineHeight: 55px;
+
+@textPadding: 4px;
+@linePadding: 15px;
+@buttonPadding: 30px;
+@boxPadding: 50px;
+@pagePadding: 225px;
+
+@normalBorder: 2px;
+@smallRound: 2px;
+@normalRound: 8px;
+
+
+/***********************************************************
+* FONTS (with help from http://fontsquirrel.com)
+************************************************************/
+@font-face {
+    font-family: 'GothamThin';
+    src: url('fonts/gotham-thin-webfont.eot'); //ie9
+    src:
+        url('fonts/gotham-thin-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/gotham-thin-webfont.woff')
+            format('woff'), // modern
+        url('fonts/gotham-thin-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/gotham-thin-webfont.svg#GothamThin')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GothamLight';
+    src: url('fonts/gotham-light-webfont.eot'); //ie9
+    src:
+        url('fonts/gotham-light-webfont.eot?#iefix')
+            format('embedded-opentype'), // ie6-8
+        url('fonts/gotham-light-webfont.woff')
+            format('woff'), // modern
+        url('fonts/gotham-light-webfont.ttf')
+            format('truetype'), // safari, android, ios
+        url('fonts/gotham-light-webfont.svg#GothamLight')
+            format('svg'); // old ios
+    font-weight: normal;
+    font-style: normal;
+}
+
+.headerFont(@fontSize: @smallFontSize) {
+    font-family: 'GothamThin', sans-serif;
+    font-size: @fontSize;
+}
+
+.normalFont(@fontSize: @bodyFontSize) {
+    font-family: 'GothamLight', sans-serif;
+    font-size: @fontSize;
+}
+
+
+/***********************************************************
+* TEXT STYLE SETS
+************************************************************/
+.headerText() {
+    .headerFont;
+    color: @white;
+}
+
+.subheaderText() {
+    .normalFont(@smallFontSize);
+    color: @black;
+    text-transform: uppercase;
+}
+
+.normalText() {
+    .normalFont;
+    color: @black;
+}
+
+.buttonText() {
+    .normalFont(@bigFontSize);
+    color: @white;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+
+.anchorText() {
+    .normalFont(@smallFontSize);
+    color: @grey;
+    text-decoration: none;
+}
+
+
+/***********************************************************
+* REUSABLE GENERIC CLASSES
+************************************************************/
+/* Create columns with no spacing. */
+.columns (@number) {
+    column-count: @number;
+    -webkit-column-count: @number;
+    -moz-column-count: @number;
+    
+    column-rule: 0px;
+    -webkit-column-rule: 0px;
+    -moz-column-rule: 0px;
+
+    column-gap: 0px;
+    -webkit-column-gap: 0px;
+    -moz-column-gap: 0px;
+}
+
+/* Cross browser border-radius */
+.border-radius(@radius) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+/* Cross browser backgorund-size */
+.background-size(@width, @height) {
+    background-size: @width @height;
+    -moz-background-size: @width @height;
+    -webkit-background-size: @width @height;
+    -o-background-size: @width @height;
+}
+
+/* Hide the content when using the background image for function. */
+.hidden-content {
+    line-height: 0px; 
+    font-size: 0px;
+    color: transparent; 
+}
+
+/* Add a box shadow. */
+.box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, @inset: ~"") {
+    -webkit-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
+        @inset;
+    -moz-box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha)
+        @inset;
+    box-shadow: @hShadow @vShadow @blur @spread rgba(0, 0, 0, @alpha) @inset;
+}
+
+/* Use a background-image in a consistent way. */
+.background-image-wrapper(
+        @width,
+        @height,
+        @imageSource,
+        @backgroundColor,
+        @repeat: no-repeat) {
+    width: @width;
+    height: @height;
+    background: url('/static/images/@{imageSource}') @backgroundColor @repeat;
+    // background size needs to be after the background it's sizing.
+    .background-size(@width, @height);
+}
+
+/* Center the background image in a consistent way. */
+.centered-image(@position, @width, @height) {
+    .horizontally-centered-image(@position, @width); 
+    .vertically-centered-image(@position, @height);
+}
+
+.vertically-centered-image(@position, @height) {
+    position: @position;
+    top: 50%;
+    margin-top: -(@height / 2);
+}
+
+.horizontally-centered-image(@position, @width) {
+    position: @position;
+    left: 50%;
+    margin-left: -(@width / 2);
+}
+
+.opacity(@value) {
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+    /* IE 5-7 */
+    @ieValue: @value * 100;
+    filter: alpha(opacity=@ieValue);
+
+    /* Netscape */
+    -moz-opacity: @value;
+
+    /* Safari 1.x */
+    -khtml-opacity: @value;
+
+    /* Good browsers */
+    opacity: @value;
+}
+
+
+/***********************************************************
+* REUSABLE APP-SPECIFIC CLASSES
+************************************************************/
+/* Add a light drop shadow below a box. */
+.drop-box-shadow(
+        @hShadow: 0px, 
+        @vShadow: 2px, 
+        @blur: 2px, 
+        @spread: -1px,
+        @alpha: .8) {
+    .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha);
+}
+
+/* Inner drop shadow. */
+.inner-box-shadow(
+        @hShadow: 0px,
+        @vShadow: 2px,
+        @blur: 1px,
+        @spread: 0px,
+        @alpha: 0.2) {
+    .box-shadow(@hShadow, @vShadow, @blur, @spread, @alpha, inset);
+}
+    
+
+/* Emboss text slightly. */
+.emboss-text {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Header section needs to cut off long text. */
+.header-section {
+    overflow-y: hidden;
+}
+
+.form-element {
+    .normalText;
+    .border-radius(@smallRound);
+    height: @normalLineHeight;
+    border: @normalBorder fadeout(@black, 40%) solid;
+    padding: @textPadding @textPadding * 3;
+
+    background-color: @white;
+}
+
+.icon(@picture_file) {
+    .background-image-wrapper(
+        48px,
+        48px,
+        @picture_file,
+        transparent);
+}
+
+
+/***********************************************************
+* FRAMEWORK
+************************************************************/
+/* I like this box model better so deal with it. */
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    .normalText;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+a {
+    .anchorText;
+
+    &:active {
+        color: darken(@grey, 20%);
+    }
+}
+
+header, section, footer {
+    clear: both;
+    width: 100%;
+    text-align: center;
+    padding: @boxPadding 0px;
+}
+
+section {
+    border-bottom: @normalBorder @grey solid;
+}
+
+footer {
+    float: left;
+    padding: @linePadding @pagePadding;
+
+    .email-section {
+        float: left;
+    }
+
+    .link-section {
+        float: right;
+
+        .facebook-icon {
+            .icon('iconFacebook.png');
+            float: right;
+        }
+
+        .twitter-icon {
+            .icon('iconTwitter.png');
+            float: right;
+        }
+    }
+}
+
+input {
+    .form-element;
+}
+
+button {
+    .border-radius(@normalRound);
+    .buttonText;
+    width: 100%;
+    height: @normalLineHeight * 2;
+
+    border: 0px;
+    padding: @buttonPadding;
+
+    background-color: @blue;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        color: darken(@white, 20%);
+        background-color: darken(@blue, 20%);
+    }
+
+    &[disabled]  {
+        color: darken(@white, 30%);
+        background-color: fadeout(@blue, 30%);
+        cursor: default;
+    }
+}
+
+/***********************************************************
+* COMPONENTS 
+************************************************************/
+
+#main-logo {
+    .background-image-wrapper(
+        236px,
+        33px,
+        'logo.png',
+        transparent);
+    width: 100%;
+    background-position: center;
+}
+
+.focus-section {
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+
+    #focus {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.subheader-section {
+    .subheaderText;
+}
+
+.signup-section {
+    float: left;
+    width: 100%;
+    padding: @boxPadding @pagePadding;
+
+    .payment-errors {
+        display: none;
+        background-color: lighten(@blue, 40%);
+        margin-bottom: @buttonPadding;
+    }
+
+    form {
+        float: left;
+        width: 100%;
+
+        .form-row {
+            float: left;
+            clear: both;
+            width: 100%;
+
+            margin-bottom: @linePadding;
+            line-height: @normalLineHeight;
+
+            label {
+                float: left;
+            }
+
+            input {
+                float: right;
+                width: 65%;
+                text-align: left;
+            }
+        }
+
+        .submit-button {
+            margin-top: @boxPadding;
+        }
+    }
+}
