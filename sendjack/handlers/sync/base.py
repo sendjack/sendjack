@@ -96,15 +96,16 @@ class SecureSyncHandler(SyncHandler):
 
     def _is_request_secure(self):
         """Is the current request is secure (using https and ssl)?"""
-        # TODO: protocol might not get set to https correctly in dev and
-        # staging, so hack the query string to fake ssl for now.
+        url = URL()
 
         # xheaders=True already ensures that self.request.protocol is set to
         # self.request.headers['x-forwarded-proto'], but self.request.uri is
         # not altered and self.request.port isn't a thing, so be sure to
         # explicitly test protocol, not the whole current URI.
-        url = URL(
-                protocol=self.request.protocol,
-                query=self.request.query)
+        url.set_protocol(self.request.protocol)
+
+        # the protocol doesn't get set to https correctly in dev and
+        # staging, so hack the query string to fake ssl for now.
+        url.set_query(self.request.query)
 
         return url.is_secure()

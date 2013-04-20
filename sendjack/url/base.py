@@ -10,7 +10,7 @@ from urlparse import urlsplit, urlunsplit, urljoin, parse_qs
 from urllib import urlencode
 
 from jutil.decorators import constant
-#from jutil.environment import Deployment
+from jutil.environment import Deployment
 
 
 class _PROTOCOL(object):
@@ -260,7 +260,9 @@ class URL(object):
 
 
     def is_secure(self):
-        # TODO: is this necessary? remove it!
-        #if not Deployment.is_prod():
-        #    return self.has_query_argument(PROTOCOL.HTTPS)
-        return self.protocol == PROTOCOL.HTTPS
+        # the protocol doesn't get set to https correctly in dev and
+        # staging, so hack the query string to fake ssl for now.
+        if Deployment.is_prod():
+            return self.protocol == PROTOCOL.HTTPS
+        else:
+            return self.has_query_argument(PROTOCOL.HTTPS)
