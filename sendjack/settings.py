@@ -17,6 +17,7 @@ path = lambda root, *a: os.path.join(root, *a)
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
 EMBEDDABLE_DOMAIN = environment.get_unicode(unicode("EMBEDDABLE_DOMAIN"))
+SSL_DOMAIN = environment.get_unicode(unicode("SSL_DOMAIN"))
 PORT = environment.get_integer(unicode("PORT"), 5000)
 
 # tornado config
