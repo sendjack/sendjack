@@ -26,6 +26,7 @@ class SyncHandler(BaseHandler):
     """
 
     def initialize(self):
+        super(SyncHandler, self).initialize()
         self._set_markup_class()
 
 
@@ -75,7 +76,7 @@ class SecureSyncHandler(SyncHandler):
         """Before we enter get/post/put/delete(), perform any last-minute
         setup. Or decide to leave and redirect elsewhere for security reasons.
         It is imperative to wait until after initialize() to redirect(), or
-        else we won't be able to finish() properly, since we won't have been
+        else we won't be able to finish() correctly, since we won't have been
         completely set up."""
         if not self._is_request_secure():
             self.secure_redirect()
@@ -94,9 +95,16 @@ class SecureSyncHandler(SyncHandler):
 
 
     def _is_request_secure(self):
-        """Determine whether or not the current request is secure by checking
-        whether it is using https (in production). In the dev and staging
-        environments, rely instead on a GET argument for testing purposes. When
-        we have an SSL certificate for a wildcard subdomain, we can drop the
-        GET argument hack."""
-        return URL(base=self.request.uri).is_secure()
+        """Is the current request is secure (using https and ssl)?"""
+        # TODO: protocol might not get set to https correctly in dev and
+        # staging, so hack the query string to fake ssl for now.
+
+        # xheaders=True already ensures that self.request.protocol is set to
+        # self.request.headers['x-forwarded-proto'], but self.request.uri is
+        # not altered and self.request.port isn't a thing, so be sure to
+        # explicitly test protocol, not the whole current URI.
+        url = URL(
+                protocol=self.request.protocol,
+                query=self.request.query)
+
+        return url.is_secure()

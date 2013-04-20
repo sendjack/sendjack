@@ -53,6 +53,7 @@ class CRUDHandler(BaseHandler):
 
 
     def initialize(self):
+        super(CRUDHandler, self).initialize()
         self._set_model_class()
 
 
