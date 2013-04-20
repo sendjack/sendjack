@@ -59,7 +59,6 @@ class InstanceEventFactory(EventFactory):
 
 
     def on_template_id_change(self, object_, value, old_value):
-        pass
         # TODO: get the diff and check that instead of self._model.
 
         # TODO: write copy() into model.data.crud or
@@ -70,21 +69,23 @@ class InstanceEventFactory(EventFactory):
         #if self._model.price:
         #    # TODO: add a second button to be more clear about this.
         #    self._change_state("processed")
-        task_template = TaskTemplate.read(value)
 
-        fields = {
-                "title": task_template.title,
-                "instructions": task_template.instructions,
-                "properties": task_template.properties,
-                "output_type": task_template.output_type,
-                "output_method": task_template.output_method,
-                "category_tags": task_template.category_tags,
-                "industry_tags": task_template.industry_tags,
-                "skill_tags": task_template.skill_tags,
-                "equipment_tags": task_template.equipment_tags,
-                }
-
-        TaskInstance.update(object_.id, fields)
+        #task_template = TaskTemplate.read(value)
+        #
+        #fields = {
+        #        "title": task_template.title,
+        #        "instructions": task_template.instructions,
+        #        "properties": task_template.properties,
+        #        "output_type": task_template.output_type,
+        #        "output_method": task_template.output_method,
+        #        "category_tags": task_template.category_tags,
+        #        "industry_tags": task_template.industry_tags,
+        #        "skill_tags": task_template.skill_tags,
+        #        "equipment_tags": task_template.equipment_tags,
+        #        }
+        #
+        #TaskInstance.update(object_.id, fields)
+        pass
 
 
     def _on_new_status(self, instance):

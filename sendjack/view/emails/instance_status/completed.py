@@ -5,6 +5,8 @@
     Email customer after their task instance has been completed.
 
 """
+from url.absolute import ApproveTaskURL
+
 from .base import InstanceStatusMessage
 
 
@@ -34,9 +36,7 @@ class CompletedInstanceMessage(InstanceStatusMessage):
                 "If you do nothing for two days, we will assume you approve, "
                 "and your card will be charged automatically."
                 ))
-        paragraphs.append(unicode("http://{}/tasks/{}/approve").format(
-                self._domain,
-                self._instance_id))
+        paragraphs.append(ApproveTaskURL(self._instance_id).render())
         paragraphs.append(unicode(
                 "Thank you for using Jackalope to get your work done!"
                 ))

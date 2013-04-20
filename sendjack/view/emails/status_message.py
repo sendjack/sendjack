@@ -14,13 +14,13 @@ class StatusMessage(object):
 
     Attributes
     ----------
-    _domain : str
     _customer_first_name: str
 
     """
 
-    def __init__(self, domain, customer_model):
-        self._domain = domain
+    _url = None
+
+    def __init__(self, customer_model):
         self._customer_first_name = customer_model.first_name
 
 

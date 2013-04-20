@@ -14,7 +14,7 @@ from tornado.options import options
 from redflag import redflag
 
 import settings
-from urls import url_patterns
+from url.patterns import url_patterns
 from event import event
 
 
@@ -42,8 +42,13 @@ class SendJackApp(tornado.web.Application):
 def main():
     """ main loop for Python script. """
     app = SendJackApp()
-    http_server = tornado.httpserver.HTTPServer(app)
+
+    # xheaders=True is critical to the health of our production site. it makes
+    # sure the originating client IP, protocol, and port are included in the
+    # request object instead of those set by the reverse proxy (heroku).
+    http_server = tornado.httpserver.HTTPServer(app, xheaders=True)
     http_server.listen(options.port)
+
     tornado.ioloop.IOLoop.instance().start()
 
 

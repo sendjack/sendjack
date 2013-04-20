@@ -53,6 +53,7 @@ class CRUDHandler(BaseHandler):
 
 
     def initialize(self):
+        super(CRUDHandler, self).initialize()
         self._set_model_class()
 
 
@@ -65,7 +66,7 @@ class CRUDHandler(BaseHandler):
     def post(self, id=None):
         """Handle a POST request by mapping it to CREATE."""
         # FIXME: we need the id parameter here although we should be able to
-        # change the RegEx in urls.py so it won't post if it doesn't hit.
+        # change the RegEx in url.patterns so it won't post if it doesn't hit.
         self._request_type = REQUEST_TYPE.CREATE
         self._pre_process_request()
 

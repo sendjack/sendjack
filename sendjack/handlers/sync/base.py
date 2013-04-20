@@ -5,14 +5,13 @@
     Define a base synchronous handler for subclassing.
 
 """
-from urlparse import parse_qs, urlunsplit
-from urllib import urlencode
-
-from jutil.environment import Deployment
 from jutil.errors import OverrideNotAllowedError, OverrideRequiredError
 from view.elementary.html import Element
 
-from handlers.base import BaseHandler, HOST, PROTOCOL
+from url.base import URL
+from url.absolute import SecureEmbeddableURL
+
+from handlers.base import BaseHandler
 
 
 class SyncHandler(BaseHandler):
@@ -27,6 +26,7 @@ class SyncHandler(BaseHandler):
     """
 
     def initialize(self):
+        super(SyncHandler, self).initialize()
         self._set_markup_class()
 
 
@@ -76,7 +76,7 @@ class SecureSyncHandler(SyncHandler):
         """Before we enter get/post/put/delete(), perform any last-minute
         setup. Or decide to leave and redirect elsewhere for security reasons.
         It is imperative to wait until after initialize() to redirect(), or
-        else we won't be able to finish() properly, since we won't have been
+        else we won't be able to finish() correctly, since we won't have been
         completely set up."""
         if not self._is_request_secure():
             self.secure_redirect()
@@ -87,39 +87,30 @@ class SecureSyncHandler(SyncHandler):
         For dev and staging, keep http and keep the host but add a GET argument
         to prove we are functionally secure. When we have an SSL certificate
         for a wildcard subdomain, we can drop the GET argument hack."""
-        protocol = PROTOCOL.HTTPS
-        host = HOST.SECURE
-        path = self.request.path
-        query = self.request.query
-        fragment = ""
-
-        if not Deployment.is_prod():
-            protocol = self.request.protocol
-            host = self.request.host
-
-            # keep_blank_values=True allows for boolean query strings with keys
-            # and no values, like http://sendjack.com/tasks/1/confirm?secure.
-            query_dict = parse_qs(self.request.query, True)
-            query_dict.update({PROTOCOL.HTTPS: ''})
-            # doseq=True ensures query parameters from the original url are
-            # preserved correctly after parse_qs returns them as tuples.
-            query = urlencode(query_dict, True)
-
-        new_url = urlunsplit([protocol, host, path, query, fragment])
-
+        # build an absolute url to redirect internally to https.
+        print "secure_redirect"
+        url = SecureEmbeddableURL(self.request.path, self.request.query)
+        print "SecureEmbeddableURL: ", url.render()
         # permanent=True also implicitly means status=301.
-        self.redirect(new_url, True)
+        self.redirect(url.render(), True)
 
 
     def _is_request_secure(self):
-        """Determine whether or not the current request is secure by checking
-        whether it is using https (in production). In the dev and staging
-        environments, rely instead on a GET argument for testing purposes. When
-        we have an SSL certificate for a wildcard subdomain, we can drop the
-        GET argument hack."""
-        if not Deployment.is_prod():
-            # keep_blank_values=True allows for boolean query strings with keys
-            # and no values, like http://sendjack.com/tasks/1/confirm?secure.
-            return PROTOCOL.HTTPS in parse_qs(self.request.query, True)
+        """Is the current request is secure (using https and ssl)?"""
+        print "_is_request_secure"
+        url = URL()
 
-        return self.request.protocol == PROTOCOL.HTTPS
+        # xheaders=True already ensures that self.request.protocol is set to
+        # self.request.headers['x-forwarded-proto'], but self.request.uri is
+        # not altered and self.request.port isn't a thing, so be sure to
+        # explicitly test protocol, not the whole current URI.
+        url.set_protocol(self.request.protocol)
+
+        # the protocol doesn't get set to https correctly in dev and
+        # staging, so hack the query string to fake ssl for now.
+        url.set_query(self.request.query)
+
+        print "url.protocol: ", url.protocol
+        print "url.query: ", url.query
+        print "url.is_secure: ", url.is_secure()
+        return url.is_secure()
