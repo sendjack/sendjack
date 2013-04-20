@@ -43,6 +43,9 @@ def main():
     """ main loop for Python script. """
     app = SendJackApp()
 
+    # xheaders=True is critical to the health of our production site. it makes
+    # sure the originating client IP, protocol, and port are included in the
+    # request object instead of those set by the reverse proxy (heroku).
     http_server = tornado.httpserver.HTTPServer(app, xheaders=True)
     http_server.listen(options.port)
 
