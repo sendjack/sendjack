@@ -26,30 +26,29 @@ from jutil.errors import OverrideRequiredError
 import settings
 
 
-class _PROTOCOL(object):
+class _HEADERS(object):
 
     @constant
-    def HTTP(self):
-        return "http"
+    def FORWARDED_IP(self):
+        """The originating client IP connecting to the Heroku router."""
+        return "x-forwarded-for"
 
     @constant
-    def HTTPS(self):
-        return "https"
-
-PROTOCOL = _PROTOCOL()
-
-
-class _HOST(object):
+    def FORWARDED_PROTOCOL(self):
+        """Originating protocol of the client's HTTP request (ex: https)."""
+        return "x-forwarded-proto"
 
     @constant
-    def BASE(self):
-        return "sendjack.com"
+    def FORWARDED_PORT(self):
+        """Originating port of the client's HTTP request (ex: 443)."""
+        return "x-forwarded-port"
 
     @constant
-    def SECURE(self):
-        return "secure.sendjack.com"
+    def REQUEST_START_TS(self):
+        """Timestamp (milliseconds) when the router received the request."""
+        return "x-request-start"
 
-HOST = _HOST()
+HEADERS = _HEADERS()
 
 
 class _COOKIE(object):
@@ -65,7 +64,6 @@ class BaseHandler(tornado.web.RequestHandler):
 
     """Handle all requests through subclasses."""
 
-
     def get_current_user(self):
         """Return current user from cookie or return None.
 
@@ -73,6 +71,43 @@ class BaseHandler(tornado.web.RequestHandler):
 
         """
         return None
+
+
+    def initialize(self):
+        # TODO: learn something and then remove these!
+        print("[X-Real-Ip] [{}]".format(self.request.remote_ip))
+        print("[X-Forwarded-For] [{}]".format(
+                self.request.headers.get(HEADERS.FORWARDED_IP, "")))
+        print("[X-Forwarded-Port] [{}]".format(
+                self.request.headers.get(HEADERS.FORWARDED_PORT, "")))
+        print("[X-Forwarded-Proto] [{}]".format(
+                self.request.headers.get(HEADERS.FORWARDED_PROTOCOL, "")))
+        print("[protocol] [{}]".format(self.request.protocol))
+
+
+    @property
+    def client_ip(self):
+        """When xheaders=True is set in the HTTPServer constructor, Heroku
+        sends the client IP in the X-Forwarded-For header, and Tornado
+        attempts to set self.request.remote_ip to X-Real-Ip. However, they
+        don't necessarily play well together, so just rely on Heroku."""
+        return self.request.headers.get(HEADERS.FORWARDED_IP, "")
+
+
+    @property
+    def client_port(self):
+        """When xheaders=True is set in the HTTPServer constructor, Heroku
+        sends the client port in the X-Forwarded-Port header, but Tornado
+        request objects have no notion of port. This may be vestigial, but it's
+        valuable at least for documentation purposes."""
+        return self.request.headers.get(HEADERS.FORWARDED_PORT, "")
+
+
+    @property
+    def start_ts(self):
+        """When xheaders=True is set in the HTTPServer constructor, Heroku
+        sends a UNIX timestamp (in milliseconds) for the request start time."""
+        return self.request.headers.get(HEADERS.REQUEST_START_TS, None)
 
 
     def _set_session(self, cookie):

@@ -12,7 +12,7 @@ from .base import SyncHandler
 
 class TaskTemplateSyncHandler(SyncHandler):
 
-    """Initialize the markup for a request for a new Task Template form."""
+    """Handle create template."""
 
     def _set_markup_class(self):
         self._markup_class = TaskTemplateBody
