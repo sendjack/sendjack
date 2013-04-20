@@ -8,17 +8,17 @@
     for the view.
 """
 import settings
+from jutil.environment import Deployment
 
 from .base import URL, PROTOCOL
 
 
 class AbsoluteURL(URL):
 
-    def __init__(self, host, port="", **kwargs):
+    def __init__(self, host, **kwargs):
         super(AbsoluteURL, self).__init__(
                 protocol=PROTOCOL.HTTP,
                 host=host,
-                port=port,
                 **kwargs)
 
 
@@ -27,7 +27,6 @@ class EmbeddableURL(AbsoluteURL):
     def __init__(self, path="", query=""):
         super(EmbeddableURL, self).__init__(
                 settings.EMBEDDABLE_DOMAIN,
-                settings.PORT,
                 path=path,
                 query=query)
 
@@ -36,11 +35,13 @@ class SecureEmbeddableURL(EmbeddableURL):
 
     def __init__(self, path="", query=""):
         super(SecureEmbeddableURL, self).__init__(path, query)
-        self.set_protocol(PROTOCOL.HTTPS)
 
-        # TODO: is this necessary? if not, remove it!
-        #if not Deployment.is_prod():
-        #    self.add_query_argument(PROTOCOL.HTTPS)
+        # the protocol doesn't get set to https correctly in dev and
+        # staging, so hack the query string to fake ssl for now.
+        if Deployment.is_prod():
+            self.set_protocol(PROTOCOL.HTTPS)
+        else:
+            self.add_query_argument(PROTOCOL.HTTPS)
 
 
 class ApproveTaskURL(EmbeddableURL):

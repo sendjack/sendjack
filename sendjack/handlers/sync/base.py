@@ -88,23 +88,29 @@ class SecureSyncHandler(SyncHandler):
         to prove we are functionally secure. When we have an SSL certificate
         for a wildcard subdomain, we can drop the GET argument hack."""
         # build an absolute url to redirect internally to https.
+        print "secure_redirect"
         url = SecureEmbeddableURL(self.request.path, self.request.query)
-
+        print "SecureEmbeddableURL: ", url.render()
         # permanent=True also implicitly means status=301.
         self.redirect(url.render(), True)
 
 
     def _is_request_secure(self):
         """Is the current request is secure (using https and ssl)?"""
-        # TODO: protocol might not get set to https correctly in dev and
-        # staging, so hack the query string to fake ssl for now.
+        print "_is_request_secure"
+        url = URL()
 
         # xheaders=True already ensures that self.request.protocol is set to
         # self.request.headers['x-forwarded-proto'], but self.request.uri is
         # not altered and self.request.port isn't a thing, so be sure to
         # explicitly test protocol, not the whole current URI.
-        url = URL(
-                protocol=self.request.protocol,
-                query=self.request.query)
+        url.set_protocol(self.request.protocol)
 
+        # the protocol doesn't get set to https correctly in dev and
+        # staging, so hack the query string to fake ssl for now.
+        url.set_query(self.request.query)
+
+        print "url.protocol: ", url.protocol
+        print "url.query: ", url.query
+        print "url.is_secure: ", url.is_secure()
         return url.is_secure()
