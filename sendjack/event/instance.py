@@ -7,10 +7,9 @@
 """
 from redflag import redflag
 
-import settings
 from model.data.task_instance import TASK_INSTANCE
 from model.object.task_instance import TaskInstance
-from model.object.task_template import TaskTemplate
+#from model.object.task_template import TaskTemplate
 from model.object.customer import Customer
 from view.emails.instance_status.completed import CompletedInstanceMessage
 from view.emails.instance_status.processed import (
@@ -102,21 +101,16 @@ class InstanceEventFactory(EventFactory):
 
 
     def _on_processed_status(self, instance):
-        domain = settings.EMBEDDABLE_DOMAIN
         customer = Customer.read(instance.customer_id)
 
         # TODO: create a factory or static wrapper that chooses test or control
         # based on the parameters passed to instantiate it (ex: customer).
         if customer.control_group:
             status_message = ControlProcessedInstanceMessage(
-                    domain,
                     customer,
                     instance)
         else:
-            status_message = TestProcessedInstanceMessage(
-                    domain,
-                    customer,
-                    instance)
+            status_message = TestProcessedInstanceMessage(customer, instance)
 
         redflag.send_email_to_customer(
                 customer,
@@ -135,9 +129,8 @@ class InstanceEventFactory(EventFactory):
 
 
     def _on_posted_status(self, instance):
-        domain = settings.EMBEDDABLE_DOMAIN
         customer = Customer.read(instance.customer_id)
-        status_message = PostedInstanceMessage(domain, customer, instance)
+        status_message = PostedInstanceMessage(customer, instance)
         redflag.send_email_to_customer(
                 customer,
                 status_message.subject,
@@ -149,9 +142,8 @@ class InstanceEventFactory(EventFactory):
 
 
     def _on_completed_status(self, instance):
-        domain = settings.EMBEDDABLE_DOMAIN
         customer = Customer.read(instance.customer_id)
-        status_message = CompletedInstanceMessage(domain, customer, instance)
+        status_message = CompletedInstanceMessage(customer, instance)
         redflag.send_email_to_customer(
                 customer,
                 status_message.subject,

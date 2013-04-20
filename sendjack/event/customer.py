@@ -7,7 +7,6 @@
 """
 from redflag import redflag
 
-import settings
 from model.data.customer import CUSTOMER
 from model.object.customer import Customer
 from view.emails.customer_status.created import ControlCreatedCustomerMessage
@@ -50,14 +49,13 @@ class CustomerEventFactory(EventFactory):
 
     def _on_registered_status(self, customer):
         # send email to customer
-        domain = settings.EMBEDDABLE_DOMAIN
 
         # TODO: create a factory or static wrapper that chooses test or control
         # based on the parameters passed to instantiate it (ex: customer).
         if customer.control_group:
-            status_message = ControlCreatedCustomerMessage(domain, customer)
+            status_message = ControlCreatedCustomerMessage(customer)
         else:
-            status_message = TestCreatedCustomerMessage(domain, customer)
+            status_message = TestCreatedCustomerMessage(customer)
 
         redflag.send_email_to_customer(
                 customer,
