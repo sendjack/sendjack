@@ -100,6 +100,11 @@ var ObjectView = ItemView.extend({
         var combinedRules = $.extend(true, {} , requiredRules, typeCheckingRules);
         this.$el.validate(combinedRules);
 
+        // prevent object forms from submitting
+        this.$el.submit(function (event) {
+            event.preventDefault();
+        });
+
         this.render();
     },
 
