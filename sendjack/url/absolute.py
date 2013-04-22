@@ -50,12 +50,12 @@ class SecureEmbeddableURL(EmbeddableURL):
 class ApproveTaskURL(EmbeddableURL):
 
     def __init__(self, id):
-        super(EmbeddableURL, self).__init__(
+        super(ApproveTaskURL, self).__init__(
                 unicode("tasks/{}/approve").format(id))
 
 
 class ConfirmTaskURL(EmbeddableURL):
 
     def __init__(self, id):
-        super(EmbeddableURL, self).__init__(
+        super(ConfirmTaskURL, self).__init__(
                 unicode("tasks/{}/confirm").format(id))
