@@ -107,7 +107,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def start_ts(self):
         """When xheaders=True is set in the HTTPServer constructor, Heroku
         sends a UNIX timestamp (in milliseconds) for the request start time."""
-        return self.request.headers.get(HEADERS.REQUEST_START_TS, None)
+        return self.request.headers.get(HEADERS.REQUEST_START_TS, "")
 
 
     def _set_session(self, cookie):

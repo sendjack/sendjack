@@ -83,19 +83,14 @@ class URL(object):
     _fragment = ""
 
     def __init__(self, **kwargs):
+        # default member-backed args to "" and the others to None.
         self.set_protocol(kwargs.get("protocol", ""))
         self.set_host(kwargs.get("host", ""))
+        self.set_port(kwargs.get("port"))
         self.set_path(kwargs.get("path", ""))
         self.set_query(kwargs.get("query", ""))
+        self.set_query_dict(kwargs.get("query_dict"))
         self.set_fragment(kwargs.get("fragment", ""))
-
-        # default None avoids appending ":" to path when port is empty.
-        self.set_port(kwargs.get("port", ""))
-
-        # default None avoids overwriting query with empty query_dict.
-        self.set_query_dict(kwargs.get("query_dict", {}))
-
-        # default None allows for explicit (but worthless) use of "" as base.
         self.set_base(kwargs.get("base", ""))
 
 
@@ -206,9 +201,15 @@ class URL(object):
         parts = self._host.split(HOST.DELIMITER)
 
         if host:
+            # host is required, but can be the empty string, which is the
+            # default. this means the 0th element always exists if we want to
+            # replace it and won't be out of range.
             parts[0] = unicode(host)
 
         if port:
+            # port isn't required and should never be the empty string to avoid
+            # a trailing ":" on the host. this means the 1st element might be
+            # out of range. check size and then insert. don't assign directly.
             if len(parts) > 1:
                 parts.pop(1)
             parts.insert(1, unicode(port))
@@ -225,10 +226,15 @@ class URL(object):
 
 
     def set_query_dict(self, query_dict):
+        # avoid overwriting query with an empty dict. use clear_query for that.
         if query_dict:
             # doseq=True ensures query parameters from the original url are
             # preserved correctly after parse_qs returns them as tuples.
             self.set_query(urlencode(query_dict, True))
+
+
+    def clear_query(self):
+        self.set_query("")
 
 
     def add_query_argument(self, key, value=""):
@@ -244,7 +250,7 @@ class URL(object):
 
 
     def get_query_argument(self, key):
-        return self.query_dict.get(key, None)
+        return self.query_dict.get(key)
 
 
     def has_query_argument(self, key):
