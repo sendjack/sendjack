@@ -39,7 +39,7 @@ class ControlProcessedInstanceMessage(ProcessedInstanceMessage):
                 "Please confirm the task details, including price, so we can "
                 "get to work right away."
                 ))
-        paragraphs.append(ConfirmTaskURL(self._instance_id))
+        paragraphs.append(ConfirmTaskURL(self._instance_id).render())
 
         return paragraphs
 
@@ -64,6 +64,6 @@ class TestProcessedInstanceMessage(ProcessedInstanceMessage):
                 "Please check out our suggestions, make necessary edits, and "
                 "confirm the task details so we can get to work right away."
                 ))
-        paragraphs.append(ConfirmTaskURL(self._instance_id))
+        paragraphs.append(ConfirmTaskURL(self._instance_id).render())
 
         return paragraphs
