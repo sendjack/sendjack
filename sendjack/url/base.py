@@ -83,15 +83,24 @@ class URL(object):
     _fragment = ""
 
     def __init__(self, **kwargs):
-        # default member-backed args to "" and the others to None.
+        # general rule: default member-backed args to "" and others to None.
         self.set_protocol(kwargs.get("protocol", ""))
-        self.set_host(kwargs.get("host", ""))
-        self.set_port(kwargs.get("port"))
         self.set_path(kwargs.get("path", ""))
-        self.set_query(kwargs.get("query", ""))
-        self.set_query_dict(kwargs.get("query_dict"))
         self.set_fragment(kwargs.get("fragment", ""))
         self.set_base(kwargs.get("base", ""))
+
+        # default port to None so that it doesn't get specified when it doesn't
+        # exist, which would otherwise add a trailing ":" we don't want.
+        self.set_host(kwargs.get("host", ""))
+        self.set_port(kwargs.get("port"))
+
+        # the order of these matters a bit. query will get written no matter
+        # what, but query_dict will only get written here when explicitly
+        # specified. this is helpful both because the default None value
+        # cannot be url-encoded and because an empty query_dict won't overwrite
+        # a non-empty query unless the caller is explicit about it.
+        self.set_query(kwargs.get("query", ""))
+        self.set_query_dict(kwargs.get("query_dict"))
 
 
     def render(self):
@@ -226,8 +235,9 @@ class URL(object):
 
 
     def set_query_dict(self, query_dict):
-        # avoid overwriting query with an empty dict. use clear_query for that.
-        if query_dict:
+        # urlencode fails on None. empty strings, dicts, sets, lists, and
+        # tuples are all fine, but prefer clear_query for that sort of thing.
+        if query_dict is not None:
             # doseq=True ensures query parameters from the original url are
             # preserved correctly after parse_qs returns them as tuples.
             self.set_query(urlencode(query_dict, True))
