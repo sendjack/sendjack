@@ -18,6 +18,6 @@ class InstanceStatusMessage(StatusMessage):
 
     """
 
-    def __init__(self, customer_model, instance_model=None):
+    def __init__(self, customer_model, instance_model):
         super(InstanceStatusMessage, self).__init__(customer_model)
         self._instance_id = instance_model.id
