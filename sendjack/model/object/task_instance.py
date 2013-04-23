@@ -102,6 +102,10 @@ class TaskInstance(TaskInstanceModel):
         return self.status == TASK_INSTANCE.APPROVED
 
 
+    def is_rejected(self):
+        return self.status == TASK_INSTANCE.REJECTED
+
+
     def is_expired(self):
         return self.status == TASK_INSTANCE.EXPIRED
 

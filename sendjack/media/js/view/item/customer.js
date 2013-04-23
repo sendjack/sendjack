@@ -31,13 +31,6 @@ var CustomerView = ObjectView.extend({
     initialize: function () {
         ObjectView.prototype.initialize.call(this);
 
-        // FIXME XXX: Check to make sure the model is correct.
-        //
-        var $status = this.$el.find('[name=status]');
-        if ($status.length !== 0) {
-            this.model.set('status', $status.val());
-        }
-
         if (this.model.isNew()) {
             var isControlGroup = Math.floor(Math.random() * 2);
             if (isControlGroup) {

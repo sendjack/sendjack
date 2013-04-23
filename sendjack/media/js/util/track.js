@@ -42,7 +42,8 @@ var EVENT = {
 
     SUBMIT_TASK: "Submit Task", // User requests Task CREATED
     POST_TASK: "Confirm Task", // User requests Task POSTED
-    APPROVE_TASK: "Approve Task" // User approves Task
+    APPROVE_TASK: "Approve Task", // User approves Task
+    REJECT_TASK: "Reject Task" // User rejects Task
 };
 
 // MixPanel properties
@@ -105,7 +106,6 @@ var track = (function () {
      * Add a credit card to a customer's account.
      */
     that.addCreditCard = function (firstTaskPrice) {
-        console.log("TRACK add credit card", firstTaskPrice);
         var properties = {};
         properties[PROPERTY.FIRST_TASK_PRICE] = firstTaskPrice;
         trackEvent(EVENT.ADD_CREDIT_CARD, properties);
@@ -115,7 +115,6 @@ var track = (function () {
      * Track a VIEW_PAGE.
      */
     that.viewPage = function (page) {
-        console.log("TRACK view page", page);
         var properties = {};
         properties[PROPERTY.PAGE] = page;
         trackEvent(EVENT.VIEW_PAGE, properties);
@@ -125,32 +124,33 @@ var track = (function () {
      * Track a SUBMIT_TASK.
      */
     that.submitTask = function (taskID) {
-        console.log("TRACK submit task", taskID);
         var properties = {};
         properties[PROPERTY.TASK_ID] = taskID;
         trackEvent(EVENT.SUBMIT_TASK, properties);
     };
 
-    /**
-     * Track a POST_TASK.
-     */
+    /** Track a POST_TASK. */
     that.postTask = function (taskID, price) {
-        console.log("TRACK post task", taskID, price);
         var properties = {};
         properties[PROPERTY.TASK_ID] = taskID;
         properties[PROPERTY.PRICE] = price;
         trackEvent(EVENT.POST_TASK, properties);
     };
 
-    /**
-     * Track a APPROVE_TASK.
-     */
+    /** Track a APPROVE_TASK. */
     that.approveTask = function (taskID, price) {
-        console.log("TRACK post task", taskID, price);
         var properties = {};
         properties[PROPERTY.TASK_ID] = taskID;
         properties[PROPERTY.PRICE] = price;
         trackEvent(EVENT.APPROVE_TASK, properties);
+    };
+
+    /** Track a REJECT_TASK. */
+    that.rejectTask = function (taskID, price) {
+        var properties = {};
+        properties[PROPERTY.TASK_ID] = taskID;
+        properties[PROPERTY.PRICE] = price;
+        trackEvent(EVENT.REJECT_TASK, properties);
     };
 
     return that;

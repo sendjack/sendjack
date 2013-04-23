@@ -80,7 +80,8 @@ var ApproveInstanceRouter = Backbone.Marionette.AppRouter.extend({
 
     appRoutes: {
         'tasks/:id/approve': 'loadApproveInstancePage',
-        'tasks/:id/approve/thanks': 'loadApproveInstanceThanksPage'
+        'tasks/:id/approve/thanks': 'loadApproveInstanceThanksPage',
+        'tasks/:id/reject/thanks': 'loadRejectInstanceThanksPage'
     }
 });
 

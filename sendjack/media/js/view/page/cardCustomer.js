@@ -45,6 +45,7 @@ var CardCustomerPageView = PageView.extend({
                 'change:stripe_token',
                 function (model, value) {
                     if (value) {
+                        this.options.customerModel.set('status', 'verified');
                         this.cardCustomerObjectView.save();
                     }
                 },

@@ -48,6 +48,7 @@ class InstanceEventFactory(EventFactory):
                 TASK_INSTANCE.ASSIGNED: self._on_assigned_status,
                 TASK_INSTANCE.COMPLETED: self._on_completed_status,
                 TASK_INSTANCE.APPROVED: self._on_approved_status,
+                TASK_INSTANCE.REJECTED: self._on_rejected_status,
                 TASK_INSTANCE.EXPIRED: self._on_expired_status,
                 TASK_INSTANCE.CANCELED: self._on_canceled_status,
                 }
@@ -97,7 +98,7 @@ class InstanceEventFactory(EventFactory):
         redflag.send_email_to_notification_account(
                 unicode("Task Created"),
                 instance.title,
-                instance.summary)
+                instance)
 
 
     def _on_processed_status(self, instance):
@@ -162,6 +163,14 @@ class InstanceEventFactory(EventFactory):
                 instance.id,
                 "THIS TASK WAS APPROVED",
                 "neither the messsage nor subject make a difference")
+
+
+    def _on_rejected_status(self, instance):
+        # everything is manual on rejection so just let us know.
+        redflag.send_email_to_notification_account(
+                unicode("Task Rejected"),
+                instance.title,
+                instance)
 
 
     def _on_expired_status(self, instance):
