@@ -28,10 +28,10 @@ import settings
 
 class _HEADERS(object):
 
-    @constant
-    def FORWARDED_IP(self):
-        """The originating client IP connecting to the Heroku router."""
-        return "x-forwarded-for"
+    #@constant
+    #def FORWARDED_IP(self):
+    #    """The originating client IP connecting to the Heroku router."""
+    #    return "x-forwarded-for"
 
     @constant
     def FORWARDED_PROTOCOL(self):
@@ -73,26 +73,15 @@ class BaseHandler(tornado.web.RequestHandler):
         return None
 
 
-    def initialize(self):
-        # TODO: learn something and then remove these!
-        print("[X-Real-Ip] [{}]".format(self.request.remote_ip))
-        print("[X-Forwarded-For] [{}]".format(
-                self.request.headers.get(HEADERS.FORWARDED_IP, "")))
-        print("[X-Forwarded-Port] [{}]".format(
-                self.request.headers.get(HEADERS.FORWARDED_PORT, "")))
-        print("[X-Forwarded-Proto] [{}]".format(
-                self.request.headers.get(HEADERS.FORWARDED_PROTOCOL, "")))
-        print("[protocol] [{}]".format(self.request.protocol))
-
-
     @property
     def client_ip(self):
         """When xheaders=True is set in the HTTPServer constructor, Heroku
         sends the client IP in the X-Forwarded-For header, and Tornado
-        attempts to set self.request.remote_ip to X-Real-Ip. However, they
-        don't necessarily play well together, so just rely on Heroku."""
-        return self.request.headers.get(HEADERS.FORWARDED_IP, "")
-
+        attempts to set self.request.remote_ip to X-Real-Ip. It appears that
+        they are always equivalent, so we can just use the request directly,
+        but let's still provide a convenience wrapper here."""
+        #return self.request.headers.get(HEADERS.FORWARDED_IP, "")
+        return self.request.remote_ip
 
     @property
     def client_port(self):
