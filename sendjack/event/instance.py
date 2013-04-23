@@ -31,6 +31,7 @@ class InstanceEventFactory(EventFactory):
                 self.on_status_change)
         self._event_manager.add_attribute_change_handler(event)
 
+        # TODO: make this work!
         # TaskInstance.template_id change event
         #event = AttributeChangeEvent(
         #        TaskInstance.template_id,
@@ -136,32 +137,31 @@ class InstanceEventFactory(EventFactory):
                 instance)
 
 
-    def on_template_id_change(self, object_, value, old_value):
-        # TODO: get the diff and check that instead of self._model.
-
-        # TODO: write copy() into model.data.crud or
-        # model.data.task_instance. if this isn't the right call, then
-        # at least programmatically get the common columns to construct
-        # the fields dict below.
-
-        #if self._model.price:
-        #    # TODO: add a second button to be more clear about this.
-        #    self._change_state("processed")
-
-        #task_template = TaskTemplate.read(value)
-        #
-        #fields = {
-        #        "title": task_template.title,
-        #        "instructions": task_template.instructions,
-        #        "properties": task_template.properties,
-        #        "output_type": task_template.output_type,
-        #        "output_method": task_template.output_method,
-        #        "category_tags": task_template.category_tags,
-        #        "industry_tags": task_template.industry_tags,
-        #        "skill_tags": task_template.skill_tags,
-        #        "equipment_tags": task_template.equipment_tags,
-        #        }
-        #
-        #TaskInstance.update(object_.id, fields)
-        print "on_template_id_change: how the hell did i get here?"
-        #pass
+    #def on_template_id_change(self, object_, value, old_value):
+    #     TODO: make this work!
+    #
+    #     TODO: get the diff and check that instead of self._model.
+    #     TODO: write copy() into model.data.crud or
+    #     model.data.task_instance. if this isn't the right call, then
+    #     at least programmatically get the common columns to construct
+    #     the fields dict below.
+    #
+    #    if self._model.price:
+    #        # TODO: add a second button to be more clear about this.
+    #        self._change_state("processed")
+    #
+    #    task_template = TaskTemplate.read(value)
+    #
+    #    fields = {
+    #            "title": task_template.title,
+    #            "instructions": task_template.instructions,
+    #            "properties": task_template.properties,
+    #            "output_type": task_template.output_type,
+    #            "output_method": task_template.output_method,
+    #            "category_tags": task_template.category_tags,
+    #            "industry_tags": task_template.industry_tags,
+    #            "skill_tags": task_template.skill_tags,
+    #            "equipment_tags": task_template.equipment_tags,
+    #            }
+    #
+    #    TaskInstance.update(object_.id, fields)
