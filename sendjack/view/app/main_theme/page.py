@@ -6,7 +6,10 @@
     <div class="page main-page">
 
 """
-from view.elementary.html import TextInput, SubmitButton, Div
+from url.survey_monkey import (
+        CustomerFeedbackTestSurvey,
+        RejectedTaskTestSurvey)
+from view.elementary.html import TextInput, SubmitButton, Div, A
 
 from view.app.base.page import Page
 from view.app.base.components import TitledGrid, GridText
@@ -564,12 +567,22 @@ class ApproveInstanceThanksGrid(TitledGrid):
                     "sure you do, since you just saved all that time "
                     "outsourcing your work. That's not working hard, that's "
                     "working smart!"
-                    ),
+                    )
             ]
+
+    _SURVEY_TEXT = unicode("Jackalope Feedback Survey")
 
     def __init__(self):
         super(ApproveInstanceThanksGrid, self).__init__(self._GRID_TITLE)
         self.append_class(self._APPROVE_INSTANCE_THANKS_GRID_CLASS)
+
+        anchor_dict = {"href": CustomerFeedbackTestSurvey().render()}
+        survey_anchor = A(anchor_dict, self._SURVEY_TEXT)
+
+        div = Div()
+        div.append_class("grid-text")
+        div.append_child(survey_anchor)
+        self.append_child(div)
 
 
 class RejectInstanceThanksPage(MainPage):
@@ -590,14 +603,27 @@ class RejectInstanceThanksGrid(TitledGrid):
     _REJECT_INSTANCE_THANKS_GRID_CLASS = unicode(
             "reject-instance-thanks-grid")
 
-    _GRID_TITLE = unicode("That's no good.")
+    _GRID_TITLE = unicode("Sorry!")
     _GRID_SUBTITLES = [
-            unicode("Sorry to hear things didn't go well!")
+            unicode("We're sorry to hear that things didn't go well."),
+            unicode("Currently we're in alpha testing and are working hard to "
+                    "improve your experience. Would you mind telling us what "
+                    "went wrong?"
+                    )
             ]
+    _SURVEY_TEXT = unicode("Jackalope Feedback Survey")
 
     def __init__(self):
         super(RejectInstanceThanksGrid, self).__init__(self._GRID_TITLE)
         self.append_class(self._REJECT_INSTANCE_THANKS_GRID_CLASS)
+
+        anchor_dict = {"href": RejectedTaskTestSurvey().render()}
+        survey_anchor = A(anchor_dict, self._SURVEY_TEXT)
+
+        div = Div()
+        div.append_class("grid-text")
+        div.append_child(survey_anchor)
+        self.append_child(div)
 
 
 class SearchPage(MainPage):
