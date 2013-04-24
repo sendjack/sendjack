@@ -31,65 +31,33 @@ class InstanceEventFactory(EventFactory):
                 self.on_status_change)
         self._event_manager.add_attribute_change_handler(event)
 
+        # TODO: make this work!
         # TaskInstance.template_id change event
-        event = AttributeChangeEvent(
-                TaskInstance.template_id,
-                self.on_template_id_change)
-        self._event_manager.add_attribute_change_handler(event)
+        #event = AttributeChangeEvent(
+        #        TaskInstance.template_id,
+        #        self.on_template_id_change)
+        #self._event_manager.add_attribute_change_handler(event)
 
 
     def on_status_change(self, object_, value, old_value):
         status_change_handlers = {
-                TASK_INSTANCE.NEW: self._on_new_status,
+                TASK_INSTANCE.NEW: None,
                 TASK_INSTANCE.CREATED: self._on_created_status,
                 TASK_INSTANCE.PROCESSED: self._on_processed_status,
                 TASK_INSTANCE.CONFIRMED: self._on_confirmed_status,
                 TASK_INSTANCE.POSTED: self._on_posted_status,
-                TASK_INSTANCE.ASSIGNED: self._on_assigned_status,
+                TASK_INSTANCE.ASSIGNED: None,
                 TASK_INSTANCE.COMPLETED: self._on_completed_status,
                 TASK_INSTANCE.APPROVED: self._on_approved_status,
                 TASK_INSTANCE.REJECTED: self._on_rejected_status,
-                TASK_INSTANCE.EXPIRED: self._on_expired_status,
-                TASK_INSTANCE.CANCELED: self._on_canceled_status,
+                TASK_INSTANCE.EXPIRED: None,
+                TASK_INSTANCE.CANCELED: None,
                 }
 
         handler = status_change_handlers.get(value)
+
         if handler:
             handler(object_)
-
-
-    def on_template_id_change(self, object_, value, old_value):
-        # TODO: get the diff and check that instead of self._model.
-
-        # TODO: write copy() into model.data.crud or
-        # model.data.task_instance. if this isn't the right call, then
-        # at least programmatically get the common columns to construct
-        # the fields dict below.
-
-        #if self._model.price:
-        #    # TODO: add a second button to be more clear about this.
-        #    self._change_state("processed")
-
-        #task_template = TaskTemplate.read(value)
-        #
-        #fields = {
-        #        "title": task_template.title,
-        #        "instructions": task_template.instructions,
-        #        "properties": task_template.properties,
-        #        "output_type": task_template.output_type,
-        #        "output_method": task_template.output_method,
-        #        "category_tags": task_template.category_tags,
-        #        "industry_tags": task_template.industry_tags,
-        #        "skill_tags": task_template.skill_tags,
-        #        "equipment_tags": task_template.equipment_tags,
-        #        }
-        #
-        #TaskInstance.update(object_.id, fields)
-        pass
-
-
-    def _on_new_status(self, instance):
-        pass
 
 
     def _on_created_status(self, instance):
@@ -126,7 +94,7 @@ class InstanceEventFactory(EventFactory):
                 "sendjack",
                 instance.id,
                 "POST THIS TASK",
-                "neither the messsage nor subject make a difference")
+                "neither the message nor subject make a difference")
 
 
     def _on_posted_status(self, instance):
@@ -136,10 +104,6 @@ class InstanceEventFactory(EventFactory):
                 customer,
                 status_message.subject,
                 status_message.body_text)
-
-
-    def _on_assigned_status(self, instance):
-        pass
 
 
     def _on_completed_status(self, instance):
@@ -162,7 +126,7 @@ class InstanceEventFactory(EventFactory):
                 "sendjack",
                 instance.id,
                 "THIS TASK WAS APPROVED",
-                "neither the messsage nor subject make a difference")
+                "neither the message nor subject make a difference")
 
 
     def _on_rejected_status(self, instance):
@@ -173,9 +137,31 @@ class InstanceEventFactory(EventFactory):
                 instance)
 
 
-    def _on_expired_status(self, instance):
-        pass
-
-
-    def _on_canceled_status(self, instance):
-        pass
+    #def on_template_id_change(self, object_, value, old_value):
+    #     TODO: make this work!
+    #
+    #     TODO: get the diff and check that instead of self._model.
+    #     TODO: write copy() into model.data.crud or
+    #     model.data.task_instance. if this isn't the right call, then
+    #     at least programmatically get the common columns to construct
+    #     the fields dict below.
+    #
+    #    if self._model.price:
+    #        # TODO: add a second button to be more clear about this.
+    #        self._change_state("processed")
+    #
+    #    task_template = TaskTemplate.read(value)
+    #
+    #    fields = {
+    #            "title": task_template.title,
+    #            "instructions": task_template.instructions,
+    #            "properties": task_template.properties,
+    #            "output_type": task_template.output_type,
+    #            "output_method": task_template.output_method,
+    #            "category_tags": task_template.category_tags,
+    #            "industry_tags": task_template.industry_tags,
+    #            "skill_tags": task_template.skill_tags,
+    #            "equipment_tags": task_template.equipment_tags,
+    #            }
+    #
+    #    TaskInstance.update(object_.id, fields)
