@@ -1,4 +1,4 @@
-@import "http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css";
+@import "libs/jquery.ui.css";
 html,body,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend{margin:0;padding:0;border:0;outline:0;font-weight:normal;font-style:normal;font-size:100%;vertical-align:baseline;}
 :focus{outline:0;}
 body{line-height:1.2;color:black;background:white;}
