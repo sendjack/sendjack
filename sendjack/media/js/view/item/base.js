@@ -49,7 +49,13 @@ var ItemView = Backbone.View.extend({
         var attribute = boundAttribute || 'name';
 
         var defaultBindings = Backbone.ModelBinder.createDefaultBindings(
-                this.el, attribute);
+                this.el,
+                attribute);
+
+        // TODO: with our current architecture buttons change status so we don't
+        // want them bound
+        delete defaultBindings.status;
+
         return this.editBindings(defaultBindings);
     },
 
@@ -94,6 +100,11 @@ var ObjectView = ItemView.extend({
         var combinedRules = $.extend(true, {} , requiredRules, typeCheckingRules);
         this.$el.validate(combinedRules);
 
+        // prevent object forms from submitting
+        this.$el.submit(function (event) {
+            event.preventDefault();
+        });
+
         this.render();
     },
 
@@ -118,6 +129,15 @@ var ObjectView = ItemView.extend({
     },
 
     onSubmit: function (event) {
+        // udpate model with data from submit button that triggered this event.
+        var name = event.target.name;
+        var value = event.target.value;
+        if (name !== "") {
+            // TODO: you can remove this conditional when every button has a
+            // name/value pair.
+            this.model.set(name, value);
+        }
+
         this.save();
     },
 

@@ -20,7 +20,8 @@ define(
             'model/instance',
             'view/region',
             'view/page/approveInstance',
-            'view/page/approveInstanceThanks'
+            'view/page/approveInstanceThanks',
+            'view/page/rejectInstanceThanks'
         ],
         function (
                 $,
@@ -31,7 +32,8 @@ define(
                 instanceModel,
                 region,
                 approveInstanceView,
-                approveInstanceThanksView) {
+                approveInstanceThanksView,
+                rejectInstanceThanksView) {
 
 
 var ApproveInstanceController = Backbone.Marionette.Controller.extend({
@@ -82,10 +84,19 @@ var ApproveInstanceController = Backbone.Marionette.Controller.extend({
         });
         this.approveInstanceThanksPage = approveInstanceThanksView
                 .ApproveInstanceThanksPageView();
+        this.rejectInstanceThanksPage = rejectInstanceThanksView
+                .RejectInstanceThanksPageView();
     },
 
     initializeTransitions: function () {
-        this.instanceModel.once(event.SAVE, this.onApprovedInstance, this);
+        this.instanceModel.once(event.SAVE, function (model, options) {
+            var status = model.get('status');
+            if (status === 'approved') {
+                this.onApprovedInstance(model, options);
+            } else if (status === 'rejected') {
+                this.onRejectedInstance(model, options);
+            }
+        }, this);
     },
 
     loadApproveInstancePage: function (instanceID) {
@@ -106,6 +117,15 @@ var ApproveInstanceController = Backbone.Marionette.Controller.extend({
         this.region.show(this.approveInstanceThanksPage);
     },
 
+    loadRejectInstanceThanksPage: function (instanceID) {
+        var id = parseInt(instanceID, 10);
+        if (this.instanceModel.isNew()) {
+            this.instanceModel.resetID(id);
+        }
+
+        this.region.show(this.rejectInstanceThanksPage);
+    },
+
     onApprovedInstance: function (model, options) {
         var id = model.id;
 
@@ -113,7 +133,16 @@ var ApproveInstanceController = Backbone.Marionette.Controller.extend({
 
         var path = '/tasks/' + id + '/approve/thanks';
         Backbone.history.navigate(path, {trigger: true});
-    }
+    },
+
+    onRejectedInstance: function (model, options) {
+        var id = model.id;
+        
+        track.rejectTask(id, model.get('price'));
+
+        var path = '/tasks/' + id + '/reject/thanks';
+        Backbone.history.navigate(path, {trigger: true});
+   }
 });
 
 

@@ -38,6 +38,7 @@ url_patterns = [
 
         (r"/tasks/([0-9]+)/approve", ApproveInstanceSyncHandler),
         (r"/tasks/([0-9]+)/approve/thanks", ApproveInstanceSyncHandler),
+        (r"/tasks/([0-9]+)/reject/thanks", ApproveInstanceSyncHandler),
 
         (r"/templates/?([0-9]+)?", TaskTemplateSyncHandler),
 

@@ -36,6 +36,9 @@ class SecureEmbeddableURL(EmbeddableURL):
     def __init__(self, path="", query=""):
         super(SecureEmbeddableURL, self).__init__(path, query)
 
+        # we only own ssl certs for secure.sendjack.com. for now.
+        self.set_host(settings.SSL_DOMAIN)
+
         # the protocol doesn't get set to https correctly in dev and
         # staging, so hack the query string to fake ssl for now.
         if Deployment.is_prod():
@@ -47,12 +50,12 @@ class SecureEmbeddableURL(EmbeddableURL):
 class ApproveTaskURL(EmbeddableURL):
 
     def __init__(self, id):
-        super(EmbeddableURL, self).__init__(
+        super(ApproveTaskURL, self).__init__(
                 unicode("tasks/{}/approve").format(id))
 
 
-class ConfirmTaskURL(EmbeddableURL):
+class ConfirmTaskURL(SecureEmbeddableURL):
 
     def __init__(self, id):
-        super(EmbeddableURL, self).__init__(
+        super(ConfirmTaskURL, self).__init__(
                 unicode("tasks/{}/confirm").format(id))

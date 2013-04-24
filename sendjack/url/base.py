@@ -83,20 +83,24 @@ class URL(object):
     _fragment = ""
 
     def __init__(self, **kwargs):
+        # general rule: default member-backed args to "" and others to None.
         self.set_protocol(kwargs.get("protocol", ""))
-        self.set_host(kwargs.get("host", ""))
         self.set_path(kwargs.get("path", ""))
-        self.set_query(kwargs.get("query", ""))
         self.set_fragment(kwargs.get("fragment", ""))
-
-        # default None avoids appending ":" to path when port is empty.
-        self.set_port(kwargs.get("port", ""))
-
-        # default None avoids overwriting query with empty query_dict.
-        self.set_query_dict(kwargs.get("query_dict", {}))
-
-        # default None allows for explicit (but worthless) use of "" as base.
         self.set_base(kwargs.get("base", ""))
+
+        # default port to None so that it doesn't get specified when it doesn't
+        # exist, which would otherwise add a trailing ":" we don't want.
+        self.set_host(kwargs.get("host", ""))
+        self.set_port(kwargs.get("port"))
+
+        # the order of these matters a bit. query will get written no matter
+        # what, but query_dict will only get written here when explicitly
+        # specified. this is helpful both because the default None value
+        # cannot be url-encoded and because an empty query_dict won't overwrite
+        # a non-empty query unless the caller is explicit about it.
+        self.set_query(kwargs.get("query", ""))
+        self.set_query_dict(kwargs.get("query_dict"))
 
 
     def render(self):
@@ -194,8 +198,15 @@ class URL(object):
         self._protocol = protocol
 
 
-    def set_host(self, host):
-        self._set_netloc(host, None)
+    def set_host(self, netloc):
+        parts = netloc.split(HOST.DELIMITER)
+
+        # handle callers passing host+port to set_host, since it's easy and we
+        # can make this feel magical when (we) mere earthlings do it wrong.
+        host = parts[0]
+        port = parts[1] if len(parts) > 1 else None
+
+        self._set_netloc(host, port)
 
 
     def set_port(self, port):
@@ -206,9 +217,15 @@ class URL(object):
         parts = self._host.split(HOST.DELIMITER)
 
         if host:
+            # host is required, but can be the empty string, which is the
+            # default. this means the 0th element always exists if we want to
+            # replace it and won't be out of range.
             parts[0] = unicode(host)
 
         if port:
+            # port isn't required and should never be the empty string to avoid
+            # a trailing ":" on the host. this means the 1st element might be
+            # out of range. check size and then insert. don't assign directly.
             if len(parts) > 1:
                 parts.pop(1)
             parts.insert(1, unicode(port))
@@ -225,10 +242,16 @@ class URL(object):
 
 
     def set_query_dict(self, query_dict):
-        if query_dict:
+        # urlencode fails on None. empty strings, dicts, sets, lists, and
+        # tuples are all fine, but prefer clear_query for that sort of thing.
+        if query_dict is not None:
             # doseq=True ensures query parameters from the original url are
             # preserved correctly after parse_qs returns them as tuples.
             self.set_query(urlencode(query_dict, True))
+
+
+    def clear_query(self):
+        self.set_query("")
 
 
     def add_query_argument(self, key, value=""):
@@ -244,7 +267,7 @@ class URL(object):
 
 
     def get_query_argument(self, key):
-        return self.query_dict.get(key, None)
+        return self.query_dict.get(key)
 
 
     def has_query_argument(self, key):

@@ -45,14 +45,6 @@ function ApproveInstanceObjectView(attributes, options) {
             }
 
             this.$el.find('input, textarea').attr('disabled', 'disabled');
-        },
-
-        save: function (attributes, options) {
-            var approved_status_attribute = {status: 'approved'};
-            TaskInstanceView.prototype.save.call(
-                    this,
-                    $.extend(approved_status_attribute, attributes),
-                    options);
         }
     });
 

@@ -27,11 +27,6 @@ var PageView = Backbone.Marionette.CompositeView.extend({
         // Setup page DOM
         var datepicker = this.$('.date-picker').datepicker({minDate: '0'});
         
-        // cancel form submissions
-        this.$('form button[type=submit]').click(function (event) {
-            event.preventDefault();
-        });
-
         // subclasses load child views here
         this._initializeChildViews();
 
@@ -70,9 +65,20 @@ var PageView = Backbone.Marionette.CompositeView.extend({
         var sectionHeight = $section.outerHeight();
         var sectionHeightStr = parseInt(-sectionHeight, 10) + 'px';
 
+        // hide page
         $section.animate({top: sectionHeightStr}, {
             duration: 'slow',
-            complete: callback
+            complete: function () {
+                // after hide scroll to top
+                $('html, body').animate({scrollTop: 0}, {
+                    duration: 'slow'
+                });
+
+                // putting this callback in the scrollTop animate function
+                // causes the upcoming form to switch to synchronous
+                // submitting.
+                callback();
+            }
         });
 
 

@@ -67,6 +67,11 @@ class _TaskInstance(object):
         return "approved"
 
     @constant
+    def REJECTED(self):
+        """Task has been rejected by the customer."""
+        return "rejected"
+
+    @constant
     def EXPIRED(self):
         """Task's deadline has passed without being in a completed state."""
         return "expired"
@@ -119,6 +124,7 @@ class TaskInstanceModel(TaskModel, CRUD):
                 TASK_INSTANCE.ASSIGNED,
                 TASK_INSTANCE.COMPLETED,
                 TASK_INSTANCE.APPROVED,
+                TASK_INSTANCE.REJECTED,
                 TASK_INSTANCE.EXPIRED,
                 TASK_INSTANCE.CANCELED,
                 name=TASK_INSTANCE.TASK_STATUS),

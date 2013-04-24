@@ -86,30 +86,60 @@ class EventManager(object):
 
 
     def on_after_flush(self, session, flush_context):
-        changed_objects = session.new.union(session.dirty)
-        for object_ in changed_objects:
-            self._trigger_attribute_change_events(object_)
+        """ Trigger registered events for each changed object."""
+        for changed_object in session.new.union(session.dirty):
+            self._trigger_attribute_change_events(changed_object)
 
 
-    def _trigger_attribute_change_events(self, object_):
-        for mapper_property in object_mapper(object_).iterate_properties:
-            if isinstance(mapper_property, ColumnProperty):
-                key = mapper_property.key
-                attribute_state = inspect(object_).attrs.get(key)
-                history = attribute_state.history
-
-                if history.has_changes():
-                    value = attribute_state.value
-                    # old_value is None for session.new objects
-                    old_value = self._get_old_value(attribute_state)
-                    event = self._attribute_change_registry.get(
-                            mapper_property)
-                    if event:
-                        handler = event.get_handler()
-                        handler(object_, value, old_value)
+    def _trigger_attribute_change_events(self, changed_object):
+        """ Trigger registered events for an object's changed attributes."""
+        for property in object_mapper(changed_object).iterate_properties:
+            # sanity check: does this property match a database column?
+            if isinstance(property, ColumnProperty):
+                self._trigger_attribute_change_event(changed_object, property)
 
 
-    def _get_old_value(self, attribute_state):
+    def _trigger_attribute_change_event(self, object_, property):
+        """If an attribute has changed, trigger a registered event."""
+        attribute_state = self._get_attribute_state(object_, property)
+
+        if self._attribute_has_changed(attribute_state):
+            self._invoke_attribute_change_event(
+                    object_,
+                    attribute_state,
+                    self._get_attribute_change_event(property))
+
+
+    def _invoke_attribute_change_event(self, object_, attribute_state, event):
+        """Given a valid Event, get and execute its handler."""
+        if event:
+            event.get_handler()(
+                    object_,
+                    self._get_new_attribute_value(attribute_state),
+                    self._get_old_attribute_value(attribute_state))
+
+
+    def _get_attribute_state(self, object_, property):
+        """Inspect an object for and return the state of an attribute."""
+        return inspect(object_).attrs.get(property.key)
+
+
+    def _attribute_has_changed(self, attribute_state):
+        """Determine and return whether an attribute has changed."""
+        return attribute_state.history.has_changes()
+
+
+    def _get_attribute_change_event(self, property):
+        """Return an AttributeChangeEvent object from the registry."""
+        return self._attribute_change_registry.get(property)
+
+
+    def _get_new_attribute_value(self, attribute_state):
+        """Return current value for new and updated objects."""
+        return attribute_state.value
+
+
+    def _get_old_attribute_value(self, attribute_state):
         """Return old value for updated objects and None for new objects."""
         history = attribute_state.history
         return history.deleted[0] if history.deleted else None

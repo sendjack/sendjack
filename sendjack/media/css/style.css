@@ -19,7 +19,7 @@ body{width:100%;height:100%;background:url('/static/images/body.jpg') #7b7979 re
 button{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#ffffff;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;}button:hover{cursor:pointer;}
 button[type=submit]{border:0px;width:100%;width:226px;height:39px;background:url('/static/images/submitButton.png') transparent no-repeat;background-size:226px 39px;-moz-background-size:226px 39px;-webkit-background-size:226px 39px;-o-background-size:226px 39px;}button[type=submit]:active{width:226px;height:39px;background:url('/static/images/submitButtonPressed.png') transparent no-repeat;background-size:226px 39px;-moz-background-size:226px 39px;-webkit-background-size:226px 39px;-o-background-size:226px 39px;}
 button[type=submit]:disabled{width:226px;height:39px;background:url('/static/images/submitButtonDisabled.png') transparent no-repeat;background-size:226px 39px;-moz-background-size:226px 39px;-webkit-background-size:226px 39px;-o-background-size:226px 39px;cursor:default;}
-a{color:#434241;text-decoration:none;}a:hover{color:#0089ff;}
+a{color:#434241;text-decoration:underline;}a:hover{color:#0089ff;}
 li{margin-bottom:8px;line-height:30px;}
 #app-header,.page,#app-footer{position:relative;width:100%;float:left;padding-left:23%;padding-right:23%;}
 #app-header{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:12px;color:#ffffff;width:100%;height:50px;background:url('/static/images/appHeader.jpg') #000000 repeat-x;background-size:20px 50px;-moz-background-size:20px 50px;-webkit-background-size:20px 50px;-o-background-size:20px 50px;padding-top:0px;padding-bottom:0px;line-height:50px;text-align:center;}#app-header a{font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:12px;color:#ffffff;}
@@ -55,6 +55,7 @@ li{margin-bottom:8px;line-height:30px;}
 .main-page#confirm-instance-page .task-instance-view .field-price{float:right;width:47%;}
 .main-page#approve-instance-page .task-instance-view .field-deadline-ts{float:left;width:47%;}
 .main-page#approve-instance-page .task-instance-view .field-price{float:right;width:47%;}
+.main-page#approve-instance-page .reject-button{background:transparent;position:relative;float:left;margin-left:22px;}.main-page#approve-instance-page .reject-button .submit-button{text-align:left;background:transparent;color:#7b7979;width:auto;}
 .main-page#card-customer-page .field-first-name{float:left;width:47%;}
 .main-page#card-customer-page .field-last-name{float:right;width:47%;}
 .main-page#card-customer-page .field-card-expiry-month{float:left;width:100px;margin-right:8px;}
