@@ -198,8 +198,15 @@ class URL(object):
         self._protocol = protocol
 
 
-    def set_host(self, host):
-        self._set_netloc(host, None)
+    def set_host(self, netloc):
+        parts = netloc.split(HOST.DELIMITER)
+
+        # handle callers passing host+port to set_host, since it's easy and we
+        # can make this feel magical when (we) mere earthlings do it wrong.
+        host = parts[0]
+        port = parts[1] if len(parts) > 1 else None
+
+        self._set_netloc(host, port)
 
 
     def set_port(self, port):
