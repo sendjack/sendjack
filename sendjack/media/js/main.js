@@ -13,8 +13,8 @@
 require.config({
     paths: {
         // Core libraries
-        jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min',
-        underscore: 'http://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.0-rc.3/lodash.min',
+        jquery: 'libs/jquery/jquery',
+        underscore: 'libs/lodash/lodash',
         backbone: 'libs/backbone/backbone',
         stripe: 'libs/stripe/stripe',
         mp: 'libs/mixpanel/mixpanel',
@@ -23,11 +23,11 @@ require.config({
         marionette: 'libs/backbone/backbone.marionette',
         'backbone.wreqr': 'libs/backbone/backbone.wreqr',
         'backbone.babysitter': 'libs/backbone/backbone.babysitter',
-        modelbinder: 'http://cdnjs.cloudflare.com/ajax/libs/backbone.modelbinder/0.1.3/Backbone.ModelBinder-min',
+        modelbinder: 'libs/backbone/backbone.modelbinder',
 
         // jQuery Plugins
-        jqueryui: 'libs/jquery/jquery-ui',
-        validation: 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min'
+        jqueryui: 'libs/jquery/jquery.ui',
+        validation: 'libs/jquery/jquery.validate'
     },
 
     shim: {
