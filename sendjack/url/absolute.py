@@ -54,7 +54,7 @@ class ApproveTaskURL(EmbeddableURL):
                 unicode("tasks/{}/approve").format(id))
 
 
-class ConfirmTaskURL(EmbeddableURL):
+class ConfirmTaskURL(SecureEmbeddableURL):
 
     def __init__(self, id):
         super(ConfirmTaskURL, self).__init__(
