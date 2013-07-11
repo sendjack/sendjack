@@ -7,6 +7,7 @@
 """
 from handlers.signup import SignUpHandler, SignUpSubmitHandler
 
+from handlers.sync.simple import SimpleSyncHandler
 from handlers.sync.task_template import TaskTemplateSyncHandler
 from handlers.sync.task_instance import (
         CreateInstanceSyncHandler,
@@ -41,6 +42,8 @@ url_patterns = [
         (r"/tasks/([0-9]+)/reject/thanks", ApproveInstanceSyncHandler),
 
         (r"/templates/?([0-9]+)?", TaskTemplateSyncHandler),
+
+        (r"/simple", SimpleSyncHandler),
 
         (r"/a/customers/?([0-9]+)?", CustomerCRUDHandler),
         (r"/a/instances/?([0-9]+)?", TaskInstanceCRUDHandler),

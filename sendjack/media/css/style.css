@@ -63,4 +63,9 @@ li{margin-bottom:8px;line-height:30px;}
 .main-page#card-customer-page .field-card-cvc{float:left;width:100px;margin-left:8px;}
 .main-page#template-page .post-grid,.main-page#template-page .worker-grid{padding-left:25px;}
 .main-page#template-page .tags-grid{clear:both;}
-.alt-page{}
+.simple-page{position:absolute;width:100%;height:100%;background:#ffffff;padding-top:50px;padding-left:0px;padding-right:0px;padding-bottom:0px;display:block;}.simple-page section{float:left;width:100%;padding-top:40px;padding-bottom:40px;padding-left:23%;padding-right:23%;}
+.simple-page li{line-height:1em;margin-top:3px;margin-bottom:0px;}
+.simple-page #marketing-section{background:#ffffff;font-family:'Helvetica Neue Bold','Arial Bold',sans-serif;font-size:45px;color:#0089ff;}.simple-page #marketing-section .landing-list{border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;font-family:'Helvetica Neue Light','Arial Narrow',sans-serif;font-size:16px;letter-spacing:1px;color:#434241;border:1px solid #afafaf;background:#c8c8c8;padding:20px;margin-bottom:8px;}.simple-page #marketing-section .landing-list .landing-list-title{font-family:'Helvetica Neue Bold','Arial Bold',sans-serif;font-size:22px;color:#434241;}
+.simple-page #marketing-section #main-column{float:left;width:60%;}
+.simple-page #marketing-section #details-column{float:right;width:40%;}
+.simple-page #deliverables-section{background:#0089ff;}

@@ -750,16 +750,106 @@ li {
 
 
 /***********************************************************
-* PAGE THEME: ALT
+* PAGE THEME: SIMPLE
 ************************************************************/
-.alt-page {
+.simple-page {
+
+    @simpleNormalFontSize: 16px;
+    @simpleBoldFontSize: 22px;
+    @simpleBigFontSize: 45px;
+
+    .simpleTitleFont(@fontSize: @simpleBigFontSize) {
+        font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+        font-size: @fontSize;
+    }
+    .simpleSubtitleFont(@fontSize: @simpleBoldFontSize) {
+        font-family: 'Helvetica Neue Bold', 'Arial Bold', sans-serif;
+        font-size: @fontSize;
+    }
+    .simpleNormalFont(@fontSize: @simpleNormalFontSize) {
+        font-family: 'Helvetica Neue Light', 'Arial Narrow', sans-serif;
+        font-size: @fontSize;
+        letter-spacing: 1px;
+    }
+    .marketingTitleText() {
+        .simpleTitleFont();
+        color: @blue;
+    }
+    .marketingSubtitleText() {
+        .simpleSubtitleFont();
+        color: @darkGrey;
+    }
+    .marketingNormalText() {
+        .simpleNormalFont();
+        color: @darkGrey;
+    }
+
     /***********************************************************
-    * ALT - COMPONENTS
+    * SIMPLE - COMPONENTS
     ************************************************************/
+    section {
+        float: left;
+        width: 100%;
+        padding-top: @smallBoxPadding;
+        padding-bottom: @smallBoxPadding;
+        padding-left: @pagePadding;
+        padding-right: @pagePadding;
+    }
+
+    li {
+        line-height: 1em;
+        margin-top: 3px;
+        margin-bottom: 0px;
+    }
+
     /***********************************************************
-    * ALT - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
+    * SIMPLE - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
     ************************************************************/
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: @white;
+    padding-top: @headerHeight;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    display: block;
+
     /***********************************************************
-    * ALT - PAGE
+    * SIMPLE - PAGE
     ************************************************************/
+
+    #marketing-section {
+        background: @white;
+        .marketingTitleText();
+
+        .landing-list {
+            .border-radius(2px);
+            .marketingNormalText();
+            border: 1px solid darken(@lightGrey, 10%);
+            background: @lightGrey;
+            padding: @innerPadding;
+            margin-bottom: @outerPadding;
+
+            .landing-list-title {
+                .marketingSubtitleText();
+            }
+
+        }
+
+        #main-column {
+            float: left;
+            width: 60%;
+        }
+
+        #details-column {
+            float: right;
+            width: 40%;
+        }
+    }
+
+    #deliverables-section {
+        background: @blue;
+    }
 }
