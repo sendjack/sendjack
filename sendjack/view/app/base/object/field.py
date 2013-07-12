@@ -45,12 +45,13 @@ class Field(DataDiv):
         self._append_data_class(self._FIELD_CLASS, name)
 
         self._key_el = self._construct_key(key, name)
-        self._key_el.append_class(self._KEY_CLASS)
+        if self._key_el:
+            self._key_el.append_class(self._KEY_CLASS)
 
-        if is_explained:
-            self._set_explanation(self._KEY_EXPLANATION)
+            if is_explained:
+                self._set_explanation(self._KEY_EXPLANATION)
 
-        self.append_child(self._key_el)
+            self.append_child(self._key_el)
 
         # HeadField has no value element
         if value is not None:

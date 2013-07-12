@@ -418,6 +418,7 @@ li {
     .object-view {
         margin-top: @bigLinePadding;
     }
+
     input, textarea {
         .form-element();
         .contrastText();
@@ -802,6 +803,41 @@ li {
         margin-bottom: 0px;
     }
 
+    .separator {
+        border: 0px;
+        height: 1px;
+        margin: @innerPadding 20%; 
+        background-image: -webkit-linear-gradient(left, rgba(0,0,0,0),
+        rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+        background-image:    -moz-linear-gradient(left,
+        rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+        background-image:     -ms-linear-gradient(left,
+        rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+        background-image:      -o-linear-gradient(left,
+        rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    }
+
+    input, textarea {
+        .form-element();
+        .contrastText();
+        width: 100%;
+
+        &[disabled] {
+            .inner-box-shadow(0px, 0px, 0px, 0px, 0);
+            //border: 0px;
+
+            cursor: default;
+        }
+
+        &:focus {
+            border: 1px solid @blue;
+        }
+    }
+
+    input {
+        height: @listLineHeight;
+    }
+
     /***********************************************************
     * SIMPLE - FRAMEWORK AND BODY AND HEADER AND ELEMENTARY
     ************************************************************/
@@ -821,8 +857,12 @@ li {
     ************************************************************/
 
     #marketing-section {
+        .marketingNormalText();
         background: @white;
-        .marketingTitleText();
+        
+        .landing-title {
+            .marketingTitleText();
+        }
 
         .landing-list {
             .border-radius(2px);
@@ -840,12 +880,13 @@ li {
 
         #main-column {
             float: left;
-            width: 60%;
+            width: 58%;
+            margin-right: 4%;
         }
 
         #details-column {
             float: right;
-            width: 40%;
+            width: 38%;
         }
     }
 

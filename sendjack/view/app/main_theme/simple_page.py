@@ -9,6 +9,9 @@ from view.elementary.html import Div, Section, UL
 
 from view.app.base.page import Page
 
+from view.app.base.object.customer import CustomerView
+from view.app.base.object.field import EmailField
+
 
 class SimplePage(Page):
 
@@ -27,7 +30,7 @@ class LandingPage(SimplePage):
     _MAIN_COLUMN_ID = unicode("main-column")
     _DETAILS_COLUMN_ID = unicode("details-column")
 
-    _HEADER_TEXT = unicode("We do your research and administrative tasks.")
+    _TITLE_TEXT = unicode("We do your research and administrative tasks.")
     BENEFITS_TITLE = unicode("Benefits:")
     BENEFITS_BULLETS = [
             unicode("No hiring"),
@@ -68,11 +71,9 @@ class LandingPage(SimplePage):
 
         main_column = Div()
         main_column.set_id(self._MAIN_COLUMN_ID)
-        header = Div()
-        header.set_text(self._HEADER_TEXT)
-        main_column.append_child(header)
-
-        # TODO: Insert any other text and email sign up
+        main_column.append_child(LandingTitle(self._TITLE_TEXT))
+        main_column.append_child(Separator())
+        main_column.append_child(LandingCustomerView())
 
         section.append_child(main_column)
 
@@ -100,6 +101,17 @@ class LandingPage(SimplePage):
         return section
 
 
+class LandingTitle(Div):
+
+    _LANDING_TITLE_CLASS = unicode("landing-title")
+
+    def __init__(self, title):
+        super(LandingTitle, self).__init__()
+        self.append_class(self._LANDING_TITLE_CLASS)
+
+        self.set_text(title)
+
+
 class LandingList(Div):
 
     _LANDING_LIST_CLASS = unicode("landing-list")
@@ -121,3 +133,41 @@ class LandingListTitle(Div):
         self.append_class(self._LANDING_LIST_TITLE_CLASS)
 
         self.set_text(title)
+
+
+class Separator(Div):
+
+    _SEPARATOR_CLASS = unicode("separator")
+
+    def __init__(self):
+        super(Separator, self).__init__()
+        self.append_class(self._SEPARATOR_CLASS)
+
+
+class LandingCustomerView(CustomerView):
+
+    _OBJECT_VIEW_ID = unicode("create-customer")
+    _SUBMIT_TEXT = unicode("Sign Up")
+    _SIGNUP_TEXT = unicode("Try us out or join our mailing list:")
+    _EMAIL_PLACEHOLDER = unicode("Email address")
+
+    def __init__(self):
+        super(LandingCustomerView, self).__init__(
+                self._OBJECT_VIEW_ID,
+                self._SUBMIT_TEXT)
+
+    def _construct_fields(self):
+        signup_text = Div()
+        signup_text.set_text(self._SIGNUP_TEXT)
+        email_input = LandingEmailField()
+        email_input.set_placeholder(self._EMAIL_PLACEHOLDER)
+        return [
+                signup_text,
+                email_input
+                ]
+
+
+class LandingEmailField(EmailField):
+
+    def _construct_key(self, key, name):
+        return None
